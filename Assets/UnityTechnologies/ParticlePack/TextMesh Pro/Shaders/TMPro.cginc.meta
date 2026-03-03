@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: efa2285639795ef4c94c4cb1a8e8637a
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: Version 2.0
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 127325
+  packageName: Particle Pack
+  packageVersion: 3.1
+  assetPath: Assets/UnityTechnologies/ParticlePack/TextMesh Pro/Shaders/TMPro.cginc
+  uploadId: 691001
