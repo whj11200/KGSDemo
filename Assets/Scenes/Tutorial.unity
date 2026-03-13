@@ -1991,9 +1991,10 @@ MonoBehaviour:
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   returnAction: {fileID: 330588348}
   scrollAction: {fileID: 649122467}
-  tabAction: {fileID: 0}
+  tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   popup: {fileID: 2122856652}
-  menu: {fileID: 0}
+  menu: {fileID: 839077307}
+  animator: {fileID: 0}
   HandlingPos: {fileID: 226125950}
   SpawnPos: {fileID: 0}
 --- !u!143 &500785163
