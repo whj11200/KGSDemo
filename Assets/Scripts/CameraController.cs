@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     public float pitch = 0f; // 카메라의 위아래 회전 값
     public float rotateSpeed = 2f;
     public bool isPopupOpened = false;
+    public bool isMenuOpened = false;
 
     public Transform mainCamera;
     private Camera _mainCamera;
@@ -40,7 +41,13 @@ public class CameraController : MonoBehaviour
     public InputActionReference moveInputAction; // WASD 또는 방향키 이동 입력
     public InputActionReference returnAction; // 전시실로 돌아가기
     public InputActionReference scrollAction; // 줌 인/아웃
+    public InputActionReference tabAction; // 상호작용 입력
+
+    [Header("GameObject References")]
     public GameObject popup;
+    public GameObject menu;
+
+    [SerializeField] Animator animator;
 
     [SerializeField] Transform HandlingPos;
     [SerializeField] Transform SpawnPos;
@@ -50,7 +57,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
-         
+       
         if (mainCamera == null)
         {
             mainCamera = _mainCamera.transform;
@@ -62,20 +69,24 @@ public class CameraController : MonoBehaviour
         popup.SetActive(false);
         isPopupOpened = false;
         targetFov = _mainCamera.fieldOfView;
-
-      //  DontDestroyOnLoad(gameObject);
-}
+        menu.SetActive(false);
+        //  DontDestroyOnLoad(gameObject);
+       
+    }
 
     private void OnEnable()
     {
+        Cursor.lockState = CursorLockMode.Locked; 
         mouse = Mouse.current;
 
         moveInputAction.action.Enable();
         returnAction.action.Enable();
         scrollAction.action.Enable();
+        tabAction.action.Enable();
 
         returnAction.action.performed += OnReturnPerformed;
         scrollAction.action.performed += OnScroll;
+        tabAction.action.performed += _ => ToggleMenu();
     }
 
     private void OnDisable()
@@ -83,14 +94,19 @@ public class CameraController : MonoBehaviour
         moveInputAction.action.Disable();
         returnAction.action.Disable();
         scrollAction.action.Disable();
-
+        tabAction.action.Disable();
         returnAction.action.performed -= OnReturnPerformed;
         scrollAction.action.performed -= OnScroll;
+        tabAction.action.performed -= _ => ToggleMenu();
     }
 
     private void Update()
     {
-        if (isPopupOpened) return;
+        if (isPopupOpened || isMenuOpened)
+        {
+            if (animator != null) animator.SetBool("isWalking", false);
+            return;
+        }
 
         if (Application.isFocused == false)
         {
@@ -104,7 +120,6 @@ public class CameraController : MonoBehaviour
         // 마우스 회전 처리
         // 왼쪽 마우스 버튼을 누르고 있을 때만 회전
         HandleMouseLook();
-
         // 마우스 휠 줌 인/아웃
         // HandleFovZoom();
     }
@@ -124,14 +139,27 @@ public class CameraController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (ignoreMovement) return;
+        if (ignoreMovement)
+        {
+            if (animator != null) animator.SetBool("isWalking", false);
+            return;
+        }
 
         Vector2 input = moveInputAction.action.ReadValue<Vector2>();
+
+        // 입력이 있는지 확인 (0이 아니면 움직이는 중)
+        bool hasInput = input.sqrMagnitude > 0;
+
+        // 애니메이션 파라미터 업데이트
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", hasInput);
+        }
 
         Vector3 move = transform.right * input.x + transform.forward * input.y;
         move *= moveSpeed;
 
-        // 중력 적용
+        // 중력 및 이동 로직 (기존과 동일)
         if (characterController.isGrounded && verticalVelocity < 0)
         {
             verticalVelocity = -1f;
@@ -152,8 +180,8 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        if (mouse.leftButton.isPressed && !raycaster.isDragging)
-        {
+        //if (mouse.leftButton.isPressed && !raycaster.isDragging)
+        //{
             Vector2 delta = mouse.delta.ReadValue(); // 이번 프레임 마우스 이동량
             float speed = delta.magnitude;                   // 이동 속도(픽셀 변화량)
 
@@ -168,7 +196,7 @@ public class CameraController : MonoBehaviour
             pitch -= pitchDelta;
             pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
             mainCamera.localRotation = Quaternion.Euler(pitch, 0, 0);
-        }
+        //}
     }
 
     bool initFov = false;
@@ -211,6 +239,27 @@ public class CameraController : MonoBehaviour
         characterController.enabled = true;
     }
 
+    public void ToggleMenu()
+    {
+        // 오브젝트 활성화/비활성화 반전
+        bool active = !menu.activeSelf;
+        menu.SetActive(active);
+        isMenuOpened = active;
+        if (active)
+        {
+            // 메뉴가 켜지면: 마우스 자유롭게 + 보이기
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f; // 필요하다면 게임 일시정지
+        }
+        else
+        {
+            // 메뉴가 꺼지면: 마우스 고정 + 숨기기
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1f; // 게임 다시 재생
+        }
+    }
     public void TogglePopup()
     {
         bool active = !popup.activeSelf;

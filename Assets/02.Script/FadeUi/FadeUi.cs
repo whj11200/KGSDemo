@@ -27,5 +27,6 @@ public class FadeUi : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         isfinish = true;
         anjeson.HandleHello();
+        this.gameObject.SetActive(false);
     }
 }

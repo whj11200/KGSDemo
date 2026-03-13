@@ -37,7 +37,7 @@ public class Raycaster : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
 
-        // Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red);
 
         if (Physics.Raycast(ray, out hit, rayDistance, raycastMask))
         {
