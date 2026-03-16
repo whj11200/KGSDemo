@@ -1,168 +1,88 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.InputSystem;
 using TMPro;
 
-public class VideoProgressUI : MonoBehaviour
+public class VideoProgressUI : MonoBehaviour, IMouseInteractable, IDragInteractable
 {
     [Header("Refs")]
     [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private RectTransform sliderRect; // 슬라이더의 전체 영역(배경 등)
 
     [Header("UI")]
     [SerializeField] private Slider progressSlider;
     [SerializeField] private TextMeshProUGUI timeText;
 
-    private double videoLength = 0;
-    private bool isScrubbing = false; // 사용자가 조작 중
+    private bool isScrubbing = false;
 
-    private void Awake()
+    // --- [IMouseInteractable: 클릭 시 즉시 시킹] ---
+    public void ClickEnter()
     {
-        if (progressSlider)
+        isScrubbing = true;
+        UpdateValueFromMouse();
+        EndScrubAndSeek();
+    }
+
+    // --- [IDragInteractable: 드래그 시 실시간 대응] ---
+    public void DragStart()
+    {
+        isScrubbing = true;
+    }
+
+    public void Dragging()
+    {
+        UpdateValueFromMouse();
+    }
+
+    public void DragEnd()
+    {
+        EndScrubAndSeek();
+    }
+
+    // 마우스 위치를 슬라이더 값(0~1)으로 변환하는 핵심 로직
+    private void UpdateValueFromMouse()
+    {
+        if (!sliderRect || !progressSlider) return;
+
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(sliderRect, mousePos, Camera.main, out Vector2 localPoint))
         {
-            progressSlider.minValue = 0f;
-            progressSlider.maxValue = 1f;
-            progressSlider.SetValueWithoutNotify(0f);
-
-            // 드래그로 값이 바뀌는 동안 "미리보기"처럼 시간/슬라이더 갱신은 가능
-            progressSlider.onValueChanged.AddListener(OnSliderValueChanged);
+            float width = sliderRect.rect.width;
+            // 피벗(Pivot)값을 더해줘서 0~1 사이 값을 정확히 계산함
+            float normalizedValue = Mathf.Clamp01((localPoint.x / width) + sliderRect.pivot.x);
+            progressSlider.value = normalizedValue;
         }
-
-        if (timeText) timeText.text = "00:00/00:00";
     }
 
-    private void OnDestroy()
-    {
-        if (progressSlider)
-            progressSlider.onValueChanged.RemoveListener(OnSliderValueChanged);
-    }
-
-    private void OnEnable()
-    {
-        if (!videoPlayer) return;
-        videoPlayer.prepareCompleted += OnPrepared;
-        videoPlayer.loopPointReached += OnVideoEnd;
-    }
-
-    private void OnDisable()
-    {
-        if (!videoPlayer) return;
-        videoPlayer.prepareCompleted -= OnPrepared;
-        videoPlayer.loopPointReached -= OnVideoEnd;
-    }
-
-    public void Prepare()
-    {
-        if (!videoPlayer) return;
-
-        if (videoPlayer.isPrepared)
-        {
-            CacheLength();
-            UpdateUI(0);
-            return;
-        }
-
-        videoPlayer.Prepare();
-    }
-
-    private void OnPrepared(VideoPlayer vp)
-    {
-        CacheLength();
-        UpdateUI(vp.time);
-    }
-
-    private void CacheLength()
-    {
-        videoLength = videoPlayer.length;
-        if (videoLength <= 0) videoLength = 0;
-    }
-
+    // --- [기존 유틸리티 함수들] ---
     private void Update()
     {
-        if (!videoPlayer || !videoPlayer.isPrepared) return;
-        if (videoLength <= 0) return;
+        if (!videoPlayer || !videoPlayer.isPrepared || isScrubbing) return;
 
-        // 사용자가 드래그(스크러빙) 중엔 자동으로 슬라이더를 덮어쓰지 않음
-        if (isScrubbing) return;
-
-        float t = Mathf.Clamp01((float)(videoPlayer.time / videoLength));
-
+        float t = (float)(videoPlayer.time / videoPlayer.length);
         if (progressSlider) progressSlider.SetValueWithoutNotify(t);
-
-        if (timeText)
-            timeText.text = $"{FormatTime(videoPlayer.time)}/{FormatTime(videoLength)}";
+        if (timeText) timeText.text = $"{FormatTime(videoPlayer.time)}/{FormatTime(videoPlayer.length)}";
     }
-
-    private void UpdateUI(double currentTime)
-    {
-        if (videoLength <= 0) return;
-
-        float t = Mathf.Clamp01((float)(currentTime / videoLength));
-
-        if (progressSlider) progressSlider.SetValueWithoutNotify(t);
-
-        if (timeText)
-            timeText.text = $"{FormatTime(currentTime)}/{FormatTime(videoLength)}";
-    }
-
-    private void OnSliderValueChanged(float v01)
-    {
-        if (!videoPlayer || !videoPlayer.isPrepared) return;
-        if (videoLength <= 0) return;
-
-        // 스크러빙 중이면 텍스트를 "가려는 위치"로 미리 보여주기
-        if (isScrubbing && timeText)
-        {
-            double previewTime = v01 * videoLength;
-            timeText.text = $"{FormatTime(previewTime)}/{FormatTime(videoLength)}";
-        }
-    }
-
-    private void OnVideoEnd(VideoPlayer vp)
-    {
-        if (progressSlider) progressSlider.SetValueWithoutNotify(0f);
-        if (timeText) timeText.text = $"00:00/{FormatTime(videoLength)}";
-    }
-
-    //  외부(이벤트 트리거/클릭 스크립트)가 호출할 API
-    public void BeginScrub() => isScrubbing = true;
 
     public void EndScrubAndSeek()
     {
-        if (!videoPlayer || !videoPlayer.isPrepared) { isScrubbing = false; return; }
-        if (videoLength <= 0) { isScrubbing = false; return; }
-
-        float v01 = progressSlider ? progressSlider.value : 0f;
-
         isScrubbing = false;
-
-        videoPlayer.time = v01 * videoLength;
-
-        // WebGL/일부 플랫폼에서 seek 반영을 빠르게 하려면 Play/Pause 상태에 따라 아래가 도움될 때가 있음
-        // if (!videoPlayer.isPlaying) videoPlayer.Play(); videoPlayer.Pause();
-
-        UpdateUI(videoPlayer.time);
-    }
-
-    // 클릭 점프 시킹용(다른 스크립트가 호출)
-    public void SeekByNormalized(float v01)
-    {
-        if (!videoPlayer || !videoPlayer.isPrepared) return;
-        if (videoLength <= 0) return;
-
-        v01 = Mathf.Clamp01(v01);
-
-        if (progressSlider) progressSlider.SetValueWithoutNotify(v01);
-
-        videoPlayer.time = v01 * videoLength;
-        UpdateUI(videoPlayer.time);
+        if (videoPlayer && videoPlayer.isPrepared)
+        {
+            videoPlayer.time = progressSlider.value * videoPlayer.length;
+        }
     }
 
     private string FormatTime(double seconds)
     {
-        if (seconds < 0) seconds = 0;
         int s = Mathf.FloorToInt((float)seconds);
-        int m = s / 60;
-        int r = s % 60;
-        return $"{m:00}:{r:00}";
+        return $"{s / 60:00}:{s % 60:00}";
     }
+
+    // 인터페이스 미사용 메서드 (빈칸 유지)
+    public void ClickExit() { }
+    public void ClickCancle() { }
+    public void HoverEnter() { }
+    public void HoverExit() { }
 }
