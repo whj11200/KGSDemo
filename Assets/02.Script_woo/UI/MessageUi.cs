@@ -5,6 +5,9 @@ using System.Collections;
 
 public class MessageUI : MonoBehaviour
 {
+    [Header("UI Root")]
+    [SerializeField] private GameObject visualChild;
+
     [Header("UI Components")]
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Image backgroundImage;
@@ -15,47 +18,48 @@ public class MessageUI : MonoBehaviour
     [SerializeField] private float fadeOutTime = 0.5f;
 
     private Coroutine currentRoutine;
+    private bool isDisplaying = false; // 현재 메시지가 출력 중인지 확인
 
     private void Awake()
     {
-        // 시작 시 오브젝트 자체를 꺼버림
-        gameObject.SetActive(false);
+        if (visualChild != null)
+        {
+            SetUIAlpha(0f);
+            visualChild.SetActive(false);
+        }
     }
 
-    // 외부에서 호출: messageUI.ShowMessage("장비를 해제하세요");
     public void ShowMessage(string content)
     {
-        gameObject.SetActive(true);
-        if (currentRoutine != null)
-        {
-            StopCoroutine(currentRoutine);
-        }
+        // 핵심: 이미 메시지가 떠 있다면 새로운 요청은 무시함 (중복 방지)
+        if (isDisplaying) return;
+
+        if (!gameObject.activeInHierarchy) return;
 
         currentRoutine = StartCoroutine(CoDisplaySequence(content));
     }
 
     private IEnumerator CoDisplaySequence(string content)
     {
-        // 1. 시작: 텍스트 설정 및 오브젝트 활성화
+        isDisplaying = true; // 출력 시작
         messageText.text = content;
-        SetUIAlpha(0f); // 나타나기 전 투명하게
-       
+        visualChild.SetActive(true);
 
-        // 2. Fade In
+        // 1. Fade In
         float elapsedTime = 0f;
         while (elapsedTime < fadeInTime)
         {
             elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, 0.5f, elapsedTime / fadeInTime);
+            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeInTime);
             SetUIAlpha(alpha);
             yield return null;
         }
         SetUIAlpha(1f);
 
-        // 3. Wait (지정된 시간 동안 노출)
+        // 2. Wait
         yield return new WaitForSeconds(displayTime);
 
-        // 4. Fade Out
+        // 3. Fade Out
         elapsedTime = 0f;
         while (elapsedTime < fadeOutTime)
         {
@@ -65,26 +69,26 @@ public class MessageUI : MonoBehaviour
             yield return null;
         }
 
-        // 5. 종료: 다시 투명하게 만들고 오브젝트 끄기
+        // 4. 마무리
         SetUIAlpha(0f);
-        gameObject.SetActive(false);
+        visualChild.SetActive(false);
+        isDisplaying = false; // 출력 종료 (이제 다음 메시지 수신 가능)
         currentRoutine = null;
     }
 
-    // 텍스트와 이미지의 알파값을 직접 수정하는 함수
     private void SetUIAlpha(float alpha)
     {
         if (messageText != null)
         {
             Color c = messageText.color;
-            c.a = alpha*1;
+            c.a = alpha;
             messageText.color = c;
         }
 
         if (backgroundImage != null)
         {
             Color c = backgroundImage.color;
-            c.a = alpha*0.5f;
+            c.a = alpha * 0.5f;
             backgroundImage.color = c;
         }
     }

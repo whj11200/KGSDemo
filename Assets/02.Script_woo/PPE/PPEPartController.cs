@@ -31,6 +31,7 @@ public class PPEPartController : MonoBehaviour
 
     [Header("GameObject Toggle")]
     [SerializeField] private GameObject targetObject;
+    [SerializeField] private GameObject returnText; // 캔버스 없이 만든 TMP 오브젝트
 
     [Header("Optional")]
     [SerializeField] private RigBuilder rigBuilder;
@@ -38,14 +39,12 @@ public class PPEPartController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private MeshRenderer p_meshRenderer;
 
-    [Header("상태창 UI")]
-    [SerializeField] private GameObject statusWindow;
-    [SerializeField] private Image statusImage;
-    [SerializeField] private float statusShowTime = 2f;
-    [SerializeField] private float statusFadeTime = 0.4f;
+
 
     [Header("Stript")]
     [SerializeField] MessageUI messageUI;
+
+
     private Mesh originalMesh;
     private Material originalMaterial;
     private bool isEquipped;
@@ -65,11 +64,11 @@ public class PPEPartController : MonoBehaviour
         if (p_meshRenderer == null)
             p_meshRenderer = GetComponent<MeshRenderer>();
 
-        if (statusWindow != null)
-            statusWindow.SetActive(false);
-
-        if (statusImage == null && statusWindow != null)
-            statusImage = statusWindow.GetComponent<Image>();
+        if(returnText == null)
+        {
+            returnText = transform.GetChild(0).gameObject; 
+        }
+        returnText.SetActive(false);
     }
 
     public void Equip()
@@ -78,7 +77,7 @@ public class PPEPartController : MonoBehaviour
         if (!PPEGroupManager.CanEquip(group))
         {
             Debug.Log($"{partName} 장착 불가: 반대 그룹 장비를 먼저 모두 벗어야 함");
-            ShowBlockedStatusWindow();
+            messageUI.ShowMessage("다른 형식의 보호구가 착용 중입니다. 먼저 모두 해제하세요.");
             return;
         }
 
@@ -108,6 +107,7 @@ public class PPEPartController : MonoBehaviour
 
         if (p_meshRenderer != null)
             p_meshRenderer.enabled = false;
+        returnText.SetActive(true);
     }
 
     public void Unequip()
@@ -138,6 +138,7 @@ public class PPEPartController : MonoBehaviour
 
         if (p_meshRenderer != null)
             p_meshRenderer.enabled = true;
+        returnText.SetActive(false);
     }
 
     public void TogglePart()
@@ -175,13 +176,6 @@ public class PPEPartController : MonoBehaviour
     {
         if (rigBuilder != null)
             rigBuilder.Build();
-    }
-
-    private void ShowBlockedStatusWindow()
-    {
-        if (statusWindow == null || statusImage == null)
-            return;
-        messageUI.ShowMessage("다른 형식의 보호구가 착용 중입니다. 먼저 모두 해제하세요.");
     }
 
    

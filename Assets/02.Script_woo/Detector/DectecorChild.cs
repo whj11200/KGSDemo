@@ -10,7 +10,7 @@ public class DectecorChild : MonoBehaviour, IMouseInteractable
 
     public void ClickEnter()
     {
-        parentDetector.TurnOnAndEquip();
+        parentDetector.ToggleEquip();
     }
 
     public void ClickExit()

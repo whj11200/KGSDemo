@@ -7,88 +7,30 @@ public class LNG_Detector : MonoBehaviour
     [Header("UI & Target")]
     public GameObject detectorCanvas;
     public TextMeshProUGUI valueText;
+
+    [Header("References")]
     public GameObject waterLeak; // 여기에 밸브(ValveController 붙은 객체)를 연결
-
+    [SerializeField] GameObject returnText; // 반납텍스트
     [Header("Settings")]
-    public float detectionRadius = 10f;
-    public Transform handPos;
+    public float detectionRadius = 10f; // r감지거리
+    public Transform handPos; // 손 위치를 나타내는 Transform (예: Player의 자식 Handpos)
     public float dropSpeed = 0.5f; // 가스가 사라지는 속도
-
-    [Header("Input Reference")]
-    public InputActionReference dropActionReference;
-
-    private Vector3 originPosition;
-    private Quaternion originRotation;
-    private Transform originParent;
-    private bool isEquipped = false;
-
-    // 현재 측정되는 내부 수치 (0~1)
-    private float currentMeasuredValue = 0f;
-    [SerializeField] ValveController valve;
-    [SerializeField] MessageUI messageUI;
+    private Vector3 originPosition; // 원래 위치 저장
+    private Quaternion originRotation; // 원래 회전 저장
+    private Vector3 originScaleMode; // 원래 스케일 모드 저장 (필요 시)
+    private Transform originParent; // 원래 부모 저장
+    private bool isEquipped = false; // 착용 여부
+    private float currentMeasuredValue = 0f; // 현재 측정된 수치 (0.1 ~ 1.0)
+    [SerializeField] ValveController valve; // 밸브 컨트롤러 참조
     void Awake()
     {
         originPosition = transform.position;
         originRotation = transform.rotation;
+        originScaleMode = transform.localScale; // 필요 시 스케일 모드 저장
         originParent = transform.parent;
+
         detectorCanvas.SetActive(false);
-    }
-
-    // ... [OnEnable, OnDisable, OnDropPerformed 코드는 동일함] ...
-    void OnEnable()
-
-    {
-
-        // Reference가 할당되어 있다면 이벤트 연결 및 액션 활성화
-
-        if (dropActionReference != null)
-
-        {
-
-            dropActionReference.action.Enable();
-
-            dropActionReference.action.performed += OnDropPerformed;
-
-        }
-
-    }
-
-
-
-    void OnDisable()
-
-    {
-
-        // 이벤트 연결 해제 및 액션 비활성화
-
-        if (dropActionReference != null)
-
-        {
-
-            dropActionReference.action.performed -= OnDropPerformed;
-
-            dropActionReference.action.Disable();
-
-        }
-
-    }
-
-
-
-    // E키(또는 지정된 키)가 눌렸을 때 실행될 콜백
-
-    private void OnDropPerformed(InputAction.CallbackContext context)
-
-    {
-
-        if (isEquipped)
-
-        {
-
-            DropDetector();
-
-        }
-
+        if(returnText != null )returnText.SetActive(false);
     }
     void Update()
     {
@@ -97,15 +39,24 @@ public class LNG_Detector : MonoBehaviour
             UpdateDetection();
         }
     }
-
-    public void TurnOnAndEquip()
+    public void ToggleEquip()
+    {
+        if (isEquipped) DropDetector();
+        else TurnOnAndEquip();
+    }
+    private void TurnOnAndEquip()
     {
         isEquipped = true;
+
+        // 1. 손으로 이동 및 부모 변경
         transform.SetParent(handPos);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+        transform.localScale = new Vector3(1f, 1f, 1f); // 필요 시 스케일 조정
+
+        // 2. UI 및 텍스트 처리
         detectorCanvas.SetActive(true);
-        messageUI.ShowMessage("장비 습득 완료 (E키를 눌러 반납)");
+        if (returnText != null) returnText.SetActive(true); // "반납하기" 표시
     }
 
     void UpdateDetection()
@@ -137,7 +88,7 @@ public class LNG_Detector : MonoBehaviour
         if (steppedValue < 0.1f) steppedValue = 0.1f;
 
         // 5. UI 업데이트
-        valueText.text = $"CH4: {steppedValue:F1}";
+        valueText.text = $"{steppedValue}";
 
         // 6. 상태별 색상 처리
         if (steppedValue >= 1.0f)
@@ -155,13 +106,18 @@ public class LNG_Detector : MonoBehaviour
         valueText.color = Color.red;
     }
 
-    void DropDetector()
+    private void DropDetector()
     {
         isEquipped = false;
-        detectorCanvas.SetActive(false);
-        valueText.color = Color.white;
+
+        // 1. 원래 부모(Station) 밑으로 복귀 및 위치 초기화
         transform.SetParent(originParent);
         transform.position = originPosition;
         transform.rotation = originRotation;
+        transform.localScale = originScaleMode; // 필요 시 스케일 초기화
+        // 2. UI 및 텍스트 처리
+        detectorCanvas.SetActive(false);
+        if (returnText != null) returnText.SetActive(false); // "반납하기" 숨김
+        valueText.color = Color.white;
     }
 }

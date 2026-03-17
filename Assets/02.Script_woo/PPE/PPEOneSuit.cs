@@ -30,12 +30,6 @@ public class PPEOneSuit : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private MeshRenderer p_meshRender;
-
-    [Header("상태창 UI")]
-    [SerializeField] private GameObject statusWindow;
-    [SerializeField] private Image statusImage;
-    [SerializeField] private float statusShowTime = 2f;
-    [SerializeField] private float statusFadeTime = 0.4f;
     [Header("Script")]
     [SerializeField] private MessageUI messageUI;
 
@@ -56,11 +50,7 @@ public class PPEOneSuit : MonoBehaviour
             }
         }
 
-        if (statusImage == null && statusWindow != null)
-            statusImage = statusWindow.GetComponent<Image>();
 
-        if (statusWindow != null)
-            statusWindow.SetActive(false);
     }
 
     public void ToggleSuit()
@@ -80,7 +70,7 @@ public class PPEOneSuit : MonoBehaviour
         if (!PPEGroupManager.CanEquip(group))
         {
             Debug.Log($"{name} 장착 불가: 반대 그룹 장비를 먼저 모두 벗어야 함");
-            ShowBlockedStatusWindow();
+            messageUI.ShowMessage("다른 형식의 보호구가 착용 중입니다. 먼저 모두 해제하세요.");
             return;
         }
 
@@ -167,12 +157,7 @@ public class PPEOneSuit : MonoBehaviour
         return group;
     }
 
-    private void ShowBlockedStatusWindow()
-    {
-        if (statusWindow == null || statusImage == null)
-            return;
-        messageUI.ShowMessage("다른 형식의 보호구가 착용 중입니다. 먼저 모두 해제하세요.");
-    }
+
 
 
 }
