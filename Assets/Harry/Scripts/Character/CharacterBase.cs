@@ -1,43 +1,52 @@
+using System.Net;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CharacterBase : ObjectBase
 {
 
-
     protected override bool CheckCondition(ConditionData condition)
     {
-        if (condition == null || condition.IsProcessing) return false;
+
+        if (!base.CheckCondition(condition)) return false;
+
         switch (condition.ConditionType)
         {
             case EConditionType.Distance:
+
+                if (float.TryParse(condition.ConditionValue, out float value))
+                {
+                    if (OnCheckDistance(player, value) == 1) 
+                    {
+                        condition.Result = true;
+                        return true; 
+                    }
+                    else
+                    {
+                        condition.Result = false;
+                        return false;
+                    }
+                    condition.IsStarted = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Distance value parse failed : {condition.ConditionValue}");
+                }
                 break;
             case EConditionType.Clicked:
                 break;
             case EConditionType.Move:
+                if (condition.IsStarted) return false;
+
                 OnMoveToTarget(gameManager.GetObject(condition.ConditionValue).gameObject.transform);
-                condition.IsProcessing = true;
+                condition.IsStarted = true;
+                break;
+            case EConditionType.Dialogue:
+
                 break;
         }
         return false;
-    }
-
-    /// <summary>
-    /// Move 조건이 발생했을 때, ConditionValue로 전달된 ObjectID에 해당하는 오브젝트의 위치로 케릭터를 이동시키는 메서드
-    /// 한번 작동 후 ConditionData의 IsProcessing을 true로 바꿔서 중복 작동 방지
-    /// </summary>
-    /// <param name="location">
-    /// 이 위치로 케릭터를 이동시킨다.
-    /// </param>
-    protected void OnMoveToTarget(Transform location)
-    {
-        if (location == null) return;
-        this.gameObject.transform.position = location.position;
-        
-    }
-
-    protected void OnAnimationMove(int state)
-    {
-
     }
 }

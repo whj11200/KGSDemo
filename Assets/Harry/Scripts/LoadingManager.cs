@@ -1,14 +1,18 @@
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class LoadingManager : MonoBehaviour
 {
     public static LoadingManager Instance;
+
+
     public bool isTest = false;
 
     private DataManager dataManager;
     private GameManager gameManager;
-
+    private UiManager uiManager;
+    private SceneLifeManager sceneLifeManager;
 
     private void Awake()
     {
@@ -18,18 +22,46 @@ public class LoadingManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
 
         // ¾ÀÀÌ ¹Ù²î¾îµµ À¯Áö
         DontDestroyOnLoad(gameObject);
-        dataManager = DataManager.Instance;
-
-        if (isTest) dataManager.Initialization();
     }
-
     private void Start()
     {
     }
+
+    private void OnEnable()
+    {
+        dataManager = DataManager.Instance;
+        gameManager = GameManager.Instance;
+        uiManager = UiManager.Instance;
+    }
+
+    #region Loading System
+    public void Intialization(ESceneName SceneName)
+    {
+        switch (SceneName)
+        {
+            case ESceneName.Loading:
+                dataManager.Initialization();
+                gameManager.ReportResult("SceneMove", (int)ESceneName.Tutorial);
+                break;
+            case ESceneName.Loading_Test:
+                dataManager.Initialization();
+                gameManager.ReportResult("SceneMove", (int)ESceneName.Tutorial_Test);
+                break;
+            case ESceneName.Tutorial:
+                gameManager.StartScenario(SceneName.ToString());
+                break;
+            case ESceneName.Tutorial_Test:
+                uiManager.OnUiSelect();
+                gameManager.StartScenario("Tutorial");
+                break;
+        }
+    }
+    
+
+    #endregion
 
 }

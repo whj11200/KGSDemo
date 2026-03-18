@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 /// <summary>
@@ -6,16 +7,24 @@ using System.Runtime.InteropServices.WindowsRuntime;
 /// </summary>
 public class CurrentScenario
 {
-    // 현재 시나리오 이름(시나리오 카테고리)
+    /// <summary>
+    /// 현재 시나리오 이름(시나리오 카테고리)
+    /// </summary>
     public EScenarioCategory ScenarioName { get; set; }
 
-    // 현재 시나리오의 정보(스텝 순서대로 정렬 - 연계 퀘스트 같은 느낌)
+    /// <summary>
+    /// 현재 시나리오의 정보(스텝 순서대로 정렬 - 연계 퀘스트 같은 느낌)
+    /// </summary>
     public List<ScenarioData> ScenarioDatas { get; set; }
 
-    // 다이얼로그 리스트(시나리오 아이디(스텝)에 근거한 string List, 대화에 필요한 String내용도 포함하고 있음) 
+    /// <summary>
+    /// 다이얼로그 리스트(시나리오 아이디(스텝)에 근거한 string List, 대화에 필요한 String내용도 포함하고 있음) 
+    /// </summary>
     public Dictionary<string, DialogueData> DialogueDatas { get; set; }
 
-    // 현재 시나리오 스탭 조건 정보(시나리오 아이디(스텝)에 근거한 Condition List)
+    /// <summary>
+    /// 현재 시나리오 스탭 조건 정보(시나리오 아이디(스텝)에 근거한 Condition List)
+    /// </summary>
     public Dictionary<string, List<ConditionData>> ConditionDatas { get; set; }
 
     /// <summary>
@@ -42,12 +51,21 @@ public class CurrentScenario
         }
         return true;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="scenarioID"></param>
+    /// <param name="conditionID"></param>
+    /// <param name="report"></param>
     public void ConditionReport(string scenarioID, string conditionID, bool report)
     {
         // conditionDatas[ScenarioID] 중 ConditionID를 가지고 있는 조건에 결과를 적용
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     public string CallScenarioID(int index)
     {
         return ScenarioDatas[index].ScenarioID;
@@ -60,10 +78,13 @@ public class CurrentScenario
     /// <returns></returns>
     public Dictionary<string, ConditionData> ConvertCondtionListToDic(string scenarioID)
     {
-        Dictionary<string, ConditionData> convertedData = new Dictionary<string, ConditionData>();
-        return convertedData;
+        if (!ConditionDatas.TryGetValue(scenarioID, out var conditionList))
+            return new Dictionary<string, ConditionData>();
+
+        return conditionList.ToDictionary(c => c.ConditionID, c => c);
     }
 }
+
 public class ScenarioData 
 {
     public string ScenarioID { get; set; }
@@ -109,6 +130,9 @@ public class  ConditionData
     public string TargetID { get; set; }
     public EConditionType ConditionType { get; set; } //Enum으로 관리
     public string ConditionValue { get; set; }
-    public bool IsProcessing = false; // 조건이 처리 중인지 여부를 나타내는 변수
+    /// <summary>
+    /// 조건이 처리 중인지 여부를 나타내는 변수
+    /// </summary>
+    public bool IsStarted = false; 
     public bool Result { get; set; }
 }

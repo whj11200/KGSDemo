@@ -3,7 +3,14 @@ public enum ESceneName
     Loading,
     Tutorial,
     Study,
-    Simulation
+    Simulation,
+    Loading_Test = 4,
+    Tutorial_Test = 5,
+}
+public enum EUiName
+{
+    DialogueUI,
+    MainLoadingUI,
 }
 public enum EScenarioCategory
 {
@@ -20,6 +27,7 @@ public enum  EDialogueType
 }
 public enum  EConditionType
 {
+    Dialogue,//대상 object와 특정 대화가 진행되었는지
     Move, //대상 object의 위치가 특정 위치에 도달했는지
     Distance, // 대상 object와 특정 object 사이의 거리가 특정 값보다 작아졌는지
     Clicked, // 대상 object가 클릭되었는지

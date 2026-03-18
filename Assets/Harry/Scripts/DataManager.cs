@@ -10,11 +10,6 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
-    private Dictionary<string, ScenarioData> ScenarioData;
-    private Dictionary<string, DialogueData> DialogueData;
-    private Dictionary<string, StringData> StringData;
-    private Dictionary<string, ConditionData> ConditionData;
-
 
     private void Awake()
     {
@@ -31,11 +26,18 @@ public class DataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    #region 외부 접근 함수
     /// <summary>
     /// 게임 시작 시 필요한 데이터를 초기화하는 메서드
     /// </summary>
     public void Initialization() => LoadDocument();
+
+    #region Data Management System
+
+    private Dictionary<string, ScenarioData> ScenarioData;
+    private Dictionary<string, DialogueData> DialogueData;
+    private Dictionary<string, StringData> StringData;
+    private Dictionary<string, ConditionData> ConditionData;
+
 
     /// <summary>
     /// Key에 해당하는 데이터를 반환하는 제네릭 메서드.
