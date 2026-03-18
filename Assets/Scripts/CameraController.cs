@@ -69,7 +69,11 @@ public class CameraController : MonoBehaviour
         popup.SetActive(false);
         isPopupOpened = false;
         targetFov = _mainCamera.fieldOfView;
-        menu.SetActive(false);
+        if(menu != null)
+        {
+            menu.SetActive(false);
+        }
+    
         //  DontDestroyOnLoad(gameObject);
        
     }
@@ -241,6 +245,7 @@ public class CameraController : MonoBehaviour
 
     public void ToggleMenu()
     {
+        if(menu == null) return;
         // 오브젝트 활성화/비활성화 반전
         bool active = !menu.activeSelf;
         menu.SetActive(active);

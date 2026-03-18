@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SuitInteractable : MonoBehaviour, IMouseInteractable
 {
-    [SerializeField] PPEOneSuit ppeOneSuit;
+    //[SerializeField] PPEOneSuit ppeOneSuit;
     [SerializeField] PPEPartController ppePartController;
 
     public void ClickCancle()
@@ -12,10 +12,10 @@ public class SuitInteractable : MonoBehaviour, IMouseInteractable
 
     public void ClickEnter()
     {
-        if(ppeOneSuit != null)
-        {
-            ppeOneSuit.ToggleSuit();
-        }
+        //if(ppeOneSuit != null)
+        //{
+        //    ppeOneSuit.ToggleSuit();
+        //}
         if(ppePartController != null)
         {
             ppePartController.TogglePart();

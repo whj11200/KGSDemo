@@ -5,15 +5,15 @@ using UnityEngine.Animations.Rigging;
 using UnityEngine.UI;
 
 [Serializable]
-public class SuitPart
+public class Datas
 {
     public string partName;
     public SkinnedMeshRenderer targetRenderer;
     public Mesh suitMesh;
-    public Material suitMaterial;
+    public Material[] suitMaterials;
 
     [HideInInspector] public Mesh originalMesh;
-    [HideInInspector] public Material originalMaterial;
+    [HideInInspector] public Material[] originalMaterials;
 }
 
 public class PPEOneSuit : MonoBehaviour
@@ -22,7 +22,7 @@ public class PPEOneSuit : MonoBehaviour
     [SerializeField] private PPEGroup group = PPEGroup.Type1;
 
     [Header("Suit Parts")]
-    [SerializeField] private SuitPart[] suitParts;
+    [SerializeField] private SuitParts[] suitParts;
 
     [Header("Optional")]
     [SerializeField] private RigBuilder rigBuilder;
@@ -41,16 +41,14 @@ public class PPEOneSuit : MonoBehaviour
         if (p_meshRender == null)
             p_meshRender = GetComponentInChildren<MeshRenderer>();
 
-        foreach (SuitPart part in suitParts)
+        foreach (SuitParts part in suitParts)
         {
             if (part.targetRenderer != null)
             {
                 part.originalMesh = part.targetRenderer.sharedMesh;
-                part.originalMaterial = part.targetRenderer.sharedMaterial;
+                part.originalMaterials = part.targetRenderer.sharedMaterials; // 복수형으로 변경
             }
         }
-
-
     }
 
     public void ToggleSuit()
@@ -101,15 +99,16 @@ public class PPEOneSuit : MonoBehaviour
 
     private void ChangeToLevelASuit()
     {
-        foreach (SuitPart part in suitParts)
+        foreach (SuitParts part in suitParts)
         {
             if (part.targetRenderer != null)
             {
                 if (part.suitMesh != null)
                     part.targetRenderer.sharedMesh = part.suitMesh;
 
-                if (part.suitMaterial != null)
-                    part.targetRenderer.sharedMaterial = part.suitMaterial;
+                // suitMaterials 배열이 비어있지 않은지 확인 후 적용
+                if (part.suitMaterials != null && part.suitMaterials.Length > 0)
+                    part.targetRenderer.sharedMaterials = part.suitMaterials;
             }
         }
 
@@ -122,12 +121,12 @@ public class PPEOneSuit : MonoBehaviour
 
     private void RestoreOriginalSuit()
     {
-        foreach (SuitPart part in suitParts)
+        foreach (SuitParts part in suitParts)
         {
             if (part.targetRenderer != null)
             {
                 part.targetRenderer.sharedMesh = part.originalMesh;
-                part.targetRenderer.sharedMaterial = part.originalMaterial;
+                part.targetRenderer.sharedMaterials = part.originalMaterials; // 복수형으로 변경
             }
         }
 
