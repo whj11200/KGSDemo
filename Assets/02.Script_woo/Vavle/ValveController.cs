@@ -7,6 +7,7 @@ public class ValveController : MonoBehaviour
     // 파티클과 웅덩이 컨트롤러 연결 (필요 시)
     public ParticleSystem waterParticle;
     public PuddleController puddleController;
+    [SerializeField] EnvironmentManager manager;
     public bool isLeaking = false;
 
     void Start()
@@ -41,6 +42,7 @@ public class ValveController : MonoBehaviour
     {
         isLeaking = false;
         anim.SetTrigger("Close"); // 애니메이터의 Close 트리거 발동
+        manager.CompleteMission(EnvEventType.VavleCloseClear); // 미션 성공 처리
         Debug.Log("밸브가 닫혔습니다.");
     }
 

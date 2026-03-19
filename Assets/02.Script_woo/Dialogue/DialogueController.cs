@@ -25,6 +25,7 @@ public sealed class DialogueController : MonoBehaviour
     [SerializeField] float charsPerSecond = 40f;
 
     public State CurrentState => _state;
+    public DialogueAsset CurrentAsset => _asset;
     public bool IsPlaying => _state != State.Idle;
 
     IDialogueView View => (IDialogueView)viewProvider;
@@ -106,7 +107,18 @@ public sealed class DialogueController : MonoBehaviour
             v.Show(false);
         }
     }
+    public void JumpToNode(string nodeId)
+    {
+        // 이미 Play를 통해 _asset이 할당된 상태라면, 그 에셋을 그대로 씁니다.
+        if (_asset == null)
+        {
+            Debug.LogError("재생 중인 에셋이 없어서 점프할 수 없습니다!");
+            return;
+        }
 
+        // 에셋은 그대로 두고 노드 ID만 바꿔서 다시 Play 호출
+        Play(_asset, nodeId);
+    }
     // ===== Unity Loop =====
 
     void Update()
@@ -309,25 +321,51 @@ public sealed class DialogueController : MonoBehaviour
 
         cb?.Invoke();
     }
+    // [수정 완료] 노드 진입 시 호출 (화자 설정, 음성 재생, NPC 행동, 환경 이벤트)
     void ApplyNode(DialogueNode node)
     {
+        // 1. 화자 이름 및 보이스 설정 (이 부분이 빠졌었네요!)
         ApplySpeaker(node.speakerId);
         PlayVoice(node.voice);
 
-        if (!string.IsNullOrEmpty(node.onEnterEvent))
+        // 2. NPC 행동 이벤트 실행 (Enum -> String 변환 후 Raise)
+        if (node.npcEnterAction != NPCActionType.None)
         {
-            Debug.Log($"[Dialogue] Raise: {node.onEnterEvent}");
-            DialogueEventBus.Raise(node.onEnterEvent);
+            string npcEvt = node.npcEnterAction.ToString();
+            Debug.Log($"[Dialogue] NPC Enter Action: {npcEvt}");
+            DialogueEventBus.Raise(npcEvt);
+        }
+
+        // 3. 환경/오브젝트 이벤트 실행 (Enum -> String 변환 후 Raise)
+        if (node.envEnterEvent != EnvEventType.None)
+        {
+            string envEvt = node.envEnterEvent.ToString();
+            Debug.Log($"[Dialogue] Env Enter Event: {envEvt}");
+            DialogueEventBus.Raise(envEvt);
         }
     }
+
+    // [수정 완료] 노드 탈출 시 호출
     void RaiseExitEvent(DialogueNode node)
     {
         if (node == null) return;
 
-        if (!string.IsNullOrEmpty(node.onExitEvent))
+        // 1. NPC 퇴장 행동 실행
+        if (node.npcExitAction != NPCActionType.None)
         {
-            Debug.Log($"[Dialogue] RaiseExit: {node.onExitEvent}");
-            DialogueEventBus.Raise(node.onExitEvent);
+            string npcEvt = node.npcExitAction.ToString();
+            Debug.Log($"[Dialogue] NPC Exit Action: {npcEvt}");
+            DialogueEventBus.Raise(npcEvt);
+        }
+
+        // 2. 환경 퇴장 이벤트 실행
+        if (node.envExitEvent != EnvEventType.None)
+        {
+            string envEvt = node.envExitEvent.ToString();
+            Debug.Log($"[Dialogue] Env Exit Event: {envEvt}");
+            DialogueEventBus.Raise(envEvt);
         }
     }
+
+
 }

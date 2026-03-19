@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
     {
         dataManager = DataManager.Instance;
     }
-    // 씬이동을 편하게 쓰게 하는건가요?
     private void OnSceneMove(ESceneName name)
     {
         SceneManager.LoadScene(name.ToString());

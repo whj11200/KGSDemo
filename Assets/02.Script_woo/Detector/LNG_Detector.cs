@@ -20,8 +20,10 @@ public class LNG_Detector : MonoBehaviour
     private Vector3 originScaleMode; // 원래 스케일 모드 저장 (필요 시)
     private Transform originParent; // 원래 부모 저장
     private bool isEquipped = false; // 착용 여부
+    private bool isMissionSent = false; // 미션 전송 여부 체크용
     private float currentMeasuredValue = 0f; // 현재 측정된 수치 (0.1 ~ 1.0)
     [SerializeField] ValveController valve; // 밸브 컨트롤러 참조
+    [SerializeField] EnvironmentManager manager;
     void Awake()
     {
         originPosition = transform.position;
@@ -103,13 +105,19 @@ public class LNG_Detector : MonoBehaviour
     }
     void OnMaxDetection()
     {
-        valueText.color = Color.red;
-    }
+        if (isMissionSent) return; // 이미 보냈다면 무시
 
+        valueText.color = Color.red;
+        if (manager != null)
+        {
+            isMissionSent = true; // 중복 호출 방지
+            manager.CompleteMission(EnvEventType.DectecorClear);
+        }
+    }
     private void DropDetector()
     {
         isEquipped = false;
-
+        isMissionSent = false; // 미션 전송 여부 초기화
         // 1. 원래 부모(Station) 밑으로 복귀 및 위치 초기화
         transform.SetParent(originParent);
         transform.position = originPosition;

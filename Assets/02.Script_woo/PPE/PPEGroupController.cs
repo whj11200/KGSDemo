@@ -12,6 +12,11 @@ public class PPEGroupController : MonoBehaviour
     [Header("UI Settings")]
     [SerializeField] private GameObject returnButton; // "반납하기" 버튼 오브젝트
 
+
+    [SerializeField] EnvironmentManager manager;
+
+    bool isClear = false;
+
     private void Start()
     {
         // 시작할 때는 버튼을 숨깁니다.
@@ -30,6 +35,12 @@ public class PPEGroupController : MonoBehaviour
         if (allEquipped && !returnButton.activeSelf)
         {
             returnButton.SetActive(true);
+            if (!isClear && manager != null)
+            {
+                isClear = true; // "나 보고했다"고 잠금
+                manager.CompleteMission(EnvEventType.PPE_Clear); // PPE 전용 Enum이 있다면 사용
+                Debug.Log("[PPE] 모든 장비 장착 완료! 매니저에게 보고함.");
+            }
         }
         else if (!allEquipped && returnButton.activeSelf)
         {

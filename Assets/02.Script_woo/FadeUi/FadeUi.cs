@@ -7,7 +7,7 @@ public class FadeUi : MonoBehaviour
     [SerializeField] Image KGS_Img;
     [SerializeField] AudioSource KGS_Audio;
     [SerializeField] AudioClip KGS_Clip;
-    [SerializeField] AnjesonInteraction anjeson;
+    [SerializeField] NPC_Interaction anjeson;
 
     public bool isfinish = false;
     private void Start()
