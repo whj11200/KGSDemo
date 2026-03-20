@@ -10,17 +10,20 @@ public class EnvironmentManager : MonoBehaviour
 
     [Header("Environment Objects")]
     [SerializeField] private ValveController valve;
+    [SerializeField] DoorController doorController;
 
     [SerializeField] NPC_Controller npcController;
 
     private void OnEnable()
     {
         DialogueEventBus.Subscribe(EnvEventType.GasLeakStart.ToString(), StartGasLeakAction);
+        DialogueEventBus.Subscribe(EnvEventType.StudyClear.ToString(), AllClear);
     }
 
     private void OnDisable()
     {
         DialogueEventBus.Unsubscribe(EnvEventType.GasLeakStart.ToString(), StartGasLeakAction);
+        DialogueEventBus.Unsubscribe(EnvEventType.StudyClear.ToString(), AllClear);
     }
 
     private void StartGasLeakAction() => valve?.StartLeak();
@@ -53,5 +56,11 @@ public class EnvironmentManager : MonoBehaviour
         {
             dialogueController.Play(scenarioAsset, targetNodeId);
         }
+    }
+
+    public void AllClear()
+    {
+        doorController.RequestToggleDoor();
+        valve.ResetValve();
     }
 }

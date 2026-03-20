@@ -17,7 +17,7 @@ public class DoorController : MonoBehaviour
     [Header("UI Reference")]
     [SerializeField] MessageUI messageUI;     // 아까 만든 MessageUI 연결
 
-    private bool isOpen = false;
+    public bool isOpen = false;
     private Coroutine doorRoutine;
     
 

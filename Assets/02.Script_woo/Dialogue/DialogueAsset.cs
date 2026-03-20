@@ -21,7 +21,8 @@ public enum EnvEventType
     GasLeakStart,   // 가스 누출 시작, 감지기 가져와서 측정 => 가스감지기 1 이 뜨면 자동으로 넘어감
     DectecorClear,   // 가스 감지기 클리어
     VavleCloseClear, // 벨브 잠금 클리어
-    PPE_Clear // PPE 착용 클리어
+    PPE_Clear, // PPE 착용 클리어
+    StudyClear // 공부 클리어 (엔딩 연출 시작)
 
 }
 

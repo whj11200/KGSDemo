@@ -8,6 +8,7 @@ public class ValveController : MonoBehaviour
     public ParticleSystem waterParticle;
     public PuddleController puddleController;
     [SerializeField] EnvironmentManager manager;
+    [SerializeField] GameObject vavleZone;
     public bool isLeaking = false;
 
     void Start()
@@ -52,6 +53,7 @@ public class ValveController : MonoBehaviour
         isLeaking = false;
         anim.SetTrigger("Reset"); // 애니메이터의 Reset 트리거 발동
         if (waterParticle != null) waterParticle.Stop();
+        vavleZone.SetActive(true); // 밸브 존 활성화 (필요 시)
         Debug.Log("밸브 상태가 초기화되었습니다.");
     }
 }

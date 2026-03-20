@@ -99,7 +99,7 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     npcExitAction: 0
-    envExitEvent: 4
+    envExitEvent: 0
   - nodeId: S2
     text: "\uC774\uC81C \uAC00\uC2A4\uB97C \uCC28\uB2E8\uD558\uAE30 \uC704\uD574
       \uBC38\uBE0C\uB97C \uC7A0\uAC00 \uC8FC\uC138\uC694!"
@@ -168,24 +168,24 @@ MonoBehaviour:
     voice: {fileID: 0}
     autoAdvanceDelay: 0
     choices: []
-    nextNodeId: 
-    npcEnterAction: 2
-    envEnterEvent: 0
-    npcExitAction: 5
-    envExitEvent: 0
-  - nodeId: S5
-    text: "\uC8FC\uC758 \uAE4A\uAC8C \uC77D\uC5B4\uBCF4\uC168\uB098\uC694?\r\n\uADF8\uB7FC,
-      \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
-    speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
-    autoAdvanceDelay: 0
-    choices: []
     nextNodeId: A9
     npcEnterAction: 2
     envEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
   - nodeId: A9
+    text: "\uC8FC\uC758 \uAE4A\uAC8C \uC77D\uC5B4\uBCF4\uC168\uB098\uC694?\r\n\uADF8\uB7FC,
+      \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
+    speakerId: "\uAC00\uC2A4\uB9E8"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 2
+    envEnterEvent: 0
+    npcExitAction: 5
+    envExitEvent: 0
+  - nodeId: S5
     text: " \uC5EC\uAE30\uC5D0\uC11C\uB294 \uC548\uC804\uBCF4\uD638\uAD6C\uC5D0 \uB300\uD574
       \uC54C\uC544 \uBCF4\uACE0, \uCC29\uC6A9\uB3C4 \uD574 \uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4. "
     speakerId: "\uAC00\uC2A4\uB9E8"
@@ -282,4 +282,4 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     npcExitAction: 6
-    envExitEvent: 0
+    envExitEvent: 5

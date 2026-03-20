@@ -52,6 +52,7 @@ public class NPC_Controller : MonoBehaviour
     {
         UpdateMovement();
         UpdateFacing();
+        CheckReturnHomeArrival(); // ← 이 함수를 추가해서 도착 체크를 합니다.
     }
 
     // 트리거에서 호출됨
@@ -127,6 +128,37 @@ public class NPC_Controller : MonoBehaviour
         Debug.Log($"[NPC] 인덱스가 강제로 {index}로 설정되었습니다.");
     }
     public void StartEnding() { CurrentState = State.EndingGuide; OnEndingStarted?.Invoke(); }
-    public void ForceReturnHome() { CurrentState = State.ReturnHome; agent.isStopped = false; agent.SetDestination(homePos); }
+    public void ForceReturnHome() { 
+        CurrentState = State.ReturnHome; 
+        agent.isStopped = false;
+        agent.SetDestination(homePos);  
+         }
+    private void CheckReturnHomeArrival()
+    {
+        if (CurrentState == State.ReturnHome)
+        {
+            // 1. 에이전트가 경로 계산 중이 아니고, 목적지에 거의 도착했는지 확인
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                // 2. 에이전트의 자동 회전을 끄고 물리적 이동을 멈춤
+                agent.updateRotation = false;
+                agent.isStopped = true;
+
+                // 3. 목표 회전값(homeRot)으로 서서히 또는 즉시 회전
+                transform.rotation = Quaternion.Lerp(transform.rotation, homeRot, Time.deltaTime * faceTurnSpeed * 0.01f);
+
+                // 4. 거의 다 돌아갔다면 상태 종료 (완전 정지)
+                if (Quaternion.Angle(transform.rotation, homeRot) < 0.1f)
+                {
+                    transform.rotation = homeRot; // 마지막에 딱 맞춤
+                    CurrentState = State.Idle;
+                    OnReturnedHome?.Invoke();
+
+                    // 다시 움직일 때를 대비해 회전 제어권 복구
+                    agent.updateRotation = true;
+                }
+            }
+        }
+    }
     public void StopMoveAndFacePlayer() { CurrentState = State.StopMove; agent.isStopped = true; }
 }
