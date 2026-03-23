@@ -9,9 +9,6 @@ public class NPC_Interaction : MonoBehaviour
     [SerializeField] private DialogueModeul dialogueModule;
     [SerializeField] private FadeUi fadeUi;
 
-    [Header("Dialogue Keys")]
-    [SerializeField] private string startDialogueMessage = "StartDialogue";
-
     [Header("Ending Timing")]
     [SerializeField, Min(0f)] private float stopFacingAfterEndingSeconds = 3f;
     [SerializeField, Min(0f)] private float returnTimer = 3f;
@@ -26,7 +23,15 @@ public class NPC_Interaction : MonoBehaviour
         if (!controller) controller = GetComponent<NPC_Controller>();
         if (!animDriver) animDriver = GetComponent<NPC_AnimatorDrivers>();
     }
-
+    private void Start()
+    {
+        
+        if (fadeUi == null)
+        {
+            Debug.Log("[NPC_Interaction] FadeUi가 없으므로 직접 HandleHello를 호출합니다.");
+            HandleHello();
+        }
+    }
     private void OnEnable()
     {
         if (controller != null)
@@ -74,12 +79,18 @@ public class NPC_Interaction : MonoBehaviour
     public void HandleHello()
     {
         // 페이드 UI가 끝났는지 확인 (기존 로직 유지)
-        if (fadeUi != null && !fadeUi.isfinish) return;
-
+        if (fadeUi != null && !fadeUi.isfinish)
+        {
+            return;
+        }
+       
+       
+        Debug.Log("[NPC_Interaction] HandleHello called");
         animDriver?.PlayHello();
 
         if (dialogueModule)
-            dialogueModule.SendMessage(startDialogueMessage);
+            dialogueModule.StartDialogue();
+
     }
 
     public void HandleArrivedAtGuide()

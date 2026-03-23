@@ -14,26 +14,113 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueId: D_Intro
   nodes:
-  - nodeId: N0
+  - nodeId: T0
     text: "\uC548\uB155\uD558\uC138\uC694!\r\n"
-    speakerId: "\uD589\uBCF5\uC774"
+    speakerId: "\uD401\uD401\uC774"
     voice: {fileID: 8300000, guid: 2aff05aea8f36ac4495d9fd7872b3c48, type: 3}
     autoAdvanceDelay: 0
     choices: []
-    nextNodeId: N1
+    nextNodeId: T1
     npcEnterAction: 1
     envEnterEvent: 0
+    tutorialEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
-  - nodeId: N1
-    text: "\uC5EC\uAE30\uB294 \uD29C\uD1A0\uB9AC\uC5BC \uACF5\uAC04\uC774\uC5D0\uC694.\r\n\uC800\uB294
-      \uC548\uB0B4\uB97C \uB9E1\uC740 \uD589\uBCF5\uC774\uB77C\uACE0 \uD574\uC694."
-    speakerId: "\uD589\uBCF5\uC774"
-    voice: {fileID: 8300000, guid: 83c67695d2087304b86261db5b52883f, type: 3}
+    tutorialExitEvent: 0
+  - nodeId: T1
+    text: "\uC5EC\uAE30\uB294 \uD29C\uD1A0\uB9AC\uC5BC \uACF5\uAC04\uC774\uACE0\r\n\uC800\uB294
+      \uC548\uB0B4\uB97C \uB9E1\uC740 \uD401\uD401\uC774\uB77C\uACE0 \uD574\uC694."
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
     autoAdvanceDelay: 0
     choices: []
-    nextNodeId: N2
+    nextNodeId: T2
     npcEnterAction: 2
     envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: T2
+    text: "\uC870\uC791\uBC95\uC744 \uBC30\uC6CC \uBCFC\uAC8C\uC694.\r\n\uD0A4\uBCF4\uB4DC\uC758
+      \uC774\uB3D9\uD0A4\uB97C \uC0AC\uC6A9\uD574\uC11C \uC800\uB97C \uB530\uB77C\uC624\uC138\uC694."
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 5
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: S0
+    text: "\uB9C8\uC6B0\uC2A4 \uC88C\uD074\uB9AD\uC73C\uB85C \uBB3C\uAC74\uC744 \uB4E4\uAC70\uB098
+      \uC120\uD0DD\uD560 \uC218 \uC788\uC5B4\uC694.\r\n\uC5F0\uC2B5\uD574 \uBCF4\uC138\uC694."
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: S1
+    text: "\uC774\uBC88\uC5D0\uB294 \uC2A4\uD06C\uB864\uC744 \uC0AC\uC6A9\uD574\uC11C
+      \uC90C\uC778/\uC90C\uC544\uC6C3\uC744 \uD574 \uBCFC\uAE4C\uC694?"
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: S2
+    text: "\uC798\uD558\uC168\uC5B4\uC694!"
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: T3
+    npcEnterAction: 4
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: T3
+    text: "\uC870\uC791\uBC95 \uC548\uB0B4\uB294  Tab\uB97C \uB20C\uB7EC\uC11C \uC5B8\uC81C\uB4E0\uC9C0
+      \uD655\uC778\uD560 \uC218 \uC788\uC5B4\uC694."
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: T4
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: T4
+    text: "\uD29C\uD1A0\uB9AC\uC5BC\uC740 \uC5EC\uAE30\uAE4C\uC9C0\uC5D0\uC694.\r\n\uC774\uC81C
+      \uC548\uC804 \uD559\uC2B5\uAD00\uC5D0 \uB4E4\uC5B4\uAC00\uBCFC\uAE4C\uC694?"
+    speakerId: "\uD401\uD401\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 3
     npcExitAction: 6
     envExitEvent: 0
+    tutorialExitEvent: 0

@@ -12,17 +12,17 @@ public class DoorController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float openAngle = 90f;   
     [SerializeField] private float smoothTime = 2.0f; 
-    [SerializeField] bool canOpen = false;                     //튜토리얼 클리어 여부 임시 
+    [SerializeField] public bool canOpen = false;                     //튜토리얼 클리어 여부 임시 
 
     [Header("UI Reference")]
     [SerializeField] MessageUI messageUI;     // 아까 만든 MessageUI 연결
 
-    public bool isOpen = false;
+     bool isOpen = false;
     private Coroutine doorRoutine;
     
 
     // 하위 오브젝트(마우스 인터페이스 등)에서 클릭 시 이 함수를 호출하게 하세요.
-    public void RequestToggleDoor()
+    public void RequestDoor()
     {
         if (canOpen)
         {

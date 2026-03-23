@@ -38,7 +38,7 @@ public class PPEGroupController : MonoBehaviour
             if (!isClear && manager != null)
             {
                 isClear = true; // "나 보고했다"고 잠금
-                manager.CompleteMission(EnvEventType.PPE_Clear); // PPE 전용 Enum이 있다면 사용
+                manager.CompleteMission(KGS_EnvEventType.PPE_Clear); // PPE 전용 Enum이 있다면 사용
                 Debug.Log("[PPE] 모든 장비 장착 완료! 매니저에게 보고함.");
             }
         }

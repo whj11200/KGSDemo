@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -24,10 +25,14 @@ public class MapMouseController : MonoBehaviour
 
     private void Awake()
     {
-        baseScale = mapRoot.localScale;
-        basePosition = mapRoot.position;
-        baseY = basePosition.y;
-        mainCamera = Camera.main;
+        if(mapRoot != null)
+        {
+            baseScale = mapRoot.localScale;
+            basePosition = mapRoot.position;
+            baseY = basePosition.y;
+            mainCamera = Camera.main;
+        }
+      
     }
 
     void OnEnable()

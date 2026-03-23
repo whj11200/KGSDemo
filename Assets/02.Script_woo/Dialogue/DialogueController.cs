@@ -20,6 +20,8 @@ public sealed class DialogueController : MonoBehaviour
     [SerializeField] MonoBehaviour viewProvider;   // IDialogueView
     [SerializeField] MonoBehaviour inputProvider;  // IDialogueInput
     [SerializeField] AudioSource voiceSource;      // 선택
+    [SerializeField] EnvironmentManager environmentManager; // 환경 이벤트 처리를 위한 매니저 참조
+    [SerializeField] TutorialManager tutorialManager;
 
     [Header("Typing")]
     [SerializeField] float charsPerSecond = 40f;
@@ -41,7 +43,7 @@ public sealed class DialogueController : MonoBehaviour
     Coroutine _typingRoutine;
 
     bool _requestNext;
-    bool _requestSkip;
+    public bool _requestSkip;
 
     Action _onFinished;
 
@@ -133,6 +135,14 @@ public sealed class DialogueController : MonoBehaviour
         if (Input.SkipPressed())
         {
             Finish();  // 코루틴까지 끊고 UI 닫음 (Finish보다 안전)
+            if(environmentManager != null)
+            {
+                environmentManager.AllClear(); // 대화 종료 시 환경 이벤트 초기화
+            }
+            if(tutorialManager != null)
+            {
+                tutorialManager.AllClear_T();
+            }
             DialogueEventBus.Raise("DIALOGUE_SKIP");
             return;
         }
@@ -318,7 +328,10 @@ public sealed class DialogueController : MonoBehaviour
         _current = null;
 
         _state = State.Idle;
-
+        //if(environmentManager != null)
+        //{
+        //    environmentManager.AllClear(); // 대화 종료 시 환경 이벤트 초기화
+        //}
         cb?.Invoke();
     }
     // [수정 완료] 노드 진입 시 호출 (화자 설정, 음성 재생, NPC 행동, 환경 이벤트)
@@ -337,7 +350,7 @@ public sealed class DialogueController : MonoBehaviour
         }
 
         // 3. 환경/오브젝트 이벤트 실행 (Enum -> String 변환 후 Raise)
-        if (node.envEnterEvent != EnvEventType.None)
+        if (node.envEnterEvent != KGS_EnvEventType.None)
         {
             string envEvt = node.envEnterEvent.ToString();
             Debug.Log($"[Dialogue] Env Enter Event: {envEvt}");
@@ -359,7 +372,7 @@ public sealed class DialogueController : MonoBehaviour
         }
 
         // 2. 환경 퇴장 이벤트 실행
-        if (node.envExitEvent != EnvEventType.None)
+        if (node.envExitEvent != KGS_EnvEventType.None)
         {
             string envEvt = node.envExitEvent.ToString();
             Debug.Log($"[Dialogue] Env Exit Event: {envEvt}");

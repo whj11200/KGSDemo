@@ -15,7 +15,7 @@ public enum NPCActionType
 }
 
 // 2. 환경/오브젝트 이벤트 목록
-public enum EnvEventType
+public enum KGS_EnvEventType
 {
     None,           // 아무것도 안 함
     GasLeakStart,   // 가스 누출 시작, 감지기 가져와서 측정 => 가스감지기 1 이 뜨면 자동으로 넘어감
@@ -24,6 +24,14 @@ public enum EnvEventType
     PPE_Clear, // PPE 착용 클리어
     StudyClear // 공부 클리어 (엔딩 연출 시작)
 
+}
+
+public enum TutorialEventType
+{
+    None,
+    ObjectClear,
+    ScrollzoominoutClear,
+    TutorilClaar
 }
 
 [CreateAssetMenu(menuName = "Dialogue/Dialogue Asset")]
@@ -50,11 +58,13 @@ public class DialogueNode
     // ----- [수정된 부분: String 대신 Enum으로 분리] -----
     [Header("시작할 때 발생할 이벤트")]
     public NPCActionType npcEnterAction;
-    public EnvEventType envEnterEvent;
+    public KGS_EnvEventType envEnterEvent;
+    public TutorialEventType tutorialEnterEvent;
 
     [Header("끝날 때 발생할 이벤트")]
     public NPCActionType npcExitAction;
-    public EnvEventType envExitEvent;
+    public KGS_EnvEventType envExitEvent;
+    public TutorialEventType tutorialExitEvent;
 }
 
 [Serializable]

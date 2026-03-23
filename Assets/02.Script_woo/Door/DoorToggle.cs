@@ -10,7 +10,7 @@ public class DoorToggle : MonoBehaviour,IMouseInteractable
 
     public void ClickEnter()
     {
-        doorController.RequestToggleDoor(); // DoorController의 토글 함수 호출
+        doorController.RequestDoor(); // DoorController의 토글 함수 호출
     }
 
     public void ClickExit()

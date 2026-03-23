@@ -29,7 +29,7 @@ MonoBehaviour:
     text: "\uC5EC\uAE30\uB294 \uD559\uC2B5\uAD00\uC785\uB2C8\uB2E4.\r\n\uC800 \uAC00\uC2A4\uB9E8\uC744
       \uB530\uB77C \uD559\uC2B5\uAD00\uC744 \uAD6C\uACBD\uD574 \uBCFC\uAE4C\uC694?"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 17b897f098b68f947b8b90beb917d3dd, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -41,7 +41,7 @@ MonoBehaviour:
     text: "\uC5EC\uAE30\uC5D0\uC11C\uB294 \uBA54\uD0C4\uAC00\uC2A4\uC5D0 \uB300\uD55C
       \uC815\uBCF4\uB97C \uC54C\uC544\uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 78e11b58bf82ae04ea269cc816b2b2ac, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A3
@@ -56,7 +56,7 @@ MonoBehaviour:
       \uC9C8\uC2DD\uC744 \uC720\uBC1C\uD55C\uB2E4\uB294 \uC704\uD5D8\uC131\uC774
       \uC788\uC8E0."
     speakerId: "\uAC00\uC2A4\uB9E8 "
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 01657edc25014134c98f33d20261cf2c, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -68,7 +68,7 @@ MonoBehaviour:
     text: "\uC774 \uBC30\uAD00\uC740 \uBA54\uD0C4\uAC00\uC2A4 \uC774\uC1A1\uC6A9
       \uBC30\uAD00\uC785\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: f18f6735c97e6374a9530b935cf08c79, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A4
@@ -80,7 +80,7 @@ MonoBehaviour:
     text: "\uC790, \uC9C0\uAE08 \uACE0\uB18D\uB3C4\uC758 \uBA54\uD0C4\uC774 \uB204\uCD9C\uB418\uC5B4
       \uC544\uC9C0\uB791\uC774 \uD604\uC0C1\uC774 \uC77C\uC5B4\uB098\uACE0 \uC788\uC5B4\uC694."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 638ff9d44301087479a2717f20ac780f, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A5
@@ -92,7 +92,7 @@ MonoBehaviour:
     text: "\uC800\uAE30 \uC788\uB294 \uAC00\uC2A4 \uAC10\uC9C0\uAE30\uB97C \uAC00\uC838\uC640\uC11C
       \uAC00\uC2A4 \uB18D\uB3C4\uB97C \uCE21\uC815\uD574 \uBCF4\uC138\uC694!"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 1ea9ec8f738caae488c9f06d4847df23, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -104,7 +104,7 @@ MonoBehaviour:
     text: "\uC774\uC81C \uAC00\uC2A4\uB97C \uCC28\uB2E8\uD558\uAE30 \uC704\uD574
       \uBC38\uBE0C\uB97C \uC7A0\uAC00 \uC8FC\uC138\uC694!"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 8986d0102617dd74191e53a2a8d3b31b, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -116,7 +116,7 @@ MonoBehaviour:
     text: "\uBC38\uBE0C\uAC00 \uC7A0\uACBC\uC2B5\uB2C8\uB2E4!\r\n\uB2E4\uC2DC \uAC00\uC2A4
       \uB18D\uB3C4\uB97C \uCE21\uC815\uD574 \uBCF4\uC138\uC694."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: b54c0f0306d9bfb40b16d44d695360fe, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A6
@@ -129,7 +129,7 @@ MonoBehaviour:
       \uBA54\uD0C4\uAC00\uC2A4\uC758 \uC704\uD5D8\uC131\uACFC \uAC00\uC2A4 \uCC28\uB2E8\uC5D0
       \uB300\uD574 \uBC30\uC6CC\uBD24\uC5B4\uC694."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: db00978e7983e1847ae243eaf7fa5a15, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A7
@@ -140,7 +140,7 @@ MonoBehaviour:
   - nodeId: A7
     text: "\uADF8\uB7FC, \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 9b84f459dc74d6a4ab9cf65a767bf544, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -152,7 +152,7 @@ MonoBehaviour:
     text: "\uC5EC\uAE30\uC5D0\uC11C\uB294 \uAC00\uC2A4\uC0AC\uACE0 \uB300\uC751\uC694\uB839\uC5D0
       \uB300\uD574 \uC54C\uC544\uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 2d14dc1196c61cb4da8d90d6b662d1a3, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A8
@@ -165,7 +165,7 @@ MonoBehaviour:
       \uBC38\uBE0C\uB97C \uCC28\uB2E8\uD574\uC57C \uD558\uBA70\r\n\uC548\uC804\uC870\uCE58\uB97C
       \uCDE8\uD574\uC57C \uD558\uC8E0."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 294b6405a5d13fa47b2b2d500fbac961, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A9
@@ -177,7 +177,7 @@ MonoBehaviour:
     text: "\uC8FC\uC758 \uAE4A\uAC8C \uC77D\uC5B4\uBCF4\uC168\uB098\uC694?\r\n\uADF8\uB7FC,
       \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: ae10ad2ea04002746b9ce9884827d3c3, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -189,7 +189,7 @@ MonoBehaviour:
     text: " \uC5EC\uAE30\uC5D0\uC11C\uB294 \uC548\uC804\uBCF4\uD638\uAD6C\uC5D0 \uB300\uD574
       \uC54C\uC544 \uBCF4\uACE0, \uCC29\uC6A9\uB3C4 \uD574 \uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4. "
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: dc7cde160e79a0d4890243408a380a5e, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A10
@@ -201,7 +201,7 @@ MonoBehaviour:
     text: "\uC88C\uCE21\uC5D0\uB294 \uBCF4\uD638\uBCF5 \uC885\uB958\uAC00 \uC801\uD600
       \uC788\uC8E0?"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: f2098dfd63052c845a8a3a976f3d2c1c, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A11
@@ -215,7 +215,7 @@ MonoBehaviour:
       \uC561\uCCB4 \uBD84\uC0AC\uC5D0 \uC800\uD56D\uD558\uB294 \uC561\uCCB4 \uCC28\uB2E8\uC6A9
       \uBCF4\uD638\uBCF5\uC785\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 7a9fff1710cb0ec4f9791d3ca53563c1, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A12
@@ -227,7 +227,7 @@ MonoBehaviour:
     text: "\uADF8\uB7FC, \uC548\uC804\uBCF4\uD638\uAD6C \uCCB4\uD5D8\uC744 \uD574
       \uBCFC\uAE4C\uC694?"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 9ff2f7b0aa61d964fb2299fd15ff16fd, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
     text: "\uC5EC\uAE30 \uC788\uB294 \uC548\uC804\uBCF4\uD638\uAD6C\uB4E4\uC744 \uC790\uC720\uB86D\uAC8C
       \uCC29\uC6A9\uD574 \uBCF4\uC2E4 \uC218 \uC788\uC5B4\uC694."
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 999a93d9b705d3d41b5001c26510f898, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A13
@@ -252,7 +252,7 @@ MonoBehaviour:
       \uB611\uAC19\uC774 \uBAA8\uB4E0 \uBCF4\uD638\uAD6C\uB97C \uCC29\uC6A9\uD574
       \uBCF4\uC2E4\uB798\uC694? "
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 5ce159c3c29112f44b78b3b09bf3d489, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -263,7 +263,7 @@ MonoBehaviour:
   - nodeId: S7
     text: "\uC544\uC8FC \uC548\uC804\uD574 \uBCF4\uC774\uACE0 \uC798 \uC5B4\uC6B8\uB9AC\uC2DC\uB294\uB370\uC694?"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: fbb26939869a2e34883b5eb004c83895, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A14
@@ -275,7 +275,7 @@ MonoBehaviour:
     text: "\uC790, \uC774\uC81C \uD559\uC2B5\uAD00\uC744 \uBAA8\uB450 \uB458\uB7EC\uBD24\uC73C\uB2C8
       \uAC00\uC0C1\uCCB4\uD5D8\uAD00\uC73C\uB85C \uAC00 \uBCFC\uAE4C\uC694?"
     speakerId: "\uAC00\uC2A4\uB9E8"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 1d618b0d157394d4e9c17bcbe799ec87, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 

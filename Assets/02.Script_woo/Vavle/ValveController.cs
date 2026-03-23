@@ -43,7 +43,7 @@ public class ValveController : MonoBehaviour
     {
         isLeaking = false;
         anim.SetTrigger("Close"); // 애니메이터의 Close 트리거 발동
-        manager.CompleteMission(EnvEventType.VavleCloseClear); // 미션 성공 처리
+        manager.CompleteMission(KGS_EnvEventType.VavleCloseClear); // 미션 성공 처리
         Debug.Log("밸브가 닫혔습니다.");
     }
 

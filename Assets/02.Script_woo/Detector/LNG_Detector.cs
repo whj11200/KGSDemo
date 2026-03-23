@@ -46,20 +46,7 @@ public class LNG_Detector : MonoBehaviour
         if (isEquipped) DropDetector();
         else TurnOnAndEquip();
     }
-    private void TurnOnAndEquip()
-    {
-        isEquipped = true;
-
-        // 1. 손으로 이동 및 부모 변경
-        transform.SetParent(handPos);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        transform.localScale = new Vector3(1f, 1f, 1f); // 필요 시 스케일 조정
-
-        // 2. UI 및 텍스트 처리
-        detectorCanvas.SetActive(true);
-        if (returnText != null) returnText.SetActive(true); // "반납하기" 표시
-    }
+   
 
     void UpdateDetection()
     {
@@ -111,9 +98,10 @@ public class LNG_Detector : MonoBehaviour
         if (manager != null)
         {
             isMissionSent = true; // 중복 호출 방지
-            manager.CompleteMission(EnvEventType.DectecorClear);
+            manager.CompleteMission(KGS_EnvEventType.DectecorClear);
         }
     }
+    //나중에 따로 분류해놓을것
     private void DropDetector()
     {
         isEquipped = false;
@@ -127,5 +115,19 @@ public class LNG_Detector : MonoBehaviour
         detectorCanvas.SetActive(false);
         if (returnText != null) returnText.SetActive(false); // "반납하기" 숨김
         valueText.color = Color.white;
+    } 
+    private void TurnOnAndEquip()
+    {
+        isEquipped = true;
+
+        // 1. 손으로 이동 및 부모 변경
+        transform.SetParent(handPos);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = new Vector3(1f, 1f, 1f); // 필요 시 스케일 조정
+
+        // 2. UI 및 텍스트 처리
+        detectorCanvas.SetActive(true);
+        if (returnText != null) returnText.SetActive(true); // "반납하기" 표시
     }
 }

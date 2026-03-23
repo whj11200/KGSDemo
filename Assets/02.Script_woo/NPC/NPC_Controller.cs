@@ -27,6 +27,7 @@ public class NPC_Controller : MonoBehaviour
         (guideDialogueKeys != null && targetIndex >= 0 && targetIndex < guideDialogueKeys.Length)
         ? guideDialogueKeys[targetIndex] : null;
 
+    public static event Action<string> OnAnyDialogueStarted;
     public State CurrentState { get; private set; } = State.Idle;
     public NavMeshAgent Agent => agent;
 
@@ -52,7 +53,7 @@ public class NPC_Controller : MonoBehaviour
     {
         UpdateMovement();
         UpdateFacing();
-        CheckReturnHomeArrival(); // ← 이 함수를 추가해서 도착 체크를 합니다.
+        CheckReturnHomeArrival();
     }
 
     // 트리거에서 호출됨
@@ -70,6 +71,7 @@ public class NPC_Controller : MonoBehaviour
                 dialogueTriggered = true;
                 OnGuideArrivedPlayerNear?.Invoke(key);
                 Debug.Log($"[Trigger] NPC 대기 중 플레이어 도착: {key}");
+                OnAnyDialogueStarted?.Invoke(key);
             }
         }
         else
