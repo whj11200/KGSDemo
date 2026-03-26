@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MinmapChild : Minimapfuntioni, IMouseInteractable
 {
+    [SerializeField] RegionalmapInteraction reginonalmap;
     public void ClickCancle()
     {
 
@@ -9,6 +10,10 @@ public class MinmapChild : Minimapfuntioni, IMouseInteractable
 
     public void ClickEnter()
     {
+        if(reginonalmap != null)
+        {
+            reginonalmap.ToggleMap();
+        }
        
     }
 
