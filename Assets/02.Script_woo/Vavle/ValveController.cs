@@ -9,7 +9,7 @@ public class ValveController : MonoBehaviour
     public PuddleController puddleController;
     [SerializeField] EnvironmentManager manager;
     [SerializeField] GameObject vavleZone;
-    public bool isLeaking = false;
+    [SerializeField]public bool isLeaking = false;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class ValveController : MonoBehaviour
 
         isLeaking = true;
         anim.SetTrigger("Leak"); // 애니메이터의 Leak 트리거 발동
-        
+        anim.SetInteger("State", 1); // Leak 상태
         if (waterParticle != null) waterParticle.Play();
         Debug.Log("밸브 누출 시작: 외부에서 호출됨");
     }
@@ -44,12 +44,14 @@ public class ValveController : MonoBehaviour
         isLeaking = false;
         anim.SetTrigger("Close"); // 애니메이터의 Close 트리거 발동
         manager.CompleteMission(KGS_EnvEventType.VavleCloseClear); // 미션 성공 처리
+        anim.SetInteger("State", 2); // Close 상태 (여기서 고정!)
         Debug.Log("밸브가 닫혔습니다.");
     }
 
     // 3. 트리거 존(Player 퇴장 등)에서 호출할 리셋 함수
     public void ResetValve()
     {
+        if (anim.GetInteger("State") == 2) return;
         isLeaking = false;
         anim.SetTrigger("Reset"); // 애니메이터의 Reset 트리거 발동
         if (waterParticle != null) waterParticle.Stop();

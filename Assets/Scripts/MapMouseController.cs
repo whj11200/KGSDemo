@@ -125,6 +125,7 @@ public class MapMouseController : MonoBehaviour
 
     void ResetMapPosition()
     {
+     
         mapRoot.position = basePosition;
         mapRoot.localScale = baseScale;
         targetZoom = 1f;

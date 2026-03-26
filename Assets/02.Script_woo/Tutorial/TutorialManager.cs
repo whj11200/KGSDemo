@@ -21,7 +21,7 @@ public class TutorialManager : MonoBehaviour
         DialogueEventBus.Unsubscribe(TutorialEventType.TutorilClaar.ToString(), AllClear_T);
     }
 
-    private void HandleDialogueStart(string nodeID)
+    public void HandleDialogueStart(string nodeID)
     {
         // 여기서 S0, S1 등을 판단해서 매니저 상태를 동기화!
         this.currentNodeID = nodeID;

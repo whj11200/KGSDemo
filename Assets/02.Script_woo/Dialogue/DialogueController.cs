@@ -337,6 +337,14 @@ public sealed class DialogueController : MonoBehaviour
     // [수정 완료] 노드 진입 시 호출 (화자 설정, 음성 재생, NPC 행동, 환경 이벤트)
     void ApplyNode(DialogueNode node)
     {
+        if(environmentManager != null)
+        {
+            environmentManager.HandleDialogueStart(node.nodeId);
+        }
+        if( tutorialManager != null)
+        {
+            tutorialManager.HandleDialogueStart(node.nodeId);
+        }
         // 1. 화자 이름 및 보이스 설정 (이 부분이 빠졌었네요!)
         ApplySpeaker(node.speakerId);
         PlayVoice(node.voice);

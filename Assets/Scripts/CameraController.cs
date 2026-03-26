@@ -54,6 +54,9 @@ public class CameraController : MonoBehaviour
 
     public static event Action<int> OnResetPosition;
 
+    [Header("텔레포트 못하는 bool")]
+    public bool returnToggle = false;
+
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -235,12 +238,13 @@ public class CameraController : MonoBehaviour
     private void OnReturnPerformed(InputAction.CallbackContext ctx)
     {
         // TogglePopup();
-
+        if(!returnToggle) return;
         Debug.Log("CameraController: Reset Position");
         characterController.enabled = false;
         gameObject.transform.SetPositionAndRotation(SpawnPos.position, SpawnPos.rotation);
         OnResetPosition?.Invoke(0);
         characterController.enabled = true;
+        returnToggle = false;
     }
 
     public void ToggleMenu()

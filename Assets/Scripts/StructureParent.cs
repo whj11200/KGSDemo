@@ -23,6 +23,9 @@ public class StructureParent : MonoBehaviour
     [SerializeField] Transform SpawnPos;
     public Color HoverColor;
 
+    [Header("텔레포트 기능 가져오는 스크립트")]
+    [SerializeField] CameraController controller;
+
     private void Awake()
     {
         // 자신이 관리 주체일 때만 설정
@@ -77,7 +80,7 @@ public class StructureParent : MonoBehaviour
     [SerializeField] DOTweenPath fireTruckPath;
     public void RequestMove(int structID)
     {
-        Debug.Log($"StructureParent: RequestMove to StructID={structID}");
+        Debug.Log($"StructureParent: RequestMove to StructID={structID}, 이동했음");
         cachedStruct = null;
         // 전시실 UI 종료
         controlHelper.gameObject.SetActive(false);
@@ -90,6 +93,7 @@ public class StructureParent : MonoBehaviour
         {
             parent.FireTruckAnim();
         }
+        controller.returnToggle = true;
     }
 
     private void FireTruckAnim()
