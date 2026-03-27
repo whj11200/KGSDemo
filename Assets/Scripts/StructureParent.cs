@@ -72,6 +72,11 @@ public class StructureParent : MonoBehaviour
         {
             return parent;
         }
+        else
+        {
+            Debug.Log(parentRefs == null);
+            Debug.Log(parent == null);
+        }
         return null;
     }
 
@@ -83,7 +88,11 @@ public class StructureParent : MonoBehaviour
         Debug.Log($"StructureParent: RequestMove to StructID={structID}, 이동했음");
         cachedStruct = null;
         // 전시실 UI 종료
-        controlHelper.gameObject.SetActive(false);
+        if(controlHelper != null)
+        {
+            controlHelper.gameObject.SetActive(false);
+        }
+       
         var filedParent = GetStructureParent(StructureType.Field);
 
         filedParent?.FindFieldStruct(structID);
@@ -202,9 +211,14 @@ public class StructureParent : MonoBehaviour
         if (Type != (int)StructureType.Miniature) return;
 
         OnSwitchScene?.Invoke((int)StructureType.Miniature);
-        controlHelper.gameObject.SetActive(false);
-
-        var miniParent = GetStructureParent(StructureType.Miniature);
-        miniParent.controlHelper.gameObject.SetActive(true);
+        if(controlHelper!= null)
+        {
+            controlHelper.gameObject.SetActive(false);
+            var miniParent = GetStructureParent(StructureType.Miniature);
+            miniParent.controlHelper.gameObject.SetActive(true);
+        }
+  
+       
+       
     }
 }

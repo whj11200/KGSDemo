@@ -3,34 +3,37 @@ using UnityEngine;
 public class MinmapChild : Minimapfuntioni, IMouseInteractable
 {
     [SerializeField] RegionalmapInteraction reginonalmap;
-    public void ClickCancle()
-    {
-
-    }
 
     public void ClickEnter()
     {
-        if(reginonalmap != null)
+        if (reginonalmap != null)
         {
             reginonalmap.ToggleMap();
+
+           
+            UpdateVisual();
         }
-       
+        // 클릭 시 상태 반전 (선택됨/해제됨)
+        isSelected = !isSelected;
     }
 
-    public void ClickExit()
+    public void ClickCancle()
     {
-
+        isSelected = false;
+        UpdateVisual();
     }
+
+    public void ClickExit() { }
 
     public void HoverEnter()
     {
-        ToggleEmission();
+        isHovered = true;
+        UpdateVisual();
     }
 
     public void HoverExit()
     {
-        ToggleEmission();
+        isHovered = false;
+        UpdateVisual();
     }
-
-
 }

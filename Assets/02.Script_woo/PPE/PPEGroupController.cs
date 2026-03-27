@@ -35,9 +35,9 @@ public class PPEGroupController : MonoBehaviour
         if (allEquipped && !returnButton.activeSelf)
         {
             returnButton.SetActive(true);
-            if (!isClear && manager != null)
+            if (!isClear && manager != null && manager.currentNodeID=="A13")
             {
-                isClear = true; // "나 보고했다"고 잠금
+                isClear = true;
                 manager.CompleteMission(KGS_EnvEventType.PPE_Clear); // PPE 전용 Enum이 있다면 사용
                 Debug.Log("[PPE] 모든 장비 장착 완료! 매니저에게 보고함.");
             }

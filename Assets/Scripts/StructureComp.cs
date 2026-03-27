@@ -38,11 +38,15 @@ public class StructureComp : MonoBehaviour, IMouseInteractable
         //}
 
         SetOriginColor();
-        HoverColor = StructureParent.GetStructureParent(structureType).HoverColor;
+
+       
 
         var ID = gameObject.name.Split('-');
     }
-
+    void Start()
+    {
+        HoverColor = StructureParent.GetStructureParent(structureType).HoverColor;
+    }
     public Vector3 GetViewPos()
     {
         var movePos = viewPos.position;

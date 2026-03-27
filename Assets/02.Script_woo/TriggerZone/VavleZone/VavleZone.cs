@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class VavleZone : Minimapfuntioni
+public class VavleZone : MonoBehaviour
 {
     [SerializeField] ValveController valveController;
     [SerializeField] PuddleController puddleController;
@@ -17,12 +17,8 @@ public class VavleZone : Minimapfuntioni
     {
         if (other.CompareTag("Player"))
         {
-            if (valveController.isLeaking)
-            {
-                puddleController.StartShrinking();
-                valveController.ResetValve();
-            }
-            
+          puddleController.StartShrinking();
+          valveController.ResetValve();
         }
     }
 }
