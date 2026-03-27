@@ -25,12 +25,19 @@ public enum  EDialogueType
     Monologue, // 독백의 경우
     Explain, //설명문이 띄어질 경우
 }
-public enum  EConditionType
+public enum  EActorType
 {
     Dialogue,//대상 object와 특정 대화가 진행되었는지
     Move, //대상 object의 위치가 특정 위치에 도달했는지
     Distance, // 대상 object와 특정 object 사이의 거리가 특정 값보다 작아졌는지
     Clicked, // 대상 object가 클릭되었는지
+    Guide,
+    Zoom,
+    Active,
+    Fuction,
+    Highlight,
+    State,
+    Equiped,
 }
 public enum EObjectType
 {
@@ -45,5 +52,10 @@ public enum ECharacterState
 {
     Idle,
     Hello,
+    Smile,
     Move,
+    Speak,
+    Surprise,
+    Clap,
+    Guide,
 }

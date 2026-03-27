@@ -12,41 +12,38 @@ public class CharacterBase : ObjectBase
 
         if (!base.CheckCondition(condition)) return false;
 
-        switch (condition.ConditionType)
+        switch (condition.ActionType)
         {
-            case EConditionType.Distance:
-
-                if (float.TryParse(condition.ConditionValue, out float value))
-                {
-                    if (OnCheckDistance(player, value) == 1) 
-                    {
-                        condition.Result = true;
-                        return true; 
-                    }
-                    else
-                    {
-                        condition.Result = false;
-                        return false;
-                    }
-                    condition.IsStarted = true;
-                }
-                else
-                {
-                    Debug.LogWarning($"Distance value parse failed : {condition.ConditionValue}");
-                }
+            case EActorType.Distance:
                 break;
-            case EConditionType.Clicked:
+            case EActorType.Clicked:
                 break;
-            case EConditionType.Move:
+            case EActorType.Move:
                 if (condition.IsStarted) return false;
-
-                OnMoveToTarget(gameManager.GetObject(condition.ConditionValue).gameObject.transform);
+                OnMoveToTarget(gameManager.GetObject(condition.TargetID).gameObject.transform);
                 condition.IsStarted = true;
                 break;
-            case EConditionType.Dialogue:
-
+            case EActorType.Dialogue:
                 break;
         }
         return false;
+    }
+    public virtual void AnimationStateMachine(int animationState) 
+    {
+        switch (animationState)
+        {
+            case (int)ECharacterState.Idle: 
+                break;
+            case (int)ECharacterState.Speak:
+                break;
+            case (int)ECharacterState.Smile:
+                break;
+            case (int)ECharacterState.Move:
+                break;
+            case (int)ECharacterState.Surprise:
+                break;
+            case (int)ECharacterState.Hello:
+                break;
+        }
     }
 }

@@ -1,5 +1,3 @@
-Assets/08.MP4/가스안전 리뉴얼.mp4
-Assets/08.MP4/가스안전 리뉴얼 1.mp4
 [Ll]ibrary/
 [Tt]emp/
 [Bb]uild/
@@ -20,3 +18,4 @@ obj/
 *.mdb
 *.opendb
 *.VC.db
+*.meta
