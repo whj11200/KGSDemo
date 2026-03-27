@@ -15,30 +15,28 @@ public enum EScenarioState
 
 public class GameManager : MonoBehaviour
 {
-
     private DataManager dataManager;
 
-    public static GameManager Instance { get; private set; }
-    public EScenarioState state = EScenarioState.None;
-
-    /// <summary>
-    /// 각 씬 내부에 있는 ObjectBase를 상속받은 오브젝트들을 관리하는 딕셔너리
-    /// Key: ObjectID, Value: ObjectBase를 상속받은 오브젝트의 컴포넌트
-    /// </summary>
-    private Dictionary<string, ObjectBase> Objects = new Dictionary<string, ObjectBase>();
-
-    bool IsPaused = false;
-
-    public event Action<string> CallSceneMove;
-
-    /// <summary>
-    /// 대화 시작 이벤트, string은 대상 ObjectID, DialogueData는 대화에 필요한 모든 데이터를 담고 있는 클래스(string List도 가지고 있어야 함.)
-    /// </summary>
-    public event Action<string, DialogueData> OnDialogueStart;
-
-
-
     private void Awake()
+    {
+        SetSingleton();
+    }
+    private void Start()
+    {
+        Intialization();
+    }
+    private void Update()
+    {
+
+    }
+    private void Intialization()
+    {
+        dataManager = DataManager.Instance;
+    }
+
+    #region Singleton
+    public static GameManager Instance { get; private set; }
+    private void SetSingleton()
     {
         // 이미 인스턴스가 존재하면 중복 제거
         if (Instance != null && Instance != this)
@@ -53,39 +51,19 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
     }
-    private void Start()
-    {
-        Intialization();
-    }
-    private void Update()
-    {
-
-    }
-    private void Intialization()
-    {
-        dataManager = DataManager.Instance;
-    }
-    private void OnSceneMove(ESceneName name)
-    {
-        SceneManager.LoadScene(name.ToString());
-    }
-
-    private void OnSceneMove(int number)
-    {
-        SceneManager.LoadScene(number);
-    }
+    #endregion
 
     #region Scenario System
 
-    //------------------------------------------------------------------------------Parameters------------------------------------------------------------------------------
+    /// <summary>
+    /// 현재 진행중인 시나로오 스텝의 ID
+    /// </summary>
+    private string currentScenarioStepID;
+    public EScenarioState state = EScenarioState.None;
     /// <summary>
     /// isScenarioActive : 시나리오 진행 여부
     /// </summary>
     private bool isScenarioActive = false;
-    /// <summary>
-    /// currentScenarioStep : 현재 진행 중인 시나리오의 단계별 모든 데이터를 저장하는 클레스
-    /// </summary>
-    private CurrentScenario currentScenario;
     /// <summary>
     /// CurrentScenarioName : 현재 진행 중인 시나리오 이름
     /// </summary>
@@ -95,30 +73,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int currentScenarioIndex = 0;
     /// <summary>
-    /// 현재 진행중인 시나로오 스텝의 ID
+    /// currentScenarioStep : 현재 진행 중인 시나리오의 단계별 모든 데이터를 저장하는 클레스
     /// </summary>
-    private string currentScenarioStepID;
-    /// <summary>
-    /// CurrentDialogueIndex : 현재 진행 중인 대사 인덱스
-    /// </summary>
-    private int currentDialogueIndex = 0;
-    /// <summary>
-    /// 진행중인 대사의 종료 여부를 나타내는 변수. 이벤트 발생 시 최신화 됨
-    /// </summary>
-    private bool currentDialogueEnd = false;
+    private CurrentScenario currentScenario;
 
-
-
-
-    //------------------------------------------------------------------------------Event------------------------------------------------------------------------------
     /// <summary>
     /// 현재 시작하는 시나리오 스텝의 종료 조건을 각 오브젝트로 전달하기 위한 이벤트
     /// </summary>
-    public event Action<string, Dictionary<string, ConditionData>> StartScenarioStep;
-    /// <summary>
-    /// 현재 시나리오 스텝이 종료되었다고 알려주는 이벤트. 현재 시나리오 ID를 전달 함. 
-    /// </summary>
-    //public event Action<string> EndScenarioStep;
+    public event Action<string, DialogueData, Dictionary<string, ConditionData>> StartScenarioStep;
+
 
 
     /// <summary>
@@ -137,7 +100,6 @@ public class GameManager : MonoBehaviour
         // 1. 시나리오 초기화
         currentScenarioName = scenarioCategory;
         currentScenarioIndex = 0;
-        currentDialogueIndex = 0;
         Debug.Log("시나리오 초기화");
 
         // 2. DataManger에서 시나리오 데이터 획득
@@ -153,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         // 3. 대화가 있을경우 대화 시작 이벤트 발생, 없을 경우 시나리오 시작 이벤트 발생
         Debug.Log("초기화 후 시나리오 체크");
-        ScenarioChecker(currentScenarioStepID);
+        ScenarioEventGenerator(currentScenarioStepID);
     }
 
     /// <summary>
@@ -176,7 +138,6 @@ public class GameManager : MonoBehaviour
         }
         if (result == 0) currentScenario.ConditionReport(currentScenarioStepID, ResultID, false);
         else if (result == 1) currentScenario.ConditionReport(currentScenarioStepID, ResultID, true);
-        else if (result == 2 && ResultID == currentScenario.DialogueDatas[currentScenarioStepID].SpeakerID) currentDialogueEnd = true;
         
         else
         {
@@ -188,13 +149,32 @@ public class GameManager : MonoBehaviour
         if (currentScenario.IsScenarioCoditionConfirm(currentScenarioStepID))
         {
             Debug.Log("시나리오 리포트 후 시나리오 체크");
-            ScenarioChecker(currentScenarioStepID);
+            ScenarioEventGenerator(currentScenarioStepID);
         }
     }
 
+    /// <summary>
+    /// 현재 시나리오 스텝이 완료되었을 때 다음 시나리오가 있는지, 시나리오를 진행해야 하는지 판단하는 코드
+    /// </summary>
+    private void ScenarioEventGenerator(string scenarioStepID)
+    {
+        // 2. 현재 시나리오 스텝과 시나리오를 파악해서 시나리오 조건 진행
+        if (currentScenario.ConditionDatas[scenarioStepID] != null && currentScenario.ScenarioDatas.Count >= currentScenarioIndex)
+        {
+            currentScenarioIndex++;
+            StartScenarioStep?.Invoke(scenarioStepID, currentScenario.DialogueDatas[scenarioStepID], currentScenario.ConvertCondtionListToDic(scenarioStepID));
+            Debug.Log("[GameManager] Scenario Generated : " + scenarioStepID);
+            return;
+        }
+    }
     #endregion
 
     #region GameObject Management
+    /// <summary>
+    /// 각 씬 내부에 있는 ObjectBase를 상속받은 오브젝트들을 관리하는 딕셔너리
+    /// Key: ObjectID, Value: ObjectBase를 상속받은 오브젝트의 컴포넌트
+    /// </summary>
+    private Dictionary<string, ObjectBase> Objects = new Dictionary<string, ObjectBase>();
     public void RegisterObject(object obj)
     {
         if (obj is ObjectBase objectBase && !Objects.ContainsKey(objectBase.objectID))
@@ -223,6 +203,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region 프로그램 제어
+
+    bool IsPaused = false;
+
+    public event Action<string> CallSceneMove;
+
     /// <summary>
     /// 일시정지 메서드
     /// </summary>
@@ -247,10 +232,6 @@ public class GameManager : MonoBehaviour
         if (IsPaused) Resume();
         else Pause();
     }
-
-    #endregion
-
-    #region 내부 기능 구현 함수
     private bool CheckPause()
     {
         return IsPaused;
@@ -259,49 +240,16 @@ public class GameManager : MonoBehaviour
     {
         return isScenarioActive;
     }
-
-    /// <summary>
-    /// 현재 시나리오 스텝이 완료되었을 때 다음 시나리오가 있는지, 시나리오를 진행해야 하는지 판단하는 코드
-    /// </summary>
-    private void ScenarioChecker(string scenarioStepID)
+    private void OnSceneMove(string name)
     {
-        // 2. 현재 시나리오 스텝과 시나리오를 파악해서 시나리오 조건 진행
-        if (currentScenario.ConditionDatas[scenarioStepID] != null && currentScenario.ScenarioDatas.Count >= currentScenarioIndex)
-        {
-            currentScenarioIndex++;
-            ScenarioEventGenerator(scenarioStepID, (int)EScenarioState.Scenario);
-            return;
-        }
+        SceneManager.LoadScene(name);
     }
 
-    /// <summary>
-    /// 시나리오 진행 시 이벤트 발생 및 분기점
-    /// </summary>
-    /// <param name="ScnearioState"></param>
-    private void ScenarioEventGenerator_(string scenarioStepID, int ScnearioState = 0)
+    private void OnSceneMove(int number)
     {
-        switch (ScnearioState)
-        {
-            case (int)EScenarioState.None :
-                break;
-            case (int)EScenarioState.Dialogue:
-                OnDialogueStart(currentScenario.DialogueDatas[scenarioStepID].SpeakerID, currentScenario.DialogueDatas[scenarioStepID]);
-                Debug.Log($"Dialogue Start Event Triggered for Scenario Step ID: {scenarioStepID}");
-                break;
-            case (int)EScenarioState.Scenario:
-                StartScenarioStep(scenarioStepID, currentScenario.ConvertCondtionListToDic(scenarioStepID));
-                Debug.Log($"Scenario Step Start Event Triggered for Scenario Step ID: {scenarioStepID}");
-                break;
-        }
-    }
-    private void ScenarioEventGenerator(string scenarioStepID, int ScnearioState = 0)
-    {
-        StartScenarioStep(scenarioStepID, currentScenario.ConvertCondtionListToDic(scenarioStepID));
-        //만약에 대화가 존재한다면 대화 이벤트 발생
-        if (currentScenario.IsDialogueConfirm(scenarioStepID) && !currentDialogueEnd) OnDialogueStart(currentScenario.DialogueDatas[scenarioStepID].SpeakerID, currentScenario.DialogueDatas[scenarioStepID]);
+        SceneManager.LoadScene(number);
     }
 
     #endregion
-
 
 }

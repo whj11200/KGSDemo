@@ -150,8 +150,8 @@ public class DataManager : MonoBehaviour
                     ScenarioID = c.ScenarioID,
                     ConditionPrecedent = c.ConditionPrecedent,
                     TargetID = c.TargetID,
-                    ConditionType = c.ConditionType,
-                    ConditionValue = c.ConditionValue,
+                    ActionType = c.ActionType,
+                    Value = c.Value,
                     Result = false // 실행용 초기화
                 })
                 .ToList();

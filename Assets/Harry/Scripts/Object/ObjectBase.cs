@@ -28,20 +28,7 @@ public class ObjectBase : MonoBehaviour
 
     protected virtual void Update()
     {
-        foreach (var condition in scenarioConditions.Values)
-        {
-            //if (condition.Result) continue;
-            // 조건이 만족되었는지 확인하는 로직 (예: 플레이어의 행동, 게임 상태 등)
-            bool isConditionMet = CheckCondition(condition);
-            if (isConditionMet)
-            {
-                ReportScenarioResult(condition.ConditionID ,1); // 조건이 만족되었음을 GameManager에 보고
-            }
-            else
-            {
-                ReportScenarioResult(condition.ConditionID, 0); // 조건이 만족되었음을 GameManager에 보고
-            }
-        }
+        ScenarioConditionUpdate();
     }
 
     protected virtual void OnEnable()
@@ -59,6 +46,15 @@ public class ObjectBase : MonoBehaviour
         ObjectEventUnsubscribe();
     }
 
+    protected virtual void GetSingletonInstance()
+    {
+        gameManager = GameManager.Instance;
+        dataManager = DataManager.Instance;
+        uiManager = UiManager.Instance;
+    }
+
+
+    #region Object control
     /// <summary>
     /// 오브젝트가 수행하는 특정 동작
     /// </summary>
@@ -69,124 +65,6 @@ public class ObjectBase : MonoBehaviour
     {
 
     }
-
-    protected virtual void GetSingletonInstance()
-    {
-        gameManager = GameManager.Instance;
-        dataManager = DataManager.Instance;
-        uiManager = UiManager.Instance;
-    }
-
-
-    #region Scenario System
-
-    //시나리오에 필요한 데이터
-    public bool isScenarioObject = false; // 시나리오 오브젝트 여부
-    private Dictionary<string, ConditionData> scenarioConditions = new Dictionary<string, ConditionData>(); // 시나리오 조건 데이터
-    protected string ScenarioDialogueID = string.Empty; // 시나리오에 의한 현재 대화 ID
-
-    protected DialogueData ScenarioDialogueData; // 시나리오에 의한 현재 대화 데이터
-
-    /// <summary>
-    /// 각 오브젝트에 맞는 시나리오 이벤트 구독 메서드
-    /// </summary>
-    protected virtual void ObjectEventSubscribe()
-    {
-        gameManager.StartScenarioStep += ScenarioEventHandler;
-
-        //오브젝트와 플레이어가 대화를 이어갈 경우를 대비하여 등록
-        gameManager.OnDialogueStart += OnTriggerDialogue;
-        uiManager.EndDialogue += OnEndDialogue;
-    }
-
-    /// <summary>
-    /// 각 오브젝트에 맞는 시나리오 이벤트 해제 메서드
-    /// </summary>
-    protected virtual void ObjectEventUnsubscribe()
-    {
-        gameManager.StartScenarioStep -= ScenarioEventHandler;
-        gameManager.OnDialogueStart -= OnTriggerDialogue;
-        uiManager.EndDialogue -= OnEndDialogue;
-    }
-
-    /// <summary>
-    /// 이벤트 처리 메서드
-    /// </summary>
-    protected virtual void ScenarioEventHandler(string scenarioStepID, Dictionary<string, ConditionData> conditionData)
-    {
-        if (conditionData == null)
-            return;
-
-        var matchedConditions = conditionData.Values
-            .Where(c => c.TargetID == objectID)
-            .ToList();
-
-        if (matchedConditions.Count == 0)
-            return;
-
-        foreach (var condition in matchedConditions)
-        {
-            scenarioConditions[condition.ConditionID] = condition;
-        }
-    }
-
-    /// <summary>
-    /// GameManager에 시나리오 결과 보고 메서드
-    /// </summary>
-    /// <param name="result">
-    /// 현재 시나리오 만족 조건의 결과값을 전달하는 매개변수
-    /// </param>
-    protected void ReportScenarioResult(string id, int result)
-    {
-        gameManager.ReportResult(id, result);
-    }
-
-    protected virtual bool CheckCondition(ConditionData condition)
-    {
-        if (condition == null) return false;
-
-        if (condition.ConditionPrecedent != null && !scenarioConditions[condition.ConditionPrecedent].Result) return false;
-
-        return true;
-    }
-    #endregion
-
-    #region Dialogue System
-
-    //기본 대화 데이터
-    public string DefualtDialogueID; // 본 프로젝트에 의한 현재 대화 ID
-
-    public DialogueData DefualtDialogueData; // 본 프로젝트에 의한 현재 대화 데이터
-
-    public virtual void OnTriggerDialogue(string dialougeObjcetID, DialogueData dialogueData)
-    {
-        if (dialougeObjcetID != objectID) return;
-        ScenarioDialogueData = dialogueData;
-        Debug.Log($"Dialogue triggered for object: {objectID}, Dialogue ID: {dialogueData.DialogueID}");
-        uiManager.OnStartDialogueLine(dialogueData);
-        //만약 대화중 에니메이션 등의 효과가 필요하다면 이 메서드에서 처리
-    }
-
-    protected virtual void OnEndDialogue(string dialogueObjectID)
-    {
-        if (dialogueObjectID != objectID) return;
-        if (ScenarioDialogueData != null)
-        {
-            var condition = scenarioConditions.Values.FirstOrDefault(c => c.ConditionType == EConditionType.Dialogue && c.ConditionValue == ScenarioDialogueData.DialogueID);
-
-            if (condition != null) scenarioConditions[condition.ConditionID].Result = true;
-
-            ScenarioDialogueData = null;
-
-            gameManager.ReportResult(objectID, 2);
-        }
-        // 대화 종료 시 캐릭터가 수행할 행동을 정의하는 메서드
-        Debug.Log($"Dialogue ended for object: {objectID}, Dialogue ID: {dialogueObjectID}");
-    }
-
-    #endregion
-
-
     /// <summary>
     /// Move 조건이 발생했을 때, ConditionValue로 전달된 ObjectID에 해당하는 오브젝트의 위치로 케릭터를 이동시키는 메서드
     /// 한번 작동 후 ConditionData의 IsProcessing을 true로 바꿔서 중복 작동 방지
@@ -216,8 +94,8 @@ public class ObjectBase : MonoBehaviour
         }
 
         float distance = Vector3.Distance(transform.position, target.transform.position);
-        if(distance <= value) return 1;
-        else  return 2;
+        if (distance <= value) return 1;
+        else return 2;
 
     }
 
@@ -225,6 +103,153 @@ public class ObjectBase : MonoBehaviour
     {
 
     }
+    #endregion
+
+
+
+    #region Scenario System
+
+    //시나리오에 필요한 데이터
+    public bool isScenarioObject = false; // 시나리오 오브젝트 여부
+    private Dictionary<string, ConditionData> scenarioConditions = new Dictionary<string, ConditionData>(); // 시나리오 조건 데이터
+    protected string ScenarioDialogueID = string.Empty; // 시나리오에 의한 현재 대화 ID
+
+    protected DialogueData ScenarioDialogueData; // 시나리오에 의한 현재 대화 데이터
+
+    /// <summary>
+    /// 각 오브젝트에 맞는 시나리오 이벤트 구독 메서드
+    /// </summary>
+    protected virtual void ObjectEventSubscribe()
+    {
+        gameManager.StartScenarioStep += ScenarioEventHandler;
+
+        uiManager.EndDialogue += OnEndDialogue;
+    }
+
+    /// <summary>
+    /// 각 오브젝트에 맞는 시나리오 이벤트 해제 메서드
+    /// </summary>
+    protected virtual void ObjectEventUnsubscribe()
+    {
+        gameManager.StartScenarioStep -= ScenarioEventHandler;
+        uiManager.EndDialogue -= OnEndDialogue;
+    }
+    protected virtual void ScenarioConditionUpdate()
+    {
+        foreach (var condition in scenarioConditions.Values)
+        {
+            //if (condition.Result) continue;
+            // 조건이 만족되었는지 확인하는 로직 (예: 플레이어의 행동, 게임 상태 등)
+            bool isConditionMet = CheckCondition(condition);
+            if (isConditionMet)
+            {
+                ReportScenarioResult(condition.ConditionID, 1); // 조건이 만족되었음을 GameManager에 보고
+            }
+            else
+            {
+                ReportScenarioResult(condition.ConditionID, 0); // 조건이 만족되었음을 GameManager에 보고
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// 이벤트 처리 메서드
+    /// </summary>
+    protected virtual void ScenarioEventHandler(string scenarioStepID, DialogueData dialogue, Dictionary<string, ConditionData> conditionData)
+    {
+        if (conditionData == null)
+            return;
+
+        var matchedConditions = conditionData.Values
+            .Where(c => c.ActorID == objectID)
+            .ToList();
+
+        if (matchedConditions.Count == 0)
+            return;
+
+        foreach (var condition in matchedConditions)
+        {
+            scenarioConditions[condition.ConditionID] = condition;
+        }
+    }
+
+    /// <summary>
+    /// GameManager에 시나리오 결과 보고 메서드
+    /// </summary>
+    /// <param name="result">
+    /// 현재 시나리오 만족 조건의 결과값을 전달하는 매개변수
+    /// </param>
+    protected void ReportScenarioResult(string id, int result)
+    {
+        gameManager.ReportResult(id, result);
+    }
+
+    /// <summary>
+    /// Condition에서 선행조건, 결과, 완료 조건등을 판단해서 해당 조건이 완료되면 True를 결과로 내보냄
+    /// </summary>
+    /// <param name="condition"></param>
+    /// <returns></returns>
+    protected virtual bool CheckCondition(ConditionData condition)
+    {
+        //1. 예외처리
+        if (condition == null) return false;
+
+        //2. 선행 조건이 있을 때, 선행 조건이 해당 오브젝트 내에 있고, 선행조건이 거짓이면 거짓 리턴
+        if (condition.ConditionPrecedent != null && scenarioConditions.TryGetValue(condition.ConditionPrecedent, out var value) &&  !value.Result) return false;
+        //3. 선행 조건이 있을 때, 선행 조건이 해당 오브젝트 내에 없고, 선행조건이 거짓이면 거짓 리턴 
+        else if (condition.ConditionPrecedent != null && !scenarioConditions.ContainsKey(condition.ConditionPrecedent) ) return false;
+
+        if(condition.ConditionPrecedent != null)
+        {
+            if (scenarioConditions.ContainsKey(condition.ConditionPrecedent))
+            {
+
+            }
+        }
+
+
+
+        return true;
+    }
+    #endregion
+
+    #region Dialogue System
+
+    //기본 대화 데이터
+    public string DefualtDialogueID; // 본 프로젝트에 의한 현재 대화 ID
+
+    public DialogueData DefualtDialogueData; // 본 프로젝트에 의한 현재 대화 데이터
+
+    public virtual void OnTriggerDialogue(string dialougeObjcetID, DialogueData dialogueData)
+    {
+        if (dialougeObjcetID != objectID) return;
+        ScenarioDialogueData = dialogueData;
+        Debug.Log($"Dialogue triggered for object: {objectID}, Dialogue ID: {dialogueData.DialogueID}");
+        uiManager.OnStartDialogueLine(dialogueData);
+        //만약 대화중 에니메이션 등의 효과가 필요하다면 이 메서드에서 처리
+    }
+
+    protected virtual void OnEndDialogue(string dialogueObjectID)
+    {
+        if (dialogueObjectID != objectID) return;
+        if (ScenarioDialogueData != null)
+        {
+            var condition = scenarioConditions.Values.FirstOrDefault(c => c.ActionType == EActorType.Dialogue && c.TargetID == ScenarioDialogueData.DialogueID);
+
+            if (condition != null) scenarioConditions[condition.ConditionID].Result = true;
+
+            ScenarioDialogueData = null;
+
+            gameManager.ReportResult(objectID, 2);
+        }
+        // 대화 종료 시 캐릭터가 수행할 행동을 정의하는 메서드
+        Debug.Log($"Dialogue ended for object: {objectID}, Dialogue ID: {dialogueObjectID}");
+    }
+
+    #endregion
+
+
 
 
 }

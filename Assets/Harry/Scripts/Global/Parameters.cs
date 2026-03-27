@@ -37,7 +37,6 @@ public class CurrentScenario
         if (DialogueDatas[scenariID] != null && DialogueDatas[scenariID].StringDatas.Count > 0) return true;
         return false;
     }
-
     /// <summary>
     /// 현재 진행중인 ScenarioID로 조건을 검색하여 종료 조건이 완료 되었는지 검색
     /// </summary>
@@ -117,7 +116,7 @@ public class StringData
     public string Text_En { get; set; }
     public string SpeakerID { get; set; }
     public ECharacterState SpeakerStatus { get; set; } //Enum으로 관리
-    public string SoundID { get; set; }
+    public string SoundPath { get; set; }
     public string DialogueID { get; set; }
     public int Sequence { get; set; }
 
@@ -127,9 +126,10 @@ public class  ConditionData
     public string ConditionID { get; set; }
     public string ScenarioID { get; set; }
     public string ConditionPrecedent { get; set; }
+    public string ActorID { get; set; }
+    public EActorType ActionType { get; set; } //Enum으로 관리
     public string TargetID { get; set; }
-    public EConditionType ConditionType { get; set; } //Enum으로 관리
-    public string ConditionValue { get; set; }
+    public float Value { get; set; }
     /// <summary>
     /// 조건이 처리 중인지 여부를 나타내는 변수
     /// </summary>
