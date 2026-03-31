@@ -2,14 +2,25 @@ using UnityEngine;
 
 public class GuideZone : MonoBehaviour
 {
-    [SerializeField] NPC_Controller anjesonController;
-
+    [SerializeField] NPC_Controller controller;
+    [SerializeField] NPC_StaticSpeaker staticSpeaker;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-           anjesonController.OnPlayerEnteredZone();
-           Debug.Log("Player entered guide zone.");
+           
+          if(controller != null)
+          {
+            controller.OnPlayerEnteredZone();
+            Debug.Log("Player entered guide zone.");
+          }
+          if(staticSpeaker != null)
+            {
+                staticSpeaker.OnPlayerEnteredZone();
+            }
+         
         }
+
+       
     }
 }

@@ -18,6 +18,7 @@ public class StructureParent : MonoBehaviour
     public static StructureComp cachedStruct;
     public static GameObject player; 
     private static CameraController cameraController;
+    [SerializeField] Teleporter teleporter;
     // 2123 2124 2256 2388
     [SerializeField] List<StructureComp> structList = new();
     [SerializeField] Transform SpawnPos;
@@ -26,6 +27,8 @@ public class StructureParent : MonoBehaviour
     [Header("텔레포트 기능 가져오는 스크립트")]
     [SerializeField] CameraController controller;
 
+    public GameObject PipePin;
+    public PipeInterestion pipeInterestion;
     private void Awake()
     {
         // 자신이 관리 주체일 때만 설정
@@ -82,23 +85,24 @@ public class StructureParent : MonoBehaviour
 
     // 미니어처 => 필드 이동 시엔 structID로 요청
 
-    [SerializeField] DOTweenPath fireTruckPath;
+    //[SerializeField] DOTweenPath fireTruckPath;
+    [SerializeField] List<DOTweenPath> fireTruckPaths = new();
     public void RequestMove(int structID)
     {
-        Debug.Log($"StructureParent: RequestMove to StructID={structID}, 이동했음");
+        Debug.Log($"StructureParent: RequestMove to StructID={structID}");
         cachedStruct = null;
-        // 전시실 UI 종료
-        if(controlHelper != null)
+
+        if (controlHelper != null)
         {
             controlHelper.gameObject.SetActive(false);
         }
-       
-        var filedParent = GetStructureParent(StructureType.Field);
 
+        var filedParent = GetStructureParent(StructureType.Field);
         filedParent?.FindFieldStruct(structID);
         filedParent.controlHelper.gameObject.SetActive(true);
 
-        foreach (var parent in parentRefs.Values) 
+        // 모든 parent 객체들에게 소방차 애니메이션 실행 요청
+        foreach (var parent in parentRefs.Values)
         {
             parent.FireTruckAnim();
         }
@@ -107,11 +111,16 @@ public class StructureParent : MonoBehaviour
 
     private void FireTruckAnim()
     {
-        // Todo: 현장 사고 발생 이벤트
-        if (fireTruckPath != null)
+        if (fireTruckPaths == null || fireTruckPaths.Count == 0) return;
+
+        foreach (var path in fireTruckPaths)
         {
-            fireTruckPath.gameObject.SetActive(true);
-            fireTruckPath?.DOPlay();
+            if (path != null)
+            {
+                path.gameObject.SetActive(true);
+                path.DORewind(); // 항상 시작점으로 되감기
+                path.DOPlay();
+            }
         }
     }
 
@@ -149,9 +158,10 @@ public class StructureParent : MonoBehaviour
 
     private Queue<StructureComp> moveQueue = new();
     private Coroutine moveCoroutine = null;
-    private bool isProcessingQueue = false;
+    [SerializeField]private bool isProcessingQueue = false;
     public void RequestMove(StructureComp reqStruct)
     {
+        print("함수발현");
         if (cachedStruct == null)
         {
             FindNearStruct();
@@ -171,6 +181,7 @@ public class StructureParent : MonoBehaviour
 
     private IEnumerator ProcessMoveQueue()
     {
+        Debug.Log("함수발현");
         // Camera 간섭 방지
         cameraController.ignoreMovement = true;
         cameraController.enabled = false;
@@ -214,11 +225,39 @@ public class StructureParent : MonoBehaviour
         if(controlHelper!= null)
         {
             controlHelper.gameObject.SetActive(false);
-            var miniParent = GetStructureParent(StructureType.Miniature);
-            miniParent.controlHelper.gameObject.SetActive(true);
+            //  설명 UI안쓰니 주석으로 처리
+            //var miniParent = GetStructureParent(StructureType.Miniature);
+            //miniParent.controlHelper.gameObject.SetActive(true);
         }
   
        
        
     }
+
+    public void Reset_Structure()
+    {
+        Debug.Log("리셋함수 발현 (모든 소방차 초기화)");
+        pipeInterestion.ResetPipe();
+        PipePin.SetActive(false);
+        if (fireTruckPaths != null)
+        {
+            foreach (var path in fireTruckPaths)
+            {
+                if (path != null)
+                {
+                    path.DORewind(); // 시작점으로 되돌리기
+                    path.DOKill();   // 트윈 종료
+                    path.gameObject.SetActive(false); // 오브젝트 비활성화
+                }
+            }
+        }
+
+        if (teleporter != null)
+        {
+            if (teleporter.smoke != null) teleporter.smoke.Stop();
+            teleporter.UnloadField();
+        }
+    }
+
+
 }

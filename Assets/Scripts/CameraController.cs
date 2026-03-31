@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     public bool ignoreMovement = false;
 
     [Header("Mouse Look Settings")]
+    public float jumpHeight = 1.2f; // 점프 높이 추가
     public float mouseSensitivity = 2f;
     public float minPitch = -60f; // 위쪽 제한
     public float maxPitch = 75f;  // 아래쪽 제한
@@ -42,7 +43,7 @@ public class CameraController : MonoBehaviour
     public InputActionReference returnAction; // 전시실로 돌아가기
     public InputActionReference scrollAction; // 줌 인/아웃
     public InputActionReference tabAction; // 상호작용 입력
-
+    public InputActionReference jumpAction; // 점프 입력 추가
     [Header("GameObject References")]
     public GameObject popup;
     public GameObject menu;
@@ -69,7 +70,10 @@ public class CameraController : MonoBehaviour
         if (raycaster == null) raycaster = GetComponent<Raycaster>();
 
         characterController = GetComponent<CharacterController>();
-        popup.SetActive(false);
+        if(popup != null)
+        {
+            popup.SetActive(false);
+        }
         isPopupOpened = false;
         targetFov = _mainCamera.fieldOfView;
         if(menu != null)
@@ -90,7 +94,11 @@ public class CameraController : MonoBehaviour
         returnAction.action.Enable();
         scrollAction.action.Enable();
         tabAction.action.Enable();
-
+        if(jumpAction != null)
+        {
+            jumpAction.action.Enable(); // 활성화
+        }
+            
         returnAction.action.performed += OnReturnPerformed;
         scrollAction.action.performed += OnScroll;
         tabAction.action.performed += _ => ToggleMenu();
@@ -102,6 +110,11 @@ public class CameraController : MonoBehaviour
         returnAction.action.Disable();
         scrollAction.action.Disable();
         tabAction.action.Disable();
+        if(jumpAction != null)
+        {
+            jumpAction.action.Disable(); // 비활성화
+        }
+  
         returnAction.action.performed -= OnReturnPerformed;
         scrollAction.action.performed -= OnScroll;
         tabAction.action.performed -= _ => ToggleMenu();
@@ -165,7 +178,23 @@ public class CameraController : MonoBehaviour
 
         Vector3 move = transform.right * input.x + transform.forward * input.y;
         move *= moveSpeed;
+        // --- 점프 및 중력 로직 시작 ---
+        if (characterController.isGrounded && jumpAction != null)
+        {
+            // 땅에 닿아 있을 때 속도 초기화
+            if (verticalVelocity < 0)
+            {
+                verticalVelocity = -2f; // 완전히 0보다 약간 낮게 잡아야 지면 판정이 안정적입니다.
+            }
 
+            // 점프 입력 확인
+            if (jumpAction.action.triggered)
+            {
+                
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                if (animator != null) animator.SetTrigger("Jump"); // 애니메이터에 Jump 트리거가 있다면 실행
+            }
+        }
         // 중력 및 이동 로직 (기존과 동일)
         if (characterController.isGrounded && verticalVelocity < 0)
         {

@@ -14,6 +14,7 @@ public enum NPCActionType
     EndGuide // 가이드 종료 (엔딩 연출 시작)
 }
 
+
 // 2. 환경/오브젝트 이벤트 목록
 public enum KGS_EnvEventType
 {

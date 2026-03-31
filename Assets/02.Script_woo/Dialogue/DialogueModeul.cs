@@ -19,10 +19,9 @@ public class DialogueModeul : MonoBehaviour
         controller.Play(asset, nodeId);
     }
 
-    //  추가: 설명용 에셋/노드로 시작(권장 패턴)
+    // 안전이 ,행복이용 디얄로그 시작 (일회용함수)
     public void StartExplainDialogue(DialogueAsset explainAsset, string explainStartNodeId)
     {
-        if (controller.IsPlaying) return;
         controller.Play(explainAsset, explainStartNodeId);
     }
 }

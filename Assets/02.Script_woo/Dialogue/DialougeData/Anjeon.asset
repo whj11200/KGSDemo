@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abd9aea8a0bfd54d99b430b25791ec3, type: 3}
+  m_Name: Anjeon
+  m_EditorClassIdentifier: 
+  dialogueId: D_Intro
+  nodes:
+  - nodeId: A0
+    text: "\uC548\uB155\uD558\uC138\uC694!"
+    speakerId: "\uC548\uC804\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: A1
+    npcEnterAction: 1
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: A1
+    text: "\uC5EC\uAE34 \uD559\uC2B5\uAD00,\uCCB4\uD5D8\uAD00\uC744 \uD560 \uC218
+      \uC788\uB294 \uACF3\uC785\uB2C8\uB2E4."
+    speakerId: "\uC548\uC804\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: A2
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: A2
+    text: "\uAD00\uB9AC\uC18C \uC791\uC5C5\uC790 \uD559\uC2B5\uAD00\uC740 \uC62C\uB77C\uAC00\uC11C
+      \uC67C\uCABD\n\uD1B5\uC81C\uC18C \uC791\uC5C5\uC790 \uD559\uC2B5\uAD00\uC740
+      \uC62C\uB77C\uAC00\uC11C \uC624\uB978\uCABD\n\uC2DC\uBBFC \uB300\uD53C \uCCB4\uD5D8\uAD00\uC740
+      \uBC14\uB85C \uC624\uB978\uCABD\uC73C\uB85C \uAC00\uBA74 \uB429\uB2C8\uB2E4!"
+    speakerId: "\uC548\uC804\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: A3
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+  - nodeId: A3
+    text: "\uD55C\uBC88 \uCCB4\uD5D8\uD574\uBCFC\uAE4C\uC694?"
+    speakerId: "\uC548\uC804\uC774"
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 2
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    npcExitAction: 6
+    envExitEvent: 0
+    tutorialExitEvent: 0

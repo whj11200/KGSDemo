@@ -13,10 +13,11 @@ public class NPC_Interaction : MonoBehaviour
     [SerializeField, Min(0f)] private float stopFacingAfterEndingSeconds = 3f;
     [SerializeField, Min(0f)] private float returnTimer = 3f;
 
+
     private Coroutine endingRoutine;
 
     //  첫 가이드 시작인지 여부
-    private bool guideSequenceStarted;
+     bool guideSequenceStarted;
 
     private void Awake()
     {
@@ -92,7 +93,6 @@ public class NPC_Interaction : MonoBehaviour
             dialogueModule.StartDialogue();
 
     }
-
     public void HandleArrivedAtGuide()
     {
         controller?.StopMoveAndFacePlayer();

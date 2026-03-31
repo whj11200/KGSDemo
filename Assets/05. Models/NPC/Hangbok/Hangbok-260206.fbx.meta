@@ -3,7 +3,52 @@ guid: 392a3e0f53c7d534b81f673258295bb6
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body-black
+    second: {fileID: 2100000, guid: 9a1d17c8f0aca1e4ebc0336434306ffa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body-leg
+    second: {fileID: 2100000, guid: 6316b91eea61dd94eb365ff47b715c8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body-orange
+    second: {fileID: 2100000, guid: f80aeb6233fd50d4baf8f01d3136d00d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body-red
+    second: {fileID: 2100000, guid: 6b51b4675a6a1e74da4449ddff8770c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye
+    second: {fileID: 2100000, guid: 1346b3ee4c1752d4a8bb25536c18ba43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hangbok-arm
+    second: {fileID: 2100000, guid: 66e628a030218fa468cf0f03d0b367dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hangbok-body
+    second: {fileID: 2100000, guid: 3c05740cd9816734987c2f9fa72a84fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hangbok-skirt
+    second: {fileID: 2100000, guid: 3c5d79ae52d53774abd590507f038256, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white001
+    second: {fileID: 2100000, guid: 714f6ce80122fa145b42cfdf1600e19b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -33,7 +78,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.25
+    globalScale: 0.35
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -91,7 +136,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.25
+    globalScale: 0.35
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

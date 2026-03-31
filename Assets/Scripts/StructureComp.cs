@@ -22,6 +22,7 @@ public class StructureComp : MonoBehaviour, IMouseInteractable
 
     // 최초 씬 로드 시에만 할당, 플레이어 등 오브젝트 접근용
     public static StructureParent StructureParent;
+
     public StructureType structureType;
     public int structID;
     public static bool isFieldLoaded = false;
@@ -42,6 +43,15 @@ public class StructureComp : MonoBehaviour, IMouseInteractable
        
 
         var ID = gameObject.name.Split('-');
+        if (ID.Length > 1 && int.TryParse(ID[1], out int id))
+        {
+            structID = id;
+        }
+        else
+        {
+            Debug.LogWarning($"ID 파싱 실패: {gameObject.name}");
+            structID = -1;
+        } 
     }
     void Start()
     {
@@ -105,6 +115,11 @@ public class StructureComp : MonoBehaviour, IMouseInteractable
         else if (structureType == StructureType.Miniature)
         {
             Debug.Log($"StructureComp-{gameObject.name} Miniature Clicked");
+            if (structID == -1)
+            {
+                Debug.LogWarning($"Invalid structID for {gameObject.name}");
+                return;
+            }
             StructureParent.RequestMove(structID);
         }
     }

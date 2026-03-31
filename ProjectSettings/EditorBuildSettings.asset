@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/AdditiveScene.unity
     guid: 3963d85d9266b8244a19fd1272022e4f
   - enabled: 1
+    path: Assets/Scenes/ManagementCenterWorkerLearningCenter.unity
+    guid: 75a252aca4c6d644ab018715a8f4fe52
+  - enabled: 1
+    path: Assets/Scenes/CivicEvacuationExperienceOfficer.unity
+    guid: 31b42f3edb2bddd45884e2d7eebc5a18
+  - enabled: 1
     path: Assets/Scenes/TestScene/Loading_Test.unity
     guid: ce0afcc33e1a8af41905387572951dc2
   - enabled: 1

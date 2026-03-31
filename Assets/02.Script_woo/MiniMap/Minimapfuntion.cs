@@ -12,11 +12,39 @@ public abstract class Minimapfuntioni : MonoBehaviour
     protected bool isHovered = false;
     protected bool isSelected = false;
 
+    protected static Minimapfuntioni currentlySelected;
     protected virtual void Awake()
     {
         InitializeEmission();
     }
+    public virtual void Deselect()
+    {
+        isSelected = false;
+        UpdateVisual();
+    }
+    protected void HandleSelection()
+    {
+        // 1. 내가 새로 선택되려는 경우
+        if (!isSelected)
+        {
+            // 기존에 선택된 다른 녀석이 있다면 해제
+            if (currentlySelected != null && currentlySelected != this)
+            {
+                currentlySelected.Deselect();
+            }
 
+            isSelected = true;
+            currentlySelected = this;
+        }
+        // 2. 이미 선택된 나를 다시 눌러서 해제하는 경우
+        else
+        {
+            isSelected = false;
+            currentlySelected = null;
+        }
+
+        UpdateVisual();
+    }
     private void InitializeEmission()
     {
         if (mt_material == null)

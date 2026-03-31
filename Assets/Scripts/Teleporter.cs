@@ -25,9 +25,11 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     public string nextSceneName = "AdditiveScene";
     public string TagName = "SpawnPos";
     public GameObject Player;
+    public GameObject PipePin;
+    public PipeInterestion pipeInterestion;
     CameraController cc;
     [SerializeField] Transform spawn;
-    [SerializeField] ParticleSystem smoke;
+    [SerializeField] public ParticleSystem smoke;
     public static event Action<string> OnAddScene;
     private string baseColorProp = "_BaseColor";
     private Color originalColor;
@@ -123,7 +125,18 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         Player.transform.SetPositionAndRotation(target.position, Quaternion.identity);
     }
+    public void UnloadField()
+    {
+        // "AdditiveScene"이라는 이름의 씬을 찾습니다.
+        Scene fieldScene = SceneManager.GetSceneByName(nextSceneName);
 
+        // 그 씬이 로드되어 있다면 삭제(Unload)합니다.
+        if (fieldScene.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(nextSceneName);
+            Debug.Log("필드 씬을 언로드했습니다.");
+        }
+    }
     //private bool isSmoking = false;
     //private void ToggleSmoke()
     //{
@@ -140,7 +153,8 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
     public void ClickEnter()
     {
-        
+        PipePin.SetActive(true);
+        pipeInterestion.StartFillUp();
     }
 
     
