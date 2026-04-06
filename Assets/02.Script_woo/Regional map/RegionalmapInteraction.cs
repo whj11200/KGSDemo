@@ -2,10 +2,27 @@ using UnityEngine;
 
 public class RegionalmapInteraction : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private string boolParameterName = "IsOpen"; // Animator에 생성한 Bool 파라미터 이름
+    [Header("Position Settings")]
+    [SerializeField] private float topY = 0.215f;    // 초기 위치 (올라가 있을 때)
+    [SerializeField] private float bottomY = -0.0584f; // 내려왔을 때 위치
+    [SerializeField] private float smoothSpeed = 10f;  // 이동 속도 (높을수록 빠름)
 
-    private bool isMapActive = false; // 현재 맵이 올라와 있는지 상태 저장
+    private bool isMapActive = false; // true면 내려온 상태(Active), false면 올라간 상태
+    private Vector3 targetPosition;
+
+    void Start()
+    {
+        // 시작 시 초기 위치(올라간 상태)로 설정
+        transform.localPosition = new Vector3(transform.localPosition.x, topY, transform.localPosition.z);
+        targetPosition = transform.localPosition;
+    }
+
+    void Update()
+    {
+        // 매 프레임마다 목표 위치로 부드럽게 이동
+        Vector3 currentPos = transform.localPosition;
+        transform.localPosition = Vector3.Lerp(currentPos, targetPosition, Time.deltaTime * smoothSpeed);
+    }
 
     /// <summary>
     /// 호출할 때마다 맵을 올리거나 내립니다.
@@ -14,19 +31,18 @@ public class RegionalmapInteraction : MonoBehaviour
     {
         isMapActive = !isMapActive; // 상태 반전
 
-        if (animator != null)
-        {
-            // Animator의 Bool 값을 변경하여 Transition을 제어합니다.
-            animator.SetBool(boolParameterName, isMapActive);
-        }
+        // 목표 Y값 결정
+        float targetY = isMapActive ? bottomY : topY;
+        targetPosition = new Vector3(transform.localPosition.x, targetY, transform.localPosition.z);
 
-        Debug.Log($"Map State: {(isMapActive ? "Opened" : "Closed")}");
+        Debug.Log($"Map State: {(isMapActive ? "Down (Active)" : "Up (Inactive)")}");
     }
 
-    // 필요하다면 명시적으로 끄거나 켜는 함수도 유지할 수 있습니다.
+    // 명시적으로 끄거나 켜는 함수
     public void SetMapState(bool isActive)
     {
         isMapActive = isActive;
-        animator.SetBool(boolParameterName, isMapActive);
+        float targetY = isMapActive ? bottomY : topY;
+        targetPosition = new Vector3(transform.localPosition.x, targetY, transform.localPosition.z);
     }
 }

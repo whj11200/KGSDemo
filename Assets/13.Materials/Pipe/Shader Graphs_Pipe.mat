@@ -56,7 +56,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _DisortionSpeed: 0.965
-    - _Fill: 0.3
+    - _Fill: 0.627
     - _Float: 0
     - _HeatDistance: 0
     - _QueueControl: 0

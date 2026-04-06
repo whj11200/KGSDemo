@@ -37,7 +37,7 @@ public class Pipe_Pin : MonoBehaviour,IMouseInteractable
 
     public void ClickEnter()
     {
-        pipeInterestion.ToggleRippleColor();
+        pipeInterestion.TogglePipeState();
         SetColor(HoverColor);
     }
 

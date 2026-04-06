@@ -99,8 +99,8 @@ public class MapMouseController : MonoBehaviour
         if (!panButtonAction.action.IsPressed() || !mouse.rightButton.isPressed)
             return;
 
-        if (targetZoom <= 1f)
-            return;
+        //if (targetZoom <= 1f)
+        //    return; // 맵이 바닥을 통과 할 수 있어 일부로 막았음(지금은 괜찮으니 주석)
 
         Vector2 delta = panAction.action.ReadValue<Vector2>();
 

@@ -237,7 +237,8 @@ public class StructureParent : MonoBehaviour
     public void Reset_Structure()
     {
         Debug.Log("리셋함수 발현 (모든 소방차 초기화)");
-        pipeInterestion.ResetPipe();
+        pipeInterestion.StartFillUpdate(0.3f);
+        pipeInterestion.StopRipple();
         PipePin.SetActive(false);
         if (fireTruckPaths != null)
         {

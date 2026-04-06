@@ -153,15 +153,14 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
     public void ClickEnter()
     {
-        PipePin.SetActive(true);
-        pipeInterestion.StartFillUp();
     }
 
     
     public void ClickExit()
     {
+        PipePin.SetActive(true);
         smoke.Play();
-        LoadField();
+        //LoadField();
         SetColor(originalColor);
     }
     

@@ -7,40 +7,64 @@ public class PipeInterestion : MonoBehaviour
     private Coroutine rippleEffectCoroutine;
     private Coroutine fillUpdateCoroutine;
 
-    // 쉐이더 프로퍼티 이름 (Reference 확인 필수)
+    // 쉐이더 프로퍼티 이름
     private readonly string fillProp = "_Fill";
     private readonly string rippleColorProp = "_RippleColor";
 
-    private bool isRippleActive = false;
-    private Color originalRippleColor; // 원래 색상 저장용
+    public bool isActive = false; // 통합 상태 관리 플래그
+    private Color originalRippleColor;
+
+    // 설정 값 (필요에 따라 인스펙터에서 수정 가능하도록 시리얼라이즈 가능)
+    private readonly float minFill = 0.3f;
+    private readonly float maxFill = 0.627f;
+    private readonly float fillDuration = 2.0f;
 
     void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
 
-        // 시작 시 Fill 값 초기화
+        // 초기 값 저장 및 설정
         if (meshRenderer.material.HasProperty(fillProp))
-        {
-            meshRenderer.material.SetFloat(fillProp, 0.3f);
-        }
+            meshRenderer.material.SetFloat(fillProp, minFill);
 
-        // 초기 RippleColor 저장
         if (meshRenderer.material.HasProperty(rippleColorProp))
-        {
             originalRippleColor = meshRenderer.material.GetColor(rippleColorProp);
-        }
     }
 
     /// <summary>
-    /// Fill 값을 0.38에서 0.627까지 천천히 올리는 함수
+    /// 외부에서 이 함수 하나만 호출하면 켜고 끄기가 토글됩니다.
     /// </summary>
-    public void StartFillUp()
+    public void TogglePipeState()
     {
-        if (fillUpdateCoroutine != null) StopCoroutine(fillUpdateCoroutine);
-        fillUpdateCoroutine = StartCoroutine(CoFillUp(0.38f, 0.627f, 2.0f));
+        isActive = !isActive;
+
+        if (isActive)
+        {
+            Debug.Log("파이프 시뮬레이션 활성화 (Fill Up + Ripple Start)");
+            // 1. Fill 증가 (현재 값에서 maxFill까지)
+            StartFillUpdate(maxFill);
+            // 2. 리플 효과 시작
+            StartRipple();
+        }
+        else
+        {
+            Debug.Log("파이프 시뮬레이션 비활성화 (Fill Down + Ripple Stop)");
+            // 1. Fill 감소 (현재 값에서 minFill까지)
+            StartFillUpdate(minFill);
+            // 2. 리플 효과 정지 및 색상 복구
+            StopRipple();
+        }
     }
 
-    private IEnumerator CoFillUp(float start, float end, float duration)
+    // --- Fill 제어 로직 ---
+    public void StartFillUpdate(float targetValue)
+    {
+        if (fillUpdateCoroutine != null) StopCoroutine(fillUpdateCoroutine);
+        float currentVal = meshRenderer.material.GetFloat(fillProp);
+        fillUpdateCoroutine = StartCoroutine(CoFillUpdate(currentVal, targetValue, fillDuration));
+    }
+
+    private IEnumerator CoFillUpdate(float start, float end, float duration)
     {
         float elapsed = 0f;
         while (elapsed < duration)
@@ -51,77 +75,49 @@ public class PipeInterestion : MonoBehaviour
             yield return null;
         }
         meshRenderer.material.SetFloat(fillProp, end);
+        fillUpdateCoroutine = null;
     }
 
-    /// <summary>
-    /// 리플 색상(오리지널 <-> 노란색)을 토글하는 함수
-    /// </summary>
-    public void ToggleRippleColor()
+    // --- 리플 제어 로직 ---
+    private void StartRipple()
     {
-        isRippleActive = !isRippleActive;
+        if (rippleEffectCoroutine != null) StopCoroutine(rippleEffectCoroutine);
+        rippleEffectCoroutine = StartCoroutine(CoRippleColorFlash());
+    }
 
-        if (isRippleActive)
-        {
-            if (rippleEffectCoroutine != null) StopCoroutine(rippleEffectCoroutine);
-            rippleEffectCoroutine = StartCoroutine(CoRippleColorFlash());
-        }
-        else
-        {
-            if (rippleEffectCoroutine != null) StopCoroutine(rippleEffectCoroutine);
-            // 원래 색상으로 즉시 복구
-            meshRenderer.material.SetColor(rippleColorProp, originalRippleColor);
-        }
+    public void StopRipple()
+    {
+        if (rippleEffectCoroutine != null) StopCoroutine(rippleEffectCoroutine);
+        meshRenderer.material.SetColor(rippleColorProp, originalRippleColor);
+        rippleEffectCoroutine = null;
     }
 
     private IEnumerator CoRippleColorFlash()
     {
-        float fadeDuration = 1.0f;  // 색이 변하는 시간 (서서히)
-        float stayDuration = 1.5f;  // 변한 상태로 유지되는 시간 (텀)
-
-        // 진한 노란색 (HDR 강도 4배)
+        float fadeDuration = 1.0f;
+        float stayDuration = 1.5f;
         Color targetColor = Color.orange * 50f;
 
         while (true)
         {
-            // 1. 오리지널 -> 노란색 (서서히 변화)
-            float elapsed = 0f;
-            while (elapsed < fadeDuration)
-            {
-                elapsed += Time.deltaTime;
-                meshRenderer.material.SetColor(rippleColorProp, Color.Lerp(originalRippleColor, targetColor, elapsed / fadeDuration));
-                yield return null;
-            }
-            meshRenderer.material.SetColor(rippleColorProp, targetColor);
-
-            // 2. 노란색 상태에서 잠시 대기 (원하시는 '텀')
+            // 밝아지기
+            yield return StartCoroutine(CoLerpColor(originalRippleColor, targetColor, fadeDuration));
             yield return new WaitForSeconds(stayDuration);
-
-            // 3. 노란색 -> 오리지널 (서서히 복구)
-            elapsed = 0f;
-            while (elapsed < fadeDuration)
-            {
-                elapsed += Time.deltaTime;
-                meshRenderer.material.SetColor(rippleColorProp, Color.Lerp(targetColor, originalRippleColor, elapsed / fadeDuration));
-                yield return null;
-            }
-            meshRenderer.material.SetColor(rippleColorProp, originalRippleColor);
-
-            // 4. 오리지널 상태에서 잠시 대기 (다시 노란색으로 가기 전 텀)
+            // 어두워지기
+            yield return StartCoroutine(CoLerpColor(targetColor, originalRippleColor, fadeDuration));
             yield return new WaitForSeconds(stayDuration);
         }
     }
-    public void ResetPipe()
+
+    private IEnumerator CoLerpColor(Color start, Color end, float duration)
     {
-        // 모든 코루틴 정지
-        if (fillUpdateCoroutine != null) StopCoroutine(fillUpdateCoroutine);
-        if (rippleEffectCoroutine != null) StopCoroutine(rippleEffectCoroutine);
-
-        isRippleActive = false;
-
-        // 쉐이더 값 초기화
-        meshRenderer.material.SetFloat(fillProp, 0.3f);
-        meshRenderer.material.SetColor(rippleColorProp, originalRippleColor);
-
-        Debug.Log("파이프 상태가 초기화되었습니다.");
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            meshRenderer.material.SetColor(rippleColorProp, Color.Lerp(start, end, elapsed / duration));
+            yield return null;
+        }
+        meshRenderer.material.SetColor(rippleColorProp, end);
     }
 }

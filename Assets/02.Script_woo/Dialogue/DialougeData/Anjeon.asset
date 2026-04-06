@@ -17,7 +17,7 @@ MonoBehaviour:
   - nodeId: A0
     text: "\uC548\uB155\uD558\uC138\uC694!"
     speakerId: "\uC548\uC804\uC774"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: ef7591be879529d49a812fa6ef028ee7, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A1
@@ -28,10 +28,10 @@ MonoBehaviour:
     envExitEvent: 0
     tutorialExitEvent: 0
   - nodeId: A1
-    text: "\uC5EC\uAE34 \uD559\uC2B5\uAD00,\uCCB4\uD5D8\uAD00\uC744 \uD560 \uC218
-      \uC788\uB294 \uACF3\uC785\uB2C8\uB2E4."
+    text: "\uC774\uACF3\uC5D0\uC120 \uC0AC\uACE0 \uB300\uC751 \uC694\uB839\uC744
+      \uC775\uD790 \uC218 \uC788\uC5B4\uC694."
     speakerId: "\uC548\uC804\uC774"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 5b41dedc40a0dc949a4dc6da48ece7c6, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A2
@@ -42,12 +42,13 @@ MonoBehaviour:
     envExitEvent: 0
     tutorialExitEvent: 0
   - nodeId: A2
-    text: "\uAD00\uB9AC\uC18C \uC791\uC5C5\uC790 \uD559\uC2B5\uAD00\uC740 \uC62C\uB77C\uAC00\uC11C
-      \uC67C\uCABD\n\uD1B5\uC81C\uC18C \uC791\uC5C5\uC790 \uD559\uC2B5\uAD00\uC740
-      \uC62C\uB77C\uAC00\uC11C \uC624\uB978\uCABD\n\uC2DC\uBBFC \uB300\uD53C \uCCB4\uD5D8\uAD00\uC740
-      \uBC14\uB85C \uC624\uB978\uCABD\uC73C\uB85C \uAC00\uBA74 \uB429\uB2C8\uB2E4!"
+    text: " \uC800\uAE30 \uBCF4\uC774\uB294 \uACC4\uB2E8 \uC704\uC5D0 \uC67C\uCABD\uC740
+      \uAD00\uB9AC\uC18C, \uC624\uB978\uCABD\uC740 \uD1B5\uC81C\uC18C \uC791\uC5C5\uC790\uBD84\uB4E4\uC744
+      \uC704\uD55C \uD559\uC2B5\uAD00\uC785\uB2C8\uB2E4!  \uC2DC\uBBFC \uB300\uD53C
+      \uCCB4\uD5D8\uC744 \uC6D0\uD558\uC2E0\uB2E4\uBA74 \uBC14\uB85C \uC81C \uC624\uB978\uCABD
+      \uD1B5\uB85C\uB85C \uAC00\uC2DC\uBA74 \uB3FC\uC694. "
     speakerId: "\uC548\uC804\uC774"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 4fafea32c2b8bee4cb45d7f24cab1090, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A3
@@ -58,9 +59,11 @@ MonoBehaviour:
     envExitEvent: 0
     tutorialExitEvent: 0
   - nodeId: A3
-    text: "\uD55C\uBC88 \uCCB4\uD5D8\uD574\uBCFC\uAE4C\uC694?"
+    text: "\uC5B4\uB514\uBD80\uD130 \uCCB4\uD5D8\uD574 \uBCF4\uACE0 \uC2F6\uC73C\uC2E0\uAC00\uC694?
+      \n\uC6D0\uD558\uC2DC\uB294 \uCCB4\uD5D8\uAD00\uC744 \uC120\uD0DD\uD558\uC5EC
+      \uC790\uC720\uB86D\uAC8C \uC774\uB3D9\uD574 \uBCF4\uC138\uC694! "
     speakerId: "\uC548\uC804\uC774"
-    voice: {fileID: 0}
+    voice: {fileID: 8300000, guid: 949609580a2294746895fdfa0c26f627, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
