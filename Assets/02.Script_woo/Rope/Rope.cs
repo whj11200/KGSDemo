@@ -12,12 +12,17 @@ public class Rope : MonoBehaviour
     [Header("--- Anchors (고정점 설정) ---")]
     [Tooltip("로프가 시작되는 지점의 트랜스폼")]
     [SerializeField] private Transform startAnchor;
+    [Tooltip("로프 중간이 걸칠 지점의 트랜스폼 (없으면 무시)")]
+    [SerializeField] private Transform middleAnchor;
+
     [Tooltip("로프가 끝나는 지점의 트랜스폼")]
     [SerializeField] private Transform endAnchor;
     [Tooltip("체크 시 시작점을 앵커 위치에 강제로 고정합니다.")]
     [SerializeField] private bool lockStart = true;
     [Tooltip("체크 시 끝점을 앵커 위치에 강제로 고정합니다.")]
     [SerializeField] private bool lockEnd = true;
+    [Tooltip("체크 시 중간 지점을 앵커 위치에 강제로 고정합니다.")]
+    [SerializeField] private bool lockMiddle = true;
 
     [Header("--- Instanced Mesh (마디 메쉬 설정) ---")]
     [Tooltip("각 노드(마디) 위치에 생성될 메쉬 (예: 사슬 한 칸, 실린더 등)")]
@@ -48,6 +53,9 @@ public class Rope : MonoBehaviour
     [Header("--- Line Renderer (선 외형) ---")]
     [Tooltip("LineRenderer로 그려질 로프의 굵기")]
     [SerializeField] private float ropeWidth = 0.1f;
+
+    // 중간 마디 인덱스 계산 속성
+    private int MiddleIndex => totalNodes / 2;
 
     [Header("--- Axis Settings (메쉬 방향 설정) ---")]
     [Tooltip("메쉬의 위쪽 방향 기준")]
@@ -172,20 +180,27 @@ public class Rope : MonoBehaviour
 
         for (int i = 0; i < totalNodes; i++)
         {
-            // 고정된 지점은 계산 제외
-            if ((i == 0 && lockStart && startAnchor) || (i == totalNodes - 1 && lockEnd && endAnchor))
+            // 1. 시작/끝 고정점 체크
+            bool isStart = (i == 0 && lockStart && startAnchor);
+            bool isEnd = (i == totalNodes - 1 && lockEnd && endAnchor);
+            // 2. 중간 고정점 체크 (middleAnchor가 있을 때만)
+            bool isMiddle = (i == MiddleIndex && lockMiddle && middleAnchor != null);
+
+            if (isStart || isEnd || isMiddle)
             {
-                Vector3 anchorPos = (i == 0) ? startAnchor.position : endAnchor.position;
+                Vector3 anchorPos;
+                if (isStart) anchorPos = startAnchor.position;
+                else if (isEnd) anchorPos = endAnchor.position;
+                else anchorPos = middleAnchor.position;
+
                 currentNodePositions[i] = anchorPos;
                 previousNodePositions[i] = anchorPos;
                 continue;
             }
 
-            // 속도 = 현재 위치 - 이전 위치
+            // 일반 물리 계산
             Vector3 velocity = (currentNodePositions[i] - previousNodePositions[i]) * velocityDampen;
             previousNodePositions[i] = currentNodePositions[i];
-
-            // 새로운 위치 = 현재 위치 + 속도 + 가속도(중력)
             Vector3 newPos = currentNodePositions[i] + velocity + gravity * dt;
             currentNodePositions[i] = newPos;
         }
@@ -196,8 +211,10 @@ public class Rope : MonoBehaviour
     /// </summary>
     private void ApplyConstraint()
     {
+        // 위치 강제 고정 (시작, 끝, 중간)
         if (lockStart && startAnchor) currentNodePositions[0] = startAnchor.position;
         if (lockEnd && endAnchor) currentNodePositions[totalNodes - 1] = endAnchor.position;
+        if (lockMiddle && middleAnchor != null) currentNodePositions[MiddleIndex] = middleAnchor.position;
 
         for (int i = 0; i < totalNodes - 1; i++)
         {
@@ -211,16 +228,17 @@ public class Rope : MonoBehaviour
             Vector3 direction = (p1 - p2) / currentDistance;
             Vector3 movement = direction * difference;
 
-            bool p1Locked = (i == 0 && lockStart && startAnchor);
-            bool p2Locked = (i + 1 == totalNodes - 1 && lockEnd && endAnchor);
+            // 고정 상태 확인 (중간 노드 포함)
+            bool p1Locked = (i == 0 && lockStart && startAnchor) ||
+                            (i == MiddleIndex && lockMiddle && middleAnchor != null);
+            bool p2Locked = (i + 1 == totalNodes - 1 && lockEnd && endAnchor) ||
+                            (i + 1 == MiddleIndex && lockMiddle && middleAnchor != null);
 
-            // 두 점이 모두 자유로운 상태면 0.5씩 나눠서 이동
             if (!p1Locked && !p2Locked)
             {
                 currentNodePositions[i] -= movement * 0.5f * stiffness;
                 currentNodePositions[i + 1] += movement * 0.5f * stiffness;
             }
-            // 한쪽이 고정되어 있으면 고정되지 않은 쪽만 1.0 이동
             else if (p1Locked && !p2Locked)
             {
                 currentNodePositions[i + 1] += movement * stiffness;
