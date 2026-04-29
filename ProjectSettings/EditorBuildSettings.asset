@@ -30,5 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/CivicEvacuationExperienceOfficer.unity
     guid: 31b42f3edb2bddd45884e2d7eebc5a18
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: da231b2d616913f48bf44c05ced4f498, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
