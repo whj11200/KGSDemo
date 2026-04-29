@@ -1527,7 +1527,10 @@ MonoBehaviour:
   viewProvider: {fileID: 1829355659}
   inputProvider: {fileID: 73867057}
   voiceSource: {fileID: 500785159}
+  environmentManager: {fileID: 0}
+  tutorialManager: {fileID: 0}
   charsPerSecond: 15
+  _requestSkip: 0
 --- !u!1 &500785158
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,6 +1707,7 @@ MonoBehaviour:
   verticalVelocity: 0
   characterController: {fileID: 500785163}
   ignoreMovement: 0
+  jumpHeight: 1.2
   mouseSensitivity: 2
   minPitch: -60
   maxPitch: 75
@@ -1722,11 +1726,13 @@ MonoBehaviour:
   returnAction: {fileID: 330588348}
   scrollAction: {fileID: 649122467}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  jumpAction: {fileID: 0}
   popup: {fileID: 2122856652}
   menu: {fileID: 1958209447}
   animator: {fileID: 0}
   HandlingPos: {fileID: 226125950}
   SpawnPos: {fileID: 1159092159}
+  returnToggle: 0
 --- !u!143 &500785163
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2354,7 +2360,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.21666665
+  m_VoxelSize: 0.20666666
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 391bfbcb5823f4a42a595b1b3be48e61, type: 2}
   m_BuildHeightMesh: 0
@@ -2972,6 +2978,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315750718}
   m_CullTransparentMesh: 1
+--- !u!1 &1436523129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436523130}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1436523130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436523129}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.03445, y: 0.66613, z: -10.77342}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1508582364
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,6 +3226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163858e0f2e7be8438b8079cab6ceb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
+  isClear: 0
 --- !u!1 &1525968459
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,29 +4163,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5e9d92a2c9ae642812ad9b62644337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueModule: {fileID: 0}
-  fadeUi: {fileID: 0}
-  agent: {fileID: 1596481607}
+  npcID: NPC_A
   animator: {fileID: 1596481604}
   player: {fileID: 500785164}
-  returnPos: {fileID: 755818681}
-  guideTarget: {fileID: 766089660}
-  arriveGuideDistance: 0.4
-  arriveHomeDistance: 0.3
-  helloDistance: 10
-  repathInterval: 0.15
-  facePlayerOnArrive: 1
-  faceTurnSpeed: 720
-  keepFacingWhileExplaining: 1
-  walkBool: walk
+  dialogueModule: {fileID: 0}
   helloTrigger: hello
   explainTrigger: explain
-  succedTrigger: succeed
-  correctTrigger: correct
-  endingTrigger: ending
-  explainPlayerDistance: 5
-  stopFacingAfterEndingSeconds: 3
-  ReturnTimer: 3
+  lookAtPlayer: 0
+  faceTurnSpeed: 720
+  key: A0
+  node: {fileID: 0}
 --- !u!195 &1596481607
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4183,7 +4208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hangbok
   isTest: 1
-  objectID: Hangbok_Tutorial
+  objectID: Tutorial_NPC_1001
   objectType: 0
   isScenarioObject: 1
   DefualtDialogueID: 
@@ -4541,6 +4566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bef7a81b1c55a84381527f97ee30b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuUI
+  controller: {fileID: 0}
 --- !u!114 &1958209450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5431,3 +5457,4 @@ SceneRoots:
   - {fileID: 350739365}
   - {fileID: 2012466210}
   - {fileID: 933521984}
+  - {fileID: 1436523130}

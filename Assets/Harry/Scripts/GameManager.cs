@@ -166,6 +166,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("[GameManager] Scenario Generated : " + scenarioStepID);
             return;
         }
+        else
+        {
+            Debug.Log("시나리오 진행하지않음");
+            isScenarioActive = false;
+            return;
+        }
     }
     #endregion
 

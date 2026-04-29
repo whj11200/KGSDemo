@@ -952,7 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddac7b3ceb2030d48b355ef29ec51ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLifeManager
-  currentScene: 4
+  currentScene: 0
 --- !u!4 &542422730
 Transform:
   m_ObjectHideFlags: 0
