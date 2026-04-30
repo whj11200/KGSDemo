@@ -2031,10 +2031,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -701.0,
-            "y": 475.0,
+            "x": -709.9999389648438,
+            "y": 475.0000305175781,
             "width": 90.0,
-            "height": 34.0
+            "height": 33.999969482421878
         }
     },
     "m_Slots": [
@@ -2706,7 +2706,7 @@
     "m_LiteralFloatMode": false,
     "m_RangeValues": {
         "x": 0.30000001192092898,
-        "y": 0.6269999742507935
+        "y": 0.73763108253479
     },
     "m_SliderType": 0,
     "m_SliderPower": 3.0,

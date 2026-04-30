@@ -111,7 +111,7 @@ public class Rope : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (nodeTester) Destroy(nodeTester);
+        if (nodeTester != null) Destroy(nodeTester);
     }
 
     /// <summary>
