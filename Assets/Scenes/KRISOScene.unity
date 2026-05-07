@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 9579ed6f3bc9c41428463b3c69ff6bb8, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: ac8123a6c50c1ff42ab85188da1dd6ca, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: e7249c59b0cad434d9125f89f7cfa8a4, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: f55deff71049fd1449137d6e3a4840a3, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -303,9 +303,9 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8ffc09ad5b7a9c64eb99ea265112f881, type: 2}
-  - {fileID: 2100000, guid: 1a7f540ee7919fa4f9541bff3cd62d91, type: 2}
-  - {fileID: 2100000, guid: 19efa20d600e07c4f8c0e10f269882bd, type: 2}
+  - {fileID: 2100000, guid: c3e24db83cd01f841b24bde1af4815ef, type: 2}
+  - {fileID: 2100000, guid: b028db008d1e5cb4d99a8d0260f4151c, type: 2}
+  - {fileID: 2100000, guid: 4bf6554bf9149d448bcf78c31c86d45b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -336,7 +336,7 @@ SkinnedMeshRenderer:
   m_Bones: []
   m_BlendShapeWeights:
   - 0
-  m_RootBone: {fileID: 0}
+  m_RootBone: {fileID: 1448338887}
   m_AABB:
     m_Center: {x: -0.4980361, y: -3.564011, z: 0.6074043}
     m_Extent: {x: 0.12840407, y: 0.07716668, z: 0.35886097}
@@ -2060,7 +2060,7 @@ PrefabInstance:
     - target: {fileID: -3534410811173662954, guid: b1f73874088c60a4087a7e3fec3938e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f8b622e0758ed2944b7d9dce9f034a13, type: 2}
+      objectReference: {fileID: 2100000, guid: e10715fdeed4dc54395ae266a3057a15, type: 2}
     - target: {fileID: -3530415746221180448, guid: b1f73874088c60a4087a7e3fec3938e7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -2480,7 +2480,7 @@ PrefabInstance:
     - target: {fileID: -2060517284474940041, guid: b1f73874088c60a4087a7e3fec3938e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f8b622e0758ed2944b7d9dce9f034a13, type: 2}
+      objectReference: {fileID: 2100000, guid: e10715fdeed4dc54395ae266a3057a15, type: 2}
     - target: {fileID: -2022141830864857303, guid: b1f73874088c60a4087a7e3fec3938e7, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -6130,6 +6130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Light
       objectReference: {fileID: 0}
+    - target: {fileID: 2105702801005302286, guid: 6a16961f5795b634ca5c9a27fbf7a740, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d1b7ec2288f1c64cb63c6c14a57a85c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
