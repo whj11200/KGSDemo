@@ -34,11 +34,17 @@ public static class DialogueEventBus
 
     public static void Raise(string key)
     {
-        if (string.IsNullOrEmpty(key))
-            return;
+        if (string.IsNullOrEmpty(key)) return;
 
         if (events.TryGetValue(key, out var action))
+        {
+            UnityEngine.Debug.Log($"<color=green>이벤트 실행 성공:</color> {key}");
             action?.Invoke();
+        }
+        else
+        {
+            UnityEngine.Debug.LogWarning($"<color=red>이벤트 실행 실패 (구독자 없음):</color> {key}");
+        }
     }
 
     public static void Clear()

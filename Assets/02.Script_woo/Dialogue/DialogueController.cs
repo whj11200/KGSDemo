@@ -364,6 +364,12 @@ public sealed class DialogueController : MonoBehaviour
             Debug.Log($"[Dialogue] Env Enter Event: {envEvt}");
             DialogueEventBus.Raise(envEvt);
         }
+        if (node.tutorialEnterEvent != TutorialEventType.None)
+        {
+            string tutorialEvt = node.tutorialEnterEvent.ToString();
+            Debug.Log($"[Dialogue] Tutorial Enter Event: {tutorialEvt}");
+            DialogueEventBus.Raise(tutorialEvt);
+        }
     }
 
     // [수정 완료] 노드 탈출 시 호출

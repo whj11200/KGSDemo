@@ -965,7 +965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GuideZone
   controller: {fileID: 1526314957}
-  interaction: {fileID: 0}
+  staticSpeaker: {fileID: 0}
 --- !u!65 &182161056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3544,6 +3544,7 @@ MonoBehaviour:
   verticalVelocity: 0
   characterController: {fileID: 500785163}
   ignoreMovement: 0
+  jumpHeight: 1.2
   mouseSensitivity: 2
   minPitch: -60
   maxPitch: 75
@@ -3562,6 +3563,7 @@ MonoBehaviour:
   returnAction: {fileID: 330588348}
   scrollAction: {fileID: 649122467}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  jumpAction: {fileID: 0}
   popup: {fileID: 658094166}
   menu: {fileID: 839077307}
   animator: {fileID: 0}
@@ -5388,7 +5390,6 @@ MonoBehaviour:
   fadeUi: {fileID: 0}
   stopFacingAfterEndingSeconds: 3
   returnTimer: 3
-  guideSequenceStarted: 0
 --- !u!114 &1526314956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5473,7 +5474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 474287463}
-  asset: {fileID: 11400000, guid: a14338d24100be44799d53ab69f54e7d, type: 2}
+  asset: {fileID: 11400000, guid: 0a0422cdaee634f4a9d1374231eb36f0, type: 2}
   startNodeId: T0
 --- !u!1 &1577488789
 GameObject:

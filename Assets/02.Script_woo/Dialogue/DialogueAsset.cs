@@ -30,7 +30,9 @@ public enum KGS_EnvEventType
 public enum TutorialEventType
 {
     None,
+    CathingObject,
     ObjectClear,
+    ScrollZoomIn,
     ScrollzoominoutClear,
     TutorilClaar
 }
