@@ -107,6 +107,7 @@ public class Rope : MonoBehaviour
     {
         // 시작 시 앵커 위치에 맞춰 로프를 일자로 배치
         RebuildFromAnchors();
+        DebugRopeLength();
     }
 
     private void OnDestroy()
@@ -359,6 +360,23 @@ public class Rope : MonoBehaviour
         public Vector3 colliderPos;
         public Vector3 pushDir;
         public float pushDist;
+    }
+
+    private void DebugRopeLength()
+    {
+        if (!startAnchor || !middleAnchor || !endAnchor) return;
+
+        float realStartToMid = Vector3.Distance(startAnchor.position, middleAnchor.position);
+        float realMidToEnd = Vector3.Distance(middleAnchor.position, endAnchor.position);
+
+        float restStartToMid = MiddleIndex * nodeDistance;
+        float restMidToEnd = (totalNodes - 1 - MiddleIndex) * nodeDistance;
+
+        Debug.Log(
+            $"[Rope Length Check]\n" +
+            $"Start → Mid 실제거리: {realStartToMid:F2}, 목표길이: {restStartToMid:F2}\n" +
+            $"Mid → End 실제거리: {realMidToEnd:F2}, 목표길이: {restMidToEnd:F2}"
+        );
     }
 #endif
 }
