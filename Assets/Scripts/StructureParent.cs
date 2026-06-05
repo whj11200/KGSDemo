@@ -237,25 +237,27 @@ public class StructureParent : MonoBehaviour
     public void Reset_Structure()
     {
         Debug.Log("리셋함수 발현 (모든 소방차 초기화)");
+
         pipeInterestion.StartFillUpdate(0.3f);
         pipeInterestion.StopRipple();
         PipePin.SetActive(false);
+
         if (fireTruckPaths != null)
         {
             foreach (var path in fireTruckPaths)
             {
                 if (path != null)
                 {
-                    path.DORewind(); // 시작점으로 되돌리기
-                    path.DOKill();   // 트윈 종료
-                    path.gameObject.SetActive(false); // 오브젝트 비활성화
+                    path.DORewind();
+                    path.DOKill();
+                    path.gameObject.SetActive(false);
                 }
             }
         }
 
         if (teleporter != null)
         {
-            if (teleporter.smoke != null) teleporter.smoke.Stop();
+            teleporter.StopAllSmokes(true);
             teleporter.UnloadField();
         }
     }

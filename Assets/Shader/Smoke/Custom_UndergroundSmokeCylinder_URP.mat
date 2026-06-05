@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_UndergroundSmokeCylinder_URP
+  m_Shader: {fileID: 4800000, guid: 8fd45d30c5e8c884fa37a444f890e3ea, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _Axis: 0
+    - _BaseRadius: 0.05
+    - _DepthFadeDistance: 0.47
+    - _EdgePower: 8
+    - _EdgeStrength: 0
+    - _FlameIntensity: 5
+    - _FlameNoise: 3
+    - _FlameSpeed: 10
+    - _FlameWidth: 0.001
+    - _GrowAmount: 0
+    - _GrowCenterX: 0
+    - _GrowSoft: 0.15
+    - _GrowSpeed: 2
+    - _HalfLength: 5
+    - _HeightFadeEnd: 1
+    - _HeightFadeSoft: 0.001
+    - _HeightMax: 5
+    - _HeightMin: -1.5
+    - _HeightRange: 1.5
+    - _NoiseContrast: 0.2
+    - _NoisePower: 1.2
+    - _NoiseScale: 0.5
+    - _NoiseSpeed: 1
+    - _NoiseStrength: 1.2
+    - _Opacity: 1.18
+    - _RiseSpeed: 0.6
+    - _Softness: 0.2
+    - _Spread: 0
+    - _Spread01: 1
+    - _SpreadSoft: 0.5
+    - _SpreadSpeed: 0.8
+    - _SpreadSpeed01: 0.25
+    - _SpreadStrength: 0.35
+    - _StartHeight: -0.5
+    m_Colors:
+    - _BaseColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+    - _ColorBottom: {r: 0.65, g: 0.65, b: 0.65, a: 1}
+    - _ColorTop: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+    - _FlameColor: {r: 1, g: 0.39130434, b: 0, a: 1}
+    - _FlameCoreColor: {r: 1, g: 0.9, b: 0.39999998, a: 1}
+    - _TopColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
