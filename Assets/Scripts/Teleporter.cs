@@ -29,7 +29,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     public GameObject Player;
     public GameObject UiCanvas_Buttons;
     public PipeInterestion pipeInterestion;
-    [SerializeField] TelePorterAnimator telePorterUiCanvas;
+    [SerializeField] TelePorterAnimator telePorterAni;
     CameraController cc;
 
     [SerializeField] Transform spawn;
@@ -71,8 +71,16 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         if (!isCanvas)
         {
             StopAllSmokes(false);
-            telePorterUiCanvas.FalseAni();
+            telePorterAni.FalseAni();
         }
+    }
+    public void AllCansle()
+    {
+        isCanvas = false;
+        SetColor(originalColor);
+        UiCanvas_Buttons.SetActive(isCanvas);
+        StopAllSmokes(true);
+        telePorterAni.FalseAni();
     }
     private void InitSmokes()
     {

@@ -24,11 +24,11 @@ public class PipeInterestion : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
 
         // 초기 값 저장 및 설정
-        if (meshRenderer.material.HasProperty(fillProp))
-            meshRenderer.material.SetFloat(fillProp, minFill);
+        //if (meshRenderer.material.HasProperty(fillProp))
+        //    meshRenderer.material.SetFloat(fillProp, minFill);
 
-        if (meshRenderer.material.HasProperty(rippleColorProp))
-            originalRippleColor = meshRenderer.material.GetColor(rippleColorProp);
+        //if (meshRenderer.material.HasProperty(rippleColorProp))
+        //    originalRippleColor = meshRenderer.material.GetColor(rippleColorProp);
     }
 
     /// <summary>
@@ -60,8 +60,8 @@ public class PipeInterestion : MonoBehaviour
     public void StartFillUpdate(float targetValue)
     {
         if (fillUpdateCoroutine != null) StopCoroutine(fillUpdateCoroutine);
-        float currentVal = meshRenderer.material.GetFloat(fillProp);
-        fillUpdateCoroutine = StartCoroutine(CoFillUpdate(currentVal, targetValue, fillDuration));
+        //float currentVal = meshRenderer.material.GetFloat(fillProp);
+        //fillUpdateCoroutine = StartCoroutine(CoFillUpdate(currentVal, targetValue, fillDuration));
     }
 
     private IEnumerator CoFillUpdate(float start, float end, float duration)

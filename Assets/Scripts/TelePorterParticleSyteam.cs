@@ -6,10 +6,11 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
 {
     [Header("Particle")]
     [SerializeField] Button Fire_B;
-
+    Image Fire_B_image;
     [SerializeField] private List<ParticleSystem> smokes = new();
     [SerializeField] private bool isSmokePlaying = false;
-
+    [SerializeField] Color orgincolor;
+    [SerializeField] Color hovercolor;
 
 
     private void Awake()
@@ -20,6 +21,9 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
     private void Start()
     {
         Fire_B.onClick.AddListener(ToggleAllSmokes);
+        orgincolor = GetComponent<Image>().color;
+        hovercolor = Color.green;
+        Fire_B_image = Fire_B.GetComponent<Image>();
     }
 
 
@@ -188,11 +192,12 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
 
     public void HoverEnter()
     {
-
+        Fire_B_image.color = hovercolor;
     }
 
     public void HoverExit()
     {
-
+       Fire_B_image.color = orgincolor;
     }
+    
 }

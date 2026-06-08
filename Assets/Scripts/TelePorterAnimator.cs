@@ -4,10 +4,16 @@ using UnityEngine.UI;
 public class TelePorterAnimator : MonoBehaviour,IMouseInteractable
 {
     [SerializeField] Button Fire_D;
+    Image Fire_D_image;
     [SerializeField] private Animator animator;
+    [SerializeField] Color orgincolor;
+    [SerializeField] Color hovercolor;
     void Start()
     {
         Fire_D.onClick.AddListener(ToggleAni);
+        orgincolor = GetComponent<Image>().color;
+        hovercolor = Color.green;
+        Fire_D_image = Fire_D.GetComponent<Image>();
     }
     public void ToggleAni()
     {
@@ -26,12 +32,12 @@ public class TelePorterAnimator : MonoBehaviour,IMouseInteractable
 
     public void HoverEnter()
     {
-
+        Fire_D_image.color = hovercolor;
     }
 
     public void HoverExit()
     {
-
+        Fire_D_image.color = orgincolor;
     }
 
     public void ClickEnter()

@@ -238,9 +238,9 @@ public class StructureParent : MonoBehaviour
     {
         Debug.Log("리셋함수 발현 (모든 소방차 초기화)");
 
-        pipeInterestion.StartFillUpdate(0.3f);
-        pipeInterestion.StopRipple();
-        PipePin.SetActive(false);
+        //pipeInterestion.StartFillUpdate(0.3f);
+        //pipeInterestion.StopRipple();
+        //PipePin.SetActive(false);
 
         if (fireTruckPaths != null)
         {
@@ -257,7 +257,7 @@ public class StructureParent : MonoBehaviour
 
         if (teleporter != null)
         {
-            teleporter.StopAllSmokes(true);
+            teleporter.AllCansle();
             teleporter.UnloadField();
         }
     }
