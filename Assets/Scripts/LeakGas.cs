@@ -2,16 +2,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
+public class LeakGas : MonoBehaviour, IMouseInteractable
 {
+    [Header("Button")]
+    [SerializeField] Button Gas_B;
+    Image Gas_B_image;
     [Header("Particle")]
-    [SerializeField] Button Fire_B;
-    Image Fire_B_image;
-    [SerializeField] private List<ParticleSystem> smokes = new();
-    [SerializeField] private bool isSmokePlaying = false;
+    [SerializeField] List<ParticleSystem> smokes = new();
+    [Header("Bools")]
+    [SerializeField] bool isLeakPlaying = false;
+
+    [Header("Color")]
     [SerializeField] Color orgincolor;
     [SerializeField] Color hovercolor;
-
+    [Header("Animatior")]
+    [SerializeField] Animator animator;
 
     private void Awake()
     {
@@ -20,10 +25,12 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
     }
     private void Start()
     {
-        Fire_B.onClick.AddListener(ToggleAllSmokes);
+        Gas_B.onClick.AddListener(ToggleAllSmokes);
         orgincolor = GetComponent<Image>().color;
         hovercolor = Color.green;
-        Fire_B_image = Fire_B.GetComponent<Image>();
+        Gas_B_image = Gas_B.GetComponent<Image>();
+        StopAllSmokes(false);
+        
     }
 
 
@@ -47,22 +54,24 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
 
     public void ToggleAllSmokes()
     {
-        isSmokePlaying = !isSmokePlaying;
+        isLeakPlaying = !isLeakPlaying;
 
-        if (isSmokePlaying)
+        if (isLeakPlaying)
         {
             PlayAllSmokes();
+            animator.SetBool("Toggle", true);
         }
         else
         {
             StopAllSmokes(false);
+            animator.SetBool("Toggle", false);
         }
         Debug.Log("บา");
     }
 
     public void PlayAllSmokes()
     {
-        isSmokePlaying = true;
+        isLeakPlaying = true;
 
         for (int i = 0; i < smokes.Count; i++)
         {
@@ -76,7 +85,7 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
 
     public void StopAllSmokes(bool clear = false)
     {
-        isSmokePlaying = false;
+        isLeakPlaying = false;
 
         for (int i = 0; i < smokes.Count; i++)
         {
@@ -192,12 +201,12 @@ public class TelePorterParticleSyteamw : MonoBehaviour, IMouseInteractable
 
     public void HoverEnter()
     {
-        Fire_B_image.color = hovercolor;
+        Gas_B_image.color = hovercolor;
     }
 
     public void HoverExit()
     {
-       Fire_B_image.color = orgincolor;
+       Gas_B_image.color = orgincolor;
     }
     
 }
