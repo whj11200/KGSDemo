@@ -29,7 +29,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     public GameObject Player;
     public GameObject UiCanvas_Buttons;
     public PipeInterestion pipeInterestion;
-    [SerializeField] TelePorterAnimator telePorterAni;
+
     CameraController cc;
 
     [SerializeField] Transform spawn;
@@ -45,7 +45,21 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     private Coroutine AddSceneRoutine = null;
     [Header("Bools")]
     [SerializeField] private bool isSmokePlaying = false;
-    [SerializeField] private bool isCanvas = false;
+    [SerializeField] public bool isCanvas = false;
+    [SerializeField] public bool isButtonActive = false;
+
+    [Header("Leak Mode")]
+    [SerializeField] private LeakFire leakFire;
+    [SerializeField] private LeakGas leakGas;
+
+    private LeakMode currentLeakMode = LeakMode.None;
+    private enum LeakMode
+    {
+        None,
+        Fire,
+        Gas
+    }
+
     private void Awake()
     {
         UiCanvas_Buttons.SetActive(isCanvas);
@@ -57,30 +71,102 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         SceneManager.sceneLoaded += OnFieldSceneLoad;
         SceneManager.sceneUnloaded += OnFieldSceneUnLoad;
     }
+    private void Start()
+    {
+        if (leakFire != null && leakFire.Button != null)
+            leakFire.Button.onClick.AddListener(RequestFireLeak);
 
+        if (leakGas != null && leakGas.Button != null)
+            leakGas.Button.onClick.AddListener(RequestGasLeak);
+    }
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnFieldSceneLoad;
         SceneManager.sceneUnloaded -= OnFieldSceneUnLoad;
+
+        if (leakFire != null && leakFire.Button != null)
+            leakFire.Button.onClick.RemoveListener(RequestFireLeak);
+
+        if (leakGas != null && leakGas.Button != null)
+            leakGas.Button.onClick.RemoveListener(RequestGasLeak);
+    }
+    public void RequestFireLeak()
+    {
+        
+        if (!isCanvas)
+            return;
+
+        if (currentLeakMode == LeakMode.Fire)
+        {
+            StopAllLeaks(false);
+            return;
+        }
+
+        StopAllLeaks(false);
+
+        if (leakFire != null)
+            leakFire.PlayLeak();
+
+        currentLeakMode = LeakMode.Fire;
+        isButtonActive = true;
+    }
+    public void RequestGasLeak()
+    {
+        if (!isCanvas)
+            return;
+
+        if (currentLeakMode == LeakMode.Gas)
+        {
+            StopAllLeaks(false);
+            return;
+        }
+
+        StopAllLeaks(false);
+
+        if (leakGas != null)
+            leakGas.PlayLeak();
+
+        currentLeakMode = LeakMode.Gas;
+        isButtonActive = true;
+    }
+    private void StopAllLeaks(bool clear)
+    {
+        currentLeakMode = LeakMode.None;
+
+        if (leakFire != null)
+            leakFire.StopLeak(clear);
+
+        if (leakGas != null)
+            leakGas.StopLeak(clear);
+
+        StopAllSmokes(clear);
+        isButtonActive = false;
     }
     public void ToggleCanvasActive()
     {
         isCanvas = !isCanvas;
-        UiCanvas_Buttons.SetActive(isCanvas);
+
+        if (UiCanvas_Buttons != null)
+            UiCanvas_Buttons.SetActive(isCanvas);
 
         if (!isCanvas)
         {
-            StopAllSmokes(false);
-            telePorterAni.FalseAni();
+            StopAllLeaks(false);
+            isButtonActive = false;
         }
     }
-    public void AllCansle()
+
+    public void AllCancel()
     {
         isCanvas = false;
+
         SetColor(originalColor);
-        UiCanvas_Buttons.SetActive(isCanvas);
-        StopAllSmokes(true);
-        telePorterAni.FalseAni();
+
+        if (UiCanvas_Buttons != null)
+            UiCanvas_Buttons.SetActive(false);
+
+        StopAllLeaks(true);
+        isButtonActive = false;
     }
     private void InitSmokes()
     {
@@ -98,30 +184,8 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         StopAllSmokes(true);
     }
-    public void ToggleAllSmokes()
-    {
-        isSmokePlaying = !isSmokePlaying;
-
-        if (isSmokePlaying)
-        {
-            PlayAllSmokes();
-        }
-        else
-        {
-            StopAllSmokes(false);
-        }
-    }
-    public void PlayAllSmokes()
-    {
-        for (int i = 0; i < smokes.Count; i++)
-        {
-            if (smokes[i] == null)
-                continue;
-
-            smokes[i].Play();
-        }
-    }
-
+  
+   
     public void StopAllSmokes(bool clear = false)
     {
         for (int i = 0; i < smokes.Count; i++)
@@ -140,45 +204,11 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         }
     }
 
-    public void PlaySmoke(int index)
-    {
-        if (!IsValidSmokeIndex(index))
-            return;
 
-        smokes[index].Play();
-    }
 
-    public void StopSmoke(int index, bool clear = false)
-    {
-        if (!IsValidSmokeIndex(index))
-            return;
 
-        if (clear)
-        {
-            smokes[index].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        }
-        else
-        {
-            smokes[index].Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        }
-    }
 
-    private bool IsValidSmokeIndex(int index)
-    {
-        if (index < 0 || index >= smokes.Count)
-        {
-            Debug.LogWarning($"{name} : smokes[{index}]가 존재하지 않습니다.");
-            return false;
-        }
 
-        if (smokes[index] == null)
-        {
-            Debug.LogWarning($"{name} : smokes[{index}]가 비어 있습니다.");
-            return false;
-        }
-
-        return true;
-    }
 
     private void OnFieldSceneLoad(Scene scene, LoadSceneMode mode)
     {
@@ -291,4 +321,5 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     {
         mesh.material.SetColor(baseColorProp, color);
     }
+
 }

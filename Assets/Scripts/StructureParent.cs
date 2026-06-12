@@ -257,7 +257,7 @@ public class StructureParent : MonoBehaviour
 
         if (teleporter != null)
         {
-            teleporter.AllCansle();
+            teleporter.AllCancel();
             teleporter.UnloadField();
         }
     }

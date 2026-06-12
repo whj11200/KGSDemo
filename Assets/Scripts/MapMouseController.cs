@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class MapMouseController : MonoBehaviour
 {
+    [SerializeField] Teleporter teleporter;
     public Transform mapRoot;
 
     public InputActionReference zoomAction;     // Mouse Scroll
@@ -98,6 +99,9 @@ public class MapMouseController : MonoBehaviour
     {
         if (!panButtonAction.action.IsPressed() || !mouse.rightButton.isPressed)
             return;
+        
+       if(teleporter != null && teleporter.isButtonActive)
+            return; // 텔레포트 UI가 켜져 있을 때는 패닝 방지
 
         //if (targetZoom <= 1f)
         //    return; // 맵이 바닥을 통과 할 수 있어 일부로 막았음(지금은 괜찮으니 주석)

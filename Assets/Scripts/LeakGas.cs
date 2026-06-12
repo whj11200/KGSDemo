@@ -4,72 +4,40 @@ using UnityEngine.UI;
 
 public class LeakGas : MonoBehaviour, IMouseInteractable
 {
+    [Header("Scirpt")]
+    [SerializeField] private Teleporter teleporter;
     [Header("Button")]
-    [SerializeField] Button Gas_B;
-    Image Gas_B_image;
+    [SerializeField] private Button gasButton;
+    private Image gasButtonImage;
+
     [Header("Particle")]
-    [SerializeField] List<ParticleSystem> smokes = new();
-    [Header("Bools")]
-    [SerializeField] bool isLeakPlaying = false;
+    [SerializeField] private List<ParticleSystem> smokes = new();
+
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
 
     [Header("Color")]
-    [SerializeField] Color orgincolor;
-    [SerializeField] Color hovercolor;
-    [Header("Animatior")]
-    [SerializeField] Animator animator;
+    [SerializeField] private Color originColor;
+    [SerializeField] private Color hoverColor = Color.green;
+
+    [Header("State")]
+    [SerializeField] private bool isLeakPlaying = false;
+
+    public bool IsPlaying => isLeakPlaying;
+    public Button Button => gasButton;
 
     private void Awake()
     {
-        InitSmokes();
-       
-    }
-    private void Start()
-    {
-        Gas_B.onClick.AddListener(ToggleAllSmokes);
-        orgincolor = GetComponent<Image>().color;
-        hovercolor = Color.green;
-        Gas_B_image = Gas_B.GetComponent<Image>();
-        StopAllSmokes(false);
-        
-    }
-
-
-    private void InitSmokes()
-    {
-        if (smokes == null)
+        if (gasButton != null)
         {
-            smokes = new List<ParticleSystem>();
+            gasButtonImage = gasButton.GetComponent<Image>();
+            originColor = gasButtonImage.color;
         }
 
-        if (smokes.Count == 0)
-        {
-            ParticleSystem[] childSmokes = GetComponentsInChildren<ParticleSystem>(true);
-            smokes.AddRange(childSmokes);
-        }
-
-        StopAllSmokes(true);
+        StopLeak(true);
     }
 
-
-
-    public void ToggleAllSmokes()
-    {
-        isLeakPlaying = !isLeakPlaying;
-
-        if (isLeakPlaying)
-        {
-            PlayAllSmokes();
-            animator.SetBool("Toggle", true);
-        }
-        else
-        {
-            StopAllSmokes(false);
-            animator.SetBool("Toggle", false);
-        }
-        Debug.Log("불");
-    }
-
-    public void PlayAllSmokes()
+    public void PlayLeak()
     {
         isLeakPlaying = true;
 
@@ -80,10 +48,12 @@ public class LeakGas : MonoBehaviour, IMouseInteractable
 
             smokes[i].Play();
         }
-        
+
+        if (animator != null)
+            animator.SetBool("Toggle", true);
     }
 
-    public void StopAllSmokes(bool clear = false)
+    public void StopLeak(bool clear = false)
     {
         isLeakPlaying = false;
 
@@ -93,120 +63,45 @@ public class LeakGas : MonoBehaviour, IMouseInteractable
                 continue;
 
             if (clear)
-            {
                 smokes[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            }
             else
-            {
                 smokes[i].Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            }
         }
+
+        if (animator != null)
+            animator.SetBool("Toggle", false);
     }
 
-    public void PlaySmoke(int index)
+    public void ToggleLeak()
     {
-        if (!IsValidSmokeIndex(index))
-            return;
-
-        smokes[index].Play();
-    }
-
-    public void StopSmoke(int index, bool clear = false)
-    {
-        if (!IsValidSmokeIndex(index))
-            return;
-
-        if (clear)
-        {
-            smokes[index].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        }
+        if (isLeakPlaying)
+            StopLeak(false);
         else
-        {
-            smokes[index].Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        }
-    }
-
-    public void ToggleSmoke(int index)
-    {
-        if (!IsValidSmokeIndex(index))
-            return;
-
-        ParticleSystem smoke = smokes[index];
-
-        if (smoke.isPlaying)
-        {
-            smoke.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        }
-        else
-        {
-            smoke.Play();
-        }
-    }
-
-    public void ToggleSmoke(int index, bool clearWhenStop)
-    {
-        if (!IsValidSmokeIndex(index))
-            return;
-
-        ParticleSystem smoke = smokes[index];
-
-        if (smoke.isPlaying)
-        {
-            if (clearWhenStop)
-            {
-                smoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            }
-            else
-            {
-                smoke.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-            }
-        }
-        else
-        {
-            smoke.Play();
-        }
-    }
-
-    private bool IsValidSmokeIndex(int index)
-    {
-        if (index < 0 || index >= smokes.Count)
-        {
-            Debug.LogWarning($"{name} : smokes[{index}]가 존재하지 않습니다.");
-            return false;
-        }
-
-        if (smokes[index] == null)
-        {
-            Debug.LogWarning($"{name} : smokes[{index}]가 비어 있습니다.");
-            return false;
-        }
-
-        return true;
-    }
-
-    public void ClickCancle()
-    {
-       
-    }
-
-    public void ClickEnter()
-    {
-        ToggleAllSmokes();
-    }
-
-    public void ClickExit()
-    {
-
+            PlayLeak();
     }
 
     public void HoverEnter()
     {
-        Gas_B_image.color = hovercolor;
+        if (gasButtonImage != null)
+            gasButtonImage.color = hoverColor;
     }
 
     public void HoverExit()
     {
-       Gas_B_image.color = orgincolor;
+        if (gasButtonImage != null)
+            gasButtonImage.color = originColor;
     }
-    
+
+    public void ClickEnter()
+    {
+       teleporter.RequestGasLeak();
+    }
+
+    public void ClickExit()
+    {
+    }
+
+    public void ClickCancle()
+    {
+    }
 }
