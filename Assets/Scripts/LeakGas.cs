@@ -78,6 +78,7 @@ public class LeakGas : MonoBehaviour, IMouseInteractable
             StopLeak(false);
         else
             PlayLeak();
+      
     }
 
     public void HoverEnter()
@@ -95,6 +96,7 @@ public class LeakGas : MonoBehaviour, IMouseInteractable
     public void ClickEnter()
     {
        teleporter.RequestGasLeak();
+
     }
 
     public void ClickExit()

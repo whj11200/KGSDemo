@@ -29,7 +29,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     public GameObject Player;
     public GameObject UiCanvas_Buttons;
     public PipeInterestion pipeInterestion;
-
+    [SerializeField] UiSliderTable sliderTable;
     CameraController cc;
 
     [SerializeField] Transform spawn;
@@ -99,6 +99,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         if (currentLeakMode == LeakMode.Fire)
         {
             StopAllLeaks(false);
+            sliderTable.ResetFill();
             return;
         }
 
@@ -106,7 +107,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         if (leakFire != null)
             leakFire.PlayLeak();
-
+        sliderTable.StartFillWithIndex(1);
         currentLeakMode = LeakMode.Fire;
         isButtonActive = true;
     }
@@ -118,6 +119,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         if (currentLeakMode == LeakMode.Gas)
         {
             StopAllLeaks(false);
+            sliderTable.ResetFill();
             return;
         }
 
@@ -125,7 +127,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         if (leakGas != null)
             leakGas.PlayLeak();
-
+        sliderTable.StartFillWithIndex(0);
         currentLeakMode = LeakMode.Gas;
         isButtonActive = true;
     }
@@ -138,7 +140,8 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         if (leakGas != null)
             leakGas.StopLeak(clear);
-
+        if(sliderTable != null)
+            sliderTable.ResetFill();
         StopAllSmokes(clear);
         isButtonActive = false;
     }
