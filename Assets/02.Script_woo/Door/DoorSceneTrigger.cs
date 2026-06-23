@@ -6,7 +6,7 @@ public class DoorSceneTrigger : MonoBehaviour
     public enum SceneName
     {
         ManagementCenterWorkerLearningCenter, // 관리소 작업자 학습관
-        CivicEvacuationExperienceOfficer
+        ControlRoom
     }
     [Header("이동 설정")]
     [SerializeField] private SceneName targetScene; // 인스펙터에서 드롭다운으로 선택

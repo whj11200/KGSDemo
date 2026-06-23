@@ -19597,7 +19597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7466987611820361919}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9997379, z: -0, w: 0.022893008}
+  m_LocalRotation: {x: 0, y: 0.99973786, z: 0, w: 0.02289667}
   m_LocalPosition: {x: 8.12, y: 1.576, z: 32.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19644,10 +19644,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: -9.81
-  moveSpeed: 10
+  moveSpeed: 5
   verticalVelocity: 0
   characterController: {fileID: 3199839651408569975}
   ignoreMovement: 0
+  jumpHeight: 1.2
   mouseSensitivity: 2
   minPitch: -60
   maxPitch: 75
@@ -19663,9 +19664,10 @@ MonoBehaviour:
   smoothTime: 10
   raycaster: {fileID: 1881153524532066115}
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  returnAction: {fileID: 0}
-  scrollAction: {fileID: 0}
+  returnAction: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  scrollAction: {fileID: 6240969308177333660, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  jumpAction: {fileID: 0}
   popup: {fileID: 0}
   menu: {fileID: 5701931091207319005}
   animator: {fileID: 8878027959904972191}
@@ -19701,11 +19703,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0c65f273ce097479c102b31075b629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapMouseController
+  teleporter: {fileID: 0}
   mapRoot: {fileID: 0}
-  zoomAction: {fileID: 0}
-  panAction: {fileID: 0}
-  panButtonAction: {fileID: 0}
-  resetAction: {fileID: 0}
+  zoomAction: {fileID: 3528866153260571881, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  panAction: {fileID: 8158218133931762490, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  panButtonAction: {fileID: -4090225696740746782, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  resetAction: {fileID: -5866461860315578703, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   zoomSpeed: 0.1
   minZoom: 1
   maxZoom: 3
