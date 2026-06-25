@@ -5851,7 +5851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 474287463}
-  asset: {fileID: 11400000, guid: 0a0422cdaee634f4a9d1374231eb36f0, type: 2}
+  asset: {fileID: 11400000, guid: a14338d24100be44799d53ab69f54e7d, type: 2}
   startNodeId: T0
 --- !u!1 &1577488789
 GameObject:
