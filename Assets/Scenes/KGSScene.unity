@@ -13559,6 +13559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 1166014969}
+  speakerBG: {fileID: 0}
   speakerText: {fileID: 1029645289}
   bodyText: {fileID: 44186728}
   typingIcon: {fileID: 0}

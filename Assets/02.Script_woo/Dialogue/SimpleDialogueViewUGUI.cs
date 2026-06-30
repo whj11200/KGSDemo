@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,6 +10,7 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
     [SerializeField] GameObject root;
 
     [Header("Texts")]
+    [SerializeField] Image speakerBG;
     [SerializeField] TMP_Text speakerText;
     [SerializeField] TMP_Text bodyText;
 
@@ -23,11 +24,26 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
 
     readonly List<Button> _spawned = new();
 
+    private void Awake()
+    {
+        if (speakerBG == null)
+            speakerBG = speakerText.GetComponentInParent<Image>();
+    }
+
     public void Show(bool visible) => root.SetActive(visible);
 
     public void SetSpeaker(string speakerId)
     {
-        if (speakerText) speakerText.text = speakerId ?? "";
+        if (speakerText)
+        {
+            speakerBG.enabled = true;
+            speakerText.text = speakerId ?? "";
+        }
+        else
+        {
+            speakerBG.enabled = false;
+            speakerText.text = string.Empty;
+        }
     }
 
     public void SetBodyText(string text)
