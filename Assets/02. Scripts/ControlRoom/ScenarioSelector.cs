@@ -1,4 +1,5 @@
-﻿using Unity.Cinemachine;
+﻿using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class ScenarioSelector : MonoBehaviour
@@ -6,7 +7,7 @@ public class ScenarioSelector : MonoBehaviour
     [SerializeField] private ControlScenarioPlayer ScenarioPlayer;
     [SerializeField] private int ScenarioIndex;
 
-    [SerializeField] private CinemachineCamera ScenarioCam;
+    [SerializeField] CinemachineCamera ScenarioCam;
     [SerializeField] CameraSwitcher CameraSwitcher;
 
     private void OnEnable()

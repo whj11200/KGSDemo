@@ -18,6 +18,11 @@ public class CameraSwitcher : MonoBehaviour
 
     public void SetCamera(CinemachineCamera camera)
     {
+        if (CurrentCam != null)
+        {
+            CurrentCam.Priority = defaultPriority - 1;
+        }
+
         CurrentCam = camera;
 
         TPSCam.Priority = defaultPriority - 1;
@@ -30,5 +35,10 @@ public class CameraSwitcher : MonoBehaviour
         TPSCam.Priority = defaultPriority;
 
         CurrentCam = TPSCam;
+    }
+
+    public bool IsCurrentCamera(CinemachineCamera camera)
+    {
+        return CurrentCam == camera;
     }
 }
