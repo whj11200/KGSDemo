@@ -187,7 +187,7 @@ MonoBehaviour:
     tutorialExitEvent: 0
   - nodeId: S4
     text: "\uC5EC\uAE30\uC5D0\uC11C\uB294 \uAC00\uC2A4\uC0AC\uACE0 \uB300\uC751\uC694\uB839\uC5D0
-      \uB300\uD574 \uC54C\uC544\uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      \uB300\uD574\n\uC54C\uC544\uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     speakerId: "\uAC00\uC2A4\uB9E8"
     voice: {fileID: 8300000, guid: 2d14dc1196c61cb4da8d90d6b662d1a3, type: 3}
     autoAdvanceDelay: 0

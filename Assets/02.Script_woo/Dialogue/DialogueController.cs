@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +19,8 @@ public sealed class DialogueController : MonoBehaviour
     [Header("Refs")]
     [SerializeField] MonoBehaviour viewProvider;   // IDialogueView
     [SerializeField] MonoBehaviour inputProvider;  // IDialogueInput
-    [SerializeField] AudioSource voiceSource;      // ¼±ÅÃ
-    [SerializeField] EnvironmentManager environmentManager; // È¯°æ ÀÌº¥Æ® Ã³¸®¸¦ À§ÇÑ ¸Å´ÏÀú ÂüÁ¶
+    [SerializeField] AudioSource voiceSource;      // ì„ íƒ
+    [SerializeField] EnvironmentManager environmentManager; // í™˜ê²½ ì´ë²¤íŠ¸ ì²˜ë¦¬ë¥¼ ìœ„í•œ ë§¤ë‹ˆì € ì°¸ì¡°
     [SerializeField] TutorialManager tutorialManager;
 
     [Header("Typing")]
@@ -47,7 +47,7 @@ public sealed class DialogueController : MonoBehaviour
 
     Action _onFinished;
 
-    // ===== °ø°³ API (ÀÌ°Í¸¸ ¾²¸é µÊ) =====
+    // ===== ê³µê°œ API (ì´ê²ƒë§Œ ì“°ë©´ ë¨) =====
 
     private void Start()
     {
@@ -111,17 +111,18 @@ public sealed class DialogueController : MonoBehaviour
     }
     public void JumpToNode(string nodeId)
     {
-        // ÀÌ¹Ì Play¸¦ ÅëÇØ _assetÀÌ ÇÒ´çµÈ »óÅÂ¶ó¸é, ±× ¿¡¼ÂÀ» ±×´ë·Î ¾¹´Ï´Ù.
+        // ì´ë¯¸ Playë¥¼ í†µí•´ _assetì´ í• ë‹¹ëœ ìƒíƒœë¼ë©´, ê·¸ ì—ì…‹ì„ ê·¸ëŒ€ë¡œ ì”ë‹ˆë‹¤.
         if (_asset == null)
         {
-            Debug.LogError("Àç»ı ÁßÀÎ ¿¡¼ÂÀÌ ¾ø¾î¼­ Á¡ÇÁÇÒ ¼ö ¾ø½À´Ï´Ù!");
+            Debug.LogError("ì¬ìƒ ì¤‘ì¸ ì—ì…‹ì´ ì—†ì–´ì„œ ì í”„í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
             return;
         }
 
-        // ¿¡¼ÂÀº ±×´ë·Î µÎ°í ³ëµå ID¸¸ ¹Ù²ã¼­ ´Ù½Ã Play È£Ãâ
+        // ì—ì…‹ì€ ê·¸ëŒ€ë¡œ ë‘ê³  ë…¸ë“œ IDë§Œ ë°”ê¿”ì„œ ë‹¤ì‹œ Play í˜¸ì¶œ
         Play(_asset, nodeId);
     }
     // ===== Unity Loop =====
+
 
     void Update()
     {
@@ -134,10 +135,10 @@ public sealed class DialogueController : MonoBehaviour
         }
         if (Input.SkipPressed())
         {
-            Finish();  // ÄÚ·çÆ¾±îÁö ²÷°í UI ´İÀ½ (Finishº¸´Ù ¾ÈÀü)
+            Finish();  // ì½”ë£¨í‹´ê¹Œì§€ ëŠê³  UI ë‹«ìŒ (Finishë³´ë‹¤ ì•ˆì „)
             if(environmentManager != null)
             {
-                environmentManager.AllClear(); // ´ëÈ­ Á¾·á ½Ã È¯°æ ÀÌº¥Æ® ÃÊ±âÈ­
+                environmentManager.AllClear(); // ëŒ€í™” ì¢…ë£Œ ì‹œ í™˜ê²½ ì´ë²¤íŠ¸ ì´ˆê¸°í™”
             }
             if(tutorialManager != null)
             {
@@ -148,7 +149,7 @@ public sealed class DialogueController : MonoBehaviour
         }
     }
 
-    // ===== ³»ºÎ ·ÎÁ÷ =====
+    // ===== ë‚´ë¶€ ë¡œì§ =====
 
     IEnumerator FlowLoop()
     {
@@ -219,11 +220,11 @@ public sealed class DialogueController : MonoBehaviour
 
         for (int i = 0; i < fullText.Length; i++)
         {
-            //  Å¸ÀÌÇÎ Áß¿¡´Â Next¸¦ ¹«½ÃÇÑ´Ù (½ºÅµ ±İÁö)
-            // Skip¸¸ Çã¿ëÇÏ°í ½ÍÀ¸¸é ¾Æ·¡ ÇÑ ÁÙ¸¸ ³²±â¸é µÊ:
+            //  íƒ€ì´í•‘ ì¤‘ì—ëŠ” Nextë¥¼ ë¬´ì‹œí•œë‹¤ (ìŠ¤í‚µ ê¸ˆì§€)
+            // Skipë§Œ í—ˆìš©í•˜ê³  ì‹¶ìœ¼ë©´ ì•„ë˜ í•œ ì¤„ë§Œ ë‚¨ê¸°ë©´ ë¨:
             if (_requestSkip)
             {
-                // ½ºÅµµµ ¸·°í ½ÍÀ¸¸é ÀÌ ºí·Ï ÀÚÃ¼¸¦ Áö¿ö¶ó.
+                // ìŠ¤í‚µë„ ë§‰ê³  ì‹¶ìœ¼ë©´ ì´ ë¸”ë¡ ìì²´ë¥¼ ì§€ì›Œë¼.
                 View.SetBodyText(fullText);
                 _requestSkip = false;
                 break;
@@ -330,11 +331,11 @@ public sealed class DialogueController : MonoBehaviour
         _state = State.Idle;
         //if(environmentManager != null)
         //{
-        //    environmentManager.AllClear(); // ´ëÈ­ Á¾·á ½Ã È¯°æ ÀÌº¥Æ® ÃÊ±âÈ­
+        //    environmentManager.AllClear(); // ëŒ€í™” ì¢…ë£Œ ì‹œ í™˜ê²½ ì´ë²¤íŠ¸ ì´ˆê¸°í™”
         //}
         cb?.Invoke();
     }
-    // [¼öÁ¤ ¿Ï·á] ³ëµå ÁøÀÔ ½Ã È£Ãâ (È­ÀÚ ¼³Á¤, À½¼º Àç»ı, NPC Çàµ¿, È¯°æ ÀÌº¥Æ®)
+    // [ìˆ˜ì • ì™„ë£Œ] ë…¸ë“œ ì§„ì… ì‹œ í˜¸ì¶œ (í™”ì ì„¤ì •, ìŒì„± ì¬ìƒ, NPC í–‰ë™, í™˜ê²½ ì´ë²¤íŠ¸)
     void ApplyNode(DialogueNode node)
     {
         if(environmentManager != null)
@@ -345,11 +346,11 @@ public sealed class DialogueController : MonoBehaviour
         {
             tutorialManager.HandleDialogueStart(node.nodeId);
         }
-        // 1. È­ÀÚ ÀÌ¸§ ¹× º¸ÀÌ½º ¼³Á¤ (ÀÌ ºÎºĞÀÌ ºüÁ³¾ú³×¿ä!)
+        // 1. í™”ì ì´ë¦„ ë° ë³´ì´ìŠ¤ ì„¤ì • (ì´ ë¶€ë¶„ì´ ë¹ ì¡Œì—ˆë„¤ìš”!)
         ApplySpeaker(node.speakerId);
         PlayVoice(node.voice);
 
-        // 2. NPC Çàµ¿ ÀÌº¥Æ® ½ÇÇà (Enum -> String º¯È¯ ÈÄ Raise)
+        // 2. NPC í–‰ë™ ì´ë²¤íŠ¸ ì‹¤í–‰ (Enum -> String ë³€í™˜ í›„ Raise)
         if (node.npcEnterAction != NPCActionType.None)
         {
             string npcEvt = node.npcEnterAction.ToString();
@@ -357,7 +358,7 @@ public sealed class DialogueController : MonoBehaviour
             DialogueEventBus.Raise(npcEvt);
         }
 
-        // 3. È¯°æ/¿ÀºêÁ§Æ® ÀÌº¥Æ® ½ÇÇà (Enum -> String º¯È¯ ÈÄ Raise)
+        // 3. í™˜ê²½/ì˜¤ë¸Œì íŠ¸ ì´ë²¤íŠ¸ ì‹¤í–‰ (Enum -> String ë³€í™˜ í›„ Raise)
         if (node.envEnterEvent != KGS_EnvEventType.None)
         {
             string envEvt = node.envEnterEvent.ToString();
@@ -372,12 +373,12 @@ public sealed class DialogueController : MonoBehaviour
         }
     }
 
-    // [¼öÁ¤ ¿Ï·á] ³ëµå Å»Ãâ ½Ã È£Ãâ
+    // [ìˆ˜ì • ì™„ë£Œ] ë…¸ë“œ íƒˆì¶œ ì‹œ í˜¸ì¶œ
     void RaiseExitEvent(DialogueNode node)
     {
         if (node == null) return;
 
-        // 1. NPC ÅğÀå Çàµ¿ ½ÇÇà
+        // 1. NPC í‡´ì¥ í–‰ë™ ì‹¤í–‰
         if (node.npcExitAction != NPCActionType.None)
         {
             string npcEvt = node.npcExitAction.ToString();
@@ -385,7 +386,7 @@ public sealed class DialogueController : MonoBehaviour
             DialogueEventBus.Raise(npcEvt);
         }
 
-        // 2. È¯°æ ÅğÀå ÀÌº¥Æ® ½ÇÇà
+        // 2. í™˜ê²½ í‡´ì¥ ì´ë²¤íŠ¸ ì‹¤í–‰
         if (node.envExitEvent != KGS_EnvEventType.None)
         {
             string envEvt = node.envExitEvent.ToString();
