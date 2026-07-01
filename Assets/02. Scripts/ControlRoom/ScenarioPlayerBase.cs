@@ -11,8 +11,11 @@ public abstract class ScenarioPlayerBase<T> : MonoBehaviour
     [SerializeField] protected SimpleDialogueViewUGUI DialogueUI;
     [SerializeField] protected AudioSource VoiceSource;
 
+    protected List<GameNode> GameNodes = new(); 
     protected int CurrentNodeIndex = 0;
     protected GameNode CurrentGameNode;
+
+    protected bool IsScenarioInitialized = false;
     protected bool IsScenarioRunning = false;
     protected bool IsProcessBlocked = false;
 
