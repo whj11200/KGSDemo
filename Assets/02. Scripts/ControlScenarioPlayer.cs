@@ -86,6 +86,29 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             CameraSwitcher.SetCamera(MonitorCameras[CameraIdx]);
         }
     }
+
+    public override void PlayAudio(AudioClip clip)
+    {
+        if (VoiceSource.isPlaying)
+        {
+            VoiceSource.Stop();
+        }
+
+        VoiceSource.PlayOneShot(clip);
+    }
+
+    public override void StopAudio()
+    {
+        if (VoiceSource.isPlaying)
+        {
+            VoiceSource.Stop();
+        }
+    }
+
+    public override void ShowMessage(string message, float duration)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public interface IContentSimulation
