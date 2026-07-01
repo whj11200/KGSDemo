@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e2b5cc162d538b40bf765b47548c550, type: 3}
+  m_Script: {fileID: 11500000, guid: 691fd311eb1169346860073522a9f768, type: 3}
   m_Name: ScenarioTemplate_Pipe
-  m_EditorClassIdentifier: Assembly-CSharp::ScenarioTemplate
+  m_EditorClassIdentifier: Assembly-CSharp::PipelineScenarioTemplate
   ScenarioType: 1
   Nodes:
   - Content: "\uACF5\uAE09\uAD00\uB9AC\uC18C\uAC04 \uBC30\uAD00 \uC190\uC0C1\uC73C\uB85C

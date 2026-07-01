@@ -11,10 +11,6 @@ public abstract class ScenarioPlayerBase<T> : MonoBehaviour
     [SerializeField] protected SimpleDialogueViewUGUI DialogueUI;
     [SerializeField] protected AudioSource VoiceSource;
 
-    protected List<GameNode> GameNodes = new(); 
-    protected int CurrentNodeIndex = 0;
-    protected GameNode CurrentGameNode;
-
     protected bool IsScenarioInitialized = false;
     protected bool IsScenarioRunning = false;
     protected bool IsProcessBlocked = false;
@@ -23,6 +19,10 @@ public abstract class ScenarioPlayerBase<T> : MonoBehaviour
     public abstract void StartScenario();
     public abstract void ProcessScenario();
     public abstract void EndScenario();
+
+    public abstract void PlayAudio(AudioClip clip);
+    public abstract void StopAudio();
+    public abstract void ShowMessage(string message, float duration);
 }
 
 public class GameNode

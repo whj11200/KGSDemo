@@ -11,6 +11,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     [SerializeField] List<CinemachineCamera> MonitorCameras = new();
 
     [SerializeField] int CameraIdx = 0;
+    [SerializeField] string EnterControlRoomText = "가스 누출 조치 훈련을 시작합니다." +
+                                                   "\r\n통제실에 입장 후 관제석에 착석하십시오.";
+    [SerializeField] AudioClip EnterControlRoomVoice;
+    [SerializeField] AudioClip AlarmClip;
+    IContentSimulation simulation;
 
     private void Awake()
     {
@@ -22,16 +27,10 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         Invoke("EnterControlRoom", 1.5f);
     }
 
-    public override void EndScenario()
-    {
-        
-    }
-
     public void EnterControlRoom()
     {
         DialogueUI.SetSpeaker();
-        DialogueUI.SetBodyText("가스 누출 조치 훈련을 시작합니다." +
-                                "\r\n통제실에 입장 후 관제석에 착석하십시오.");
+        DialogueUI.SetBodyText(EnterControlRoomText);
         DialogueUI.Show(true);
 
         StartCoroutine(Delay(()=>
@@ -50,26 +49,24 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     {
         var selectedAsset = ScenarioAssets[assetIdx];
 
-        foreach (var node in selectedAsset.Template.Nodes)
-        {
-            GameNodes.Add(new GameNode
-            {
-                Node = node,
-            });
-        }
-
+        simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
+        simulation.Initialize();
 
         IsScenarioInitialized = true;
     }
 
-    public override void ProcessScenario()
-    {
-        
-    }
-
     public override void StartScenario()
     {
-        
+        simulation.StartSimulation();
+    }
+    public override void ProcessScenario()
+    {
+        simulation.ProcessSimulationStep();
+    }
+
+    public override void EndScenario()
+    {
+
     }
 
     public void SwitchCameraLeft()
@@ -88,5 +85,60 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             CameraIdx--;
             CameraSwitcher.SetCamera(MonitorCameras[CameraIdx]);
         }
+    }
+}
+
+public interface IContentSimulation
+{
+    public event Action OnSimulationCompleted;
+
+    public event Action<AudioClip> OnPlayAudio;
+    public event Action<string> OnShowDialogue;
+    public event Action<int> OnSwitchCamera;
+
+    public void Initialize();
+    public void StartSimulation();
+    public void ProcessSimulationStep();
+}
+
+public abstract class SimulationBase : IContentSimulation
+{
+    protected ScenarioAsset Asset;
+    protected List<GameNode> GameNodes;
+    protected int CurrentNodeIndex = 0;
+    protected GameNode CurrentGameNode;
+
+    public event Action OnSimulationCompleted;
+
+    public event Action<AudioClip> OnPlayAudio;
+    public event Action<string> OnShowDialogue;
+    public event Action<int> OnSwitchCamera;
+
+    public SimulationBase(ScenarioAsset asset)
+    {
+        Asset = asset;
+        GameNodes = new();
+    }
+
+    public abstract void Initialize();
+    public abstract void StartSimulation();
+    public abstract void ProcessSimulationStep();
+    protected void EndSimulation()
+    {
+        OnSimulationCompleted?.Invoke();
+    }
+    protected void RaisePlayAudio(AudioClip clip)
+    {
+        OnPlayAudio?.Invoke(clip);
+    }
+
+    protected void RaiseShowDialogue(string text)
+    {
+        OnShowDialogue?.Invoke(text);
+    }
+
+    protected void RaiseSwitchCamera(int index)
+    {
+        OnSwitchCamera?.Invoke(index);
     }
 }
