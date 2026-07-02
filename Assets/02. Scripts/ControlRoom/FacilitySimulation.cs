@@ -1,4 +1,6 @@
-﻿public class FacilitySimulation : SimulationBase
+﻿using Unity.VisualScripting;
+
+public class FacilitySimulation : SimulationBase
 {
     public FacilitySimulation(ScenarioAsset asset) : base(asset)
     {
@@ -13,7 +15,7 @@
         {
             var node = Asset.Template.Nodes[idx];
 
-            GameNodes.Add(new GameNode
+            var gameNode = new GameNode
             {
                 Node = node,
                 OnStart = ()=>
@@ -24,8 +26,24 @@
                                                         EventId = $"{type}_{idx}_Content",
                                                         StringValue = node.Content,
                                                         Delay = 2f});
-                }
-            });
+
+                    EventBus.Publish(ScenarioEventType.Audio,
+                        new ScenarioEvent
+                        {
+                            EventType = ScenarioEventType.Audio,
+                            ObjectValue = node.Voice,
+                            Callback = () =>
+                            {
+                                if (node.NoCondition)
+                                    ProcessSimulationStep();
+                            },
+                            Delay = node.Voice != null ? node.Voice.length + 1.5f : 2f
+                        }
+                    );
+                }, 
+            };
+                
+            GameNodes.Add(gameNode);
         }
 
         // 0번: 경보음
@@ -33,7 +51,6 @@
         {
             EventBus.Publish(ScenarioEventType.Alarm,
                             new ScenarioEvent { EventType = ScenarioEventType.Alarm,
-                                                Callback = () => ProcessSimulationStep()
                             });
         };
 
@@ -42,9 +59,21 @@
         {
             EventBus.Publish(ScenarioEventType.Monitor,
                             new ScenarioEvent { EventType = ScenarioEventType.Monitor,
-                                                EventId = "Monitor_Flash",
+                                                EventId = "Warning_Flash",
                             });
         };
+
+        // 2번: 모니터에 누출 지점 표시
+        GameNodes[2].OnStart += () =>
+        {
+            EventBus.Publish(ScenarioEventType.Monitor,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.Monitor,
+                    EventId = "WP_Flash",
+                });
+        };
+
         // 7번: 밸브 조작 시작
         // 8번: 밸브 조작 완료 및 Fade In
         // 9번: Fade Out

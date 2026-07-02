@@ -10,6 +10,11 @@ public class ScenarioSelector : MonoBehaviour
     [SerializeField] CinemachineCamera ScenarioCam;
     [SerializeField] CameraSwitcher CameraSwitcher;
 
+    private void Start()
+    {
+        gameObject.SetActive(true);
+    }
+
     private void OnEnable()
     {
         ScenarioIndex = 0;

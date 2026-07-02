@@ -6,7 +6,6 @@ using System.Threading;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.GPUSort;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 {
@@ -58,6 +57,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     {
         var selectedAsset = ScenarioAssets[assetIdx];
         var type = selectedAsset.Template.ScenarioType.ToString();
+        var part = selectedAsset.BrokenPart;
 
         simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
         Monitors[1].SetPopupText($"<color=#FF0000>{selectedAsset.ScenarioName}</color> 에서 \r\n" +
@@ -66,37 +66,39 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         simulation.OnSimulationCompleted += EndScenario;
 
-        ScenarioEventBus.Subscribe(ScenarioEventType.Audio, (seArgs) =>
+        SubscribeEvent(ScenarioEventType.Audio, e =>
         {
-            if (seArgs.ObjectValue is AudioClip clip)
-            {
+            if (e.ObjectValue is AudioClip clip)
                 PlayAudio(clip);
-
-            }
         });
 
-        ScenarioEventBus.Subscribe(ScenarioEventType.Alarm, (seArgs) =>
+        SubscribeEvent(ScenarioEventType.Alarm, e =>
         {
             SESource.PlayOneShot(AlarmClip);
         });
 
-        ScenarioEventBus.Subscribe(ScenarioEventType.ShowMessage, (seArgs) =>
+        SubscribeEvent(ScenarioEventType.ShowMessage, e =>
         {
-            var message = seArgs.StringValue;
+            if (!string.IsNullOrEmpty(e.StringValue))
+                ShowMessage(e.StringValue, e.Delay);
+        });
 
-            if (!string.IsNullOrEmpty(message)) 
+        SubscribeEvent(ScenarioEventType.Monitor, e =>
+        {
+            switch (e.EventId)
             {
-                ShowMessage(message, 3f);
+                case "Warning_Flash":
+                    Monitors[1].BlinkIcon();
+                    break;
+
+                case "WP_Flash":
+                    Monitors[1].ShowWaringPoint();
+                    break;
             }
         });
 
-        ScenarioEventBus.Subscribe(ScenarioEventType.Monitor, (seArgs) =>
-        {
-            Monitors[1].BlinkIcon();
-        });
-
         simulation.Initialize();
-        Monitors[CameraIdx].SetScreenImage(selectedAsset.BluePrint);
+        Monitors[CameraIdx].SetScreenInfo(selectedAsset.BluePrint, assetIdx, part);
 
         IsScenarioInitialized = true;
 
@@ -164,6 +166,17 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         {
             DialogueUI.Show(false);
         }, duration));
+    }
+
+    void SubscribeEvent(ScenarioEventType type, Action<ScenarioEvent> handler)
+    {
+        ScenarioEventBus.Subscribe(type, e =>
+        {
+            handler(e);
+
+            if (e.Callback != null)
+                StartCoroutine(Delay(e.Callback, e.Delay));
+        });
     }
 }
 

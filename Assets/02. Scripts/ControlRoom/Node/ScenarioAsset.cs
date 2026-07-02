@@ -26,6 +26,7 @@ public class ScenarioNode
     public string Content;
     public AudioClip Voice;
     public List<ScenarioEvent> Events = new();
+    public bool NoCondition = false;
 }
 
 public enum ScenarioEventType
