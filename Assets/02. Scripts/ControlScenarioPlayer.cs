@@ -2,13 +2,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.GPUSort;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 {
     [SerializeField] CameraSwitcher CameraSwitcher;
     [SerializeField] List<CinemachineCamera> MonitorCameras = new();
+    [SerializeField] List<ControlRoomMonitor> Monitors = new();
 
     [SerializeField] int CameraIdx = 0;
     [SerializeField] string EnterControlRoomText = "가스 누출 조치 훈련을 시작합니다." +
@@ -16,6 +20,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     [SerializeField] AudioClip EnterControlRoomVoice;
     [SerializeField] AudioClip AlarmClip;
     IContentSimulation simulation;
+    ScenarioEventBus<ScenarioEventType> ScenarioEventBus = new();
 
     private void Awake()
     {
@@ -24,7 +29,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     private void Start()
     {
-        Invoke("EnterControlRoom", 1.5f);
+        StartCoroutine(Delay(() =>
+        {
+            EnterControlRoom();
+            PlayAudio(EnterControlRoomVoice);
+        }, 1.5f));
     }
 
     public void EnterControlRoom()
@@ -43,22 +52,62 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     {
         yield return new WaitForSeconds(delay);
         action?.Invoke();
-    }   
+    }
 
     public override void InitializeScenario(int assetIdx)
     {
         var selectedAsset = ScenarioAssets[assetIdx];
+        var type = selectedAsset.Template.ScenarioType.ToString();
 
         simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
+        Monitors[1].SetPopupText($"<color=#FF0000>{selectedAsset.ScenarioName}</color> 에서 \r\n" +
+                                 $"LNG 가스 누출이 확인되었습니다.");
+        ScenarioEventBus = simulation.EventBus;
+
+        simulation.OnSimulationCompleted += EndScenario;
+
+        ScenarioEventBus.Subscribe(ScenarioEventType.Audio, (seArgs) =>
+        {
+            if (seArgs.ObjectValue is AudioClip clip)
+            {
+                PlayAudio(clip);
+
+            }
+        });
+
+        ScenarioEventBus.Subscribe(ScenarioEventType.Alarm, (seArgs) =>
+        {
+            SESource.PlayOneShot(AlarmClip);
+        });
+
+        ScenarioEventBus.Subscribe(ScenarioEventType.ShowMessage, (seArgs) =>
+        {
+            var message = seArgs.StringValue;
+
+            if (!string.IsNullOrEmpty(message)) 
+            {
+                ShowMessage(message, 3f);
+            }
+        });
+
+        ScenarioEventBus.Subscribe(ScenarioEventType.Monitor, (seArgs) =>
+        {
+            Monitors[1].BlinkIcon();
+        });
+
         simulation.Initialize();
+        Monitors[CameraIdx].SetScreenImage(selectedAsset.BluePrint);
 
         IsScenarioInitialized = true;
+
+        StartScenario();
     }
 
     public override void StartScenario()
     {
         simulation.StartSimulation();
     }
+
     public override void ProcessScenario()
     {
         simulation.ProcessSimulationStep();
@@ -66,7 +115,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void EndScenario()
     {
-
+        
     }
 
     public void SwitchCameraLeft()
@@ -89,6 +138,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void PlayAudio(AudioClip clip)
     {
+        if (clip == null) return;
+
         if (VoiceSource.isPlaying)
         {
             VoiceSource.Stop();
@@ -107,17 +158,20 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void ShowMessage(string message, float duration)
     {
-        throw new NotImplementedException();
+        DialogueUI.Show(true);
+        DialogueUI.SetBodyText(message);
+        StartCoroutine(Delay(()=>
+        {
+            DialogueUI.Show(false);
+        }, duration));
     }
 }
 
 public interface IContentSimulation
 {
-    public event Action OnSimulationCompleted;
+    ScenarioEventBus<ScenarioEventType> EventBus { get; }
 
-    public event Action<AudioClip> OnPlayAudio;
-    public event Action<string> OnShowDialogue;
-    public event Action<int> OnSwitchCamera;
+    public event Action OnSimulationCompleted;
 
     public void Initialize();
     public void StartSimulation();
@@ -128,19 +182,20 @@ public abstract class SimulationBase : IContentSimulation
 {
     protected ScenarioAsset Asset;
     protected List<GameNode> GameNodes;
-    protected int CurrentNodeIndex = 0;
+    public ScenarioEventBus<ScenarioEventType> EventBus;
+
+    protected int CurrentNodeIndex = -1;
     protected GameNode CurrentGameNode;
 
-    public event Action OnSimulationCompleted;
+    ScenarioEventBus<ScenarioEventType> IContentSimulation.EventBus => EventBus;
 
-    public event Action<AudioClip> OnPlayAudio;
-    public event Action<string> OnShowDialogue;
-    public event Action<int> OnSwitchCamera;
+    public event Action OnSimulationCompleted;
 
     public SimulationBase(ScenarioAsset asset)
     {
         Asset = asset;
         GameNodes = new();
+        EventBus = new ScenarioEventBus<ScenarioEventType>();
     }
 
     public abstract void Initialize();
@@ -149,19 +204,5 @@ public abstract class SimulationBase : IContentSimulation
     protected void EndSimulation()
     {
         OnSimulationCompleted?.Invoke();
-    }
-    protected void RaisePlayAudio(AudioClip clip)
-    {
-        OnPlayAudio?.Invoke(clip);
-    }
-
-    protected void RaiseShowDialogue(string text)
-    {
-        OnShowDialogue?.Invoke(text);
-    }
-
-    protected void RaiseSwitchCamera(int index)
-    {
-        OnSwitchCamera?.Invoke(index);
     }
 }

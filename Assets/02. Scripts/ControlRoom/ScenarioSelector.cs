@@ -23,6 +23,7 @@ public class ScenarioSelector : MonoBehaviour
     public void ApplySelect()
     {
         ScenarioPlayer.InitializeScenario(ScenarioIndex);
+        gameObject.SetActive(false);
     }
 
     // 착석

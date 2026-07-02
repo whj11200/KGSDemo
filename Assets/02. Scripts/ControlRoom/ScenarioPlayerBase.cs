@@ -10,6 +10,7 @@ public abstract class ScenarioPlayerBase<T> : MonoBehaviour
     [SerializeField] protected MessageUI MessageUI;
     [SerializeField] protected SimpleDialogueViewUGUI DialogueUI;
     [SerializeField] protected AudioSource VoiceSource;
+    [SerializeField] protected AudioSource SESource;
 
     protected bool IsScenarioInitialized = false;
     protected bool IsScenarioRunning = false;

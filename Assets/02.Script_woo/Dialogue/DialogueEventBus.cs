@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 
 public static class DialogueEventBus
@@ -38,12 +38,12 @@ public static class DialogueEventBus
 
         if (events.TryGetValue(key, out var action))
         {
-            UnityEngine.Debug.Log($"<color=green>ÀÌº¥Æ® ½ÇÇà ¼º°ø:</color> {key}");
+            UnityEngine.Debug.Log($"<color=green>ì´ë²¤íŠ¸ ì‹¤í–‰ ì„±ê³µ:</color> {key}");
             action?.Invoke();
         }
         else
         {
-            UnityEngine.Debug.LogWarning($"<color=red>ÀÌº¥Æ® ½ÇÇà ½ÇÆĞ (±¸µ¶ÀÚ ¾øÀ½):</color> {key}");
+            UnityEngine.Debug.LogWarning($"<color=red>ì´ë²¤íŠ¸ ì‹¤í–‰ ì‹¤íŒ¨ (êµ¬ë…ì ì—†ìŒ):</color> {key}");
         }
     }
 
