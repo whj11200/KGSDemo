@@ -15,6 +15,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     [SerializeField] List<CinemachineCamera> MonitorCameras = new();
     [SerializeField] List<ControlRoomMonitor> Monitors = new();
 
+    [SerializeField] ValveControlConsole ValveConsole;
+
     [SerializeField] int CameraIdx = 0;
     [SerializeField] string EnterControlRoomText = "가스 누출 조치 훈련을 시작합니다." +
                                                    "\r\n통제실에 입장 후 관제석에 착석하십시오.";
@@ -69,9 +71,12 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         Monitors[1].OnProcessBtn += ProcessScenario;
 
+        ValveConsole.AllButtonsDisable();
+
         ScenarioEventBus = simulation.EventBus;
 
         simulation.OnSimulationCompleted += EndScenario;
+        ValveConsole.OnControlComplete += ProcessScenario;
 
         SubscribeEvent(ScenarioEventType.Audio, e =>
         {
@@ -101,7 +106,13 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                 case "WP_Flash":
                     Monitors[1].ShowWaringPoint(e.NodeID);
                     break;
+                    
             }
+        });
+
+        SubscribeEvent(ScenarioEventType.ValveConsole, e =>
+        {
+            ValveConsole.SetTargetValve(selectedAsset, e.NodeID);
         });
 
         SubscribeEvent(ScenarioEventType.Camera, e =>
@@ -185,9 +196,27 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void ShowMessage(string message, float duration)
     {
+        int index = message.IndexOf(':');
+
+        string speaker = "";
+        string body = message;
+
+        if (index >= 0)
+        {
+            speaker = message[..index];
+            body = message[(index + 1)..];
+        }
+
         DialogueUI.Show(true);
-        DialogueUI.SetBodyText(message);
-        StartCoroutine(Delay(()=>
+
+        if (!string.IsNullOrEmpty(speaker))
+        {
+            DialogueUI.SetSpeaker(speaker);
+        }
+
+        DialogueUI.SetBodyText(body);
+
+        StartCoroutine(Delay(() =>
         {
             DialogueUI.Show(false);
         }, duration));

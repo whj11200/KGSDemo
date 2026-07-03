@@ -14,7 +14,8 @@ public class FacilitySimulation : SimulationBase
         for (int idx = 0; idx < Asset.Template.Nodes.Count; idx++)
         {
             var node = Asset.Template.Nodes[idx];
-            var content = node.Content.Replace("{Title}", Asset.ScenarioName);
+            var speacker = node.Speacker;
+            var content = $"{speacker}:{node.Content.Replace("{Title}", Asset.ScenarioName)}";
 
             var gameNode = new GameNode();
 
@@ -101,6 +102,16 @@ public class FacilitySimulation : SimulationBase
         };
 
         // 7번: 밸브 조작 시작
+        GameNodes[7].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 7,
+                    EventId = "Control_Valves"
+                });
+        };
         // 8번: 밸브 조작 완료 및 Fade In
         // 9번: Fade Out
         // 11번 후: Fade In

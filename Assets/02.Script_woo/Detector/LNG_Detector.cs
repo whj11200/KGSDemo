@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,26 +9,26 @@ public class LNG_Detector : MonoBehaviour
     public TextMeshProUGUI valueText;
 
     [Header("References")]
-    public GameObject waterLeak; // ¿©±â¿¡ ¹ëºê(ValveController ºÙÀº °´Ã¼)¸¦ ¿¬°á
-    [SerializeField] GameObject returnText; // ¹İ³³ÅØ½ºÆ®
+    public GameObject waterLeak; // ì—¬ê¸°ì— ë°¸ë¸Œ(ValveController ë¶™ì€ ê°ì²´)ë¥¼ ì—°ê²°
+    [SerializeField] GameObject returnText; // ë°˜ë‚©í…ìŠ¤íŠ¸
     [Header("Settings")]
-    public float detectionRadius = 10f; // r°¨Áö°Å¸®
-    public Transform handPos; // ¼Õ À§Ä¡¸¦ ³ªÅ¸³»´Â Transform (¿¹: PlayerÀÇ ÀÚ½Ä Handpos)
-    public float dropSpeed = 0.5f; // °¡½º°¡ »ç¶óÁö´Â ¼Óµµ
-    private Vector3 originPosition; // ¿ø·¡ À§Ä¡ ÀúÀå
-    private Quaternion originRotation; // ¿ø·¡ È¸Àü ÀúÀå
-    private Vector3 originScaleMode; // ¿ø·¡ ½ºÄÉÀÏ ¸ğµå ÀúÀå (ÇÊ¿ä ½Ã)
-    private Transform originParent; // ¿ø·¡ ºÎ¸ğ ÀúÀå
-    private bool isEquipped = false; // Âø¿ë ¿©ºÎ
-    private bool isMissionSent = false; // ¹Ì¼Ç Àü¼Û ¿©ºÎ Ã¼Å©¿ë
-    private float currentMeasuredValue = 0f; // ÇöÀç ÃøÁ¤µÈ ¼öÄ¡ (0.1 ~ 1.0)
-    [SerializeField] ValveController valve; // ¹ëºê ÄÁÆ®·Ñ·¯ ÂüÁ¶
+    public float detectionRadius = 10f; // rê°ì§€ê±°ë¦¬
+    public Transform handPos; // ì† ìœ„ì¹˜ë¥¼ ë‚˜íƒ€ë‚´ëŠ” Transform (ì˜ˆ: Playerì˜ ìì‹ Handpos)
+    public float dropSpeed = 0.5f; // ê°€ìŠ¤ê°€ ì‚¬ë¼ì§€ëŠ” ì†ë„
+    private Vector3 originPosition; // ì›ë˜ ìœ„ì¹˜ ì €ì¥
+    private Quaternion originRotation; // ì›ë˜ íšŒì „ ì €ì¥
+    private Vector3 originScaleMode; // ì›ë˜ ìŠ¤ì¼€ì¼ ëª¨ë“œ ì €ì¥ (í•„ìš” ì‹œ)
+    private Transform originParent; // ì›ë˜ ë¶€ëª¨ ì €ì¥
+    private bool isEquipped = false; // ì°©ìš© ì—¬ë¶€
+    private bool isMissionSent = false; // ë¯¸ì…˜ ì „ì†¡ ì—¬ë¶€ ì²´í¬ìš©
+    private float currentMeasuredValue = 0f; // í˜„ì¬ ì¸¡ì •ëœ ìˆ˜ì¹˜ (0.1 ~ 1.0)
+    [SerializeField] ValveController valve; // ë°¸ë¸Œ ì»¨íŠ¸ë¡¤ëŸ¬ ì°¸ì¡°
     [SerializeField] EnvironmentManager manager;
     void Awake()
     {
         originPosition = transform.position;
         originRotation = transform.rotation;
-        originScaleMode = transform.localScale; // ÇÊ¿ä ½Ã ½ºÄÉÀÏ ¸ğµå ÀúÀå
+        originScaleMode = transform.localScale; // í•„ìš” ì‹œ ìŠ¤ì¼€ì¼ ëª¨ë“œ ì €ì¥
         originParent = transform.parent;
 
         detectorCanvas.SetActive(false);
@@ -55,79 +55,79 @@ public class LNG_Detector : MonoBehaviour
         float distance = Vector3.Distance(transform.position, waterLeak.transform.position);
         float targetValue = 0f;
 
-        // 1. ¸ñÇ¥ ¼öÄ¡ ¼³Á¤
+        // 1. ëª©í‘œ ìˆ˜ì¹˜ ì„¤ì •
         if (valve.isLeaking)
         {
-            // ¹ëºê°¡ »õ°í ÀÖÀ» ¶§ (°Å¸® ±â¹İ 0.1 ~ 1.0)
+            // ë°¸ë¸Œê°€ ìƒˆê³  ìˆì„ ë•Œ (ê±°ë¦¬ ê¸°ë°˜ 0.1 ~ 1.0)
             targetValue = Mathf.Clamp(1 - (distance / detectionRadius), 0.1f, 1.0f);
         }
         else
         {
-            // ¹ëºê°¡ Àá°Üµµ ÃÖ¼Ú°ªÀº 0.1·Î °íÁ¤
+            // ë°¸ë¸Œê°€ ì ê²¨ë„ ìµœì†Ÿê°’ì€ 0.1ë¡œ ê³ ì •
             targetValue = 0.1f;
         }
 
-        // 2. ÇöÀç ¼öÄ¡¸¦ ¸ñÇ¥ ¼öÄ¡·Î ºÎµå·´°Ô ÀÌµ¿
+        // 2. í˜„ì¬ ìˆ˜ì¹˜ë¥¼ ëª©í‘œ ìˆ˜ì¹˜ë¡œ ë¶€ë“œëŸ½ê²Œ ì´ë™
         currentMeasuredValue = Mathf.MoveTowards(currentMeasuredValue, targetValue, dropSpeed * Time.deltaTime);
 
-        // 3. 0.1 ´ÜÀ§·Î ²÷±â
+        // 3. 0.1 ë‹¨ìœ„ë¡œ ëŠê¸°
         float steppedValue = Mathf.Round(currentMeasuredValue * 10f) / 10f;
 
-        // 4. ÃÖ¼Ú°ª °­Á¦ °íÁ¤ (ÇÑ ¹ø ´õ È®½ÇÇÏ°Ô)
+        // 4. ìµœì†Ÿê°’ ê°•ì œ ê³ ì • (í•œ ë²ˆ ë” í™•ì‹¤í•˜ê²Œ)
         if (steppedValue < 0.1f) steppedValue = 0.1f;
 
-        // 5. UI ¾÷µ¥ÀÌÆ®
+        // 5. UI ì—…ë°ì´íŠ¸
         valueText.text = $"{steppedValue}";
 
-        // 6. »óÅÂº° »ö»ó Ã³¸®
+        // 6. ìƒíƒœë³„ ìƒ‰ìƒ ì²˜ë¦¬
         if (steppedValue >= 1.0f)
         {
             OnMaxDetection();
         }
         else
         {
-            // 0.1 »óÅÂÀÏ ¶§´Â À§ÇèÇÏÁö ¾ÊÀ¸¹Ç·Î Èò»ö À¯Áö
+            // 0.1 ìƒíƒœì¼ ë•ŒëŠ” ìœ„í—˜í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ í°ìƒ‰ ìœ ì§€
             valueText.color = Color.white;
         }
     }
     void OnMaxDetection()
     {
-        if (isMissionSent) return; // ÀÌ¹Ì º¸³Â´Ù¸é ¹«½Ã
+        if (isMissionSent) return; // ì´ë¯¸ ë³´ëƒˆë‹¤ë©´ ë¬´ì‹œ
 
         valueText.color = Color.red;
         if (manager != null)
         {
-            isMissionSent = true; // Áßº¹ È£Ãâ ¹æÁö
+            isMissionSent = true; // ì¤‘ë³µ í˜¸ì¶œ ë°©ì§€
             manager.CompleteMission(KGS_EnvEventType.DectecorClear);
         }
     }
-    //³ªÁß¿¡ µû·Î ºĞ·ùÇØ³õÀ»°Í
+    //ë‚˜ì¤‘ì— ë”°ë¡œ ë¶„ë¥˜í•´ë†“ì„ê²ƒ
     private void DropDetector()
     {
         isEquipped = false;
-        isMissionSent = false; // ¹Ì¼Ç Àü¼Û ¿©ºÎ ÃÊ±âÈ­
-        // 1. ¿ø·¡ ºÎ¸ğ(Station) ¹ØÀ¸·Î º¹±Í ¹× À§Ä¡ ÃÊ±âÈ­
+        isMissionSent = false; // ë¯¸ì…˜ ì „ì†¡ ì—¬ë¶€ ì´ˆê¸°í™”
+        // 1. ì›ë˜ ë¶€ëª¨(Station) ë°‘ìœ¼ë¡œ ë³µê·€ ë° ìœ„ì¹˜ ì´ˆê¸°í™”
         transform.SetParent(originParent);
         transform.position = originPosition;
         transform.rotation = originRotation;
-        transform.localScale = originScaleMode; // ÇÊ¿ä ½Ã ½ºÄÉÀÏ ÃÊ±âÈ­
-        // 2. UI ¹× ÅØ½ºÆ® Ã³¸®
+        transform.localScale = originScaleMode; // í•„ìš” ì‹œ ìŠ¤ì¼€ì¼ ì´ˆê¸°í™”
+        // 2. UI ë° í…ìŠ¤íŠ¸ ì²˜ë¦¬
         detectorCanvas.SetActive(false);
-        if (returnText != null) returnText.SetActive(false); // "¹İ³³ÇÏ±â" ¼û±è
+        if (returnText != null) returnText.SetActive(false); // "ë°˜ë‚©í•˜ê¸°" ìˆ¨ê¹€
         valueText.color = Color.white;
     } 
     private void TurnOnAndEquip()
     {
         isEquipped = true;
 
-        // 1. ¼ÕÀ¸·Î ÀÌµ¿ ¹× ºÎ¸ğ º¯°æ
+        // 1. ì†ìœ¼ë¡œ ì´ë™ ë° ë¶€ëª¨ ë³€ê²½
         transform.SetParent(handPos);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        transform.localScale = new Vector3(1f, 1f, 1f); // ÇÊ¿ä ½Ã ½ºÄÉÀÏ Á¶Á¤
+        transform.localScale = new Vector3(1f, 1f, 1f); // í•„ìš” ì‹œ ìŠ¤ì¼€ì¼ ì¡°ì •
 
-        // 2. UI ¹× ÅØ½ºÆ® Ã³¸®
+        // 2. UI ë° í…ìŠ¤íŠ¸ ì²˜ë¦¬
         detectorCanvas.SetActive(true);
-        if (returnText != null) returnText.SetActive(true); // "¹İ³³ÇÏ±â" Ç¥½Ã
+        if (returnText != null) returnText.SetActive(true); // "ë°˜ë‚©í•˜ê¸°" í‘œì‹œ
     }
 }

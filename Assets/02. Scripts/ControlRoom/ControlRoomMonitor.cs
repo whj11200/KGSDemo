@@ -93,6 +93,7 @@ public class ControlRoomMonitor : MonoBehaviour
 
         StartCoroutine(Blink(BlinkIconImage));    
     }
+
     public void OnClickAlarm()
     {
         scenarioPlayer.CheckStep(AlarmNodeId);
@@ -129,5 +130,15 @@ public class ControlRoomMonitor : MonoBehaviour
     public void OnClickWP()
     {
         scenarioPlayer.CheckStep(WPNodeID);
+    }
+
+    public void ShowValves()
+    {
+        StopCoroutine(WPBlinkRoutine);
+
+        var WP = WarnigPoints[WPIndex];
+        WP.enabled = true;
+
+
     }
 }

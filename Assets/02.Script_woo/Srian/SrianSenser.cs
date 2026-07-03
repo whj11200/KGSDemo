@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 public class SrianSenser : MonoBehaviour
@@ -9,10 +9,10 @@ public class SrianSenser : MonoBehaviour
     [SerializeField] GameObject[] Lights;
 
     [Header("References")]
-    [SerializeField] private ValveController valve; // ¹ëºê ÄÁÆ®·Ñ·¯ ¿¬°á
+    [SerializeField] private ValveController valve; // ë°¸ë¸Œ ì»¨íŠ¸ë¡¤ëŸ¬ ì—°ê²°
 
     private Coroutine rotateRoutine;
-    private bool isAlarmActive = false; // ÇöÀç ¾Ë¶÷ÀÌ µ¹°í ÀÖ´ÂÁö Ã¼Å©¿ë
+    private bool isAlarmActive = false; // í˜„ì¬ ì•ŒëŒì´ ëŒê³  ìˆëŠ”ì§€ ì²´í¬ìš©
 
     void Start()
     {
@@ -25,15 +25,15 @@ public class SrianSenser : MonoBehaviour
     {
         if (valve == null) return;
 
-        // ¹ëºê »óÅÂ¿¡ µû¸¥ ¾Ë¶÷ ÀÚµ¿ Á¦¾î
+        // ë°¸ë¸Œ ìƒíƒœì— ë”°ë¥¸ ì•ŒëŒ ìë™ ì œì–´
         if (valve.isLeaking && !isAlarmActive)
         {
-            // ´©Ãâ ÁßÀÎµ¥ ¾Ë¶÷ÀÌ ²¨Á®ÀÖÀ¸¸é ÄÑ±â
+            // ëˆ„ì¶œ ì¤‘ì¸ë° ì•ŒëŒì´ êº¼ì ¸ìˆìœ¼ë©´ ì¼œê¸°
             HandleStartAlarm();
         }
         else if (!valve.isLeaking && isAlarmActive)
         {
-            // ´©Ãâ ¸ØÃè´Âµ¥ ¾Ë¶÷ÀÌ ÄÑÁ®ÀÖÀ¸¸é ²ô±â
+            // ëˆ„ì¶œ ë©ˆì·„ëŠ”ë° ì•ŒëŒì´ ì¼œì ¸ìˆìœ¼ë©´ ë„ê¸°
             HandleStopAlarm();
         }
     }
@@ -42,31 +42,31 @@ public class SrianSenser : MonoBehaviour
     {
         while (true)
         {
-            // XÃà ±âÁØÀ¸·Î È¸Àü
+            // Xì¶• ê¸°ì¤€ìœ¼ë¡œ íšŒì „
             transform.Rotate(rotateSpeed * Time.deltaTime, 0f, 0f, Space.Self);
             yield return null;
         }
     }
 
-    // ³»ºÎ¿¡¼­ »ç¿ëÇÏ´Â ½ÃÀÛ Ã³¸®
+    // ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì‹œì‘ ì²˜ë¦¬
     private void HandleStartAlarm()
     {
         isAlarmActive = true;
         if (AlarmSource != null) AlarmSource.Play();
-        if (rotateRoutine != null) StopCoroutine(rotateRoutine); // Áßº¹ ¹æÁö
+        if (rotateRoutine != null) StopCoroutine(rotateRoutine); // ì¤‘ë³µ ë°©ì§€
         rotateRoutine = StartCoroutine(RotateLoop());
         LightsActive(true);
-        Debug.Log("»çÀÌ·» ÀÛµ¿ ½ÃÀÛ");
+        Debug.Log("ì‚¬ì´ë Œ ì‘ë™ ì‹œì‘");
     }
 
-    // ³»ºÎ¿¡¼­ »ç¿ëÇÏ´Â Á¤Áö Ã³¸®
+    // ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì •ì§€ ì²˜ë¦¬
     private void HandleStopAlarm()
     {
         isAlarmActive = false;
         if (rotateRoutine != null) StopCoroutine(rotateRoutine);
         if (AlarmSource != null) AlarmSource.Stop();
         LightsActive(false);
-        Debug.Log("»çÀÌ·» ÀÛµ¿ Á¤Áö");
+        Debug.Log("ì‚¬ì´ë Œ ì‘ë™ ì •ì§€");
     }
 
     public void LightsActive(bool toggle)

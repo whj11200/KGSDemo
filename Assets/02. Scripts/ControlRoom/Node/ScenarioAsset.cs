@@ -9,7 +9,8 @@ public class ScenarioAsset : ScriptableObject
     public string ScenarioName;
     public string BrokenPart;
     public ScenarioTemplate Template;
-    public List<string> ControlValves = new();
+    public List<string> Valves_SectionIsolation = new();
+    public List<string> Valves_SectionVent = new();
     public Sprite BluePrint;
 }
 
@@ -22,6 +23,7 @@ public enum ScenarioType
 [System.Serializable]
 public class ScenarioNode
 {
+    public string Speacker;
     [TextArea(2, 3)]
     public string Content;
     public AudioClip Voice;
@@ -38,6 +40,7 @@ public enum ScenarioEventType
     Camera,
     Animation,
     Monitor,
+    ValveConsole,
     UI,
     ShowMessage,
     Effect,

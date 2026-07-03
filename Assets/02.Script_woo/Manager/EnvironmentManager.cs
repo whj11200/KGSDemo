@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class EnvironmentManager : MonoBehaviour
     }
 
     private void StartGasLeakAction() => valve?.StartLeak();
-    // °¨Áö±â ¹× º§ºê ppe µîµî ¹Ì¼Ç ¼º°ø ½Ã ÇØ´ç ³ëµå·Î ÀÌµ¿
+    // ê°ì§€ê¸° ë° ë²¨ë¸Œ ppe ë“±ë“± ë¯¸ì…˜ ì„±ê³µ ì‹œ í•´ë‹¹ ë…¸ë“œë¡œ ì´ë™
     public void CompleteMission(KGS_EnvEventType successType)
     {
         if (isScenarioFinished) return;
@@ -44,7 +44,7 @@ public class EnvironmentManager : MonoBehaviour
 
         switch (successType)
         { 
-            //º§ºê¸¦ ¿­¾î¾ßÇÏ´Â Á¶°ÇÀÌ ÀÖ¾î¼­ ¸·Áö ¾Ê¾ÒÀ½
+            //ë²¨ë¸Œë¥¼ ì—´ì–´ì•¼í•˜ëŠ” ì¡°ê±´ì´ ìˆì–´ì„œ ë§‰ì§€ ì•Šì•˜ìŒ
             case KGS_EnvEventType.DectecorClear:
                 targetNodeId = "S2";
                 break;
@@ -59,8 +59,8 @@ public class EnvironmentManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"ÇöÀç ³ëµå°¡ {currentNodeID}ÀÌ¹Ç·Î PPE ¹Ì¼Ç Ã³¸®¸¦ ¹«½ÃÇÕ´Ï´Ù.");
-                    return; // A13ÀÌ ¾Æ´Ï¸é ÇÔ¼ö¸¦ ¿©±â¼­ Á¾·á
+                    Debug.Log($"í˜„ì¬ ë…¸ë“œê°€ {currentNodeID}ì´ë¯€ë¡œ PPE ë¯¸ì…˜ ì²˜ë¦¬ë¥¼ ë¬´ì‹œí•©ë‹ˆë‹¤.");
+                    return; // A13ì´ ì•„ë‹ˆë©´ í•¨ìˆ˜ë¥¼ ì—¬ê¸°ì„œ ì¢…ë£Œ
                 }
                 break;
         }
@@ -72,17 +72,17 @@ public class EnvironmentManager : MonoBehaviour
     }
     public void HandleDialogueStart(string nodeID)
     {
-        // ¿©±â¼­ S0, S1 µîÀ» ÆÇ´ÜÇØ¼­ ¸Å´ÏÀú »óÅÂ¸¦ µ¿±âÈ­!
+        // ì—¬ê¸°ì„œ S0, S1 ë“±ì„ íŒë‹¨í•´ì„œ ë§¤ë‹ˆì € ìƒíƒœë¥¼ ë™ê¸°í™”!
         this.currentNodeID = nodeID;
         Debug.Log($" {currentNodeID}");
     }
     public void AllClear()
     {
-        // [Ãß°¡] AllClear°¡ È£ÃâµÇ¸é ½Ã³ª¸®¿À°¡ ³¡³­ °ÍÀ¸·Î °£ÁÖ
+        // [ì¶”ê°€] AllClearê°€ í˜¸ì¶œë˜ë©´ ì‹œë‚˜ë¦¬ì˜¤ê°€ ëë‚œ ê²ƒìœ¼ë¡œ ê°„ì£¼
         isScenarioFinished = true;
         doorController.canOpen = true;
         valve.ResetValve();
 
-        Debug.Log("¸ğµç ½Ã³ª¸®¿À Á¾·á. ÀÌÁ¦ ¹Ì¼Ç ¿Ï·á ´ë»ç°¡ ³ª¿ÀÁö ¾Ê½À´Ï´Ù.");
+        Debug.Log("ëª¨ë“  ì‹œë‚˜ë¦¬ì˜¤ ì¢…ë£Œ. ì´ì œ ë¯¸ì…˜ ì™„ë£Œ ëŒ€ì‚¬ê°€ ë‚˜ì˜¤ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     }
 }

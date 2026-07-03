@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ValveController : MonoBehaviour
 {
     private Animator anim;
 
-    // ÆÄÆ¼Å¬°ú ¿õµ¢ÀÌ ÄÁÆ®·Ñ·¯ ¿¬°á (ÇÊ¿ä ½Ã)
+    // íŒŒí‹°í´ê³¼ ì›…ë©ì´ ì»¨íŠ¸ë¡¤ëŸ¬ ì—°ê²° (í•„ìš” ì‹œ)
     public ParticleSystem waterParticle;
     public PuddleController puddleController;
     [SerializeField] EnvironmentManager manager;
@@ -13,21 +13,21 @@ public class ValveController : MonoBehaviour
 
     void Start()
     {
-        waterParticle.Stop(); // ½ÃÀÛ ½Ã ÆÄÆ¼Å¬ ºñÈ°¼ºÈ­
+        waterParticle.Stop(); // ì‹œì‘ ì‹œ íŒŒí‹°í´ ë¹„í™œì„±í™”
         anim = GetComponent<Animator>();
         
     }
 
-    // 1. ¿ÜºÎ(Äù½ºÆ®, ´ÙÀÌ¾ó·Î±× ¸Å´ÏÀú µî)¿¡¼­ È£ÃâÇÒ ´©Ãâ ½ÃÀÛ ÇÔ¼ö
+    // 1. ì™¸ë¶€(í€˜ìŠ¤íŠ¸, ë‹¤ì´ì–¼ë¡œê·¸ ë§¤ë‹ˆì € ë“±)ì—ì„œ í˜¸ì¶œí•  ëˆ„ì¶œ ì‹œì‘ í•¨ìˆ˜
     public void StartLeak()
     {
         if (isLeaking) return;
 
         isLeaking = true;
-        anim.SetTrigger("Leak"); // ¾Ö´Ï¸ŞÀÌÅÍÀÇ Leak Æ®¸®°Å ¹ßµ¿
-        //anim.SetInteger("State", 1); // Leak »óÅÂ
+        anim.SetTrigger("Leak"); // ì• ë‹ˆë©”ì´í„°ì˜ Leak íŠ¸ë¦¬ê±° ë°œë™
+        //anim.SetInteger("State", 1); // Leak ìƒíƒœ
         if (waterParticle != null) waterParticle.Play();
-        Debug.Log("¹ëºê ´©Ãâ ½ÃÀÛ: ¿ÜºÎ¿¡¼­ È£ÃâµÊ");
+        Debug.Log("ë°¸ë¸Œ ëˆ„ì¶œ ì‹œì‘: ì™¸ë¶€ì—ì„œ í˜¸ì¶œë¨");
     }
 
     public void OnInteract()
@@ -42,31 +42,31 @@ public class ValveController : MonoBehaviour
     private void CloseValve()
     {
         isLeaking = false;
-        anim.SetTrigger("Close"); // ¾Ö´Ï¸ŞÀÌÅÍÀÇ Close Æ®¸®°Å ¹ßµ¿
-        manager.CompleteMission(KGS_EnvEventType.VavleCloseClear); // ¹Ì¼Ç ¼º°ø Ã³¸®
-        //anim.SetInteger("State", 2); // Close »óÅÂ (¿©±â¼­ °íÁ¤!)
-        Debug.Log("¹ëºê°¡ ´İÇû½À´Ï´Ù.");
+        anim.SetTrigger("Close"); // ì• ë‹ˆë©”ì´í„°ì˜ Close íŠ¸ë¦¬ê±° ë°œë™
+        manager.CompleteMission(KGS_EnvEventType.VavleCloseClear); // ë¯¸ì…˜ ì„±ê³µ ì²˜ë¦¬
+        //anim.SetInteger("State", 2); // Close ìƒíƒœ (ì—¬ê¸°ì„œ ê³ ì •!)
+        Debug.Log("ë°¸ë¸Œê°€ ë‹«í˜”ìŠµë‹ˆë‹¤.");
     }
 
-    // 3. Æ®¸®°Å Á¸(Player ÅğÀå µî)¿¡¼­ È£ÃâÇÒ ¸®¼Â ÇÔ¼ö
+    // 3. íŠ¸ë¦¬ê±° ì¡´(Player í‡´ì¥ ë“±)ì—ì„œ í˜¸ì¶œí•  ë¦¬ì…‹ í•¨ìˆ˜
     public void ResetValve()
     {
-        // 1. ±âÁ¸¿¡ ¼ÒºñµÇÁö ¾Ê°í ³²¾ÆÀÖÀ» ¼ö ÀÖ´Â Æ®¸®°ÅµéÀ» ¸ğµÎ Ã»¼ÒÇÕ´Ï´Ù. (¸Å¿ì Áß¿ä)
+        // 1. ê¸°ì¡´ì— ì†Œë¹„ë˜ì§€ ì•Šê³  ë‚¨ì•„ìˆì„ ìˆ˜ ìˆëŠ” íŠ¸ë¦¬ê±°ë“¤ì„ ëª¨ë‘ ì²­ì†Œí•©ë‹ˆë‹¤. (ë§¤ìš° ì¤‘ìš”)
         anim.ResetTrigger("Leak");
         anim.ResetTrigger("Close");
         anim.ResetTrigger("Reset");
 
-        // 2. »óÅÂ°ª ÃÊ±âÈ­
+        // 2. ìƒíƒœê°’ ì´ˆê¸°í™”
         isLeaking = false;
 
-        // 3. ÆÄÆ¼Å¬ Á¤Áö
+        // 3. íŒŒí‹°í´ ì •ì§€
         if (waterParticle != null) waterParticle.Stop();
 
-        // 4. ¾Ö´Ï¸ŞÀÌÅÍ ¸®¼Â Æ®¸®°Å ¹ßµ¿
+        // 4. ì• ë‹ˆë©”ì´í„° ë¦¬ì…‹ íŠ¸ë¦¬ê±° ë°œë™
         anim.SetTrigger("Reset");
 
         if (vavleZone != null) vavleZone.SetActive(true);
 
-        Debug.Log("¹ëºê »óÅÂ°¡ ¿ÏÀüÈ÷ ÃÊ±âÈ­µÇ¾ú½À´Ï´Ù (Æ®¸®°Å Ã»¼Ò ¿Ï·á).");
+        Debug.Log("ë°¸ë¸Œ ìƒíƒœê°€ ì™„ì „íˆ ì´ˆê¸°í™”ë˜ì—ˆìŠµë‹ˆë‹¤ (íŠ¸ë¦¬ê±° ì²­ì†Œ ì™„ë£Œ).");
     }
 }
