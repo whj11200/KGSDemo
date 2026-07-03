@@ -14,10 +14,10 @@ public abstract class ScenarioPlayerBase<T> : MonoBehaviour
 
     protected bool IsScenarioInitialized = false;
     protected bool IsScenarioRunning = false;
-    protected bool IsProcessBlocked = false;
 
     public abstract void InitializeScenario(int assetIdx);
     public abstract void StartScenario();
+    public abstract void CheckStep(int step);
     public abstract void ProcessScenario();
     public abstract void EndScenario();
 
@@ -30,6 +30,6 @@ public class GameNode
 {
     public ScenarioNode Node;
     public Action OnStart;
-    public Action OnProcess;
+    public Action OnTextEnd;
     public Action OnEnd;
 }

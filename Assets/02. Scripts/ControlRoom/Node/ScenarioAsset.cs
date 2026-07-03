@@ -47,6 +47,7 @@ public class ScenarioEvent
 {
     public ScenarioEventType EventType;
 
+    public int NodeID;
     public string EventId;
     public float Delay;
 

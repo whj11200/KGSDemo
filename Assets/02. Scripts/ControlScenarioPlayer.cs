@@ -9,7 +9,9 @@ using UnityEngine;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 {
+    [SerializeField] ScenarioSelector Selector;
     [SerializeField] CameraSwitcher CameraSwitcher;
+    [SerializeField] GameObject MonitorSwitcher;
     [SerializeField] List<CinemachineCamera> MonitorCameras = new();
     [SerializeField] List<ControlRoomMonitor> Monitors = new();
 
@@ -20,6 +22,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     [SerializeField] AudioClip AlarmClip;
     IContentSimulation simulation;
     ScenarioEventBus<ScenarioEventType> ScenarioEventBus = new();
+    public int CurrentNodeId => simulation.SimulNodeID;
 
     private void Awake()
     {
@@ -53,6 +56,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         action?.Invoke();
     }
 
+    private int reportID;
     public override void InitializeScenario(int assetIdx)
     {
         var selectedAsset = ScenarioAssets[assetIdx];
@@ -62,6 +66,9 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
         Monitors[1].SetPopupText($"<color=#FF0000>{selectedAsset.ScenarioName}</color> 에서 \r\n" +
                                  $"LNG 가스 누출이 확인되었습니다.");
+
+        Monitors[1].OnProcessBtn += ProcessScenario;
+
         ScenarioEventBus = simulation.EventBus;
 
         simulation.OnSimulationCompleted += EndScenario;
@@ -88,13 +95,20 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             switch (e.EventId)
             {
                 case "Warning_Flash":
-                    Monitors[1].BlinkIcon();
+                    Monitors[1].BlinkIcon(e.NodeID);
                     break;
 
                 case "WP_Flash":
-                    Monitors[1].ShowWaringPoint();
+                    Monitors[1].ShowWaringPoint(e.NodeID);
                     break;
             }
+        });
+
+        SubscribeEvent(ScenarioEventType.Camera, e =>
+        {
+            reportID = e.NodeID;
+            MonitorSwitcher.SetActive(false);
+            Selector.ExitSelectionMode();
         });
 
         simulation.Initialize();
@@ -110,14 +124,25 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         simulation.StartSimulation();
     }
 
+    public override void CheckStep(int step)
+    {
+        if (step == CurrentNodeId) 
+            ProcessScenario();
+    }
+
     public override void ProcessScenario()
     {
-        simulation.ProcessSimulationStep();
+        simulation.CompleteStep();
     }
 
     public override void EndScenario()
     {
         
+    }
+
+    public void ReportToManger()
+    {
+        CheckStep(reportID);
     }
 
     public void SwitchCameraLeft()
@@ -182,12 +207,14 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
 public interface IContentSimulation
 {
+    public int SimulNodeID { get; }
     ScenarioEventBus<ScenarioEventType> EventBus { get; }
 
     public event Action OnSimulationCompleted;
 
     public void Initialize();
     public void StartSimulation();
+    public void CompleteStep();
     public void ProcessSimulationStep();
 }
 
@@ -198,9 +225,14 @@ public abstract class SimulationBase : IContentSimulation
     public ScenarioEventBus<ScenarioEventType> EventBus;
 
     protected int CurrentNodeIndex = -1;
+    protected bool IsProcessBlocked = false;
+    protected bool IsRunning = false;
+
     protected GameNode CurrentGameNode;
 
     ScenarioEventBus<ScenarioEventType> IContentSimulation.EventBus => EventBus;
+
+    public int SimulNodeID { get => CurrentNodeIndex; }
 
     public event Action OnSimulationCompleted;
 
@@ -214,6 +246,15 @@ public abstract class SimulationBase : IContentSimulation
     public abstract void Initialize();
     public abstract void StartSimulation();
     public abstract void ProcessSimulationStep();
+    public void CompleteStep()
+    {
+        if (!IsProcessBlocked)
+            return;
+
+        IsProcessBlocked = false;
+        ProcessSimulationStep();
+    }
+
     protected void EndSimulation()
     {
         OnSimulationCompleted?.Invoke();

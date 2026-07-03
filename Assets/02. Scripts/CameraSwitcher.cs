@@ -1,11 +1,13 @@
 ﻿using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraSwitcher : MonoBehaviour
 {
     [SerializeField] private CinemachineBrain Brain;
     [SerializeField] private CinemachineCamera TPSCam;
     [SerializeField] private CinemachineCamera CurrentCam;
+    [SerializeField] private Image Aim;
 
     int defaultPriority = 0;
 
@@ -35,6 +37,7 @@ public class CameraSwitcher : MonoBehaviour
         TPSCam.Priority = defaultPriority;
 
         CurrentCam = TPSCam;
+        Aim.enabled = true;
     }
 
     public bool IsCurrentCamera(CinemachineCamera camera)

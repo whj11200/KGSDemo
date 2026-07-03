@@ -945,6 +945,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1065912812}
+  - {fileID: 1960354981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &270713051
@@ -1093,7 +1094,7 @@ GameObject:
   - component: {fileID: 275345351}
   - component: {fileID: 275345350}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: Canvas_SwitchMonitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1783,6 +1784,7 @@ MonoBehaviour:
   - {fileID: 1502147625}
   infoPanel: {fileID: 2091994000}
   info_Loc: {fileID: 38106664}
+  scenarioPlayer: {fileID: 366316171}
 --- !u!1 &366316169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1843,7 @@ MonoBehaviour:
   DialogueUI: {fileID: 3691577834462275303}
   VoiceSource: {fileID: 1104386724}
   SESource: {fileID: 397104450}
+  Selector: {fileID: 1210713850}
   CameraSwitcher: {fileID: 2131876602}
   MonitorCameras:
   - {fileID: 716480139}
@@ -2531,9 +2534,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 366316171}
-        m_TargetAssemblyTypeName: ControlScenarioPlayer, Assembly-CSharp
-        m_MethodName: ProcessScenario
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickWP
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3255,9 +3258,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 366316171}
-        m_TargetAssemblyTypeName: ControlScenarioPlayer, Assembly-CSharp
-        m_MethodName: ProcessScenario
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickWP
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3537,9 +3540,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 366316171}
-        m_TargetAssemblyTypeName: ControlScenarioPlayer, Assembly-CSharp
-        m_MethodName: ProcessScenario
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickAlarm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3846,7 +3849,7 @@ GameObject:
   - component: {fileID: 1065912813}
   - component: {fileID: 1065912816}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Sphere_PlayerDesk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3983,6 +3986,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1426940298}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!850595691 &1065966926
 LightingSettings:
@@ -5019,6 +5034,7 @@ MonoBehaviour:
   ScenarioIndex: 0
   ScenarioCam: {fileID: 623320864}
   CameraSwitcher: {fileID: 2131876602}
+  CameraController: {fileID: 1577085294}
 --- !u!1 &1277330628
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,6 +5461,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1412266134}
   m_CullTransparentMesh: 1
+--- !u!114 &1426940298 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8489823309319433006, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 1561977732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1484254861
 GameObject:
   m_ObjectHideFlags: 0
@@ -5994,6 +6021,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6254097778719486131, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
   m_PrefabInstance: {fileID: 1561977732}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1577085294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3317257287717226871, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 1561977732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577085292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1587573446
 GameObject:
   m_ObjectHideFlags: 0
@@ -7356,6 +7394,146 @@ Transform:
   - {fileID: 1350338881}
   m_Father: {fileID: 543450651825629027}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1960354980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1960354981}
+  - component: {fileID: 1960354985}
+  - component: {fileID: 1960354984}
+  - component: {fileID: 1960354983}
+  - component: {fileID: 1960354982}
+  m_Layer: 0
+  m_Name: Sphere_ManagerDesk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1960354981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960354980}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.744, y: 0.65653455, z: 5.913}
+  m_LocalScale: {x: 1.8043, y: 1.8043, z: 1.8043}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 264395523}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1960354982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960354980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e9978d7e38cde408f443f853f28834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerObject
+  OnClickExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 366316171}
+        m_TargetAssemblyTypeName: ControlScenarioPlayer, Assembly-CSharp
+        m_MethodName: ReportToManger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!135 &1960354983
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960354980}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1960354984
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960354980}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1960354985
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960354980}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1964868006
 GameObject:
   m_ObjectHideFlags: 0
@@ -7662,9 +7840,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 366316171}
-        m_TargetAssemblyTypeName: ControlScenarioPlayer, Assembly-CSharp
-        m_MethodName: ProcessScenario
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickWP
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8037,9 +8215,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 366316171}
-        m_TargetAssemblyTypeName: ControlScenarioPlayer, Assembly-CSharp
-        m_MethodName: ProcessScenario
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickWP
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8372,6 +8550,7 @@ MonoBehaviour:
   Brain: {fileID: 1561977744}
   TPSCam: {fileID: 1906438490}
   CurrentCam: {fileID: 0}
+  Aim: {fileID: 1426940298}
 --- !u!1 &2146406567
 GameObject:
   m_ObjectHideFlags: 0

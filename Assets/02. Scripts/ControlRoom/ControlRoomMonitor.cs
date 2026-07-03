@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,21 +19,25 @@ public class ControlRoomMonitor : MonoBehaviour
 
     [SerializeField] GameObject infoPanel;
     [SerializeField] TextMeshProUGUI info_Loc;
+    [SerializeField] ControlScenarioPlayer scenarioPlayer;
+
+    public event Action OnProcessBtn;
     int WPIndex = 0;
-
-    private void Awake()
-    {
-        BackImage.enabled = false;
-        ScreenImage.enabled = false;
-
-        foreach(var item in WarnigPoints)
-        {
-            item.gameObject.SetActive(false);
-        }
-    }
 
     private void OnEnable()
     {
+        Initialize();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    public void Initialize()
+    {
+        BackImage.enabled = false;
+
         if (ScreenImage != null)
         {
             ScreenImage.enabled = false;
@@ -40,11 +45,15 @@ public class ControlRoomMonitor : MonoBehaviour
 
         AlarmBlinkRoutine = null;
         WPBlinkRoutine = null;
-    }
 
-    private void OnDisable()
-    {
-        StopAllCoroutines();
+        foreach (var item in WarnigPoints)
+        {
+            item.gameObject.SetActive(false);
+            item.GetComponentInChildren<Button>().interactable = true;
+        }
+
+        AlarmNodeId = -1;
+        WPNodeID = -1;
     }
 
     public void SetScreenInfo(Sprite sprite, int wpIndex, string Loc)
@@ -69,8 +78,10 @@ public class ControlRoomMonitor : MonoBehaviour
     }
 
     private Coroutine AlarmBlinkRoutine = null;
-    public void BlinkIcon()
+    private int AlarmNodeId = -1;
+    public void BlinkIcon(int idx)
     {
+        AlarmNodeId = idx;
         BlinkButton.SetActive(true);
         BlinkIconImage.enabled = true;
 
@@ -81,6 +92,10 @@ public class ControlRoomMonitor : MonoBehaviour
         }
 
         StartCoroutine(Blink(BlinkIconImage));    
+    }
+    public void OnClickAlarm()
+    {
+        scenarioPlayer.CheckStep(AlarmNodeId);
     }
 
     IEnumerator Blink(Image image)
@@ -93,8 +108,10 @@ public class ControlRoomMonitor : MonoBehaviour
     }
 
     private Coroutine WPBlinkRoutine = null;
-    public void ShowWaringPoint()
+    private int WPNodeID = -1;
+    public void ShowWaringPoint(int nodeID)
     {
+        WPNodeID = nodeID; 
         var WP = WarnigPoints[WPIndex];
 
         WP.gameObject.SetActive(true);
@@ -107,5 +124,10 @@ public class ControlRoomMonitor : MonoBehaviour
         }
 
         WPBlinkRoutine = StartCoroutine(Blink(WP));
+    }
+
+    public void OnClickWP()
+    {
+        scenarioPlayer.CheckStep(WPNodeID);
     }
 }

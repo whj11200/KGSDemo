@@ -14,35 +14,44 @@ public class FacilitySimulation : SimulationBase
         for (int idx = 0; idx < Asset.Template.Nodes.Count; idx++)
         {
             var node = Asset.Template.Nodes[idx];
+            var content = node.Content.Replace("{Title}", Asset.ScenarioName);
 
-            var gameNode = new GameNode
+            var gameNode = new GameNode();
+
+            gameNode.Node = node;
+
+            gameNode.OnStart = () =>
             {
-                Node = node,
-                OnStart = ()=>
-                {
-                    // 기본 동작: 노드 시작 시 대사 출력
-                    EventBus.Publish(ScenarioEventType.ShowMessage, 
-                                    new ScenarioEvent { EventType = ScenarioEventType.ShowMessage,
-                                                        EventId = $"{type}_{idx}_Content",
-                                                        StringValue = node.Content,
-                                                        Delay = 2f});
+                IsProcessBlocked = !node.NoCondition;
 
-                    EventBus.Publish(ScenarioEventType.Audio,
-                        new ScenarioEvent
+                EventBus.Publish(
+                    ScenarioEventType.ShowMessage,
+                    new ScenarioEvent
+                    {
+                        EventType = ScenarioEventType.ShowMessage,
+                        NodeID = idx,
+                        EventId = $"{type}_{idx}_Content",
+                        StringValue = content,
+                        Callback = () => gameNode.OnTextEnd?.Invoke(),
+                        Delay = 2f
+                    });
+
+                EventBus.Publish(
+                    ScenarioEventType.Audio,
+                    new ScenarioEvent
+                    {
+                        EventType = ScenarioEventType.Audio,
+                        NodeID = idx,
+                        ObjectValue = node.Voice,
+                        Callback = () =>
                         {
-                            EventType = ScenarioEventType.Audio,
-                            ObjectValue = node.Voice,
-                            Callback = () =>
-                            {
-                                if (node.NoCondition)
-                                    ProcessSimulationStep();
-                            },
-                            Delay = node.Voice != null ? node.Voice.length + 1.5f : 2f
-                        }
-                    );
-                }, 
+                            if (node.NoCondition)
+                                ProcessSimulationStep();
+                        },
+                        Delay = node.Voice != null ? node.Voice.length + 1.5f : 2f
+                    });
             };
-                
+
             GameNodes.Add(gameNode);
         }
 
@@ -50,7 +59,9 @@ public class FacilitySimulation : SimulationBase
         GameNodes[0].OnStart += () =>
         {
             EventBus.Publish(ScenarioEventType.Alarm,
-                            new ScenarioEvent { EventType = ScenarioEventType.Alarm,
+                            new ScenarioEvent { 
+                                EventType = ScenarioEventType.Alarm,
+                                NodeID = 0,
                             });
         };
 
@@ -58,19 +69,34 @@ public class FacilitySimulation : SimulationBase
         GameNodes[1].OnStart += () =>
         {
             EventBus.Publish(ScenarioEventType.Monitor,
-                            new ScenarioEvent { EventType = ScenarioEventType.Monitor,
-                                                EventId = "Warning_Flash",
+                            new ScenarioEvent { 
+                                EventType = ScenarioEventType.Monitor,
+                                NodeID = 1,
+                                EventId = "Warning_Flash",
                             });
         };
 
         // 2번: 모니터에 누출 지점 표시
-        GameNodes[2].OnStart += () =>
+        GameNodes[2].OnEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.Monitor,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.Monitor,
+                    NodeID = 3, // 2번 노드는 자동 진행되므로 3번으로 검사
                     EventId = "WP_Flash",
+                });
+        };
+
+        // 5번: 책임자에게 이동
+        GameNodes[5].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.Camera,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.Camera,
+                    NodeID = 5,
+                    EventId = "Report",
                 });
         };
 
@@ -88,10 +114,22 @@ public class FacilitySimulation : SimulationBase
     }
 
     // 다음 노드 진행
-    public override void ProcessSimulationStep()
+    public override void ProcessSimulationStep() 
     {
-        if (CurrentNodeIndex >= 0) 
-            GameNodes[CurrentNodeIndex]?.OnEnd?.Invoke();
+        if (IsRunning)
+            return;
+
+        IsRunning = true;
+
+        if (IsProcessBlocked)
+        {
+            IsRunning = false;
+            return;
+        }
+
+        if (CurrentNodeIndex >= 0)
+            GameNodes[CurrentNodeIndex].OnEnd?.Invoke();
+
         CurrentNodeIndex++;
 
         if (CurrentNodeIndex >= GameNodes.Count)
@@ -101,5 +139,6 @@ public class FacilitySimulation : SimulationBase
         }
 
         GameNodes[CurrentNodeIndex]?.OnStart?.Invoke();
+        IsRunning = false;
     }
 }

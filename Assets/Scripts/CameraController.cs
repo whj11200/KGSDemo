@@ -44,6 +44,7 @@ public class CameraController : MonoBehaviour
     public InputActionReference scrollAction; // 줌 인/아웃
     public InputActionReference tabAction; // 상호작용 입력
     public InputActionReference jumpAction; // 점프 입력 추가
+
     [Header("GameObject References")]
     public GameObject popup;
     public GameObject menu;
@@ -336,5 +337,10 @@ public class CameraController : MonoBehaviour
 
         pitch = Mathf.Clamp(-angle, minPitch, maxPitch);
         mainCamera.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+    }
+
+    public void SetMoveLockState(bool isLock)
+    {
+        ignoreMovement = isLock;
     }
 }

@@ -9,6 +9,7 @@ public class ScenarioSelector : MonoBehaviour
 
     [SerializeField] CinemachineCamera ScenarioCam;
     [SerializeField] CameraSwitcher CameraSwitcher;
+    [SerializeField] CameraController CameraController;
 
     private void Start()
     {
@@ -37,6 +38,7 @@ public class ScenarioSelector : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        CameraController.SetMoveLockState(true);
         CameraSwitcher.SetCamera(ScenarioCam);
     }
 
@@ -46,6 +48,8 @@ public class ScenarioSelector : MonoBehaviour
         Cursor.visible = false;
 
         ScenarioIndex = 0;
+
+        CameraController.SetMoveLockState(false);
         CameraSwitcher.Revert();
     }
 }
