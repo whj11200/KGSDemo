@@ -917,7 +917,7 @@ MonoBehaviour:
   controller: {fileID: 45622696}
   animDriver: {fileID: 45622694}
   dialogueModule: {fileID: 473893012}
-  fadeUi: {fileID: 0}
+  fadeUi: {fileID: 259864197}
   stopFacingAfterEndingSeconds: 3
   returnTimer: 3
 --- !u!114 &45622696
@@ -3739,6 +3739,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270926883}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &277392640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4036185891549392395, guid: 590d7f935465f5a4ea4ff1615bf88a3c, type: 3}
+  m_PrefabInstance: {fileID: 8421654842374932206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &277633796
 GameObject:
   m_ObjectHideFlags: 0
@@ -71323,6 +71334,10 @@ PrefabInstance:
       propertyPath: environmentManager
       value: 
       objectReference: {fileID: 1075379023}
+    - target: {fileID: 3691577834332425924, guid: 590d7f935465f5a4ea4ff1615bf88a3c, type: 3}
+      propertyPath: speakerBG
+      value: 
+      objectReference: {fileID: 277392640}
     - target: {fileID: 6265988363887865009, guid: 590d7f935465f5a4ea4ff1615bf88a3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.034454435
