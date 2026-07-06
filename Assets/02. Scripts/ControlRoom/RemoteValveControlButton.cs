@@ -8,7 +8,10 @@ public class RemoteValveControlButton : MonoBehaviour
     [SerializeField] Button button;
     [SerializeField] Image Image;
     [SerializeField] bool IsOpen = true;
-    [SerializeField] public int phase = -1; // 언제 조작하는 밸브인지
+    [SerializeField] public ValvePhase Phase;
+    [SerializeField] public bool TargetState = false;
+
+    public bool IsTargetState => TargetState == IsOpen;
 
     private void Awake()
     {
@@ -23,20 +26,32 @@ public class RemoteValveControlButton : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        Image.color = parent.OpenColor;
+        IsOpen = true;
+    }
+
     private void OnValveClick()
     {
-        //if (phase < 0 || !parent.OnClickValve(name, phase))
-        //{
-        //    Debug.Log($"phase: {phase}, IsValid: {parent.OnClickValve(name, phase)}");
-        //    return;
-        //}
+        if (parent.CurrentPhase != Phase)
+            return;
 
         // Open/Close 상태 변경
         IsOpen = !IsOpen;
 
         // 색상 변경 
         var applyColor = IsOpen ? parent.OpenColor : parent.CloseColor;
-
         Image.color = applyColor;
+
+        parent.OnValveStateChanged(name, IsTargetState);
     }
+}
+
+public enum ValvePhase
+{
+    None,
+    SectionIsolation,   // SI
+    SectionVent,        // SV
+    Complete
 }

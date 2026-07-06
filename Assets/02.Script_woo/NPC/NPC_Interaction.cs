@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class NPC_Interaction : MonoBehaviour
@@ -7,7 +7,7 @@ public class NPC_Interaction : MonoBehaviour
     [SerializeField] private NPC_Controller controller;
     [SerializeField] private NPC_AnimatorDrivers animDriver;
     [SerializeField] private DialogueModeul dialogueModule;
-    [SerializeField] private FadeUi fadeUi;
+    [SerializeField] private KGSSceneFadeUi fadeUi;
 
     [Header("Ending Timing")]
     [SerializeField, Min(0f)] private float stopFacingAfterEndingSeconds = 3f;
@@ -16,7 +16,7 @@ public class NPC_Interaction : MonoBehaviour
 
     private Coroutine endingRoutine;
 
-    //  Ã¹ °¡ÀÌµå ½ÃÀÛÀÎÁö ¿©ºÎ
+    //  ì²« ê°€ì´ë“œ ì‹œì‘ì¸ì§€ ì—¬ë¶€
      bool guideSequenceStarted;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class NPC_Interaction : MonoBehaviour
         
         if (fadeUi == null)
         {
-            Debug.Log("[NPC_Interaction] FadeUi°¡ ¾øÀ¸¹Ç·Î Á÷Á¢ HandleHello¸¦ È£ÃâÇÕ´Ï´Ù.");
+            Debug.Log("[NPC_Interaction] FadeUiê°€ ì—†ìœ¼ë¯€ë¡œ ì§ì ‘ HandleHelloë¥¼ í˜¸ì¶œí•©ë‹ˆë‹¤.");
             HandleHello();
         }
     }
@@ -41,15 +41,15 @@ public class NPC_Interaction : MonoBehaviour
             controller.OnGuideArrivedPlayerNear += HandleGuideArrivedPlayerNear;
         }
 
-        // ----- [¼öÁ¤ Æ÷ÀÎÆ®] Enum.ToString()À» »ç¿ëÇÏ¿© ±¸µ¶ -----
-        // ÀÌÁ¦ "NPC_Explain"ÀÌ¶ó°í Á÷Á¢ ¾È ¾²°í Enum °ªÀ» ¹®ÀÚ·Î ¹Ù²ã¼­ ±¸µ¶ÇÕ´Ï´Ù.
+        // ----- [ìˆ˜ì • í¬ì¸íŠ¸] Enum.ToString()ì„ ì‚¬ìš©í•˜ì—¬ êµ¬ë… -----
+        // ì´ì œ "NPC_Explain"ì´ë¼ê³  ì§ì ‘ ì•ˆ ì“°ê³  Enum ê°’ì„ ë¬¸ìë¡œ ë°”ê¿”ì„œ êµ¬ë…í•©ë‹ˆë‹¤.
 
         DialogueEventBus.Subscribe(NPCActionType.StartGuide.ToString(), OnNpcStartGuide);
         DialogueEventBus.Subscribe(NPCActionType.Succeed.ToString(), Succeed);
         DialogueEventBus.Subscribe(NPCActionType.Explain.ToString(), Explaining);
         DialogueEventBus.Subscribe(NPCActionType.Hello.ToString(), HandleHello); 
         DialogueEventBus.Subscribe(NPCActionType.Sad.ToString(), PlaySadAnimation);
-        // ¿£µùÀÌ³ª ½ºÅµ °°Àº °øÅë ½Ã½ºÅÛ ÀÌº¥Æ®´Â ±×´ë·Î À¯Áö °¡´É
+        // ì—”ë”©ì´ë‚˜ ìŠ¤í‚µ ê°™ì€ ê³µí†µ ì‹œìŠ¤í…œ ì´ë²¤íŠ¸ëŠ” ê·¸ëŒ€ë¡œ ìœ ì§€ ê°€ëŠ¥
         DialogueEventBus.Subscribe(NPCActionType.EndGuide.ToString(), EndingGuide);
         DialogueEventBus.Subscribe("DIALOGUE_SKIP", OnDialogueSkip);
 
@@ -64,7 +64,7 @@ public class NPC_Interaction : MonoBehaviour
             controller.OnGuideArrivedPlayerNear -= HandleGuideArrivedPlayerNear;
         }
 
-        // ¾ğ±¸µ¶µµ µ¿ÀÏÇÏ°Ô Enum ±âÁØÀ¸·Î ÁøÇà
+        // ì–¸êµ¬ë…ë„ ë™ì¼í•˜ê²Œ Enum ê¸°ì¤€ìœ¼ë¡œ ì§„í–‰
         DialogueEventBus.Unsubscribe(NPCActionType.StartGuide.ToString(), OnNpcStartGuide);
         DialogueEventBus.Unsubscribe(NPCActionType.Hello.ToString(), HandleHello);
         DialogueEventBus.Unsubscribe(NPCActionType.Sad.ToString(), PlaySadAnimation);
@@ -79,7 +79,7 @@ public class NPC_Interaction : MonoBehaviour
     // ------------------------
     public void HandleHello()
     {
-        // ÆäÀÌµå UI°¡ ³¡³µ´ÂÁö È®ÀÎ (±âÁ¸ ·ÎÁ÷ À¯Áö)
+        // í˜ì´ë“œ UIê°€ ëë‚¬ëŠ”ì§€ í™•ì¸ (ê¸°ì¡´ ë¡œì§ ìœ ì§€)
         if (fadeUi != null && !fadeUi.isfinish)
         {
             return;
@@ -108,20 +108,20 @@ public class NPC_Interaction : MonoBehaviour
     // EventBus-driven
     // ------------------------
 
-    //  ÇÙ½É: NPC_START_GUIDE ÀÌº¥Æ®°¡ ¿Ã ¶§¸¶´Ù ´ÙÀ½ Å¸°Ù ÁøÇà
+    //  í•µì‹¬: NPC_START_GUIDE ì´ë²¤íŠ¸ê°€ ì˜¬ ë•Œë§ˆë‹¤ ë‹¤ìŒ íƒ€ê²Ÿ ì§„í–‰
     private void OnNpcStartGuide()
     {
         if (!controller) return;
 
         if (!guideSequenceStarted)
         {
-            // Ã¹ ½ÃÀÛÀº 0¹ø Å¸°ÙÀ¸·Î
+            // ì²« ì‹œì‘ì€ 0ë²ˆ íƒ€ê²Ÿìœ¼ë¡œ
             guideSequenceStarted = true;
-            controller.StartGuide(); // targetIndex=0 ±âÁØ
+            controller.StartGuide(); // targetIndex=0 ê¸°ì¤€
         }
         else
         {
-            // ÀÌÈÄºÎÅÍ´Â ´ÙÀ½ Å¸°ÙÀ¸·Î
+            // ì´í›„ë¶€í„°ëŠ” ë‹¤ìŒ íƒ€ê²Ÿìœ¼ë¡œ
             controller.AdvanceToNextTarget();
         }
     }
@@ -144,17 +144,17 @@ public class NPC_Interaction : MonoBehaviour
         controller?.ForceReturnHome();
         yield break;
     }
-    //¼³¸í
+    //ì„¤ëª…
     public void Explaining()
     {
         animDriver?.PlayExplain();
     }
-    //Á¤´ä
+    //ì •ë‹µ
     public void Succeed()
     {
         animDriver?.PlaySucceed();
     }
-    //½½ÇÄ
+    //ìŠ¬í””
     public void PlaySadAnimation()
     {
         animDriver?.PlaySad();
@@ -169,7 +169,7 @@ public class NPC_Interaction : MonoBehaviour
             endingRoutine = null;
         }
 
-        // ½ºÅµÇÏ¸é ½ÃÄö½ºµµ ÃÊ±âÈ­ÇÏ´Â °Ô ¾ÈÀüÇÔ
+        // ìŠ¤í‚µí•˜ë©´ ì‹œí€€ìŠ¤ë„ ì´ˆê¸°í™”í•˜ëŠ” ê²Œ ì•ˆì „í•¨
         guideSequenceStarted = false;
 
         controller?.ForceReturnHome();

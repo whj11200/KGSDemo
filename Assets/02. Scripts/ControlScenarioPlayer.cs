@@ -12,6 +12,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     [SerializeField] ScenarioSelector Selector;
     [SerializeField] CameraSwitcher CameraSwitcher;
     [SerializeField] GameObject MonitorSwitcher;
+    [SerializeField] FadeUI FadeUI;
     [SerializeField] List<CinemachineCamera> MonitorCameras = new();
     [SerializeField] List<ControlRoomMonitor> Monitors = new();
 
@@ -66,10 +67,13 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         var part = selectedAsset.BrokenPart;
 
         simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
-        Monitors[1].SetPopupText($"<color=#FF0000>{selectedAsset.ScenarioName}</color> 에서 \r\n" +
+
+        var mainMonitor = Monitors[1];
+
+        mainMonitor.SetPopupText($"<color=#FF0000>{selectedAsset.ScenarioName}</color> 에서 \r\n" +
                                  $"LNG 가스 누출이 확인되었습니다.");
 
-        Monitors[1].OnProcessBtn += ProcessScenario;
+        mainMonitor.OnProcessBtn += ProcessScenario;
 
         ValveConsole.AllButtonsDisable();
 
@@ -100,20 +104,19 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             switch (e.EventId)
             {
                 case "Warning_Flash":
-                    Monitors[1].BlinkIcon(e.NodeID);
+                    mainMonitor.BlinkIcon(e.NodeID);
                     break;
 
                 case "WP_Flash":
-                    Monitors[1].ShowWaringPoint(e.NodeID);
+                    mainMonitor.ShowWaringPoint(e.NodeID);
                     break;
-                    
             }
         });
 
         SubscribeEvent(ScenarioEventType.ValveConsole, e =>
         {
             ValveConsole.SetTargetValve(selectedAsset, e.NodeID);
-            Monitors[1].ShowValves();
+            mainMonitor.ShowValves();
         });
 
         SubscribeEvent(ScenarioEventType.Camera, e =>
@@ -123,8 +126,17 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             Selector.ExitSelectionMode();
         });
 
+        SubscribeEvent(ScenarioEventType.UI, e =>
+        {
+            e.Delay = 9f;
+
+            FadeUI.FadeOutIn(3f, 3f, 3f,
+                OnOutEnd: () =>  FadeUI.SetText(e.StringValue),
+                OnInStart: () => FadeUI.HideText());
+        });
+
         simulation.Initialize();
-        Monitors[CameraIdx].SetScreenInfo(selectedAsset.BluePrint, assetIdx, part);
+        mainMonitor.SetScreenInfo(selectedAsset.BluePrint, assetIdx, part);
 
         IsScenarioInitialized = true;
 
@@ -200,6 +212,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         int index = message.IndexOf(':');
 
         string speaker = "";
+        Debug.Log(speaker + "-" + message);
+
         string body = message;
 
         if (index >= 0)
@@ -210,11 +224,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         DialogueUI.Show(true);
 
-        if (!string.IsNullOrEmpty(speaker))
-        {
-            DialogueUI.SetSpeaker(speaker);
-        }
-
+        DialogueUI.SetSpeaker(speaker);
         DialogueUI.SetBodyText(body);
 
         StartCoroutine(Delay(() =>

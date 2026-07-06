@@ -917,7 +917,7 @@ MonoBehaviour:
   controller: {fileID: 45622696}
   animDriver: {fileID: 45622694}
   dialogueModule: {fileID: 473893012}
-  fadeUi: {fileID: 259864197}
+  fadeUi: {fileID: 0}
   stopFacingAfterEndingSeconds: 3
   returnTimer: 3
 --- !u!114 &45622696
@@ -3619,7 +3619,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5fa17eedcf2cbb4dbb6fcd69e4aa3d4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FadeUi
+  m_EditorClassIdentifier: Assembly-CSharp::KGSSceneFadeUi
   KGS_Img: {fileID: 1060768350}
   KGS_Audio: {fileID: 972927802}
   KGS_Clip: {fileID: 8300000, guid: 3f1152b7701c1f043b37713fb84b95f8, type: 3}
@@ -12869,8 +12869,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1159696382
 MonoBehaviour:
@@ -12892,8 +12892,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC9C0\uC5ED\uAD6C\uBD84 \uBCC0\uACBD \uC548\uC815\uC131 \uD3C9\uAC00\n 
-    VR Simulation \uC744 \uC2DC\uC791\uD569\uB2C8\uB2E4."
+  m_text: "\uC9C0\uC5ED\uAD6C\uBD84 \uBCC0\uACBD \uC548\uC815\uC131 \uD3C9\uAC00\nVR
+    Simulation \uC744 \uC2DC\uC791\uD569\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22d3a68e82363b045a61196f3cb8284e, type: 2}
   m_sharedMaterial: {fileID: -163470601482149475, guid: 22d3a68e82363b045a61196f3cb8284e, type: 2}
@@ -12959,7 +12959,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 30, y: 30, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

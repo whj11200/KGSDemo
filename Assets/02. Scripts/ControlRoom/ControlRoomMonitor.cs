@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ControlRoomMonitor : MonoBehaviour
+public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
 {
     [SerializeField] GameObject BlinkButton;
     [SerializeField] Image BlinkIconImage;
@@ -145,6 +145,6 @@ public class ControlRoomMonitor : MonoBehaviour
 
         var btn = WP.GetComponentInChildren<Button>();
         btn.interactable = false;
-        btn.GetComponent<Image>().raycastTarget = true;
+        btn.GetComponent<Image>().raycastTarget = false;
     }
 }

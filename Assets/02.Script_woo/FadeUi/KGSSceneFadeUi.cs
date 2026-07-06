@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class FadeUi : MonoBehaviour
+public class KGSSceneFadeUi : MonoBehaviour
 {
     [SerializeField] Image KGS_Img;
     [SerializeField] AudioSource KGS_Audio;

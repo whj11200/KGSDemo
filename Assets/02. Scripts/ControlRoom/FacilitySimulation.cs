@@ -14,8 +14,8 @@ public class FacilitySimulation : SimulationBase
         for (int idx = 0; idx < Asset.Template.Nodes.Count; idx++)
         {
             var node = Asset.Template.Nodes[idx];
-            var speacker = node.Speacker;
-            var content = $"{speacker}:{node.Content.Replace("{Title}", Asset.ScenarioName)}";
+            var Speaker = node.Speaker;
+            var content = $"{Speaker}:{node.Content.Replace("{Title}", Asset.ScenarioName)}";
 
             var gameNode = new GameNode();
 
@@ -112,9 +112,52 @@ public class FacilitySimulation : SimulationBase
                     EventId = "Control_Valves"
                 });
         };
+
         // 8번: 밸브 조작 완료 및 Fade In
-        // 9번: Fade Out
-        // 11번 후: Fade In
+        GameNodes[8].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.UI,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.UI,
+                    NodeID = 8,
+                    StringValue = $"{Asset.Template.WaitTime}분 경과," +
+                                  $"\r\n잔류 가스 방출 완료",
+                    Callback = () =>
+                    {
+                        IsProcessBlocked = false;
+                        ProcessSimulationStep();
+                    }
+                });
+        };
+
+        // 10번: Fade Out
+        GameNodes[10].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.UI,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.UI,
+                    NodeID = 10,
+                    StringValue = "보수 작업 완료",
+                    Callback = () =>
+                    {
+                        IsProcessBlocked = false;
+                        ProcessSimulationStep();
+                    },
+                });
+        };
+
+        GameNodes[11].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 7,
+                    EventId = "Control_Valves"
+                });
+        };
 
         CurrentNodeIndex = -1;
     }
@@ -127,8 +170,7 @@ public class FacilitySimulation : SimulationBase
     // 다음 노드 진행
     public override void ProcessSimulationStep() 
     {
-        if (IsRunning)
-            return;
+        if (IsRunning) return;
 
         IsRunning = true;
 

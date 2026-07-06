@@ -1,38 +1,38 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DoorSceneTrigger : MonoBehaviour
 {
     public enum SceneName
     {
-        ManagementCenterWorkerLearningCenter, // °ü¸®¼Ò ÀÛ¾÷ÀÚ ÇĞ½À°ü
+        ManagementCenterWorkerLearningCenter, // ê´€ë¦¬ì†Œ ì‘ì—…ì í•™ìŠµê´€
         ControlRoom
     }
-    [Header("ÀÌµ¿ ¼³Á¤")]
-    [SerializeField] private SceneName targetScene; // ÀÎ½ºÆåÅÍ¿¡¼­ µå·Ó´Ù¿îÀ¸·Î ¼±ÅÃ
+    [Header("ì´ë™ ì„¤ì •")]
+    [SerializeField] private SceneName targetScene; // ì¸ìŠ¤í™í„°ì—ì„œ ë“œë¡­ë‹¤ìš´ìœ¼ë¡œ ì„ íƒ
 
-    [Header("ÀüÈ¯ ¹æ½Ä")]
-    [SerializeField] private LoadSceneMode loadMode = LoadSceneMode.Single; // ´ÜÀÏ ¾À È¤Àº ÇÕÄ¡±â(Additive)
+    [Header("ì „í™˜ ë°©ì‹")]
+    [SerializeField] private LoadSceneMode loadMode = LoadSceneMode.Single; // ë‹¨ì¼ ì”¬ í˜¹ì€ í•©ì¹˜ê¸°(Additive)
 
-    [Header("È¿°ú")]
-    [SerializeField] private bool useFade = true; // ÆäÀÌµå È¿°ú »ç¿ë ¿©ºÎ (FadeUI°¡ ÀÖÀ» °æ¿ì)
-    [SerializeField] private FadeUi fadeUi; // ÇÊ¿ä½Ã ÆäÀÌµå UI ÂüÁ¶
+    [Header("íš¨ê³¼")]
+    [SerializeField] private bool useFade = true; // í˜ì´ë“œ íš¨ê³¼ ì‚¬ìš© ì—¬ë¶€ (FadeUIê°€ ìˆì„ ê²½ìš°)
+    [SerializeField] private KGSSceneFadeUi fadeUi; // í•„ìš”ì‹œ í˜ì´ë“œ UI ì°¸ì¡°
 
     private void OnTriggerEnter(Collider other)
     {
-        // ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹Çß´ÂÁö È®ÀÎ
+        // í”Œë ˆì´ì–´ì™€ ì¶©ëŒí–ˆëŠ”ì§€ í™•ì¸
         if (other.CompareTag("Player"))
         {
-            Debug.Log($"{targetScene}À¸·Î ÀÌµ¿À» ½ÃÀÛÇÕ´Ï´Ù.");
+            Debug.Log($"{targetScene}ìœ¼ë¡œ ì´ë™ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
 
             if (useFade && fadeUi != null)
             {
-                // ÆäÀÌµå ¾Æ¿ô ÈÄ ¾À ÀüÈ¯ (ÄÚ·çÆ¾ ¹æ½Ä)
+                // í˜ì´ë“œ ì•„ì›ƒ í›„ ì”¬ ì „í™˜ (ì½”ë£¨í‹´ ë°©ì‹)
                 StartCoroutine(TransitionWithFade());
             }
             else
             {
-                // Áï½Ã ÀüÈ¯
+                // ì¦‰ì‹œ ì „í™˜
                 LoadTargetScene();
             }
         }
@@ -40,18 +40,18 @@ public class DoorSceneTrigger : MonoBehaviour
 
     private void LoadTargetScene()
     {
-        // Enum ÀÌ¸§À» ¹®ÀÚ¿­·Î º¯È¯ÇÏ¿© ¾À ·Îµå
+        // Enum ì´ë¦„ì„ ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ì—¬ ì”¬ ë¡œë“œ
         SceneManager.LoadScene(targetScene.ToString(), loadMode);
     }
 
     private System.Collections.IEnumerator TransitionWithFade()
     {
-        // 1. ÆäÀÌµå ¾Æ¿ô ½ÃÀÛ
-        // fadeUi.FadeOut(); // ±âÁ¸ ÇÁ·ÎÁ§Æ®ÀÇ FadeUI ÇÔ¼ö¸í¿¡ ¸ÂÃç ¼öÁ¤ÇÏ¼¼¿ä.
+        // 1. í˜ì´ë“œ ì•„ì›ƒ ì‹œì‘
+        // fadeUi.FadeOut(); // ê¸°ì¡´ í”„ë¡œì íŠ¸ì˜ FadeUI í•¨ìˆ˜ëª…ì— ë§ì¶° ìˆ˜ì •í•˜ì„¸ìš”.
 
-        yield return new WaitForSeconds(1f); // ÆäÀÌµå ¿¬Ãâ ½Ã°£ ´ë±â
+        yield return new WaitForSeconds(1f); // í˜ì´ë“œ ì—°ì¶œ ì‹œê°„ ëŒ€ê¸°
 
-        // 2. ¾À ·Îµå
+        // 2. ì”¬ ë¡œë“œ
         LoadTargetScene();
     }
 }

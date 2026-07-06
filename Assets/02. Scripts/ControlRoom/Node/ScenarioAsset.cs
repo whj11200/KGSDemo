@@ -23,7 +23,7 @@ public enum ScenarioType
 [System.Serializable]
 public class ScenarioNode
 {
-    public string Speacker;
+    public string Speaker;
     [TextArea(2, 3)]
     public string Content;
     public AudioClip Voice;

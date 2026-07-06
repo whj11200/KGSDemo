@@ -31,9 +31,11 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
     }
 
     public void Show(bool visible) => root.SetActive(visible);
-
+    
     public void SetSpeaker(string speakerId = "")
     {
+        Debug.Log(speakerId);
+
         if (string.IsNullOrEmpty(speakerId))
         {
             speakerBG.enabled = false;
