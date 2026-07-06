@@ -22,7 +22,8 @@ public class ValveControlConsole : MonoBehaviour
     private ValvePhase currentPhase = ValvePhase.None;
     public ValvePhase CurrentPhase => currentPhase;
 
-    private bool CurrentTargetState = true; // true: open, false: close
+    public ValveOperation CurrentOperation { get; private set; }
+    [SerializeField] private bool CurrentTargetState = true; // true: open, false: close
     private Dictionary<string, bool> valveStates = new();
 
     int nodeID = -1;
@@ -32,9 +33,11 @@ public class ValveControlConsole : MonoBehaviour
         nodeID = -1;
     }
 
-    public void SetTargetValve(ScenarioAsset asset, int nodeId, bool _targetState)
+    public void SetTargetValve(ScenarioAsset asset, int nodeId, ValveOperation operation)
     {
-        CurrentTargetState = _targetState;
+        CurrentOperation = operation;
+
+        CurrentTargetState = operation == ValveOperation.Restore;
 
         nodeID = nodeId;
         valveStates.Clear();
@@ -50,11 +53,15 @@ public class ValveControlConsole : MonoBehaviour
             {
                 button.Phase = ValvePhase.SectionIsolation;
                 button.gameObject.SetActive(true);
+
+                valveStates[button.name] = button.IsTargetState;
             }
             else if (TargetValves_SV.Contains(button.name))
             {
                 button.Phase = ValvePhase.SectionVent;
                 button.gameObject.SetActive(true);
+
+                valveStates[button.name] = button.IsTargetState;
             }
             else
             {
@@ -63,18 +70,31 @@ public class ValveControlConsole : MonoBehaviour
             }
         }
 
-        foreach (var valve in TargetValves_SI)
-            valveStates[valve] = false;
+        switch (CurrentOperation)
+        {
+            case ValveOperation.Isolate:
+                if (TargetValves_SI.Count > 0)
+                    currentPhase = ValvePhase.SectionIsolation;
+                else if (TargetValves_SV.Count > 0)
+                    currentPhase = ValvePhase.SectionVent;
+                else
+                    currentPhase = ValvePhase.Complete;
+                break;
 
-        foreach (var valve in TargetValves_SV)
-            valveStates[valve] = false;
+            case ValveOperation.Restore:
+                if (TargetValves_SV.Count > 0)
+                    currentPhase = ValvePhase.SectionVent;
+                else if (TargetValves_SI.Count > 0)
+                    currentPhase = ValvePhase.SectionIsolation;
+                else
+                    currentPhase = ValvePhase.Complete;
+                break;
+        }
+    }
 
-        if (TargetValves_SI.Count > 0)
-            currentPhase = ValvePhase.SectionIsolation;
-        else if (TargetValves_SV.Count > 0)
-            currentPhase = ValvePhase.SectionVent;
-        else
-            currentPhase = ValvePhase.Complete;
+    public void ConfirmVent(List<string> VentValves)
+    {
+
     }
 
     public void OnValveStateChanged(string valveName, bool isTargetState)
@@ -87,19 +107,31 @@ public class ValveControlConsole : MonoBehaviour
         valveStates[valveName] = isTargetState;
 
         bool siComplete = TargetValves_SI.Count == 0 ||
-                          TargetValves_SI.All(v => valveStates[v]);
+                      TargetValves_SI.All(v => valveStates[v]);
 
         bool svComplete = TargetValves_SV.Count == 0 ||
                           TargetValves_SV.All(v => valveStates[v]);
 
-        // SI가 아직 완료되지 않았으면 항상 SI 단계
+        switch (CurrentOperation)
+        {
+            case ValveOperation.Isolate:
+                HandleIsolate(siComplete, svComplete);
+                break;
+
+            case ValveOperation.Restore:
+                HandleRestore(siComplete, svComplete);
+                break;
+        }
+    }
+
+    private void HandleIsolate(bool siComplete, bool svComplete)
+    {
         if (!siComplete)
         {
             currentPhase = ValvePhase.SectionIsolation;
             return;
         }
 
-        // SI는 완료됐지만 SV가 남아있으면 SV 단계
         if (!svComplete)
         {
             if (currentPhase != ValvePhase.SectionVent)
@@ -107,11 +139,35 @@ public class ValveControlConsole : MonoBehaviour
                 currentPhase = ValvePhase.SectionVent;
                 OnPhaseComplete?.Invoke(2);
             }
-
             return;
         }
 
-        // 모두 완료
+        CompleteControl();
+    }
+
+    private void HandleRestore(bool siComplete, bool svComplete)
+    {
+        if (!svComplete)
+        {
+            currentPhase = ValvePhase.SectionVent;
+            return;
+        }
+
+        if (!siComplete)
+        {
+            if (currentPhase != ValvePhase.SectionIsolation)
+            {
+                currentPhase = ValvePhase.SectionIsolation;
+                OnPhaseComplete?.Invoke(1);
+            }
+            return;
+        }
+
+        CompleteControl();
+    }
+
+    private void CompleteControl()
+    {
         if (currentPhase != ValvePhase.Complete)
         {
             currentPhase = ValvePhase.Complete;
@@ -125,5 +181,11 @@ public class ValveControlConsole : MonoBehaviour
         {
             btn.gameObject.SetActive(false);
         }
+    }
+
+    public enum ValveOperation
+    {
+        Isolate,   // 차단
+        Restore    // 복구
     }
 }

@@ -109,7 +109,7 @@ public class FacilitySimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 7,
-                    EventId = "Valves_Close"
+                    EventId = "Valve_Close"
                 });
         };
 
@@ -154,8 +154,19 @@ public class FacilitySimulation : SimulationBase
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.ValveConsole,
-                    NodeID = 7,
-                    EventId = "Valves_Reverts"
+                    NodeID = 11,
+                    EventId = "Valve_Revert"
+                });
+        };
+
+        GameNodes[12].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 12,
+                    EventId = "Valve_ConfirmVent"
                 });
         };
 
