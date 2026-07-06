@@ -19,18 +19,24 @@ public class RemoteValveControlButton : MonoBehaviour
         Image = GetComponent<Image>();
 
         button.onClick.AddListener(OnValveClick);
+
+        gameObject.SetActive(false);
     }
 
     private void OnValveClick()
     {
-        if (phase >= 0 && !parent.OnClickValve(name, phase))
-            return;
+        //if (phase < 0 || !parent.OnClickValve(name, phase))
+        //{
+        //    Debug.Log($"phase: {phase}, IsValid: {parent.OnClickValve(name, phase)}");
+        //    return;
+        //}
 
         // Open/Close 상태 변경
         IsOpen = !IsOpen;
 
         // 색상 변경 
         var applyColor = IsOpen ? parent.OpenColor : parent.CloseColor;
+
         Image.color = applyColor;
     }
 }

@@ -15,6 +15,10 @@ MonoBehaviour:
   ScenarioName: "\uAC00\uC2A4\uD544\uD130 \uBC0F \uD788\uD130\uC9C0\uC5ED"
   BrokenPart: "\uAC00\uC2A4 \uD544\uD130"
   Template: {fileID: 11400000, guid: 7207e7b163514d84ca31e708e77ccb46, type: 2}
-  Valves_SectionIsolation: []
+  Valves_SectionIsolation:
+  - M-21A
+  - M-21B
+  - M-31A
+  - M-31B
   Valves_SectionVent: []
   BluePrint: {fileID: 21300000, guid: 6da940201c77dd14b8fba47434bcb5e6, type: 3}

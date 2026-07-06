@@ -37,8 +37,8 @@ MonoBehaviour:
     Voice: {fileID: 0}
     NoCondition: 1
   - Speacker: 
-    Content: "\uD1B5\uC81C\uC18C(\uCC45\uC784\uC790)\uC5D0 \uC0C1\uD669\uC744 \uBCF4\uACE0\uD558\uACE0
-      \uAE34\uAE09 \uC870\uCE58\uB97C \uC694\uCCAD\uD558\uC138\uC694."
+    Content: "\uD1B5\uC81C\uC18C(\uCC45\uC784\uC790)\uC5D0 \uC0C1\uD669\uC744 \uBCF4\uACE0\uD558\uACE0\n\uAE34\uAE09
+      \uC870\uCE58\uB97C \uC694\uCCAD\uD558\uC138\uC694."
     Voice: {fileID: 0}
     NoCondition: 0
   - Speacker: "\uC548\uC804 \uCC45\uC784\uC790"

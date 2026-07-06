@@ -49,7 +49,11 @@ public class ControlRoomMonitor : MonoBehaviour
         foreach (var item in WarnigPoints)
         {
             item.gameObject.SetActive(false);
-            item.GetComponentInChildren<Button>().interactable = true;
+
+            var btn = item.GetComponentInChildren<Button>();
+            btn.interactable = true;
+
+            btn.GetComponent<Image>().raycastTarget = true;
         }
 
         AlarmNodeId = -1;
@@ -83,7 +87,7 @@ public class ControlRoomMonitor : MonoBehaviour
     {
         AlarmNodeId = idx;
         BlinkButton.SetActive(true);
-        BlinkIconImage.enabled = true;
+        BlinkIconImage.enabled = false;
 
         if (AlarmBlinkRoutine != null)
         {
@@ -116,7 +120,7 @@ public class ControlRoomMonitor : MonoBehaviour
         var WP = WarnigPoints[WPIndex];
 
         WP.gameObject.SetActive(true);
-        WP.enabled = true;
+        WP.enabled = false;
 
         if (WPBlinkRoutine != null)
         {
@@ -139,6 +143,8 @@ public class ControlRoomMonitor : MonoBehaviour
         var WP = WarnigPoints[WPIndex];
         WP.enabled = true;
 
-
+        var btn = WP.GetComponentInChildren<Button>();
+        btn.interactable = false;
+        btn.GetComponent<Image>().raycastTarget = true;
     }
 }

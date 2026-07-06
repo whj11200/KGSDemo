@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class ValveControlConsole : MonoBehaviour
 {
-    [SerializeField] List<string> TargetValves_SV = new();
     [SerializeField] List<string> TargetValves_SI = new();
+    [SerializeField] List<string> TargetValves_SV = new();
 
     [SerializeField] List<RemoteValveControlButton> Buttons = new();
 
@@ -31,17 +31,20 @@ public class ValveControlConsole : MonoBehaviour
         valveControlCount = 0;
 
         nodeID = nodeId;
-        TargetValves_SV = asset.Valves_SectionVent;
+
         TargetValves_SI = asset.Valves_SectionIsolation;
+        TargetValves_SV = asset.Valves_SectionVent;
 
         foreach (var button in Buttons)
         {
-            if (TargetValves_SV.Contains(button.name))
+            var bName = button.name.Trim();
+
+            if (TargetValves_SI.Contains(button.name))
             {
                 button.phase = 0; 
                 button.gameObject.SetActive(true);
             }
-            else if (TargetValves_SI.Contains(button.name))
+            else if (TargetValves_SV.Contains(button.name))
             {
                 button.phase = 1; 
                 button.gameObject.SetActive(true);
@@ -58,7 +61,11 @@ public class ValveControlConsole : MonoBehaviour
 
     public bool OnClickValve(string name, int _phase)
     {
-        if (nodeID < 0) return false;
+        Debug.Log($"nodeID : {nodeID}");
+        Debug.Log($"currentPhase : {currentPhase}");
+
+        if (nodeID < 0)
+            return false;
 
         if (_phase == currentPhase)
         {
@@ -85,7 +92,7 @@ public class ValveControlConsole : MonoBehaviour
             OnControlComplete?.Invoke();
         }
 
-        return phase == currentPhase;
+        return _phase == currentPhase;
     }
 
     public void AllButtonsDisable()
