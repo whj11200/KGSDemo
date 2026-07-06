@@ -81,4 +81,7 @@ MonoBehaviour:
       \uB204\uCD9C \uB300\uC751 \uD6C8\uB828\uC744 \uC885\uB8CC\uD569\uB2C8\uB2E4."
     Voice: {fileID: 0}
     NoCondition: 0
+  VentValves:
+  - M-51P
+  - M-52P
   WaitTime: 15

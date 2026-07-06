@@ -6,6 +6,7 @@ using System.Threading;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using static ValveControlConsole;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 {
@@ -115,8 +116,23 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         SubscribeEvent(ScenarioEventType.ValveConsole, e =>
         {
-            ValveConsole.SetTargetValve(selectedAsset, e.NodeID, false);
-            mainMonitor.ShowValves();
+            switch( e.EventId)
+            {
+                case "Valve_Close":
+                    ValveConsole.SetTargetValve(selectedAsset, e.NodeID, ValveOperation.Isolate);
+                    mainMonitor.ShowValves();
+                    break;
+
+                case "Valve_Revert":
+                    ValveConsole.SetTargetValve(selectedAsset, e.NodeID, ValveOperation.Restore);
+                    mainMonitor.ShowValves();
+                    break;
+
+                case "Valve_ConfirmVent":
+                    ValveConsole.ConfirmVent(selectedAsset.Template.VentValves);
+                    break;
+            }
+
         });
 
         SubscribeEvent(ScenarioEventType.Camera, e =>
@@ -212,8 +228,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         int index = message.IndexOf(':');
 
         string speaker = "";
-        Debug.Log(speaker + "-" + message);
-
         string body = message;
 
         if (index >= 0)

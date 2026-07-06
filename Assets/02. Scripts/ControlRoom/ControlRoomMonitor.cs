@@ -36,6 +36,7 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
 
     public void Initialize()
     {
+        infoPanel.SetActive(false);
         BackImage.enabled = false;
 
         if (ScreenImage != null)
