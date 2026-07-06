@@ -115,7 +115,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         SubscribeEvent(ScenarioEventType.ValveConsole, e =>
         {
-            ValveConsole.SetTargetValve(selectedAsset, e.NodeID);
+            ValveConsole.SetTargetValve(selectedAsset, e.NodeID, false);
             mainMonitor.ShowValves();
         });
 

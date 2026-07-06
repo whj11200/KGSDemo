@@ -32,9 +32,9 @@ public class ValveControlConsole : MonoBehaviour
         nodeID = -1;
     }
 
-    public void SetTargetValve(ScenarioAsset asset, int nodeId)
+    public void SetTargetValve(ScenarioAsset asset, int nodeId, bool _targetState)
     {
-        CurrentTargetState = nodeID == -1 ? false : true;
+        CurrentTargetState = _targetState;
 
         nodeID = nodeId;
         valveStates.Clear();

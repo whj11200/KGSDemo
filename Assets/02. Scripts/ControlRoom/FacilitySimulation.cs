@@ -109,7 +109,7 @@ public class FacilitySimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 7,
-                    EventId = "Control_Valves"
+                    EventId = "Valves_Close"
                 });
         };
 
@@ -155,7 +155,7 @@ public class FacilitySimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 7,
-                    EventId = "Control_Valves"
+                    EventId = "Valves_Reverts"
                 });
         };
 
