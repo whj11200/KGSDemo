@@ -23,6 +23,7 @@ public sealed class DialogueController : MonoBehaviour
     [SerializeField] EnvironmentManager environmentManager; // 환경 이벤트 처리를 위한 매니저 참조
     [SerializeField] TutorialManager tutorialManager;
 
+
     [Header("Typing")]
     [SerializeField] float charsPerSecond = 40f;
 
@@ -144,6 +145,7 @@ public sealed class DialogueController : MonoBehaviour
             {
                 tutorialManager.AllClear_T();
             }
+            
             DialogueEventBus.Raise("DIALOGUE_SKIP");
             return;
         }
@@ -346,6 +348,7 @@ public sealed class DialogueController : MonoBehaviour
         {
             tutorialManager.HandleDialogueStart(node.nodeId);
         }
+       
         // 1. 화자 이름 및 보이스 설정 (이 부분이 빠졌었네요!)
         ApplySpeaker(node.speakerId);
         PlayVoice(node.voice);
@@ -371,6 +374,12 @@ public sealed class DialogueController : MonoBehaviour
             Debug.Log($"[Dialogue] Tutorial Enter Event: {tutorialEvt}");
             DialogueEventBus.Raise(tutorialEvt);
         }
+        if (node.managerCenterWorkerLearningCenterEnterEvent != ManagerCenterWorkerLearningCenterEventType.None)
+        {
+            string managerEvt = node.managerCenterWorkerLearningCenterEnterEvent.ToString();
+            Debug.Log($"[Dialogue] Manager Center Worker Learning Center Enter Event: {managerEvt}");
+            DialogueEventBus.Raise(managerEvt);
+        }
     }
 
     // [수정 완료] 노드 탈출 시 호출
@@ -392,6 +401,18 @@ public sealed class DialogueController : MonoBehaviour
             string envEvt = node.envExitEvent.ToString();
             Debug.Log($"[Dialogue] Env Exit Event: {envEvt}");
             DialogueEventBus.Raise(envEvt);
+        }
+        if( node.tutorialExitEvent != TutorialEventType.None)
+        {
+            string tutorialEvt = node.tutorialExitEvent.ToString();
+            Debug.Log($"[Dialogue] Tutorial Exit Event: {tutorialEvt}");
+            DialogueEventBus.Raise(tutorialEvt);
+        }
+        if(node.managerCenterWorkerLearningCenterExitEvent != ManagerCenterWorkerLearningCenterEventType.None)
+        {
+            string managerEvt = node.managerCenterWorkerLearningCenterExitEvent.ToString();
+            Debug.Log($"[Dialogue] Manager Center Worker Learning Center Exit Event: {managerEvt}");
+            DialogueEventBus.Raise(managerEvt);
         }
     }
 

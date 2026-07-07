@@ -37,6 +37,13 @@ public enum TutorialEventType
     TutorilClaar
 }
 
+public enum ManagerCenterWorkerLearningCenterEventType
+{
+    None,
+    StartPhoneCall,
+    EndPhoneCall,
+}
+
 [CreateAssetMenu(menuName = "Dialogue/Dialogue Asset")]
 public class DialogueAsset : ScriptableObject
 {
@@ -63,11 +70,13 @@ public class DialogueNode
     public NPCActionType npcEnterAction;
     public KGS_EnvEventType envEnterEvent;
     public TutorialEventType tutorialEnterEvent;
+    public ManagerCenterWorkerLearningCenterEventType managerCenterWorkerLearningCenterEnterEvent;
 
     [Header("끝날 때 발생할 이벤트")]
     public NPCActionType npcExitAction;
     public KGS_EnvEventType envExitEvent;
     public TutorialEventType tutorialExitEvent;
+    public ManagerCenterWorkerLearningCenterEventType managerCenterWorkerLearningCenterExitEvent;
 }
 
 [Serializable]

@@ -5764,7 +5764,7 @@ MonoBehaviour:
   controller: {fileID: 1526314957}
   animDriver: {fileID: 1526314956}
   dialogueModule: {fileID: 1549747338}
-  fadeUi: {fileID: 1808545919}
+  fadeUi: {fileID: 0}
   stopFacingAfterEndingSeconds: 3
   returnTimer: 3
 --- !u!114 &1526314956
@@ -6764,7 +6764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 1829355654}
-  speakerBG: {fileID: 0}
+  speakerBG: {fileID: 470853524}
   speakerText: {fileID: 1315750720}
   bodyText: {fileID: 1577488791}
   typingIcon: {fileID: 0}

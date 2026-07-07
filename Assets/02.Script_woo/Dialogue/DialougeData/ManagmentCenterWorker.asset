@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abd9aea8a0bfd54d99b430b25791ec3, type: 3}
+  m_Name: ManagmentCenterWorker
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  dialogueId: M_Intro
+  nodes:
+  - nodeId: M0
+    text: "\uD1B5\uC81C\uC18C\uC5D0\uC11C \uAC00\uC2A4\uB204\uCD9C \uACBD\uBCF4 \uBC1C\uC0DD
+      \uC5F0\uB77D\uC774 \uC654\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC758 \uC9C0\uC2DC
+      \uB0B4\uC6A9\uC744 \uD655\uC778\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 1
+  - nodeId: M1
+    text: 
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 1
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 1
