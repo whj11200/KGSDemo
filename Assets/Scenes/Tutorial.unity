@@ -5764,7 +5764,7 @@ MonoBehaviour:
   controller: {fileID: 1526314957}
   animDriver: {fileID: 1526314956}
   dialogueModule: {fileID: 1549747338}
-  fadeUi: {fileID: 0}
+  fadeUi: {fileID: 1808545919}
   stopFacingAfterEndingSeconds: 3
   returnTimer: 3
 --- !u!114 &1526314956
@@ -6616,8 +6616,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FadeUi
   KGS_Img: {fileID: 456331327}
   KGS_Audio: {fileID: 500785159}
-  KGS_Clip: {fileID: 8300000, guid: 4fd53d328c8f06f44bf6928871c6e754, type: 3}
-  anjeson: {fileID: 0}
+  KGS_Clip: {fileID: 8300000, guid: 53c0dbd3e026557438e99defd88f405b, type: 3}
+  anjeson: {fileID: 1526314955}
   isfinish: 0
 --- !u!114 &1808545920
 MonoBehaviour:
@@ -6764,6 +6764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 1829355654}
+  speakerBG: {fileID: 0}
   speakerText: {fileID: 1315750720}
   bodyText: {fileID: 1577488791}
   typingIcon: {fileID: 0}
