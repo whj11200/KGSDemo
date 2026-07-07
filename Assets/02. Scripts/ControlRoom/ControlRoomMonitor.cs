@@ -20,6 +20,7 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
     [SerializeField] GameObject infoPanel;
     [SerializeField] TextMeshProUGUI info_Loc;
     [SerializeField] ControlScenarioPlayer scenarioPlayer;
+    [SerializeField] GameObject Image_Info;
 
     public event Action OnProcessBtn;
     int WPIndex = 0;
@@ -102,6 +103,11 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
     public void OnClickAlarm()
     {
         scenarioPlayer.CheckStep(AlarmNodeId);
+    }
+
+    public void ShowInfo()
+    {
+        Image_Info.SetActive(true);
     }
 
     IEnumerator Blink(Image image)

@@ -27,8 +27,6 @@ public class RemoteValveControlButton : MonoBehaviour
         Image = GetComponent<Image>();
 
         button.onClick.AddListener(OnValveClick);
-
-        gameObject.SetActive(false);
     }
 
     private void OnValveClick()

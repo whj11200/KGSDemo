@@ -112,6 +112,10 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                 case "WP_Flash":
                     mainMonitor.ShowWaringPoint(e.NodeID);
                     break;
+
+                case "Show_Info":
+                    mainMonitor.ShowInfo();
+                    break;
             }
         });
 
@@ -169,6 +173,10 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     {
         if (step == CurrentNodeId) 
             ProcessScenario();
+        else
+        {
+            Debug.Log($"{step} == {CurrentNodeId}");
+        }
     }
 
     public override void ProcessScenario()

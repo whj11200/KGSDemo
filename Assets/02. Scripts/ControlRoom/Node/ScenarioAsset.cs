@@ -11,6 +11,8 @@ public class ScenarioAsset : ScriptableObject
     public ScenarioTemplate Template;
     public List<ValveInfo> Valves_SectionIsolation = new();
     public List<ValveInfo> Valves_SectionVent = new();
+    public bool OverrideVentValveList = false;
+    public List<ValveInfo> VentValves = new();
     public Sprite BluePrint;
 }
 

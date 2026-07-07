@@ -89,6 +89,17 @@ public class FacilitySimulation : SimulationBase
                 });
         };
 
+        GameNodes[4].OnStart += () =>
+        {
+            EventBus.Publish(ScenarioEventType.Monitor,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.Monitor,
+                    NodeID = 4,
+                    EventId = "Show_Info",
+                });
+        };
+
         // 5번: 책임자에게 이동
         GameNodes[5].OnTextEnd += () =>
         {

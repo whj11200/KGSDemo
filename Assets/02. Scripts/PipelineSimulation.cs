@@ -78,7 +78,7 @@ public class PipelineSimulation : SimulationBase
                             new ScenarioEvent
                             {
                                 EventType = ScenarioEventType.Monitor,
-                                NodeID = 1,
+                                NodeID = 0,
                                 EventId = "Warning_Flash",
                             });
         };
@@ -90,8 +90,19 @@ public class PipelineSimulation : SimulationBase
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.Monitor,
-                    NodeID = 1,
+                    NodeID = -1,
                     EventId = "WP_Flash",
+                });
+        };
+
+        GameNodes[2].OnStart += () =>
+        {
+            EventBus.Publish(ScenarioEventType.Monitor,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.Monitor,
+                    NodeID = 2,
+                    EventId = "Show_Info",
                 });
         };
 
@@ -131,13 +142,13 @@ public class PipelineSimulation : SimulationBase
         };
 
         // 8번: 밸브 조작 완료 및 Fade In
-        GameNodes[6].OnTextEnd += () =>
+        GameNodes[5].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.UI,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.UI,
-                    NodeID = 6,
+                    NodeID = 5,
                     StringValue = $"{Asset.Template.WaitTime}분 경과," +
                                   $"\r\n잔류 가스 방출 완료",
                     Callback = () =>
@@ -173,6 +184,17 @@ public class PipelineSimulation : SimulationBase
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 9,
                     EventId = "Valve_Revert"
+                });
+        };
+
+        GameNodes[10].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 10,
+                    EventId = "Valve_ConfirmVent"
                 });
         };
 

@@ -49,6 +49,7 @@ public class ValveControlConsole : MonoBehaviour
         ScenarioType = asset.Template.ScenarioType;
 
         var root = ButtonRoots[ScenarioType];
+        root.gameObject.SetActive(true);
 
         Buttons.Clear();
         Buttons = root.GetComponentsInChildren<RemoteValveControlButton>(true).ToList();
@@ -57,7 +58,7 @@ public class ValveControlConsole : MonoBehaviour
                         .Concat(asset.Valves_SectionVent)
                         .ToList();
 
-        VentValves = asset.Template.VentValves;
+        VentValves =  asset.OverrideVentValveList ? asset.Valves_SectionVent : asset.Template.VentValves;
 
         valveInfos_Control.Clear(); 
         valveInfos_Vent.Clear();
@@ -80,11 +81,11 @@ public class ValveControlConsole : MonoBehaviour
             if (!valveInfos_Control.TryGetValue(button.name, out var info))
             {
                 button.Phase = ValvePhase.None;
-                button.gameObject.SetActive(false);
+                button.GetComponent<Image>().raycastTarget = false;
                 continue;
             }
 
-            button.gameObject.SetActive(true);
+            button.GetComponent<Image>().raycastTarget = true;
 
             button.InitValve(info, operation);
             button.Phase = info.Phase;
@@ -141,7 +142,7 @@ public class ValveControlConsole : MonoBehaviour
         {
             var info = valveInfos_Vent[button.name];
 
-            button.gameObject.SetActive(true);
+            button.GetComponent<Image>().raycastTarget = true;
             button.Phase = ValvePhase.ConfirmVent;
 
             button.TargetState = info.TargetState;
@@ -257,7 +258,7 @@ public class ValveControlConsole : MonoBehaviour
     {
         foreach(var btn in Buttons)
         {
-            btn.gameObject.SetActive(false);
+            btn.GetComponent<Image>().raycastTarget = false;
         }
     }
 
