@@ -80,7 +80,11 @@ MonoBehaviour:
     Content: "\uACF5\uAE09\uB9DD \uC815\uC0C1\uD654 \uC808\uCC28\uB97C \uC644\uB8CC\uD558\uC600\uC2B5\uB2C8\uB2E4.\r\n{Title}
       \uB204\uCD9C \uB300\uC751 \uD6C8\uB828\uC744 \uC885\uB8CC\uD569\uB2C8\uB2E4."
     Voice: {fileID: 0}
-    NoCondition: 0
+    NoCondition: 1
+  - Speaker: 
+    Content: "\uC218\uACE0\uD558\uC168\uC2B5\uB2C8\uB2E4."
+    Voice: {fileID: 0}
+    NoCondition: 1
   VentValves:
   - M-51P
   - M-52P

@@ -34,8 +34,6 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
     
     public void SetSpeaker(string speakerId = "")
     {
-        Debug.Log(speakerId);
-
         if (string.IsNullOrEmpty(speakerId))
         {
             speakerBG.enabled = false;

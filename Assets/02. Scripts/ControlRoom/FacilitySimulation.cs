@@ -166,6 +166,7 @@ public class FacilitySimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 12,
+                    StringValue = GameNodes[12].Node.Content,
                     EventId = "Valve_ConfirmVent"
                 });
         };

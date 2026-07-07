@@ -37,14 +37,21 @@ public class RemoteValveControlButton : MonoBehaviour
         if (parent.CurrentPhase != Phase)
             return;
 
-        // Open/Close 상태 변경
-        IsOpen = !IsOpen;
-
-        // 색상 변경 
-        var applyColor = IsOpen ? parent.OpenColor : parent.CloseColor;
-        Image.color = applyColor;
+        if (Phase != ValvePhase.ConfirmVent) SetValveState(!IsOpen);
+        else
+        {
+            if (!IsOpen) SetValveState(true);
+        }
 
         parent.OnValveStateChanged(name, IsTargetState);
+    }
+
+    public void SetValveState(bool _IsOpen)
+    {
+        IsOpen = _IsOpen;
+
+        var applyColor = IsOpen ? parent.OpenColor : parent.CloseColor;
+        Image.color = applyColor;
     }
 }
 
@@ -53,5 +60,6 @@ public enum ValvePhase
     None,
     SectionIsolation,   // SI
     SectionVent,        // SV
-    Complete
+    Complete,
+    ConfirmVent         // 벤트 밸브 재확인
 }

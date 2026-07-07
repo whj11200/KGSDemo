@@ -129,6 +129,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                     break;
 
                 case "Valve_ConfirmVent":
+                    Debug.Log(e.StringValue);
                     ValveConsole.ConfirmVent(selectedAsset.Template.VentValves);
                     break;
             }
@@ -177,7 +178,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void EndScenario()
     {
-        
+        CameraSwitcher.Revert();
+        Debug.Log("시뮬레이션 종료");
     }
 
     public void ReportToManger()
