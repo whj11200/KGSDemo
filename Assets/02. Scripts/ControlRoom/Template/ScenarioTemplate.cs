@@ -6,7 +6,7 @@ public abstract class ScenarioTemplate : ScriptableObject
 {
     public ScenarioType ScenarioType;
     public List<ScenarioNode> Nodes;
-    public List<string> VentValves;
+    public List<ValveInfo> VentValves;
     public int WaitTime;
 
     public abstract IContentSimulation CreateSimulation(ScenarioAsset asset);

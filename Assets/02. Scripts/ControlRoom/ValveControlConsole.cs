@@ -3,18 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ValveControlConsole : MonoBehaviour
 {
-    [SerializeField] List<string> TargetValves_SI = new();
-    [SerializeField] List<string> TargetValves_SV = new();
+    [SerializeField] List<ValveInfo> TargetValves = new();
+    [SerializeField] List<ValveInfo> VentValves = new();
 
     [SerializeField] private ScenarioType ScenarioType;
     [SerializeField] List<RemoteValveControlButton> Buttons = new();
     [SerializeField] List<ButtonRoot> ButtonRootsList = new();
     Dictionary<ScenarioType, GameObject> ButtonRoots = new();
+    Dictionary<string, ValveInfo> valveInfos_Control = new();
+    Dictionary<string, ValveInfo> valveInfos_Vent = new();
 
     [SerializeField] public Color OpenColor;
     [SerializeField] public Color CloseColor;
@@ -26,10 +29,7 @@ public class ValveControlConsole : MonoBehaviour
     public ValvePhase CurrentPhase => currentPhase;
 
     public ValveOperation CurrentOperation { get; private set; }
-    [SerializeField] private bool CurrentTargetState = true; // true: open, false: close
     private Dictionary<string, bool> valveStates = new();
-
-    int nodeID = -1;
 
     private void Awake()
     {
@@ -41,66 +41,80 @@ public class ValveControlConsole : MonoBehaviour
 
     private void OnEnable()
     {
-        nodeID = -1;
+        
     }
 
-    public void SetTargetValve(ScenarioAsset asset, int nodeId, ValveOperation operation)
+    public void InitValveConsole(ScenarioAsset asset)
     {
         ScenarioType = asset.Template.ScenarioType;
 
         var root = ButtonRoots[ScenarioType];
+
         Buttons.Clear();
         Buttons = root.GetComponentsInChildren<RemoteValveControlButton>(true).ToList();
 
+        TargetValves = asset.Valves_SectionIsolation
+                        .Concat(asset.Valves_SectionVent)
+                        .ToList();
+
+        VentValves = asset.Template.VentValves;
+
+        valveInfos_Control.Clear(); 
+        valveInfos_Vent.Clear();
+
+        foreach (var valve in TargetValves)
+            valveInfos_Control[valve.Name] = valve;
+
+        foreach (var valve in VentValves)
+            valveInfos_Vent[valve.Name] = valve;
+    }
+
+    public void SetTargetValve(ValveOperation operation)
+    {
         CurrentOperation = operation;
-        CurrentTargetState = operation == ValveOperation.Restore;
 
-        nodeID = nodeId;
         valveStates.Clear();
-
-        TargetValves_SI = asset.Valves_SectionIsolation;
-        TargetValves_SV = asset.Valves_SectionVent;
 
         foreach (var button in Buttons)
         {
-            button.TargetState = CurrentTargetState;
-
-            if (TargetValves_SI.Contains(button.name))
-            {
-                button.Phase = ValvePhase.SectionIsolation;
-                button.gameObject.SetActive(true);
-
-                valveStates[button.name] = button.IsTargetState;
-            }
-            else if (TargetValves_SV.Contains(button.name))
-            {
-                button.Phase = ValvePhase.SectionVent;
-                button.gameObject.SetActive(true);
-
-                valveStates[button.name] = button.IsTargetState;
-            }
-            else
+            if (!valveInfos_Control.TryGetValue(button.name, out var info))
             {
                 button.Phase = ValvePhase.None;
                 button.gameObject.SetActive(false);
+                continue;
             }
+
+            button.gameObject.SetActive(true);
+
+            button.InitValve(info, operation);
+            button.Phase = info.Phase;
+
+            valveStates[button.name] = button.IsTargetState;
         }
+
+        SetStartPhase();
+    }
+
+    private void SetStartPhase()
+    {
+        bool hasSI = TargetValves.Any(v => v.Phase == ValvePhase.SectionIsolation);
+        bool hasSV = TargetValves.Any(v => v.Phase == ValvePhase.SectionVent);
 
         switch (CurrentOperation)
         {
             case ValveOperation.Isolate:
-                if (TargetValves_SI.Count > 0)
+                if (hasSI)
                     currentPhase = ValvePhase.SectionIsolation;
-                else if (TargetValves_SV.Count > 0)
+                else if (hasSV)
                     currentPhase = ValvePhase.SectionVent;
                 else
                     currentPhase = ValvePhase.Complete;
                 break;
 
             case ValveOperation.Restore:
-                if (TargetValves_SV.Count > 0)
+                if (hasSV)
                     currentPhase = ValvePhase.SectionVent;
-                else if (TargetValves_SI.Count > 0)
+                else if (hasSI)
                     currentPhase = ValvePhase.SectionIsolation;
                 else
                     currentPhase = ValvePhase.Complete;
@@ -108,32 +122,40 @@ public class ValveControlConsole : MonoBehaviour
         }
     }
 
-    List<string> VentValves = new();
-    public void ConfirmVent(List<string> _VentValves)
+    public void ConfirmVent()
     {
         if (Buttons == null || Buttons.Count == 0)
             return;
 
-        VentValves = _VentValves;
-
         CurrentOperation = ValveOperation.Confirm;
         currentPhase = ValvePhase.ConfirmVent;
 
+        var targets = Buttons.Where(b => VentValves.Any(v => v.Name == b.name))
+                             .ToList();
+
+        valveStates.Clear();
+
         bool hasFault = UnityEngine.Random.value < 0.3f;
 
-        var targets = Buttons.Where(b => VentValves.Contains(b.name)).ToList();
-
-        if (hasFault)
+        foreach (var button in targets)
         {
-            var randomButton = targets[UnityEngine.Random.Range(0, targets.Count)];
-            randomButton.SetValveState(false);
+            var info = valveInfos_Vent[button.name];
+
+            button.gameObject.SetActive(true);
+            button.Phase = ValvePhase.ConfirmVent;
+
+            button.TargetState = info.TargetState;
+            button.SetValveState(info.InitialState);
+
+            valveStates[button.name] = button.IsTargetState;
         }
 
-        foreach (var target in targets)
+        if (hasFault && targets.Count > 0)
         {
-            target.gameObject.SetActive(true);
-            target.Phase = currentPhase;
-            target.TargetState = true;
+            var random = targets[UnityEngine.Random.Range(0, targets.Count)];
+            random.SetValveState(!random.TargetState);
+
+            valveStates[random.name] = random.IsTargetState;
         }
     }
 
@@ -141,11 +163,11 @@ public class ValveControlConsole : MonoBehaviour
     {
         if (CurrentOperation == ValveOperation.Confirm)
         {
-            if (!VentValves.Contains(valveName)) return;
+            if (!valveInfos_Vent.ContainsKey(valveName))
+                return;
 
             valveStates[valveName] = isTargetState;
-            bool confirmComplete = Buttons.Where(b => VentValves.Contains(b.name))
-                                          .All(b => b.IsTargetState);
+            bool confirmComplete = valveInfos_Vent.Keys.All(v => valveStates[v]);
 
             if (confirmComplete)
                 CompleteControl();
@@ -159,11 +181,13 @@ public class ValveControlConsole : MonoBehaviour
             // 현재 상태 갱신
             valveStates[valveName] = isTargetState;
 
-            bool siComplete = TargetValves_SI.Count == 0 ||
-                          TargetValves_SI.All(v => valveStates[v]);
+            bool siComplete = TargetValves
+                .Where(v => v.Phase == ValvePhase.SectionIsolation)
+                .All(v => valveStates[v.Name]);
 
-            bool svComplete = TargetValves_SV.Count == 0 ||
-                              TargetValves_SV.All(v => valveStates[v]);
+            bool svComplete = TargetValves
+                .Where(v => v.Phase == ValvePhase.SectionVent)
+                .All(v => valveStates[v.Name]);
 
             switch (CurrentOperation)
             {

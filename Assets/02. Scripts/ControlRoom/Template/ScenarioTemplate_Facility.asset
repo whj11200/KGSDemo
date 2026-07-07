@@ -86,6 +86,12 @@ MonoBehaviour:
     Voice: {fileID: 0}
     NoCondition: 1
   VentValves:
-  - M-51P
-  - M-52P
+  - Name: M-51P
+    Phase: 4
+    InitialState: 1
+    TargetState: 1
+  - Name: M-52P
+    Phase: 4
+    InitialState: 1
+    TargetState: 1
   WaitTime: 15

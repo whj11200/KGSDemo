@@ -592,6 +592,82 @@ Transform:
   - {fileID: 1070589620}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &84600933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84600934}
+  - component: {fileID: 84600936}
+  - component: {fileID: 84600935}
+  m_Layer: 5
+  m_Name: WP_6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &84600934
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84600933}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 382743098}
+  m_Father: {fileID: 710193998}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 207.9, y: -152.6}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &84600935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84600933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: af683ed2e0ff8ea44b6941bccbd0fadf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &84600936
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84600933}
+  m_CullTransparentMesh: 1
 --- !u!1 &97885800
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,11 +833,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &181887878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1658,11 +1741,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &345074583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,9 +1782,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1918515445}
-  - {fileID: 2091994001}
+  m_Children: []
   m_Father: {fileID: 363318599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2094,6 +2182,8 @@ RectTransform:
   m_Children:
   - {fileID: 345074584}
   - {fileID: 710193998}
+  - {fileID: 1918515445}
+  - {fileID: 2091994001}
   - {fileID: 1101534602}
   m_Father: {fileID: 70844634}
   m_LocalEulerAnglesHint: {x: 0, y: 180.1, z: 0}
@@ -2188,6 +2278,8 @@ MonoBehaviour:
   - {fileID: 459302610}
   - {fileID: 221781003}
   - {fileID: 1502147625}
+  - {fileID: 1329132851}
+  - {fileID: 84600935}
   infoPanel: {fileID: 2091994000}
   info_Loc: {fileID: 38106664}
   scenarioPlayer: {fileID: 366316171}
@@ -2319,11 +2411,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!114 &381054970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,6 +2504,150 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381054967}
+  m_CullTransparentMesh: 1
+--- !u!1 &382743097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 382743098}
+  - component: {fileID: 382743101}
+  - component: {fileID: 382743100}
+  - component: {fileID: 382743099}
+  m_Layer: 5
+  m_Name: Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &382743098
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382743097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 84600934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &382743099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382743097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 382743100}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2091994000}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickWP
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &382743100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382743097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &382743101
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382743097}
   m_CullTransparentMesh: 1
 --- !u!1 &397104448
 GameObject:
@@ -2894,11 +3137,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &570369136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,11 +3282,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &587184997
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,11 +3427,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &588568441
 GameObject:
   m_ObjectHideFlags: 0
@@ -3308,11 +3572,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &604866886
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,11 +3717,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &623320862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3691,11 +3969,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &682436848
 GameObject:
   m_ObjectHideFlags: 0
@@ -4092,11 +4377,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &710193997
 GameObject:
   m_ObjectHideFlags: 0
@@ -4130,6 +4422,8 @@ RectTransform:
   - {fileID: 459302609}
   - {fileID: 221781002}
   - {fileID: 1502147624}
+  - {fileID: 1329132850}
+  - {fileID: 84600934}
   m_Father: {fileID: 363318599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4590,11 +4884,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &781577714
 GameObject:
   m_ObjectHideFlags: 0
@@ -4646,11 +4947,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!114 &781577717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6579,6 +6887,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 361737645}
+  - {fileID: 1329479307}
   m_Father: {fileID: 710193998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6606,7 +6915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6da940201c77dd14b8fba47434bcb5e6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b435c502b80825944b3ff0668c89aadc, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6636,16 +6945,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9a31ffcc78e4744aa7fe12b6648fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValveControler
-  TargetValves_SI: []
-  TargetValves_SV: []
+  TargetValves: []
+  VentValves: []
   ScenarioType: 0
   Buttons: []
   ButtonRootsList:
   - ScenarioType: 0
     Root: {fileID: 361737644}
+  - ScenarioType: 1
+    Root: {fileID: 361737644}
   OpenColor: {r: 0.42352942, g: 0.8980392, b: 0.47843137, a: 1}
   CloseColor: {r: 0.8679245, g: 0.16470589, b: 0.23335704, a: 1}
-  CurrentTargetState: 1
+  currentPhase: 0
 --- !u!1 &1160592989
 GameObject:
   m_ObjectHideFlags: 0
@@ -7224,6 +7535,227 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f68a7dee7a1184ab76083596a11044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MessageUI
+--- !u!1 &1329132849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329132850}
+  - component: {fileID: 1329132852}
+  - component: {fileID: 1329132851}
+  m_Layer: 5
+  m_Name: WP_5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1329132850
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329132849}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2087725650}
+  m_Father: {fileID: 710193998}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -174.9, y: -152.59996}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1329132851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329132849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: af683ed2e0ff8ea44b6941bccbd0fadf, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1329132852
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329132849}
+  m_CullTransparentMesh: 1
+--- !u!1 &1329479306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329479307}
+  - component: {fileID: 1329479311}
+  - component: {fileID: 1329479310}
+  - component: {fileID: 1329479309}
+  - component: {fileID: 1329479308}
+  m_Layer: 5
+  m_Name: M-21A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1329479307
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329479306}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1133527253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -302.43, y: -153.91}
+  m_SizeDelta: {x: 22, y: 22.2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1329479308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329479306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
+  button: {fileID: 0}
+  Image: {fileID: 0}
+  IsOpen: 1
+  Phase: 0
+  TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
+--- !u!114 &1329479309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329479306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1329479310}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1329479310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329479306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19339621, g: 0.4200647, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 45b49b6ea9b2870479ca785f31926813, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1329479311
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329479306}
+  m_CullTransparentMesh: 1
 --- !u!1 &1350338880
 GameObject:
   m_ObjectHideFlags: 0
@@ -7674,11 +8206,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1484254861
 GameObject:
   m_ObjectHideFlags: 0
@@ -8616,11 +9155,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1634492173
 GameObject:
   m_ObjectHideFlags: 0
@@ -8891,11 +9437,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1683775492
 GameObject:
   m_ObjectHideFlags: 0
@@ -9029,11 +9582,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1686423752
 GameObject:
   m_ObjectHideFlags: 0
@@ -9167,11 +9727,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1707075178
 GameObject:
   m_ObjectHideFlags: 0
@@ -9305,11 +9872,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1725327604
 GameObject:
   m_ObjectHideFlags: 0
@@ -10257,11 +10831,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &1918515444
 GameObject:
   m_ObjectHideFlags: 0
@@ -10275,12 +10856,12 @@ GameObject:
   - component: {fileID: 1918515447}
   - component: {fileID: 1918515446}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button_Warning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1918515445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10289,12 +10870,12 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918515444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0003496474}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00072398287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1308354216}
-  m_Father: {fileID: 345074584}
+  m_Father: {fileID: 363318599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -11114,6 +11695,150 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &2087725649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2087725650}
+  - component: {fileID: 2087725653}
+  - component: {fileID: 2087725652}
+  - component: {fileID: 2087725651}
+  m_Layer: 5
+  m_Name: Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2087725650
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087725649}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1329132850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2087725651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087725649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2087725652}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2091994000}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 363318604}
+        m_TargetAssemblyTypeName: ControlRoomMonitor, Assembly-CSharp
+        m_MethodName: OnClickWP
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2087725652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087725649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2087725653
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087725649}
+  m_CullTransparentMesh: 1
 --- !u!1 &2091994000
 GameObject:
   m_ObjectHideFlags: 0
@@ -11140,14 +11865,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091994000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00008891722}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 38106663}
   - {fileID: 928867300}
-  m_Father: {fileID: 345074584}
+  m_Father: {fileID: 363318599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -11600,11 +12325,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb773063e53136946925e0420f4bffc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RemoteValveControlButton
+  parent: {fileID: 0}
   button: {fileID: 0}
   Image: {fileID: 0}
   IsOpen: 1
   Phase: 0
   TargetState: 0
+  ValveInfo:
+    Name: 
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  IsInit: 0
 --- !u!1 &2125030338
 GameObject:
   m_ObjectHideFlags: 0

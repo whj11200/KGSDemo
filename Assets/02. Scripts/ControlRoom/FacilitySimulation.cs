@@ -178,32 +178,4 @@ public class FacilitySimulation : SimulationBase
     {
         ProcessSimulationStep();
     }
-
-    // 다음 노드 진행
-    public override void ProcessSimulationStep() 
-    {
-        if (IsRunning) return;
-
-        IsRunning = true;
-
-        if (IsProcessBlocked)
-        {
-            IsRunning = false;
-            return;
-        }
-
-        if (CurrentNodeIndex >= 0)
-            GameNodes[CurrentNodeIndex].OnEnd?.Invoke();
-
-        CurrentNodeIndex++;
-
-        if (CurrentNodeIndex >= GameNodes.Count)
-        {
-            EndSimulation();
-            return;
-        }
-
-        GameNodes[CurrentNodeIndex]?.OnStart?.Invoke();
-        IsRunning = false;
-    }
 }

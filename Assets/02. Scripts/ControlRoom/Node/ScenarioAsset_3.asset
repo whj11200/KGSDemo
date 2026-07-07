@@ -16,11 +16,29 @@ MonoBehaviour:
   BrokenPart: "\uC815\uC555\uAE30"
   Template: {fileID: 11400000, guid: 7207e7b163514d84ca31e708e77ccb46, type: 2}
   Valves_SectionIsolation:
-  - M-42A
-  - M-42B
-  - M-42C
-  - M-61A
-  - M-61B
-  - M-61C
+  - Name: M-42A
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  - Name: M-42B
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  - Name: M-42C
+    Phase: 0
+    InitialState: 1
+    TargetState: 0
+  - Name: M-61A
+    Phase: 1
+    InitialState: 1
+    TargetState: 0
+  - Name: M-61B
+    Phase: 1
+    InitialState: 1
+    TargetState: 0
+  - Name: M-62C
+    Phase: 1
+    InitialState: 1
+    TargetState: 0
   Valves_SectionVent: []
   BluePrint: {fileID: 21300000, guid: 6da940201c77dd14b8fba47434bcb5e6, type: 3}

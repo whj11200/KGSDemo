@@ -77,6 +77,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         mainMonitor.OnProcessBtn += ProcessScenario;
 
         ValveConsole.AllButtonsDisable();
+        ValveConsole.InitValveConsole(selectedAsset);
 
         ScenarioEventBus = simulation.EventBus;
 
@@ -116,21 +117,20 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         SubscribeEvent(ScenarioEventType.ValveConsole, e =>
         {
-            switch( e.EventId)
+            switch(e.EventId)
             {
                 case "Valve_Close":
-                    ValveConsole.SetTargetValve(selectedAsset, e.NodeID, ValveOperation.Isolate);
+                    ValveConsole.SetTargetValve(ValveOperation.Isolate);
                     mainMonitor.ShowValves();
                     break;
 
                 case "Valve_Revert":
-                    ValveConsole.SetTargetValve(selectedAsset, e.NodeID, ValveOperation.Restore);
+                    ValveConsole.SetTargetValve(ValveOperation.Restore);
                     mainMonitor.ShowValves();
                     break;
 
                 case "Valve_ConfirmVent":
-                    Debug.Log(e.StringValue);
-                    ValveConsole.ConfirmVent(selectedAsset.Template.VentValves);
+                    ValveConsole.ConfirmVent();
                     break;
             }
 
@@ -300,8 +300,38 @@ public abstract class SimulationBase : IContentSimulation
     }
 
     public abstract void Initialize();
-    public abstract void StartSimulation();
-    public abstract void ProcessSimulationStep();
+    public virtual void StartSimulation()
+    {
+        ProcessSimulationStep();
+    }
+
+    public virtual void ProcessSimulationStep()
+    {
+        if (IsRunning) return;
+
+        IsRunning = true;
+
+        if (IsProcessBlocked)
+        {
+            IsRunning = false;
+            return;
+        }
+
+        if (CurrentNodeIndex >= 0)
+            GameNodes[CurrentNodeIndex].OnEnd?.Invoke();
+
+        CurrentNodeIndex++;
+
+        if (CurrentNodeIndex >= GameNodes.Count)
+        {
+            EndSimulation();
+            return;
+        }
+
+        GameNodes[CurrentNodeIndex]?.OnStart?.Invoke();
+        IsRunning = false;
+    }
+
     public void CompleteStep()
     {
         if (!IsProcessBlocked)

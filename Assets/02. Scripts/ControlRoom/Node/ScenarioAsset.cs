@@ -9,8 +9,8 @@ public class ScenarioAsset : ScriptableObject
     public string ScenarioName;
     public string BrokenPart;
     public ScenarioTemplate Template;
-    public List<string> Valves_SectionIsolation = new();
-    public List<string> Valves_SectionVent = new();
+    public List<ValveInfo> Valves_SectionIsolation = new();
+    public List<ValveInfo> Valves_SectionVent = new();
     public Sprite BluePrint;
 }
 
@@ -29,6 +29,16 @@ public class ScenarioNode
     public AudioClip Voice;
     public List<ScenarioEvent> Events = new();
     public bool NoCondition = false;
+}
+
+[System.Serializable]
+public class ValveInfo
+{
+    public string Name;
+    public ValvePhase Phase;
+    [Tooltip("Checked : Open")]
+    public bool InitialState = true;    // 대부분 열림
+    public bool TargetState = false;     // 대부분 차단
 }
 
 public enum ScenarioEventType
