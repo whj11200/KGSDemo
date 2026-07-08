@@ -3,13 +3,19 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public static class TypingEffect
+public class TypingEffect : MonoBehaviour
 {
-    private static Tween currentTween;
-    private static Tween delayedCall;
-    private static Action pendingOnComplete;
+    private Tween currentTween;
+    private Tween delayedCall;
+    private Action pendingOnComplete;
 
-    public static void Apply(TMP_Text tmp, string text, float typingDuration, float clipLength, Action onStart = null, Action onComplete = null)
+    public void Apply(
+        TMP_Text tmp,
+        string text,
+        float typingDuration,
+        float clipLength,
+        Action onStart = null,
+        Action onComplete = null)
     {
         tmp.enabled = false;
 
@@ -24,7 +30,6 @@ public static class TypingEffect
         float totalCompleteTime = Mathf.Max(typingDuration, clipLength);
         float delay = Mathf.Max(0f, totalCompleteTime - typingDuration + 0.5f);
 
-        // onComplete를 저장
         pendingOnComplete = onComplete;
 
         currentTween = tmp.DOText(text, typingDuration)
@@ -32,20 +37,24 @@ public static class TypingEffect
             .OnComplete(() =>
             {
                 currentTween = null;
+
                 delayedCall = DOVirtual.DelayedCall(delay, () =>
                 {
                     delayedCall = null;
-                    pendingOnComplete?.Invoke();
+
+                    var callback = pendingOnComplete;
                     pendingOnComplete = null;
+
+                    callback?.Invoke();
                 });
             });
     }
 
-    public static void Complete()
+    public void Complete()
     {
         if (currentTween != null && currentTween.IsActive() && currentTween.IsPlaying())
         {
-            currentTween.Complete(); // 즉시 텍스트 완료
+            currentTween.Complete();
         }
 
         if (delayedCall != null && delayedCall.IsActive())
@@ -54,14 +63,14 @@ public static class TypingEffect
             delayedCall = null;
         }
 
-        // 예약 없이 바로 실행 (중복 방지 위해 null 체크)
-        if (pendingOnComplete != null)
-        {
-            pendingOnComplete.Invoke();
-            pendingOnComplete = null;
-        }
+        var callback = pendingOnComplete;
+        pendingOnComplete = null;
+
+        callback?.Invoke();
     }
 
-    public static bool IsTyping =>
-        currentTween != null && currentTween.IsActive() && currentTween.IsPlaying();
+    public bool IsTyping =>
+        currentTween != null &&
+        currentTween.IsActive() &&
+        currentTween.IsPlaying();
 }

@@ -13,6 +13,7 @@ public class FacilitySimulation : SimulationBase
 
         for (int idx = 0; idx < Asset.Template.Nodes.Count; idx++)
         {
+            int nodeIndex = idx;
             var node = Asset.Template.Nodes[idx];
             var Speaker = node.Speaker;
             var content = $"{Speaker}:{node.Content.Replace("{Title}", Asset.ScenarioName)}";
@@ -32,8 +33,8 @@ public class FacilitySimulation : SimulationBase
                     new ScenarioEvent
                     {
                         EventType = ScenarioEventType.ShowMessage,
-                        NodeID = idx,
-                        EventId = $"{type}_{idx}_Content",
+                        NodeID = nodeIndex,
+                        EventId = $"{type}_{nodeIndex}_Content",
                         StringValue = content,
                         FloatValue = clipLength,
                         Callback = () =>

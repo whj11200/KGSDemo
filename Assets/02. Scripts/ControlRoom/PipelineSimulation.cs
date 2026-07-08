@@ -46,7 +46,9 @@ public class PipelineSimulation : SimulationBase
                             gameNode.OnTextEnd?.Invoke();
 
                             if (node.NoCondition)
+                            {
                                 ProcessSimulationStep();
+                            }
                         },
                         Delay = clipLength
                     });

@@ -55,7 +55,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             Callback = () => DialogueUI.Show(false),
         };
 
-        DialogueUI.SetBodyTextWithTyping(EnterControlRoomText, e);
+        DialogueUI.SetBodyTextWithTyping(EnterControlRoomText, e, e.Callback);
         DialogueUI.Show(true);
     }
 
@@ -279,8 +279,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         DialogueUI.SetSpeaker(speaker);
 
-        e.Callback += () => DialogueUI.Show(false); 
-        DialogueUI.SetBodyTextWithTyping(body, e);
+        DialogueUI.SetBodyTextWithTyping(body, e, () =>
+        {
+            DialogueUI.Show(false);
+            e.Callback?.Invoke();
+        });
     }
 
     void SubscribeEvent(ScenarioEventType type, Action<ScenarioEvent> handler)

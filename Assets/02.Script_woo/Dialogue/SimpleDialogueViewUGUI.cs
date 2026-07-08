@@ -24,6 +24,8 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
 
     readonly List<Button> _spawned = new();
 
+    private TypingEffect TypingEffect;
+
     private void Awake()
     {
         if (speakerBG == null)
@@ -58,7 +60,7 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
         if (bodyText) bodyText.text = text ?? "";
     }
 
-    public void SetBodyTextWithTyping(string text, ScenarioEvent eventArgs = null)
+    public void SetBodyTextWithTyping(string text, ScenarioEvent eventArgs = null, Action OnEnd = null)
     {
         if (eventArgs == null) SetBodyText(text);
         else
@@ -66,8 +68,13 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
             var clip = eventArgs.ObjectValue as AudioClip;
             var clipLength = eventArgs.FloatValue;
 
-            TypingEffect.Apply(bodyText, text, 2f, clipLength, 
-                               null, eventArgs.Callback);
+            if (TypingEffect == null)
+            {
+                var go = new GameObject("TypingEffect");
+                TypingEffect = go.AddComponent<TypingEffect>();
+            }
+
+            TypingEffect.Apply(bodyText, text, 2f, clipLength, null, OnEnd);
         }
     }
 
