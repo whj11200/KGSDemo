@@ -2506,6 +2506,7 @@ MonoBehaviour:
     \uAD00\uC81C\uC11D\uC5D0 \uCC29\uC11D\uD558\uC2ED\uC2DC\uC624."
   EnterControlRoomVoice: {fileID: 0}
   AlarmClip: {fileID: 0}
+  SkipAction: {fileID: 136036119572374815, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &381054967
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,8 +74,13 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
                 TypingEffect = go.AddComponent<TypingEffect>();
             }
 
-            TypingEffect.Apply(bodyText, text, 2f, clipLength, null, OnEnd);
+            TypingEffect.Apply(bodyText, text, clipLength, null, OnEnd);
         }
+    }
+
+    public void Complete()
+    {
+        TypingEffect.Complete();
     }
 
     public void SetTypingVisible(bool visible)

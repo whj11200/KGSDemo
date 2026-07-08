@@ -2,10 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Threading;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static ValveControlConsole;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
@@ -28,9 +30,28 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     ScenarioEventBus<ScenarioEventType> ScenarioEventBus = new();
     public int CurrentNodeId => simulation.SimulNodeID;
 
+    [SerializeField] InputActionReference SkipAction;
+
     private void Awake()
     {
         CameraIdx = MonitorCameras.Count / 2; // 중앙 카메라로 초기화
+    }
+
+    private void OnEnable()
+    {
+        SkipAction.action.Enable();
+        SkipAction.action.performed += NextAction;
+    }
+
+    private void NextAction(InputAction.CallbackContext context)
+    {
+        StopAudio();
+        DialogueUI.Complete();
+    }
+
+    private void OnDisable()
+    {
+        SkipAction.action.Disable();
     }
 
     private void Start()
@@ -42,6 +63,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         }, 1.5f));
     }
 
+
+
     public void EnterControlRoom()
     {
         DialogueUI.SetSpeaker();
@@ -51,7 +74,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             EventType = ScenarioEventType.ShowMessage,
             StringValue = EnterControlRoomText,
             ObjectValue = EnterControlRoomVoice,
-            Delay = EnterControlRoomVoice != null ? EnterControlRoomVoice.length : 2.5f,
+            FloatValue = EnterControlRoomVoice != null ? EnterControlRoomVoice.length : 3.5f,
             Callback = () => DialogueUI.Show(false),
         };
 

@@ -1,67 +1,87 @@
-﻿using DG.Tweening;
-using System;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class TypingEffect : MonoBehaviour
 {
-    private Tween currentTween;
-    private Tween delayedCall;
+    private Coroutine typingCoroutine;
     private Action pendingOnComplete;
+
+    private bool isTyping;
+
+    private float charsPerSecond = 20f;
+
+    private TMP_Text currentText;
+    private string currentFullText;
+    private bool typingFinished;
 
     public void Apply(
         TMP_Text tmp,
         string text,
-        float typingDuration,
         float clipLength,
         Action onStart = null,
         Action onComplete = null)
     {
-        tmp.enabled = false;
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
 
-        currentTween?.Kill();
-        delayedCall?.Kill();
+        currentText = tmp;
+        currentFullText = text;
+        typingFinished = false;
+
+        pendingOnComplete = onComplete;
+
+        typingCoroutine = StartCoroutine(
+            TypingRoutine(tmp, text, clipLength, onStart)
+        );
+    }
+
+
+    private IEnumerator TypingRoutine(
+        TMP_Text tmp,
+        string text,
+        float clipLength,
+        Action onStart)
+    {
+        tmp.enabled = false;
 
         tmp.text = "";
         tmp.enabled = true;
 
         onStart?.Invoke();
 
-        float totalCompleteTime = Mathf.Max(typingDuration, clipLength);
-        float delay = Mathf.Max(0f, totalCompleteTime - typingDuration + 0.5f);
+        isTyping = true;
 
-        pendingOnComplete = onComplete;
+        float secPerChar =
+            charsPerSecond <= 0 ? 0f : 1f / charsPerSecond;
 
-        currentTween = tmp.DOText(text, typingDuration)
-            .SetEase(Ease.Linear)
-            .OnComplete(() =>
-            {
-                currentTween = null;
 
-                delayedCall = DOVirtual.DelayedCall(delay, () =>
-                {
-                    delayedCall = null;
-
-                    var callback = pendingOnComplete;
-                    pendingOnComplete = null;
-
-                    callback?.Invoke();
-                });
-            });
-    }
-
-    public void Complete()
-    {
-        if (currentTween != null && currentTween.IsActive() && currentTween.IsPlaying())
+        for (int i = 0; i < text.Length; i++)
         {
-            currentTween.Complete();
+            tmp.text = text.Substring(0, i + 1);
+
+            if (secPerChar > 0)
+                yield return new WaitForSeconds(secPerChar);
+            else
+                yield return null;
         }
 
-        if (delayedCall != null && delayedCall.IsActive())
-        {
-            delayedCall.Kill();
-            delayedCall = null;
-        }
+
+        isTyping = false;
+        typingFinished = true;
+
+        float typingDuration = text.Length * secPerChar;
+        float delay = Mathf.Max(0f, clipLength - typingDuration);
+
+        if (delay > 0)
+            yield return new WaitForSeconds(delay);
+
+
+        typingCoroutine = null;
 
         var callback = pendingOnComplete;
         pendingOnComplete = null;
@@ -69,8 +89,55 @@ public class TypingEffect : MonoBehaviour
         callback?.Invoke();
     }
 
-    public bool IsTyping =>
-        currentTween != null &&
-        currentTween.IsActive() &&
-        currentTween.IsPlaying();
+
+    public void Complete()
+    {
+        // 첫 번째 입력: 글자만 완성
+        if (isTyping)
+        {
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+                typingCoroutine = null;
+            }
+
+            currentText.text = currentFullText;
+
+            isTyping = false;
+            typingFinished = true;
+
+            return;
+        }
+
+        // 두 번째 입력: 다음 진행
+        if (typingFinished)
+        {
+            typingFinished = false;
+
+            var callback = pendingOnComplete;
+            pendingOnComplete = null;
+
+            callback?.Invoke();
+        }
+    }
+
+
+    private void StopCurrentTyping()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        isTyping = false;
+
+        var callback = pendingOnComplete;
+        pendingOnComplete = null;
+
+        callback?.Invoke();
+    }
+
+
+    public bool IsTyping => isTyping;
 }
