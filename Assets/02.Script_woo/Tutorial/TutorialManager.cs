@@ -5,7 +5,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] DialogueController dialogueController;
     [SerializeField] DialogueAsset scenarioAsset;
     [SerializeField] SceneChanger sceneChanger;
-    [SerializeField] TutorialUIManager tutorialUIManager;
+    [SerializeField] ManagerUIManager tutorialUIManager;
 
     // [추가] 현재 어떤 시나리오 노드가 진행 중인지 저장
     private void OnEnable()

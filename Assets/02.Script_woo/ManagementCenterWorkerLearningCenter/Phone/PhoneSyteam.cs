@@ -87,10 +87,15 @@ public class PhoneSystem : MonoBehaviour
     public void StartIncomingCall()
     {
         Init();
-        ShowCursor();
+
         if (!initialized)
             return;
-        darkPhoneBackGround.SetActive(true);
+
+        ShowCursor();
+
+        if (darkPhoneBackGround != null)
+            darkPhoneBackGround.SetActive(true);
+
         if (recallCoroutine != null)
         {
             StopCoroutine(recallCoroutine);
@@ -214,7 +219,7 @@ public class PhoneSystem : MonoBehaviour
 
             phoneRect.localRotation = originRotation * Quaternion.Euler(0f, 0f, zRotation);
             phoneRect.anchoredPosition = originAnchoredPosition + new Vector2(xShake, yShake);
-
+            ShowCursor();
             yield return null;
         }
 
@@ -228,6 +233,7 @@ public class PhoneSystem : MonoBehaviour
 
         phoneRect.localRotation = originRotation;
         phoneRect.anchoredPosition = originAnchoredPosition;
+        
     }
     public string currentNodeID { get; private set; } = "";
     public void HandleDialogueStart(string nodeID)

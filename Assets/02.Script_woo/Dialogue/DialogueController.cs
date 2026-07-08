@@ -31,6 +31,9 @@ public sealed class DialogueController : MonoBehaviour
     public DialogueAsset CurrentAsset => _asset;
     public bool IsPlaying => _state != State.Idle;
 
+    public string CurrentNodeId => _current != null ? _current.nodeId : "";
+    public string LastExitedNodeId { get; private set; } = "";
+
     IDialogueView View => (IDialogueView)viewProvider;
     IDialogueInput Input => (IDialogueInput)inputProvider;
 
@@ -47,6 +50,7 @@ public sealed class DialogueController : MonoBehaviour
     public bool _requestSkip;
 
     Action _onFinished;
+
 
     // ===== 공개 API (이것만 쓰면 됨) =====
 
@@ -387,6 +391,8 @@ public sealed class DialogueController : MonoBehaviour
     {
         if (node == null) return;
 
+        LastExitedNodeId = node.nodeId;
+
         // 1. NPC 퇴장 행동 실행
         if (node.npcExitAction != NPCActionType.None)
         {
@@ -395,20 +401,21 @@ public sealed class DialogueController : MonoBehaviour
             DialogueEventBus.Raise(npcEvt);
         }
 
-        // 2. 환경 퇴장 이벤트 실행
         if (node.envExitEvent != KGS_EnvEventType.None)
         {
             string envEvt = node.envExitEvent.ToString();
             Debug.Log($"[Dialogue] Env Exit Event: {envEvt}");
             DialogueEventBus.Raise(envEvt);
         }
-        if( node.tutorialExitEvent != TutorialEventType.None)
+
+        if (node.tutorialExitEvent != TutorialEventType.None)
         {
             string tutorialEvt = node.tutorialExitEvent.ToString();
             Debug.Log($"[Dialogue] Tutorial Exit Event: {tutorialEvt}");
             DialogueEventBus.Raise(tutorialEvt);
         }
-        if(node.managerCenterWorkerLearningCenterExitEvent != ManagerCenterWorkerLearningCenterEventType.None)
+
+        if (node.managerCenterWorkerLearningCenterExitEvent != ManagerCenterWorkerLearningCenterEventType.None)
         {
             string managerEvt = node.managerCenterWorkerLearningCenterExitEvent.ToString();
             Debug.Log($"[Dialogue] Manager Center Worker Learning Center Exit Event: {managerEvt}");

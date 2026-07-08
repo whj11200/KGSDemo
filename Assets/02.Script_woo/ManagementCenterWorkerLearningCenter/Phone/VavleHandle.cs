@@ -8,20 +8,22 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
     [SerializeField] private Vector3 currentPosition;
 
     [Header("Rotation Setting")]
-    [SerializeField] private float rotateAngle = 360f;
+    [SerializeField] private float rotateAngle = -360f;
     [SerializeField] private float rotateDuration = 1f;
 
     [Header("State")]
     [SerializeField] private bool isRotating = false;
-    [SerializeField] private bool isReverseNext = false;
+    [SerializeField] private bool isLocked = false;
 
-    [Header("Other Manager Event")]
-    [SerializeField] private bool useCompleteEvent = false;
-    [SerializeField] private UnityEvent onRotateComplete;
+    [Header("Lock / Unlock Events")]
+    [SerializeField] private UnityEvent onLockComplete;
+    [SerializeField] private UnityEvent onUnlockComplete;
 
     private Coroutine rotateCoroutine;
 
     public Vector3 CurrentPosition => currentPosition;
+    public bool IsLocked => isLocked;
+    public bool IsRotating => isRotating;
 
     private void Start()
     {
@@ -45,7 +47,7 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
 
     public void ClickEnter()
     {
-        ToggleRotate();
+        ToggleLock();
     }
 
     public void ClickExit()
@@ -64,50 +66,46 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
     }
 
     /// <summary>
-    /// 정방향 / 역방향 360도 회전 토글
+    /// 현재 상태에 따라 잠금 / 해제 토글
     /// </summary>
-    public void ToggleRotate()
+    public void ToggleLock()
     {
         if (isRotating)
             return;
 
-        if (isReverseNext)
+        if (isLocked)
         {
-            RotateReverse360();
+            UnlockValve();
         }
         else
         {
-            RotateForward360();
+            LockValve();
         }
-
-        isReverseNext = !isReverseNext;
     }
 
     /// <summary>
-    /// Z축 기준 정방향 360도 회전
+    /// 밸브 잠금
     /// </summary>
-    public void RotateForward360()
-    {
-        StartRotate(1f);
-    }
-
-    /// <summary>
-    /// Z축 기준 역방향 360도 회전
-    /// </summary>
-    public void RotateReverse360()
-    {
-        StartRotate(-1f);
-    }
-
-    private void StartRotate(float direction)
+    public void LockValve()
     {
         if (isRotating)
             return;
 
-        rotateCoroutine = StartCoroutine(RotateZ360Coroutine(direction));
+        rotateCoroutine = StartCoroutine(RotateZ360Coroutine(1f, true));
     }
 
-    private IEnumerator RotateZ360Coroutine(float direction)
+    /// <summary>
+    /// 밸브 해제
+    /// </summary>
+    public void UnlockValve()
+    {
+        if (isRotating)
+            return;
+
+        rotateCoroutine = StartCoroutine(RotateZ360Coroutine(-1f, false));
+    }
+
+    private IEnumerator RotateZ360Coroutine(float direction, bool lockAfterRotate)
     {
         isRotating = true;
 
@@ -135,36 +133,35 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             yield return null;
         }
 
-        // 마지막에 정확히 360도 위치로 보정
         transform.localEulerAngles = new Vector3(
             startEuler.x,
             startEuler.y,
             startZ + targetAngle
         );
 
+        isLocked = lockAfterRotate;
         isRotating = false;
         rotateCoroutine = null;
 
-        // 기본값 false라서 이벤트는 작동안함
-        if (useCompleteEvent)
+        if (isLocked)
         {
-            onRotateComplete?.Invoke();
+            onLockComplete?.Invoke();
+        }
+        else
+        {
+            onUnlockComplete?.Invoke();
         }
     }
 
     /// <summary>
-    /// 다른 매니저 이벤트 실행 여부 토글
+    /// 외부에서 강제로 잠금 상태 세팅할 때 사용
+    /// 회전은 하지 않고 상태값만 바꿈
     /// </summary>
-    public void ToggleCompleteEvent()
+    public void SetLockedState(bool locked)
     {
-        useCompleteEvent = !useCompleteEvent;
-    }
+        if (isRotating)
+            return;
 
-    /// <summary>
-    /// 외부에서 이벤트 실행 여부 직접 설정할 때 사용
-    /// </summary>
-    public void SetCompleteEvent(bool value)
-    {
-        useCompleteEvent = value;
+        isLocked = locked;
     }
 }
