@@ -40,7 +40,6 @@ public class TypingEffect : MonoBehaviour
         );
     }
 
-
     private IEnumerator TypingRoutine(
         TMP_Text tmp,
         string text,
@@ -89,7 +88,6 @@ public class TypingEffect : MonoBehaviour
         callback?.Invoke();
     }
 
-
     public void Complete()
     {
         // 첫 번째 입력: 글자만 완성
@@ -121,7 +119,6 @@ public class TypingEffect : MonoBehaviour
         }
     }
 
-
     private void StopCurrentTyping()
     {
         if (typingCoroutine != null)
@@ -137,7 +134,6 @@ public class TypingEffect : MonoBehaviour
 
         callback?.Invoke();
     }
-
 
     public bool IsTyping => isTyping;
 }
