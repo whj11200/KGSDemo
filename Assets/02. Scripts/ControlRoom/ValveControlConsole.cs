@@ -6,6 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
+using static ValveControlConsole;
 
 public class ValveControlConsole : MonoBehaviour
 {
@@ -87,7 +88,10 @@ public class ValveControlConsole : MonoBehaviour
 
             button.GetComponent<Image>().raycastTarget = true;
 
-            button.InitValve(info, operation);
+            button.TargetState = operation == ValveOperation.Isolate
+                                ? info.TargetState
+                                : info.InitialState;
+
             button.Phase = info.Phase;
 
             valveStates[button.name] = button.IsTargetState;
@@ -120,6 +124,13 @@ public class ValveControlConsole : MonoBehaviour
                 else
                     currentPhase = ValvePhase.Complete;
                 break;
+
+            case ValveOperation.Restore_IsolateOnly:
+                if (hasSV)
+                    currentPhase = ValvePhase.SectionIsolation;
+                else
+                    currentPhase= ValvePhase.Complete;
+                break;
         }
     }
 
@@ -146,7 +157,6 @@ public class ValveControlConsole : MonoBehaviour
             button.Phase = ValvePhase.ConfirmVent;
 
             button.TargetState = info.TargetState;
-            button.SetValveState(info.InitialState);
 
             valveStates[button.name] = button.IsTargetState;
         }
@@ -175,10 +185,6 @@ public class ValveControlConsole : MonoBehaviour
         }
         else
         {
-            // 대상 밸브가 아니면 무시
-            if (!valveStates.ContainsKey(valveName))
-                return;
-
             // 현재 상태 갱신
             valveStates[valveName] = isTargetState;
 
@@ -198,6 +204,10 @@ public class ValveControlConsole : MonoBehaviour
 
                 case ValveOperation.Restore:
                     HandleRestore(siComplete, svComplete);
+                    break;
+
+                case ValveOperation.Restore_IsolateOnly:
+                    if (siComplete) CompleteControl();
                     break;
             }
         }
@@ -254,18 +264,25 @@ public class ValveControlConsole : MonoBehaviour
         }
     }
 
-    public void AllButtonsDisable()
+    public void AllButtonsDisable(Dictionary<string, ValveInfo> valveDict)
     {
         foreach(var btn in Buttons)
         {
             btn.GetComponent<Image>().raycastTarget = false;
+
+            if (valveDict.TryGetValue(btn.name, out ValveInfo valveInfo))
+            {
+                btn.InitValve(valveInfo, ValveOperation.None);
+            }
         }
     }
 
     public enum ValveOperation
     {
-        Isolate,    // 차단
-        Restore,    // 복구
+        None,
+        Isolate,                // 차단
+        Restore,                // 복구
+        Restore_IsolateOnly,    // Isolate에 있는 밸브들만 복구
         Confirm
     }
 

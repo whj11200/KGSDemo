@@ -85,6 +85,7 @@ MonoBehaviour:
     Content: "\uC218\uACE0\uD558\uC168\uC2B5\uB2C8\uB2E4."
     Voice: {fileID: 0}
     NoCondition: 1
+  ValveList: []
   VentValves:
   - Name: M-51P
     Phase: 4

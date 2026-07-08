@@ -64,8 +64,25 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     public override void InitializeScenario(int assetIdx)
     {
         var selectedAsset = ScenarioAssets[assetIdx];
-        var type = selectedAsset.Template.ScenarioType.ToString();
+        var type = selectedAsset.Template.ScenarioType;
         var part = selectedAsset.BrokenPart;
+
+        var valveList = new HashSet<ValveInfo>();
+        var vlaveDict = new Dictionary<string, ValveInfo>();
+
+        foreach (var asset in ScenarioAssets)
+        {
+            if (asset.Template.ScenarioType != type) continue;
+
+            valveList.UnionWith(asset.Valves_SectionIsolation);
+            valveList.UnionWith(asset.Valves_SectionVent);
+            valveList.UnionWith(asset.Template.VentValves);
+        }
+
+        foreach (var v in valveList)
+        {
+            vlaveDict[v.Name] = v;
+        }
 
         simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
 
@@ -76,8 +93,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         mainMonitor.OnProcessBtn += ProcessScenario;
 
-        ValveConsole.AllButtonsDisable();
         ValveConsole.InitValveConsole(selectedAsset);
+        ValveConsole.AllButtonsDisable(vlaveDict);
 
         ScenarioEventBus = simulation.EventBus;
 
@@ -129,7 +146,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                     break;
 
                 case "Valve_Revert":
-                    ValveConsole.SetTargetValve(ValveOperation.Restore);
+                    if (e.StringValue == "IsolateOnly") 
+                        ValveConsole.SetTargetValve(ValveOperation.Restore_IsolateOnly);
+                    else 
+                        ValveConsole.SetTargetValve(ValveOperation.Restore);
+
                     mainMonitor.ShowValves();
                     break;
 

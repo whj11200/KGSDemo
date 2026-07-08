@@ -142,13 +142,13 @@ public class PipelineSimulation : SimulationBase
         };
 
         // 8번: 밸브 조작 완료 및 Fade In
-        GameNodes[5].OnTextEnd += () =>
+        GameNodes[6].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.UI,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.UI,
-                    NodeID = 5,
+                    NodeID = 6,
                     StringValue = $"{Asset.Template.WaitTime}분 경과," +
                                   $"\r\n잔류 가스 방출 완료",
                     Callback = () =>
@@ -183,6 +183,7 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 9,
+                    StringValue = "IsolateOnly",
                     EventId = "Valve_Revert"
                 });
         };

@@ -46,9 +46,6 @@ public class RemoteValveControlButton : MonoBehaviour
     public void InitValve(ValveInfo _ValveInfo, ValveOperation _valveOperation)
     {
         ValveInfo = _ValveInfo;
-        TargetState = _valveOperation == ValveOperation.Isolate
-            ? _ValveInfo.TargetState
-            : _ValveInfo.InitialState;
 
         if (!IsInit) SetValveState(ValveInfo.InitialState);
 
