@@ -23,7 +23,7 @@ public abstract class ScenarioPlayerBase<T> : MonoBehaviour
 
     public abstract void PlayAudio(AudioClip clip);
     public abstract void StopAudio();
-    public abstract void ShowMessage(string message, float duration);
+    public abstract void ShowMessage(ScenarioEvent e);
 }
 
 public class GameNode

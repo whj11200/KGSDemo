@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ public class PipelineSimulation : SimulationBase
             {
                 IsProcessBlocked = !node.NoCondition;
 
+                var clipLength = node.Voice != null ? node.Voice.length + 2f : 2f;
+
                 EventBus.Publish(
                     ScenarioEventType.ShowMessage,
                     new ScenarioEvent
@@ -37,8 +40,15 @@ public class PipelineSimulation : SimulationBase
                         NodeID = idx,
                         EventId = $"{type}_{idx}_Content",
                         StringValue = content,
-                        Callback = () => gameNode.OnTextEnd?.Invoke(),
-                        Delay = 2f
+                        ObjectValue = node.Voice,
+                        Callback = () =>
+                        {
+                            gameNode.OnTextEnd?.Invoke();
+
+                            if (node.NoCondition)
+                                ProcessSimulationStep();
+                        },
+                        Delay = clipLength
                     });
 
                 EventBus.Publish(
@@ -48,12 +58,6 @@ public class PipelineSimulation : SimulationBase
                         EventType = ScenarioEventType.Audio,
                         NodeID = idx,
                         ObjectValue = node.Voice,
-                        Callback = () =>
-                        {
-                            if (node.NoCondition)
-                                ProcessSimulationStep();
-                        },
-                        Delay = node.Voice != null ? node.Voice.length + 1.5f : 2f
                     });
             };
 

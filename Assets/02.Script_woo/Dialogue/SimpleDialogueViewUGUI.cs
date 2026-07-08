@@ -58,6 +58,19 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
         if (bodyText) bodyText.text = text ?? "";
     }
 
+    public void SetBodyTextWithTyping(string text, ScenarioEvent eventArgs = null)
+    {
+        if (eventArgs == null) SetBodyText(text);
+        else
+        {
+            var clip = eventArgs.ObjectValue as AudioClip;
+            var clipLength = eventArgs.FloatValue;
+
+            TypingEffect.Apply(bodyText, text, 2f, clipLength, 
+                               null, eventArgs.Callback);
+        }
+    }
+
     public void SetTypingVisible(bool visible)
     {
         if (typingIcon) typingIcon.SetActive(visible);

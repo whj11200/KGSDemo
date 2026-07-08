@@ -45,13 +45,18 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     public void EnterControlRoom()
     {
         DialogueUI.SetSpeaker();
-        DialogueUI.SetBodyText(EnterControlRoomText);
-        DialogueUI.Show(true);
 
-        StartCoroutine(Delay(()=>
+        var e = new ScenarioEvent
         {
-            DialogueUI.Show(false);
-        }, 5f));
+            EventType = ScenarioEventType.ShowMessage,
+            StringValue = EnterControlRoomText,
+            ObjectValue = EnterControlRoomVoice,
+            Delay = EnterControlRoomVoice != null ? EnterControlRoomVoice.length : 2.5f,
+            Callback = () => DialogueUI.Show(false),
+        };
+
+        DialogueUI.SetBodyTextWithTyping(EnterControlRoomText, e);
+        DialogueUI.Show(true);
     }
 
     IEnumerator Delay(Action action, float delay)
@@ -115,7 +120,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         SubscribeEvent(ScenarioEventType.ShowMessage, e =>
         {
             if (!string.IsNullOrEmpty(e.StringValue))
-                ShowMessage(e.StringValue, e.Delay);
+                ShowMessage(e);
         });
 
         SubscribeEvent(ScenarioEventType.Monitor, e =>
@@ -254,8 +259,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         }
     }
 
-    public override void ShowMessage(string message, float duration)
+    public override void ShowMessage(ScenarioEvent e)
     {
+        var message = e.StringValue;
+        var duration = e.Delay;
+
         int index = message.IndexOf(':');
 
         string speaker = "";
@@ -270,12 +278,9 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         DialogueUI.Show(true);
 
         DialogueUI.SetSpeaker(speaker);
-        DialogueUI.SetBodyText(body);
 
-        StartCoroutine(Delay(() =>
-        {
-            DialogueUI.Show(false);
-        }, duration));
+        e.Callback += () => DialogueUI.Show(false); 
+        DialogueUI.SetBodyTextWithTyping(body, e);
     }
 
     void SubscribeEvent(ScenarioEventType type, Action<ScenarioEvent> handler)
@@ -284,7 +289,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         {
             handler(e);
 
-            if (e.Callback != null)
+            if (type != ScenarioEventType.ShowMessage && e.Callback != null)
                 StartCoroutine(Delay(e.Callback, e.Delay));
         });
     }

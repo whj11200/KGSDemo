@@ -68,6 +68,7 @@ public class ScenarioEvent
 
     public UnityEngine.Object ObjectValue;
     public int intValue;
+    public float FloatValue;
     public string StringValue;
     public Action Callback;
 }

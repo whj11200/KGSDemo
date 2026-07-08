@@ -25,6 +25,8 @@ public class FacilitySimulation : SimulationBase
             {
                 IsProcessBlocked = !node.NoCondition;
 
+                var clipLength = node.Voice != null ? node.Voice.length + 2.5f : 2.5f;
+
                 EventBus.Publish(
                     ScenarioEventType.ShowMessage,
                     new ScenarioEvent
@@ -33,8 +35,15 @@ public class FacilitySimulation : SimulationBase
                         NodeID = idx,
                         EventId = $"{type}_{idx}_Content",
                         StringValue = content,
-                        Callback = () => gameNode.OnTextEnd?.Invoke(),
-                        Delay = 2f
+                        FloatValue = clipLength,
+                        Callback = () =>
+                        {
+                            gameNode.OnTextEnd?.Invoke();
+
+                            if (node.NoCondition)
+                                ProcessSimulationStep();
+                        },
+                        Delay = clipLength,
                     });
 
                 EventBus.Publish(
@@ -44,12 +53,6 @@ public class FacilitySimulation : SimulationBase
                         EventType = ScenarioEventType.Audio,
                         NodeID = idx,
                         ObjectValue = node.Voice,
-                        Callback = () =>
-                        {
-                            if (node.NoCondition)
-                                ProcessSimulationStep();
-                        },
-                        Delay = node.Voice != null ? node.Voice.length + 1.5f : 2f
                     });
             };
 
