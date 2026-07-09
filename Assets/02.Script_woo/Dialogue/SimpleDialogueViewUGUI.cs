@@ -13,6 +13,7 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
     [SerializeField] Image speakerBG;
     [SerializeField] TMP_Text speakerText;
     [SerializeField] TMP_Text bodyText;
+    [SerializeField] float charsPerSecond = 15f;
 
     [Header("Hints")]
     [SerializeField] GameObject typingIcon;
@@ -72,6 +73,7 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
             {
                 var go = new GameObject("TypingEffect");
                 TypingEffect = go.AddComponent<TypingEffect>();
+                TypingEffect.charsPerSecond = charsPerSecond;
             }
 
             TypingEffect.Apply(bodyText, text, clipLength, null, OnEnd);

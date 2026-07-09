@@ -43,15 +43,16 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         SkipAction.action.performed += NextAction;
     }
 
+    private void OnDisable()
+    {
+        SkipAction.action.Disable();
+        SkipAction.action.performed -= NextAction;
+    }
+
     private void NextAction(InputAction.CallbackContext context)
     {
         StopAudio();
         DialogueUI.Complete();
-    }
-
-    private void OnDisable()
-    {
-        SkipAction.action.Disable();
     }
 
     private void Start()
@@ -62,8 +63,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             PlayAudio(EnterControlRoomVoice);
         }, 1.5f));
     }
-
-
 
     public void EnterControlRoom()
     {
@@ -301,7 +300,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         DialogueUI.Show(true);
 
         DialogueUI.SetSpeaker(speaker);
-
         DialogueUI.SetBodyTextWithTyping(body, e, () =>
         {
             DialogueUI.Show(false);

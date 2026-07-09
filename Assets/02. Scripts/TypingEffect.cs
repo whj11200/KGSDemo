@@ -9,12 +9,24 @@ public class TypingEffect : MonoBehaviour
     private Action pendingOnComplete;
 
     private bool isTyping;
+    public bool IsTyping => isTyping;
 
-    private float charsPerSecond = 20f;
+    public float charsPerSecond = 15f;
 
     private TMP_Text currentText;
     private string currentFullText;
     private bool typingFinished;
+
+    private void Awake()
+    {
+        typingCoroutine = null;
+        pendingOnComplete = null;
+        isTyping = false;
+
+        currentText = null;
+        currentFullText = string.Empty;
+        typingFinished = false;
+    }
 
     public void Apply(
         TMP_Text tmp,
@@ -118,22 +130,4 @@ public class TypingEffect : MonoBehaviour
             callback?.Invoke();
         }
     }
-
-    private void StopCurrentTyping()
-    {
-        if (typingCoroutine != null)
-        {
-            StopCoroutine(typingCoroutine);
-            typingCoroutine = null;
-        }
-
-        isTyping = false;
-
-        var callback = pendingOnComplete;
-        pendingOnComplete = null;
-
-        callback?.Invoke();
-    }
-
-    public bool IsTyping => isTyping;
 }

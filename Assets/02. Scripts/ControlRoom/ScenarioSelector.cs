@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScenarioSelector : MonoBehaviour
 {
     [SerializeField] private ControlScenarioPlayer ScenarioPlayer;
     [SerializeField] private int ScenarioIndex;
+
+    [SerializeField] List<Image> Buttons;
+    [SerializeField] Color SelectedColor;
 
     [SerializeField] CinemachineCamera ScenarioCam;
     [SerializeField] CameraSwitcher CameraSwitcher;
@@ -23,7 +27,10 @@ public class ScenarioSelector : MonoBehaviour
 
     public void SelectScenario(int _chooseIdx)
     {
+        Buttons[ScenarioIndex].color = Color.white;
+
         ScenarioIndex = _chooseIdx;
+        Buttons[ScenarioIndex].color = SelectedColor;
     }
 
     public void ApplySelect()
