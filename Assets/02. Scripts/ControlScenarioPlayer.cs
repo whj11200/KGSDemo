@@ -227,8 +227,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void EndScenario()
     {
+        MonitorSwitcher.SetActive(false);
         CameraSwitcher.Revert();
-        Debug.Log("시뮬레이션 종료");
     }
 
     public void ReportToManger()
@@ -277,7 +277,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     public override void ShowMessage(ScenarioEvent e)
     {
         var message = e.StringValue;
-        var duration = e.Delay;
 
         int index = message.IndexOf(':');
 

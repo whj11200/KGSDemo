@@ -5886,7 +5886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1048040153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10495,7 +10495,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "OO\uAD00\uB9AC\uC18C\uC785\uB2C8\uB2E4. \uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB7C9\uAE30\uC5D0\uC11C
+    \uAC00\uC2A4 \uB204\uCD9C\uC774 \uD655\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\uAC00\uC2A4
+    \uAC80\uC9C0\uAE30 \uCE21\uC815 \uACB0\uACFC 23.2% LFL\uC785\uB2C8\uB2E4.\r\n\uB300\uC751
+    \uBC14\uB78D\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ed143dedaf16744fbc9af43e7e6fd6d, type: 2}
   m_sharedMaterial: {fileID: 4346604898152224817, guid: 7ed143dedaf16744fbc9af43e7e6fd6d, type: 2}
@@ -10527,7 +10530,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 30
+  m_fontSizeMax: 28
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -10561,7 +10564,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 60, y: 135, z: 60, w: 0}
+  m_margin: {x: 50, y: 135, z: 50, w: 50}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

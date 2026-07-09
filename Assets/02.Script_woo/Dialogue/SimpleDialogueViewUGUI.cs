@@ -66,7 +66,6 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
         if (eventArgs == null) SetBodyText(text);
         else
         {
-            var clip = eventArgs.ObjectValue as AudioClip;
             var clipLength = eventArgs.FloatValue;
 
             if (TypingEffect == null)

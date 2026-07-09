@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScenarioAsset_4
   m_EditorClassIdentifier: Assembly-CSharp::ScenarioAsset
   ScenarioName: "\uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB791\uD6C4\uB2E8"
-  BrokenPart: "\uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB7C9\uAE30"
+  BrokenPart: "\uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB7C9\uAE30 \uC778\uADFC"
   Template: {fileID: 11400000, guid: 7207e7b163514d84ca31e708e77ccb46, type: 2}
   Valves_SectionIsolation:
   - Name: M-62A
@@ -41,4 +41,6 @@ MonoBehaviour:
     Phase: 2
     InitialState: 1
     TargetState: 0
+  OverrideVentValveList: 0
+  VentValves: []
   BluePrint: {fileID: 21300000, guid: 6da940201c77dd14b8fba47434bcb5e6, type: 3}

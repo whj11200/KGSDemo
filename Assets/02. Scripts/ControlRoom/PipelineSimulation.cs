@@ -40,7 +40,7 @@ public class PipelineSimulation : SimulationBase
                         NodeID = idx,
                         EventId = $"{type}_{idx}_Content",
                         StringValue = content,
-                        ObjectValue = node.Voice,
+                        FloatValue = clipLength,
                         Callback = () =>
                         {
                             gameNode.OnTextEnd?.Invoke();
@@ -50,7 +50,6 @@ public class PipelineSimulation : SimulationBase
                                 ProcessSimulationStep();
                             }
                         },
-                        Delay = clipLength
                     });
 
                 EventBus.Publish(

@@ -44,7 +44,6 @@ public class FacilitySimulation : SimulationBase
                             if (node.NoCondition)
                                 ProcessSimulationStep();
                         },
-                        Delay = clipLength,
                     });
 
                 EventBus.Publish(
