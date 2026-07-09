@@ -42,6 +42,7 @@ public enum ManagerCenterWorkerLearningCenterEventType
     None,
     StartPhoneCall,
     VavleCloseStage,
+    StartExitStage,
     StartHazeStage,
     StartLeakStage,
     VavleOpenStage,
