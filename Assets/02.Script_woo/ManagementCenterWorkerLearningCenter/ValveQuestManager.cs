@@ -39,6 +39,8 @@ public class ValveQuestManager : MonoBehaviour
     public List<GameObject> valveNavObjects = new();
     [Header("누출지점 위치표시 오브젝트")]
     [SerializeField] GameObject leakPosObject;
+    [Header("탈출지점 위치표시 오브젝트")]
+    [SerializeField] GameObject escapePosObject;
     [Header("Emission Blink Setting")]
     [SerializeField] private Color emissionColor = Color.green;
     [SerializeField] private float maxEmissionPower = 2f;
@@ -83,6 +85,7 @@ public class ValveQuestManager : MonoBehaviour
     }
     public void Init()
     {
+        escapePosObject.SetActive(false);
         leakPosObject.SetActive(false);
         if (valveNameCanvas != null)
             valveNameCanvas.SetActive(false);
@@ -92,6 +95,9 @@ public class ValveQuestManager : MonoBehaviour
         DialogueEventBus.Subscribe(
             ManagerCenterWorkerLearningCenterEventType.VavleCloseStage.ToString(),
             CloseVavleStage);
+        DialogueEventBus.Subscribe(
+            ManagerCenterWorkerLearningCenterEventType.StartExitStage.ToString(),
+            EscapePosActive);
         DialogueEventBus.Subscribe(
             ManagerCenterWorkerLearningCenterEventType.StartHazeStage.ToString(),
             StartHaze);
@@ -516,6 +522,10 @@ public class ValveQuestManager : MonoBehaviour
     {
         dialogueModeul.StartDialogueFrom("M8");
     }
+    public void Change3_1()
+    {
+        dialogueModeul.StartDialogueFrom("M3_1");
+    }
     #endregion
 
     #region 누출지점 위치표시
@@ -525,5 +535,12 @@ public class ValveQuestManager : MonoBehaviour
         leakPosObject.SetActive(true);
     }
 
+    #endregion
+
+    #region 탈출지점 위치표시
+    public void EscapePosActive()
+    {
+        escapePosObject.SetActive(true);
+    }
     #endregion
 }
