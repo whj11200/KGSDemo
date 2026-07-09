@@ -17,10 +17,7 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
 
     [SerializeField] List<Image> WarnigPoints = new();
 
-    [SerializeField] GameObject infoPanel;
-    [SerializeField] TextMeshProUGUI info_Loc;
     [SerializeField] ControlScenarioPlayer scenarioPlayer;
-    [SerializeField] GameObject Image_Info;
 
     public event Action OnProcessBtn;
     int WPIndex = 0;
@@ -37,7 +34,6 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
 
     public void Initialize()
     {
-        infoPanel.SetActive(false);
         BackImage.enabled = false;
 
         if (ScreenImage != null)
@@ -51,15 +47,9 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
         foreach (var item in WarnigPoints)
         {
             item.gameObject.SetActive(false);
-
-            var btn = item.GetComponentInChildren<Button>();
-            btn.interactable = true;
-
-            btn.GetComponent<Image>().raycastTarget = true;
         }
 
         AlarmNodeId = -1;
-        WPNodeID = -1;
     }
 
     public void SetScreenInfo(Sprite sprite, int wpIndex, string Loc)
@@ -70,12 +60,8 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
         ScreenImage.sprite = sprite;
         ScreenImage.enabled = true;
 
-        info_Loc.text = $"누출지점: <color=#FF0000>{Loc}</color>";
-    }
-
-    public void SetPopupText(string text)
-    {
-        PopupText.text = text;
+        PopupText.text = $"OO관리소입니다. {Loc}에서 가스 누출이 확인되었습니다.가스 검지기 측정 결과 23.2% LFL입니다.\r\n" +
+                        $"대응 바랍니다.";
     }
 
     public void OpenPopup()
@@ -105,11 +91,6 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
         scenarioPlayer.CheckStep(AlarmNodeId);
     }
 
-    public void ShowInfo()
-    {
-        Image_Info.SetActive(true);
-    }
-
     IEnumerator Blink(Image image)
     {
         while (true)
@@ -120,10 +101,8 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
     }
 
     private Coroutine WPBlinkRoutine = null;
-    private int WPNodeID = -1;
     public void ShowWaringPoint(int nodeID)
     {
-        WPNodeID = nodeID; 
         var WP = WarnigPoints[WPIndex];
 
         WP.gameObject.SetActive(true);
@@ -138,20 +117,11 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
         WPBlinkRoutine = StartCoroutine(Blink(WP));
     }
 
-    public void OnClickWP()
-    {
-        scenarioPlayer.CheckStep(WPNodeID);
-    }
-
     public void ShowValves()
     {
         StopCoroutine(WPBlinkRoutine);
 
         var WP = WarnigPoints[WPIndex];
         WP.enabled = true;
-
-        var btn = WP.GetComponentInChildren<Button>();
-        btn.interactable = false;
-        btn.GetComponent<Image>().raycastTarget = false;
     }
 }

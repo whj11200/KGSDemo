@@ -18,6 +18,10 @@ MonoBehaviour:
     Content: "\uACF5\uAE09\uAD00\uB9AC\uC18C\uAC04 \uBC30\uAD00 \uC190\uC0C1\uC73C\uB85C
       \uAC00\uC2A4 \uB204\uCD9C\uC774 \r\n\uAC10\uC9C0\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     Voice: {fileID: 0}
+    NoCondition: 1
+  - Speaker: 
+    Content: "\uBA54\uC2DC\uC9C0\uB97C \uD655\uC778\uD574 \uC8FC\uC2ED\uC2DC\uC624."
+    Voice: {fileID: 0}
     NoCondition: 0
   - Speaker: 
     Content: "\uB204\uCD9C \uC704\uCE58\uAC00 \uD655\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uCD08\uAE30

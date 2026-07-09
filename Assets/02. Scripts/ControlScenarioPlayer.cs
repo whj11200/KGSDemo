@@ -115,9 +115,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         var mainMonitor = Monitors[1];
 
-        mainMonitor.SetPopupText($"<color=#FF0000>{selectedAsset.ScenarioName}</color> 에서 \r\n" +
-                                 $"LNG 가스 누출이 확인되었습니다.");
-
         mainMonitor.OnProcessBtn += ProcessScenario;
 
         ValveConsole.InitValveConsole(selectedAsset);
@@ -155,10 +152,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
                 case "WP_Flash":
                     mainMonitor.ShowWaringPoint(e.NodeID);
-                    break;
-
-                case "Show_Info":
-                    mainMonitor.ShowInfo();
                     break;
             }
         });
