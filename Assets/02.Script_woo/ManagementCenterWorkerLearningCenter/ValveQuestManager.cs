@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class ValveQuestManager : MonoBehaviour
 {
@@ -113,6 +114,9 @@ public class ValveQuestManager : MonoBehaviour
         DialogueEventBus.Subscribe(
             ManagerCenterWorkerLearningCenterEventType.VavleOpenStage.ToString(),
             OpenValveStage);
+        DialogueEventBus.Subscribe(
+            ManagerCenterWorkerLearningCenterEventType.EndStage.ToString(),
+            CompleteStage);
     }
 
     private void OnDisable()
@@ -127,7 +131,9 @@ public class ValveQuestManager : MonoBehaviour
         DialogueEventBus.Unsubscribe(
             ManagerCenterWorkerLearningCenterEventType.StartLeakStage.ToString(),
             LeakPosActive);
-
+        DialogueEventBus.Unsubscribe(
+            ManagerCenterWorkerLearningCenterEventType.EndStage.ToString(),
+            CompleteStage);
         StopAllValveEmissionAndReset();
     }
 
@@ -620,6 +626,18 @@ public class ValveQuestManager : MonoBehaviour
     public void EscapePosActive()
     {
         escapePosObject.SetActive(true);
+    }
+    #endregion
+
+    #region 마무리 단계 및 씬이동
+    public void CompleteStage()
+    {
+       managerCenterUiManager.PlayBackgroundDarkOnly();
+    }
+
+    public void LoadNextScene()
+    {
+        SceneManager.LoadScene("KGSScene");
     }
     #endregion
 }

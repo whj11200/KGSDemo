@@ -28,7 +28,8 @@ public class ManagerCenterUiManager : MonoBehaviour
 
     [Header("Fade Complete Event")]
     [SerializeField] private UnityEvent onFadeComplete;
-
+    [Header("Background Dark Only Event")]
+    [SerializeField] private UnityEvent endEvnet;
     private Coroutine fadeCoroutine;
 
     private void Awake()
@@ -239,5 +240,51 @@ public class ManagerCenterUiManager : MonoBehaviour
         Color color = backGroundimage.color;
         color.a = alpha;
         backGroundimage.color = color;
+    }
+    public void PlayBackgroundDarkOnly()
+    {
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
+
+        fadeCoroutine = StartCoroutine(BackgroundDarkOnlyRoutine());
+    }
+
+    private IEnumerator BackgroundDarkOnlyRoutine()
+    {
+        if (backGroundimage == null)
+            yield break;
+
+        backGroundimage.gameObject.SetActive(true);
+
+        if (messageTextMeshPro != null)
+        {
+            messageTextMeshPro.text = "";
+            messageTextMeshPro.gameObject.SetActive(false);
+        }
+
+        SetImageAlpha(0f);
+
+        yield return new WaitForSeconds(fadeStartDelay);
+
+        float elapsed = 0f;
+
+        while (elapsed < fadeInDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = Mathf.Clamp01(elapsed / fadeInDuration);
+            SetImageAlpha(t);
+
+            yield return null;
+        }
+
+        SetImageAlpha(1f);
+
+        fadeCoroutine = null;
+
+        endEvnet?.Invoke();
     }
 }

@@ -190,4 +190,4 @@ MonoBehaviour:
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
-    managerCenterWorkerLearningCenterExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 7
