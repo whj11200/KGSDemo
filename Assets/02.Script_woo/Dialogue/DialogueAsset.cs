@@ -41,7 +41,10 @@ public enum ManagerCenterWorkerLearningCenterEventType
 {
     None,
     StartPhoneCall,
-    EndPhoneCall,
+    VavleCloseStage,
+    StartHazeStage,
+    StartLeakStage,
+    VavleOpenStage,
 }
 
 [CreateAssetMenu(menuName = "Dialogue/Dialogue Asset")]

@@ -26,6 +26,9 @@ public class PhoneSystem : MonoBehaviour
     [SerializeField] private UnityEvent onAcceptCall;
     [SerializeField] private UnityEvent onRejectCall;
 
+
+
+    [SerializeField] CameraController controller;
     private Quaternion originRotation;
     private Vector2 originAnchoredPosition;
 
@@ -175,6 +178,10 @@ public class PhoneSystem : MonoBehaviour
 
     private void ShowPhone()
     {
+        if (controller != null)
+        {
+            controller.isPhoneOpened = true;
+        }
         if (phoneObject != null)
             phoneObject.SetActive(true);
         darkPhoneBackGround.SetActive(true);
@@ -184,6 +191,11 @@ public class PhoneSystem : MonoBehaviour
     {
         if (phoneObject != null)
             phoneObject.SetActive(false);
+        if (controller != null)
+        {
+            controller.isPhoneOpened = false;
+        }
+          
         darkPhoneBackGround.SetActive(false);
     }
 
