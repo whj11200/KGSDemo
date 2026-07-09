@@ -30,7 +30,7 @@ public class PipelineSimulation : SimulationBase
             {
                 IsProcessBlocked = !node.NoCondition;
 
-                var clipLength = node.Voice != null ? node.Voice.length + 2f : 2f;
+                var clipLength = node.Voice != null ? node.Voice.length + 2.5f : 2.5f;
 
                 EventBus.Publish(
                     ScenarioEventType.ShowMessage,
@@ -40,7 +40,7 @@ public class PipelineSimulation : SimulationBase
                         NodeID = idx,
                         EventId = $"{type}_{idx}_Content",
                         StringValue = content,
-                        ObjectValue = node.Voice,
+                        FloatValue = clipLength,
                         Callback = () =>
                         {
                             gameNode.OnTextEnd?.Invoke();
@@ -50,7 +50,6 @@ public class PipelineSimulation : SimulationBase
                                 ProcessSimulationStep();
                             }
                         },
-                        Delay = clipLength
                     });
 
                 EventBus.Publish(
@@ -78,19 +77,19 @@ public class PipelineSimulation : SimulationBase
         };
 
         // 0번: 모니터에서 경고창 점멸
-        GameNodes[0].OnStart += () =>
+        GameNodes[1].OnStart += () =>
         {
             EventBus.Publish(ScenarioEventType.Monitor,
                             new ScenarioEvent
                             {
                                 EventType = ScenarioEventType.Monitor,
-                                NodeID = 0,
+                                NodeID = 1,
                                 EventId = "Warning_Flash",
                             });
         };
 
         // 0번: 모니터에 누출 지점 표시
-        GameNodes[0].OnEnd += () =>
+        GameNodes[1].OnEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.Monitor,
                 new ScenarioEvent
@@ -101,41 +100,18 @@ public class PipelineSimulation : SimulationBase
                 });
         };
 
-        GameNodes[2].OnStart += () =>
-        {
-            EventBus.Publish(ScenarioEventType.Monitor,
-                new ScenarioEvent
-                {
-                    EventType = ScenarioEventType.Monitor,
-                    NodeID = 2,
-                    EventId = "Show_Info",
-                });
-        };
-
         // 2번: 책임자에게 이동
-        GameNodes[2].OnTextEnd += () =>
+        GameNodes[3].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.Camera,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.Camera,
-                    NodeID = 2,
+                    NodeID = 3,
                     EventId = "Report",
                 });
         };
 
-        GameNodes[3].OnTextEnd += () =>
-        {
-            EventBus.Publish(ScenarioEventType.ValveConsole,
-                new ScenarioEvent
-                {
-                    EventType = ScenarioEventType.ValveConsole,
-                    NodeID = 3,
-                    EventId = "Valve_ConfirmVent"
-                });
-        };
-
-        // 7번: 밸브 조작 시작
         GameNodes[4].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.ValveConsole,
@@ -143,18 +119,30 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 4,
+                    EventId = "Valve_ConfirmVent"
+                });
+        };
+
+        // 7번: 밸브 조작 시작
+        GameNodes[5].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 5,
                     EventId = "Valve_Close"
                 });
         };
 
         // 8번: 밸브 조작 완료 및 Fade In
-        GameNodes[6].OnTextEnd += () =>
+        GameNodes[7].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.UI,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.UI,
-                    NodeID = 6,
+                    NodeID = 7,
                     StringValue = $"{Asset.Template.WaitTime}분 경과," +
                                   $"\r\n잔류 가스 방출 완료",
                     Callback = () =>
@@ -166,31 +154,19 @@ public class PipelineSimulation : SimulationBase
         };
 
         // 10번: Fade Out
-        GameNodes[8].OnTextEnd += () =>
+        GameNodes[9].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.UI,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.UI,
-                    NodeID = 8,
+                    NodeID = 9,
                     StringValue = "보수 작업 완료",
                     Callback = () =>
                     {
                         IsProcessBlocked = false;
                         ProcessSimulationStep();
                     },
-                });
-        };
-
-        GameNodes[9].OnTextEnd += () =>
-        {
-            EventBus.Publish(ScenarioEventType.ValveConsole,
-                new ScenarioEvent
-                {
-                    EventType = ScenarioEventType.ValveConsole,
-                    NodeID = 9,
-                    StringValue = "IsolateOnly",
-                    EventId = "Valve_Revert"
                 });
         };
 
@@ -201,6 +177,18 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 10,
+                    StringValue = "IsolateOnly",
+                    EventId = "Valve_Revert"
+                });
+        };
+
+        GameNodes[11].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 11,
                     EventId = "Valve_ConfirmVent"
                 });
         };

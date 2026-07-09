@@ -86,7 +86,7 @@ public class TypingEffect : MonoBehaviour
         typingFinished = true;
 
         float typingDuration = text.Length * secPerChar;
-        float delay = Mathf.Max(0f, clipLength - typingDuration);
+        float delay = Mathf.Max(1.5f, clipLength - typingDuration);
 
         if (delay > 0)
             yield return new WaitForSeconds(delay);
