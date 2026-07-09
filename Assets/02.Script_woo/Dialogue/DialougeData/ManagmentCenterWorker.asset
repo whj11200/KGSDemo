@@ -126,7 +126,7 @@ MonoBehaviour:
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
-    managerCenterWorkerLearningCenterExitEvent: 4
+    managerCenterWorkerLearningCenterExitEvent: 5
   - nodeId: M6
     text: "\uB204\uCD9C \uAD6C\uC5ED\uC5D0 \uB3C4\uCC29\uD588\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC5D0
       \uC5F0\uB77D\uD558\uC138\uC694."
@@ -158,7 +158,7 @@ MonoBehaviour:
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
-    managerCenterWorkerLearningCenterExitEvent: 5
+    managerCenterWorkerLearningCenterExitEvent: 6
   - nodeId: M8
     text: "\uBAA8\uB4E0 \uBC38\uBE0C\uAC00 \uC815\uC0C1\uD654 \uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC5D0
       \uBCF4\uACE0\uD558\uC138\uC694."

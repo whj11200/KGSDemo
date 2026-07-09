@@ -11,16 +11,22 @@ public class ValveQuestManager : MonoBehaviour
     {
         [Header("벨브 핸들")]
         public VavleHandle valveHandle;
-        [Header("벨브 핸들 렌더러")]
+
+        [Header("벨브 루트 렌더러")]
         public Renderer valveRenderer;
-        [Header("벨브 핸들 메테리얼")]
-        [HideInInspector] public Material runtimeMaterial;
+
+        [Header("자식 포함 렌더러들")]
+        [HideInInspector] public Renderer[] childRenderers;
+
+        [Header("자식 포함 메테리얼들")]
+        [HideInInspector] public List<Material> runtimeMaterials = new();
+
         [Header("벨브 Emission 깜빡임 코루틴")]
         [HideInInspector] public Coroutine blinkCoroutine;
-       
 
-        [HideInInspector] public Color originEmissionColor;
-        [HideInInspector] public bool originEmissionEnabled;
+        [HideInInspector] public List<Color> originEmissionColors = new();
+        [HideInInspector] public List<bool> originEmissionEnableds = new();
+
         [HideInInspector] public bool hasSavedOrigin;
     }
 
@@ -132,9 +138,28 @@ public class ValveQuestManager : MonoBehaviour
             if (target == null || target.valveRenderer == null)
                 continue;
 
-            // 중요: sharedMaterial이 아니라 material 사용
-            // 그래야 이 밸브 하나만 따로 Emission 제어 가능
-            target.runtimeMaterial = target.valveRenderer.material;
+            target.runtimeMaterials.Clear();
+
+            // 자기 자신 + 자식 Renderer 전부 가져오기
+            target.childRenderers = target.valveRenderer.GetComponentsInChildren<Renderer>(true);
+
+            foreach (Renderer renderer in target.childRenderers)
+            {
+                if (renderer == null)
+                    continue;
+
+                // 중요: sharedMaterials 말고 materials 사용
+                // 그래야 이 밸브 인스턴스만 Emission 변경됨
+                Material[] materials = renderer.materials;
+
+                foreach (Material material in materials)
+                {
+                    if (material == null)
+                        continue;
+
+                    target.runtimeMaterials.Add(material);
+                }
+            }
 
             SaveOriginEmission(target);
         }
@@ -270,7 +295,7 @@ public class ValveQuestManager : MonoBehaviour
             return;
         }
 
-        if (target.runtimeMaterial == null)
+        if (target.runtimeMaterials == null || target.runtimeMaterials.Count == 0)
             return;
 
         if (target.blinkCoroutine != null)
@@ -311,31 +336,55 @@ public class ValveQuestManager : MonoBehaviour
 
     private void StopValveEmissionAndReset(ValveBlinkTarget target)
     {
+        if (target == null)
+            return;
+
         if (target.blinkCoroutine != null)
         {
             StopCoroutine(target.blinkCoroutine);
             target.blinkCoroutine = null;
         }
 
-        if (target.runtimeMaterial == null)
+        if (target.runtimeMaterials == null || target.runtimeMaterials.Count == 0)
             return;
 
         SaveOriginEmission(target);
 
-        target.runtimeMaterial.SetColor(EmissionColorID, target.originEmissionColor);
+        for (int i = 0; i < target.runtimeMaterials.Count; i++)
+        {
+            Material material = target.runtimeMaterials[i];
 
-        if (target.originEmissionEnabled)
-            target.runtimeMaterial.EnableKeyword("_EMISSION");
-        else
-            target.runtimeMaterial.DisableKeyword("_EMISSION");
+            if (material == null)
+                continue;
+
+            if (material.HasProperty(EmissionColorID))
+            {
+                Color originColor = Color.black;
+
+                if (i < target.originEmissionColors.Count)
+                    originColor = target.originEmissionColors[i];
+
+                material.SetColor(EmissionColorID, originColor);
+            }
+
+            bool originEnabled = false;
+
+            if (i < target.originEmissionEnableds.Count)
+                originEnabled = target.originEmissionEnableds[i];
+
+            if (originEnabled)
+                material.EnableKeyword("_EMISSION");
+            else
+                material.DisableKeyword("_EMISSION");
+        }
     }
-   
+
     private IEnumerator EmissionBlinkCoroutine(ValveBlinkTarget target)
     {
-        if (target.runtimeMaterial == null)
+        if (target == null || target.runtimeMaterials == null || target.runtimeMaterials.Count == 0)
             yield break;
 
-        target.runtimeMaterial.EnableKeyword("_EMISSION");
+        EnableEmission(target);
 
         float safeDuration = Mathf.Max(0.01f, blinkDuration);
         float halfDuration = safeDuration * 0.5f;
@@ -351,10 +400,7 @@ public class ValveQuestManager : MonoBehaviour
                 float t = Mathf.Clamp01(elapsed / halfDuration);
                 float power = Mathf.Lerp(0f, maxEmissionPower, t);
 
-                target.runtimeMaterial.SetColor(
-                    EmissionColorID,
-                    emissionColor * power
-                );
+                SetEmissionColor(target, emissionColor * power);
 
                 yield return null;
             }
@@ -368,15 +414,37 @@ public class ValveQuestManager : MonoBehaviour
                 float t = Mathf.Clamp01(elapsed / halfDuration);
                 float power = Mathf.Lerp(maxEmissionPower, 0f, t);
 
-                target.runtimeMaterial.SetColor(
-                    EmissionColorID,
-                    emissionColor * power
-                );
+                SetEmissionColor(target, emissionColor * power);
 
                 yield return null;
             }
 
-            target.runtimeMaterial.SetColor(EmissionColorID, Color.black);
+            SetEmissionColor(target, Color.black);
+        }
+    }
+
+    private void EnableEmission(ValveBlinkTarget target)
+    {
+        foreach (Material material in target.runtimeMaterials)
+        {
+            if (material == null)
+                continue;
+
+            material.EnableKeyword("_EMISSION");
+        }
+    }
+
+    private void SetEmissionColor(ValveBlinkTarget target, Color color)
+    {
+        foreach (Material material in target.runtimeMaterials)
+        {
+            if (material == null)
+                continue;
+
+            if (!material.HasProperty(EmissionColorID))
+                continue;
+
+            material.SetColor(EmissionColorID, color);
         }
     }
 
@@ -399,18 +467,29 @@ public class ValveQuestManager : MonoBehaviour
 
     private void SaveOriginEmission(ValveBlinkTarget target)
     {
-        if (target == null || target.runtimeMaterial == null)
+        if (target == null || target.runtimeMaterials == null)
             return;
 
         if (target.hasSavedOrigin)
             return;
 
-        target.originEmissionEnabled = target.runtimeMaterial.IsKeywordEnabled("_EMISSION");
+        target.originEmissionColors.Clear();
+        target.originEmissionEnableds.Clear();
 
-        if (target.runtimeMaterial.HasProperty(EmissionColorID))
-            target.originEmissionColor = target.runtimeMaterial.GetColor(EmissionColorID);
-        else
-            target.originEmissionColor = Color.black;
+        foreach (Material material in target.runtimeMaterials)
+        {
+            if (material == null)
+                continue;
+
+            bool emissionEnabled = material.IsKeywordEnabled("_EMISSION");
+            Color emissionColorValue = Color.black;
+
+            if (material.HasProperty(EmissionColorID))
+                emissionColorValue = material.GetColor(EmissionColorID);
+
+            target.originEmissionEnableds.Add(emissionEnabled);
+            target.originEmissionColors.Add(emissionColorValue);
+        }
 
         target.hasSavedOrigin = true;
     }
