@@ -16,6 +16,7 @@ obj/
 *.svd
 *.pdb
 *.mdb
+*.mdb.meta
 *.opendb
 *.VC.db
 Assets/08.MP4/가스안전 리뉴얼 1.mp4
