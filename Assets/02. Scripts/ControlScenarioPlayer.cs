@@ -8,6 +8,7 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using static ValveControlConsole;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
@@ -233,6 +234,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     {
         MonitorSwitcher.SetActive(false);
         CameraSwitcher.Revert();
+
+        SceneManager.LoadScene("KGSScene");
     }
 
     public void ReportToManger()
