@@ -73,6 +73,7 @@ public class PipelineSimulation : SimulationBase
                             {
                                 EventType = ScenarioEventType.Alarm,
                                 NodeID = 0,
+                                EventId = "On"
                             });
         };
 
@@ -91,6 +92,14 @@ public class PipelineSimulation : SimulationBase
         // 0번: 모니터에 누출 지점 표시
         GameNodes[1].OnEnd += () =>
         {
+            EventBus.Publish(ScenarioEventType.Alarm,
+                            new ScenarioEvent
+                            {
+                                EventType = ScenarioEventType.Alarm,
+                                NodeID = 0,
+                                EventId = "Off"
+                            });
+
             EventBus.Publish(ScenarioEventType.Monitor,
                 new ScenarioEvent
                 {

@@ -83,6 +83,14 @@ public class FacilitySimulation : SimulationBase
         // 2번: 모니터에 누출 지점 표시
         GameNodes[2].OnEnd += () =>
         {
+            EventBus.Publish(ScenarioEventType.Alarm,
+                            new ScenarioEvent
+                            {
+                                EventType = ScenarioEventType.Alarm,
+                                NodeID = 0,
+                                EventId = "Off"
+                            });
+
             EventBus.Publish(ScenarioEventType.Monitor,
                 new ScenarioEvent
                 {

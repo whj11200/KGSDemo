@@ -133,7 +133,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         SubscribeEvent(ScenarioEventType.Alarm, e =>
         {
-            SESource.PlayOneShot(AlarmClip);
+            if (e.EventId == "On")
+                SESource.PlayOneShot(AlarmClip);
+
+            else if (e.EventId == "Off")
+                SESource.Stop();
         });
 
         SubscribeEvent(ScenarioEventType.ShowMessage, e =>

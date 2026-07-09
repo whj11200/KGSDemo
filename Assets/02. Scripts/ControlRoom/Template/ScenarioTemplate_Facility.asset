@@ -20,7 +20,7 @@ MonoBehaviour:
     Voice: {fileID: 0}
     NoCondition: 1
   - Speaker: 
-    Content: "\uBA54\uC2DC\uC9C0\uB97C \uD655\uC778\uD574 \uC8FC\uC2ED\uC2DC\uC624."
+    Content: "\uBA54\uC2DC\uC9C0\uB97C \uD655\uC778\uD558\uC138\uC694."
     Voice: {fileID: 0}
     NoCondition: 0
   - Speaker: 
