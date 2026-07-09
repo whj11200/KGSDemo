@@ -46,6 +46,7 @@ public enum ManagerCenterWorkerLearningCenterEventType
     StartHazeStage,
     StartLeakStage,
     VavleOpenStage,
+    EndStage
 }
 
 [CreateAssetMenu(menuName = "Dialogue/Dialogue Asset")]

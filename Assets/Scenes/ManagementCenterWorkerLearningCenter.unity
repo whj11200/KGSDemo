@@ -2221,6 +2221,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  endEvnet:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1020469632}
+        m_TargetAssemblyTypeName: ValveQuestManager, Assembly-CSharp
+        m_MethodName: LoadNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &51379700
 GameObject:
   m_ObjectHideFlags: 0
@@ -44979,27 +44994,31 @@ MonoBehaviour:
   valveTargets:
   - valveHandle: {fileID: 8328566075879596461}
     valveRenderer: {fileID: 6518350892787145272}
-    runtimeMaterial: {fileID: 0}
-    originEmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    originEmissionEnabled: 0
+    childRenderers: []
+    runtimeMaterials: []
+    originEmissionColors: []
+    originEmissionEnableds: 
     hasSavedOrigin: 0
   - valveHandle: {fileID: 6926728696000271815}
     valveRenderer: {fileID: 4757050197837914530}
-    runtimeMaterial: {fileID: 0}
-    originEmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    originEmissionEnabled: 0
+    childRenderers: []
+    runtimeMaterials: []
+    originEmissionColors: []
+    originEmissionEnableds: 
     hasSavedOrigin: 0
   - valveHandle: {fileID: 8381208015717279793}
     valveRenderer: {fileID: 8381208015717279791}
-    runtimeMaterial: {fileID: 0}
-    originEmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    originEmissionEnabled: 0
+    childRenderers: []
+    runtimeMaterials: []
+    originEmissionColors: []
+    originEmissionEnableds: 
     hasSavedOrigin: 0
   - valveHandle: {fileID: 8083269871512788818}
     valveRenderer: {fileID: 2399413410255691858}
-    runtimeMaterial: {fileID: 0}
-    originEmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    originEmissionEnabled: 0
+    childRenderers: []
+    runtimeMaterials: []
+    originEmissionColors: []
+    originEmissionEnableds: 
     hasSavedOrigin: 0
   valveNavObjects:
   - {fileID: 978157461}
