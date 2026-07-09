@@ -46,4 +46,131 @@ MonoBehaviour:
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 2
+  - nodeId: M2
+    text: "\uBAA8\uB4E0 \uBC38\uBE0C\uAC00 \uCC28\uB2E8\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC5D0
+      \uBCF4\uACE0\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 1
+  - nodeId: M3
+    text: "- \uBC29\uC0B0\uC2DC\uC791 -"
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 3
+  - nodeId: M4
+    text: "\uBC29\uC0B0\uC774 \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC758
+      \uC9C0\uC2DC \uB0B4\uC6A9\uC744 \uD655\uC778\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 1
+  - nodeId: M5
+    text: "\uB2E4\uC2DC \uB204\uCD9C\uC9C0\uC810 \uC778\uADFC \uAD6C\uC5ED\uC73C\uB85C
+      \uC774\uB3D9\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 4
+  - nodeId: M6
+    text: "\uB204\uCD9C \uAD6C\uC5ED\uC5D0 \uB3C4\uCC29\uD588\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC5D0
+      \uC5F0\uB77D\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 1
+  - nodeId: M7
+    text: "\uD1B5\uC81C\uC18C\uC758 \uC9C0\uC2DC\uC5D0 \uB530\uB77C \uCC28\uB2E8\uB41C
+      \uC218\uB3D9\uBC38\uBE0C\uB97C \uC815\uC0C1\uD654\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 5
+  - nodeId: M8
+    text: "\uBAA8\uB4E0 \uBC38\uBE0C\uAC00 \uC815\uC0C1\uD654 \uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC18C\uC5D0
+      \uBCF4\uACE0\uD558\uC138\uC694."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 1
+  - nodeId: M9
+    text: "\uAD00\uB9AC\uC18C \uB2F4\uB2F9\uC790 \uB204\uCD9C \uB300\uC751 \uD6C8\uB828\uC744
+      \uC885\uB8CC\uD569\uB2C8\uB2E4.\r\n\uC218\uACE0\uD558\uC168\uC2B5\uB2C8\uB2E4."
+    speakerId: 
+    voice: {fileID: 0}
+    autoAdvanceDelay: 0
+    choices: []
+    nextNodeId: 
+    npcEnterAction: 0
+    envEnterEvent: 0
+    tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
+    npcExitAction: 0
+    envExitEvent: 0
+    tutorialExitEvent: 0
     managerCenterWorkerLearningCenterExitEvent: 0

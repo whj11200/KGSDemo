@@ -17,6 +17,8 @@ public class MessageUI : MonoBehaviour
     [SerializeField] private float displayTime = 2.0f;
     [SerializeField] private float fadeOutTime = 0.5f;
 
+
+
     private Coroutine currentRoutine;
     private bool isDisplaying = false; // 현재 메시지가 출력 중인지 확인
 

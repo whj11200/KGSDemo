@@ -15,6 +15,10 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
     [SerializeField] private bool isRotating = false;
     [SerializeField] private bool isLocked = false;
 
+    [Header("Manager Count Register")]
+    [SerializeField] private ValveQuestManager enviromentManager;
+    [SerializeField] private bool reportToManager = true;
+
     [Header("Lock / Unlock Events")]
     [SerializeField] private UnityEvent onLockComplete;
     [SerializeField] private UnityEvent onUnlockComplete;
@@ -65,9 +69,6 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
 
     }
 
-    /// <summary>
-    /// 현재 상태에 따라 잠금 / 해제 토글
-    /// </summary>
     public void ToggleLock()
     {
         if (isRotating)
@@ -83,9 +84,6 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
         }
     }
 
-    /// <summary>
-    /// 밸브 잠금
-    /// </summary>
     public void LockValve()
     {
         if (isRotating)
@@ -94,9 +92,6 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
         rotateCoroutine = StartCoroutine(RotateZ360Coroutine(1f, true));
     }
 
-    /// <summary>
-    /// 밸브 해제
-    /// </summary>
     public void UnlockValve()
     {
         if (isRotating)
@@ -145,18 +140,41 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
 
         if (isLocked)
         {
+            NotifyManagerValveClosed();
             onLockComplete?.Invoke();
         }
         else
         {
+            NotifyManagerValveOpened();
             onUnlockComplete?.Invoke();
         }
     }
 
-    /// <summary>
-    /// 외부에서 강제로 잠금 상태 세팅할 때 사용
-    /// 회전은 하지 않고 상태값만 바꿈
-    /// </summary>
+    private void NotifyManagerValveClosed()
+    {
+        if (!reportToManager)
+            return;
+
+        if (enviromentManager == null)
+        {
+            Debug.LogWarning($"{name}: Manager_EnviromentManager가 연결되지 않았습니다.");
+            return;
+        }
+
+        enviromentManager.RegisterValveClosed(this);
+    }
+
+    private void NotifyManagerValveOpened()
+    {
+        if (!reportToManager)
+            return;
+
+        if (enviromentManager == null)
+            return;
+
+        enviromentManager.RegisterValveOpened(this);
+    }
+
     public void SetLockedState(bool locked)
     {
         if (isRotating)

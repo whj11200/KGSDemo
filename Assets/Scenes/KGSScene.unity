@@ -5379,6 +5379,7 @@ MonoBehaviour:
   controller: {fileID: 248744498}
   asset: {fileID: 11400000, guid: d098e2c724f7b5340a4c552f9b145440, type: 2}
   startNodeId: A0
+  afterPhoneChatRoutes: []
 --- !u!4 &473893013
 Transform:
   m_ObjectHideFlags: 0
@@ -48609,6 +48610,10 @@ PrefabInstance:
       propertyPath: panButtonAction
       value: 
       objectReference: {fileID: 1601120153}
+    - target: {fileID: 3203421436302993850, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3317257287717226871, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: popup
       value: 
