@@ -93,10 +93,10 @@ public class TypingEffect : MonoBehaviour
 
         typingCoroutine = null;
 
-        var callback = pendingOnComplete;
-        pendingOnComplete = null;
+        //var callback = pendingOnComplete;
+        //pendingOnComplete = null;
 
-        callback?.Invoke();
+        //callback?.Invoke();
     }
 
     public void Complete()

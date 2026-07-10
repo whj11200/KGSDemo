@@ -24,6 +24,8 @@ MonoBehaviour:
     m_path: Assets/Scenes/KGSScene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/ControlRoom.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/ManagementCenterWorkerLearningCenter.unity
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
@@ -34,7 +36,7 @@ MonoBehaviour:
     - rid: 4975400293323243610
       type: {class: WindowsPlatformSettings, ns: UnityEditor.WindowsStandalone, asm: UnityEditor.WindowsStandalone.Extensions}
       data:
-        m_Development: 0
+        m_Development: 1
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
         m_AllowDebugging: 0

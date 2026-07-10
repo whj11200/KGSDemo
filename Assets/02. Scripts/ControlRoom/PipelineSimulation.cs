@@ -107,11 +107,7 @@ public class PipelineSimulation : SimulationBase
                                 NodeID = 0,
                                 EventId = "On"
                             });
-        };
 
-        // 0번: 모니터에서 경고창 점멸
-        GameNodes[1].OnStart += () =>
-        {
             EventBus.Publish(ScenarioEventType.Monitor,
                             new ScenarioEvent
                             {
