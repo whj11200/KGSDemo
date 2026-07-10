@@ -33,6 +33,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     [SerializeField] InputActionReference SkipAction;
 
+    [SerializeField] NPC_AnimationController Manager;
+
     private void Awake()
     {
         CameraIdx = MonitorCameras.Count / 2; // 중앙 카메라로 초기화
@@ -53,6 +55,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     private void NextAction(InputAction.CallbackContext context)
     {
         StopAudio();
+        Manager.StopAudio();
         DialogueUI.Complete();
     }
 
@@ -129,7 +132,12 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         SubscribeEvent(ScenarioEventType.Audio, e =>
         {
             if (e.ObjectValue is AudioClip clip)
-                PlayAudio(clip);
+            {
+                if (string.IsNullOrEmpty(e.StringValue))
+                    PlayAudio(clip);
+                else 
+                    Manager.PlayAudio(clip);
+            }
         });
 
         SubscribeEvent(ScenarioEventType.Alarm, e =>
@@ -183,7 +191,6 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                     ValveConsole.ConfirmVent();
                     break;
             }
-
         });
 
         SubscribeEvent(ScenarioEventType.Camera, e =>
@@ -191,6 +198,22 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
             reportID = e.NodeID;
             MonitorSwitcher.SetActive(false);
             Selector.ExitSelectionMode();
+        });
+
+        SubscribeEvent(ScenarioEventType.Animation, e =>
+        {
+            switch (e.StringValue)
+            {
+                case "SetBool":
+                    Manager.SetLookAtPlayer(e.BoolValue);
+                    Manager.SetBool(e.EventId, e.BoolValue);
+                    break;
+
+                case "SetTrigger":
+                    Manager.SetLookAtPlayer(e.BoolValue);
+                    Manager.SetTrigger(e.EventId);
+                    break;
+            }
         });
 
         SubscribeEvent(ScenarioEventType.UI, e =>

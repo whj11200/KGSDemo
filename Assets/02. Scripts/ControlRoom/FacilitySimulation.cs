@@ -53,8 +53,40 @@ public class FacilitySimulation : SimulationBase
                         EventType = ScenarioEventType.Audio,
                         NodeID = idx,
                         ObjectValue = node.Voice,
+                        StringValue = Speaker,
                     });
             };
+
+            if (!string.IsNullOrEmpty(Speaker))
+            {
+                gameNode.OnStart += () =>
+                {
+                    EventBus.Publish(ScenarioEventType.Animation,
+                        new ScenarioEvent
+                        {
+                            EventType = ScenarioEventType.Animation,
+                            NodeID = idx,
+                            EventId = "Talk",
+                            StringValue = "SetBool",
+                            BoolValue = true
+                        }
+                    );
+                };
+
+                gameNode.OnTextEnd += () =>
+                {
+                    EventBus.Publish(ScenarioEventType.Animation,
+                        new ScenarioEvent
+                        {
+                            EventType = ScenarioEventType.Animation,
+                            NodeID = idx,
+                            EventId = "Talk",
+                            StringValue = "SetBool",
+                            BoolValue = false
+                        }
+                    );
+                };
+            }
 
             GameNodes.Add(gameNode);
         }
@@ -133,6 +165,16 @@ public class FacilitySimulation : SimulationBase
                     NodeID = 7,
                     EventId = "Valve_Close"
                 });
+
+            EventBus.Publish(ScenarioEventType.Animation,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.Animation,
+                    NodeID = 4,
+                    EventId = "Call",
+                    StringValue = "SetTrigger",
+                }
+            );
         };
 
         // 8번: 밸브 조작 완료 및 Fade In

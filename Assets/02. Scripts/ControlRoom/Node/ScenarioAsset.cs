@@ -67,8 +67,9 @@ public class ScenarioEvent
     public float Delay;
 
     public UnityEngine.Object ObjectValue;
-    public int intValue;
+    public int IntValue;
     public float FloatValue;
     public string StringValue;
+    public bool BoolValue;
     public Action Callback;
 }

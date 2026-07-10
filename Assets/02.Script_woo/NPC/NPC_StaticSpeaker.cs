@@ -68,7 +68,7 @@ public class NPC_StaticSpeaker : MonoBehaviour
     public void PlayExplain()
     {
         if (!isDialogueActive) return;
-      animator.SetTrigger(explainTrigger);
+            animator.SetTrigger(explainTrigger);
     }
     public void OnDialogueFinished()
     {
@@ -98,7 +98,6 @@ public class NPC_StaticSpeaker : MonoBehaviour
     // 이벤트 구독 (다른 스크립트에서 부를 수 있게)
     private void OnEnable()
     {
-       
         DialogueEventBus.Subscribe(NPCActionType.EndGuide.ToString(), OnDialogueSkip);
         DialogueEventBus.Subscribe(NPCActionType.Explain.ToString(), PlayExplain);
     }
