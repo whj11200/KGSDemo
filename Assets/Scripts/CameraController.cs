@@ -351,6 +351,15 @@ public class CameraController : MonoBehaviour
         mainCamera.localRotation = Quaternion.Euler(pitch, 0f, 0f);
     }
 
+    public void MoveForObject(Transform target)
+    {
+        skipNextMouseDelta = true;
+        SetMoveLockState(false);
+
+        transform.position = target.position;
+        transform.rotation = target.rotation;
+    }
+
     public void SetMoveLockState(bool isLock)
     {
         ignoreMovement = isLock;

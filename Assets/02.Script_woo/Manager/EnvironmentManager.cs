@@ -13,11 +13,12 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] DoorController doorController;
 
     [SerializeField] NPC_Controller npcController;
+    [SerializeField] Transform ModeSelectPos;
+    [SerializeField] CameraController PlayerController;
 
     public string currentNodeID { get; private set; } = "";
 
-
-    private bool isScenarioFinished = false;
+    public static bool isScenarioFinished { get; private set; } // 추후 플레이어 데이터 기반으로 판단
 
     private void OnEnable()
     {
@@ -33,7 +34,16 @@ public class EnvironmentManager : MonoBehaviour
         DialogueEventBus.Unsubscribe(KGS_EnvEventType.StudyClear.ToString(), AllClear);
     }
 
+    private void Awake()
+    {
+        if (isScenarioFinished)
+        {
+            PlayerController.MoveForObject(ModeSelectPos);
+        }
+    }
+
     private void StartGasLeakAction() => valve?.StartLeak();
+
     // 감지기 및 벨브 ppe 등등 미션 성공 시 해당 노드로 이동
     public void CompleteMission(KGS_EnvEventType successType)
     {
@@ -70,12 +80,14 @@ public class EnvironmentManager : MonoBehaviour
             dialogueController.Play(scenarioAsset, targetNodeId);
         }
     }
+
     public void HandleDialogueStart(string nodeID)
     {
         // 여기서 S0, S1 등을 판단해서 매니저 상태를 동기화!
         this.currentNodeID = nodeID;
         Debug.Log($" {currentNodeID}");
     }
+
     public void AllClear()
     {
         // [추가] AllClear가 호출되면 시나리오가 끝난 것으로 간주

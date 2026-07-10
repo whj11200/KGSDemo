@@ -10,10 +10,16 @@ public class KGSSceneFadeUi : MonoBehaviour
     [SerializeField] NPC_Interaction anjeson;
 
     public bool isfinish = false;
+
+    private void Awake()
+    {
+        KGS_Img.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
-        
-        StartCoroutine(Fadeout());
+        if (!EnvironmentManager.isScenarioFinished)
+            StartCoroutine(Fadeout());
     }
 
     private IEnumerator Fadeout()
@@ -22,6 +28,7 @@ public class KGSSceneFadeUi : MonoBehaviour
         {
             KGS_Audio.PlayOneShot(KGS_Clip);
         }
+        KGS_Img.gameObject.SetActive(true);
         yield return new WaitForSeconds(4f);
         KGS_Img.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.75f);
