@@ -1,4 +1,7 @@
-﻿public class FacilitySimulation : SimulationBase
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public class FacilitySimulation : SimulationBase
 {
     public FacilitySimulation(ScenarioAsset asset) : base(asset)
     {
@@ -10,12 +13,35 @@
         var type = Asset.Template.ScenarioType;
         bool IsNeedConfirmVent = Asset.VentValves.Count > 0;
 
+        Dictionary<int, AudioClip> OverrideVoices = new();
+
+        if (Asset.OverrideVoices.Count > 0)
+        {
+            foreach (var vo in Asset.OverrideVoices)
+            {
+                OverrideVoices[vo.Id] = vo.AudioClip;
+            }
+        }
+
         for (int idx = 0; idx < Asset.Template.Nodes.Count; idx++)
         {
             int nodeIndex = idx;
             var node = Asset.Template.Nodes[idx];
             var Speaker = node.Speaker;
-            var content = $"{Speaker}:{node.Content.Replace("{Title}", Asset.ScenarioName)}";
+            var content = node.Content.Replace("{Title}", Asset.ScenarioName)
+                                      .Replace("{Part}", Asset.BrokenPart);
+
+            var MessageParam = $"{Speaker}:{content}";
+
+            var voice = node.Voice;
+
+            if (voice == null)
+            {
+                if (OverrideVoices.TryGetValue(nodeIndex, out var vc))
+                {
+                    voice = vc;
+                }
+            }
 
             var gameNode = new GameNode();
 
@@ -25,7 +51,7 @@
             {
                 IsProcessBlocked = !node.NoCondition;
 
-                var clipLength = node.Voice != null ? node.Voice.length + 1f : 3.5f;
+                var clipLength = voice != null ? voice.length + 1f : 3.5f;
 
                 EventBus.Publish(
                     ScenarioEventType.ShowMessage,
@@ -34,7 +60,7 @@
                         EventType = ScenarioEventType.ShowMessage,
                         NodeID = nodeIndex,
                         EventId = $"{type}_{nodeIndex}_Content",
-                        StringValue = content,
+                        StringValue = MessageParam,
                         FloatValue = clipLength,
                         Callback = () =>
                         {
@@ -51,7 +77,7 @@
                     {
                         EventType = ScenarioEventType.Audio,
                         NodeID = idx,
-                        ObjectValue = node.Voice,
+                        ObjectValue = voice,
                         StringValue = Speaker,
                     });
             };

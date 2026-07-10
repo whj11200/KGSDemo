@@ -15,6 +15,11 @@ MonoBehaviour:
   ScenarioName: "\uC815\uC555\uAE30 \uD6C4\uB2E8"
   BrokenPart: "\uC815\uC555\uAE30"
   Template: {fileID: 11400000, guid: 7207e7b163514d84ca31e708e77ccb46, type: 2}
+  OverrideVoices:
+  - Id: 9
+    AudioClip: {fileID: 8300000, guid: 668ec66dcc4fb33459d0bc88b5ad89bc, type: 3}
+  - Id: 14
+    AudioClip: {fileID: 8300000, guid: baa11a0a91850e442bc006a58fd1c7ed, type: 3}
   Valves_SectionIsolation:
   - Name: M-42A
     Phase: 1

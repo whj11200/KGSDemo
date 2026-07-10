@@ -9,6 +9,7 @@ public class ScenarioAsset : ScriptableObject
     public string ScenarioName;
     public string BrokenPart;
     public ScenarioTemplate Template;
+    public List<OverrideVoice> OverrideVoices;
     public List<ValveInfo> Valves_SectionIsolation = new();
     public List<ValveInfo> Valves_SectionVent = new();
     public bool OverrideVentValveList = false;
@@ -41,6 +42,13 @@ public class ValveInfo
     [Tooltip("Checked : Open")]
     public bool InitialState = true;    // 대부분 열림
     public bool TargetState = false;     // 대부분 차단
+}
+
+[System.Serializable]
+public class OverrideVoice
+{
+    public int Id;
+    public AudioClip AudioClip;
 }
 
 public enum ScenarioEventType

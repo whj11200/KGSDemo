@@ -45,12 +45,12 @@ MonoBehaviour:
     Content: "\uAC00\uC2A4\uACF5\uAE09 \uC911\uB2E8 \uBC0F \uC18C\uB0B4 \uBC29\uCD9C\uC774
       \uD544\uC694\uD569\uB2C8\uB2E4.\r\n\uC720\uAD00\uAE30\uAD00 \uC2E0\uACE0 \uBC0F
       \uD611\uC870 \uC694\uCCAD\uD558\uACA0\uC2B5\uB2C8\uB2E4."
-    Voice: {fileID: 0}
+    Voice: {fileID: 8300000, guid: 13a63acbae783cf45b23348535e44bec, type: 3}
     NoCondition: 1
   - Speaker: "\uC548\uC804 \uCC45\uC784\uC790"
     Content: "\uB204\uCD9C \uC9C0\uC810 \uC778\uADFC\uC758 \uBAA8\uB4E0 \uBC38\uBE0C\uB97C
       \uCC28\uB2E8\uD558\uC138\uC694."
-    Voice: {fileID: 0}
+    Voice: {fileID: 8300000, guid: 7cc4c6b26ca95b74d9fe12b99faef02a, type: 3}
     NoCondition: 0
   - Speaker: 
     Content: "\uAD00\uB0B4 \uC794\uB958 \uAC00\uC2A4 \uBC29\uCD9C \uC644\uB8CC\uAE4C\uC9C0
@@ -58,7 +58,7 @@ MonoBehaviour:
     Voice: {fileID: 8300000, guid: a8e8927fe4450a647a7b18533a59e291, type: 3}
     NoCondition: 0
   - Speaker: 
-    Content: "\uAC00\uC2A4 \uD544\uD130 \uC190\uC0C1\uC774 \uD655\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+    Content: "{Part} \uC190\uC0C1\uC774 \uD655\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
     Voice: {fileID: 0}
     NoCondition: 1
   - Speaker: 

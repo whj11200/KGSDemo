@@ -15,6 +15,11 @@ MonoBehaviour:
   ScenarioName: "\uAC00\uC2A4\uD544\uD130 \uBC0F \uD788\uD130\uC9C0\uC5ED"
   BrokenPart: "\uAC00\uC2A4 \uD544\uD130"
   Template: {fileID: 11400000, guid: 7207e7b163514d84ca31e708e77ccb46, type: 2}
+  OverrideVoices:
+  - Id: 9
+    AudioClip: {fileID: 8300000, guid: 3ad80babdda951543b91aef81702f870, type: 3}
+  - Id: 14
+    AudioClip: {fileID: 8300000, guid: 343d477775261f44889a73440dc2adcc, type: 3}
   Valves_SectionIsolation:
   - Name: M-21A
     Phase: 1
@@ -33,4 +38,6 @@ MonoBehaviour:
     InitialState: 1
     TargetState: 0
   Valves_SectionVent: []
+  OverrideVentValveList: 0
+  VentValves: []
   BluePrint: {fileID: 21300000, guid: 6da940201c77dd14b8fba47434bcb5e6, type: 3}

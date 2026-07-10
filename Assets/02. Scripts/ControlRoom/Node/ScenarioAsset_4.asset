@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: ScenarioAsset_4
   m_EditorClassIdentifier: Assembly-CSharp::ScenarioAsset
   ScenarioName: "\uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB791\uD6C4\uB2E8"
-  BrokenPart: "\uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB7C9\uAE30 \uC778\uADFC"
+  BrokenPart: "\uB3C4\uC2DC\uAC00\uC2A4 \uACC4\uB7C9\uAE30 \uC778\uADFC \uBC30\uAD00\\n"
   Template: {fileID: 11400000, guid: 7207e7b163514d84ca31e708e77ccb46, type: 2}
+  OverrideVoices:
+  - Id: 9
+    AudioClip: {fileID: 8300000, guid: 0d7343e0454348d4ab655013b8ad301e, type: 3}
+  - Id: 14
+    AudioClip: {fileID: 8300000, guid: 06b4201d960788b4facb6647d86d56c3, type: 3}
   Valves_SectionIsolation:
   - Name: M-62A
     Phase: 1
