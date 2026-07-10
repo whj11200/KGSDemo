@@ -240,6 +240,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void CheckStep(int step)
     {
+        if (!IsScenarioInitialized) return;
+
         if (step == CurrentNodeId) 
             ProcessScenario();
         else
@@ -250,6 +252,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void ProcessScenario()
     {
+        if (!IsScenarioInitialized) return;
+
         simulation.CompleteStep();
     }
 

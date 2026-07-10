@@ -31,7 +31,7 @@ public class NPC_AnimationController : MonoBehaviour
 
         if (LookAtPlayer)
         {
-            Animator.SetLookAtWeight(Weight, 0.3f, 0.8f, 1f, 0.5f);
+            Animator.SetLookAtWeight(Weight, 0.1f, 1f, 1f, 0.4f);
             Animator.SetLookAtPosition(PlayerTransform.position);
         }
     }
