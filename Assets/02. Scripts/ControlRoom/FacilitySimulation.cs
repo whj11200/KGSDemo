@@ -126,11 +126,7 @@ public class FacilitySimulation : SimulationBase
                                 EventId = "On",
                                 NodeID = 0,
                             });
-        };
 
-        // 1번: 모니터에서 경고창 점멸
-        GameNodes[0].OnStart += () =>
-        {
             EventBus.Publish(ScenarioEventType.Monitor,
                             new ScenarioEvent
                             {
