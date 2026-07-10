@@ -24,7 +24,7 @@ MonoBehaviour:
     Voice: {fileID: 8300000, guid: 8bfa6927ad2765441b12a6c6f1810a26, type: 3}
     NoCondition: 0
   - Speaker: 
-    Content: "\uB204\uCD9C \uC704\uCE58\uAC00 \uD655\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uCD08\uAE30
+    Content: "\uB204\uCD9C \uC704\uCE58 \uBC0F \uAC00\uC2A4 \uB18D\uB3C4\uAC00 \uD655\uC778\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\r\n\uCD08\uAE30
       \uB300\uC751 \uC808\uCC28\uB97C \uC2DC\uC791\uD569\uB2C8\uB2E4."
     Voice: {fileID: 8300000, guid: 466304ecfd8325043ab876c94511abbe, type: 3}
     NoCondition: 1

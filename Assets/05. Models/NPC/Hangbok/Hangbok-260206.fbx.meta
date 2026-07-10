@@ -49,6 +49,31 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: white001
     second: {fileID: 2100000, guid: 714f6ce80122fa145b42cfdf1600e19b, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hangbok-arm
+    second: {fileID: 2800000, guid: 43a32f4f51b243940a8a08cd1e396ab4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hangbok-body
+    second: {fileID: 2800000, guid: e0f76cd51be04ff4cb984b712024084e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hangbok-eye
+    second: {fileID: 2800000, guid: a3ad17276e96d7b4eac79c688695fb29, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hangbok-maouse
+    second: {fileID: 2800000, guid: 749a00f1095bda143840ccc99b302504, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hangbok-skirt
+    second: {fileID: 2800000, guid: d7bea7d2b84119442b23cce2157f01f4, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

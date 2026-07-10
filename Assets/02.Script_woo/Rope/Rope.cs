@@ -1,81 +1,81 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// º£¸¦·¹ ÀûºĞ(Verlet Integration) ±â¹İÀÇ ¹°¸® ·ÎÇÁ ½Ã½ºÅÛ.
-/// LineRenderer·Î ¼±À» ±×¸®°í, ÀÎ½ºÅÏ½ÌÀ¸·Î °¢ ¸¶µğ¿¡ ¸Ş½¬¸¦ ¹èÄ¡ÇÕ´Ï´Ù.
+/// ë² ë¥¼ë ˆ ì ë¶„(Verlet Integration) ê¸°ë°˜ì˜ ë¬¼ë¦¬ ë¡œí”„ ì‹œìŠ¤í…œ.
+/// LineRendererë¡œ ì„ ì„ ê·¸ë¦¬ê³ , ì¸ìŠ¤í„´ì‹±ìœ¼ë¡œ ê° ë§ˆë””ì— ë©”ì‰¬ë¥¼ ë°°ì¹˜í•©ë‹ˆë‹¤.
 /// </summary>
-[ExecuteAlways] // <-- Ãß°¡
+[ExecuteAlways] // <-- ì¶”ê°€
 [RequireComponent(typeof(LineRenderer))]
 public class Rope : MonoBehaviour
 {
-    [Header("--- Anchors (°íÁ¤Á¡ ¼³Á¤) ---")]
-    [Tooltip("·ÎÇÁ°¡ ½ÃÀÛµÇ´Â ÁöÁ¡ÀÇ Æ®·£½ºÆû")]
+    [Header("--- Anchors (ê³ ì •ì  ì„¤ì •) ---")]
+    [Tooltip("ë¡œí”„ê°€ ì‹œì‘ë˜ëŠ” ì§€ì ì˜ íŠ¸ëœìŠ¤í¼")]
     [SerializeField] private Transform startAnchor;
-    [Tooltip("·ÎÇÁ Áß°£ÀÌ °ÉÄ¥ ÁöÁ¡ÀÇ Æ®·£½ºÆû (¾øÀ¸¸é ¹«½Ã)")]
+    [Tooltip("ë¡œí”„ ì¤‘ê°„ì´ ê±¸ì¹  ì§€ì ì˜ íŠ¸ëœìŠ¤í¼ (ì—†ìœ¼ë©´ ë¬´ì‹œ)")]
     [SerializeField] private Transform middleAnchor;
 
-    [Tooltip("·ÎÇÁ°¡ ³¡³ª´Â ÁöÁ¡ÀÇ Æ®·£½ºÆû")]
+    [Tooltip("ë¡œí”„ê°€ ëë‚˜ëŠ” ì§€ì ì˜ íŠ¸ëœìŠ¤í¼")]
     [SerializeField] private Transform endAnchor;
-    [Tooltip("Ã¼Å© ½Ã ½ÃÀÛÁ¡À» ¾ŞÄ¿ À§Ä¡¿¡ °­Á¦·Î °íÁ¤ÇÕ´Ï´Ù.")]
+    [Tooltip("ì²´í¬ ì‹œ ì‹œì‘ì ì„ ì•µì»¤ ìœ„ì¹˜ì— ê°•ì œë¡œ ê³ ì •í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool lockStart = true;
-    [Tooltip("Ã¼Å© ½Ã ³¡Á¡À» ¾ŞÄ¿ À§Ä¡¿¡ °­Á¦·Î °íÁ¤ÇÕ´Ï´Ù.")]
+    [Tooltip("ì²´í¬ ì‹œ ëì ì„ ì•µì»¤ ìœ„ì¹˜ì— ê°•ì œë¡œ ê³ ì •í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool lockEnd = true;
-    [Tooltip("Ã¼Å© ½Ã Áß°£ ÁöÁ¡À» ¾ŞÄ¿ À§Ä¡¿¡ °­Á¦·Î °íÁ¤ÇÕ´Ï´Ù.")]
+    [Tooltip("ì²´í¬ ì‹œ ì¤‘ê°„ ì§€ì ì„ ì•µì»¤ ìœ„ì¹˜ì— ê°•ì œë¡œ ê³ ì •í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool lockMiddle = true;
 
-    [Header("--- Instanced Mesh (¸¶µğ ¸Ş½¬ ¼³Á¤) ---")]
-    [Tooltip("°¢ ³ëµå(¸¶µğ) À§Ä¡¿¡ »ı¼ºµÉ ¸Ş½¬ (¿¹: »ç½½ ÇÑ Ä­, ½Ç¸°´õ µî)")]
+    [Header("--- Instanced Mesh (ë§ˆë”” ë©”ì‰¬ ì„¤ì •) ---")]
+    [Tooltip("ê° ë…¸ë“œ(ë§ˆë””) ìœ„ì¹˜ì— ìƒì„±ë  ë©”ì‰¬ (ì˜ˆ: ì‚¬ìŠ¬ í•œ ì¹¸, ì‹¤ë¦°ë” ë“±)")]
     [SerializeField] private Mesh link;
-    [Tooltip("ÀÎ½ºÅÏ½Ì Àü¿ë ½¦ÀÌ´õ°¡ Æ÷ÇÔµÈ ÀçÁú")]
+    [Tooltip("ì¸ìŠ¤í„´ì‹± ì „ìš© ì‰ì´ë”ê°€ í¬í•¨ëœ ì¬ì§ˆ")]
     [SerializeField] private Material linkMaterial;
 
-    [Header("--- Verlet Parameters (¹°¸® °è»ê º¯¼ö) ---")]
-    [Tooltip("³ëµå¿Í ³ëµå »çÀÌÀÇ °£°İ (·ÎÇÁÀÇ ÀüÃ¼ ±æÀÌ °áÁ¤)")]
+    [Header("--- Verlet Parameters (ë¬¼ë¦¬ ê³„ì‚° ë³€ìˆ˜) ---")]
+    [Tooltip("ë…¸ë“œì™€ ë…¸ë“œ ì‚¬ì´ì˜ ê°„ê²© (ë¡œí”„ì˜ ì „ì²´ ê¸¸ì´ ê²°ì •)")]
     [SerializeField] private float nodeDistance = 0.35f;
-    [Tooltip("Ãæµ¹ ÆÇÁ¤¿¡ »ç¿ëÇÒ ±¸Ã¼(Sphere)ÀÇ ¹İÁö¸§")]
+    [Tooltip("ì¶©ëŒ íŒì •ì— ì‚¬ìš©í•  êµ¬ì²´(Sphere)ì˜ ë°˜ì§€ë¦„")]
     [SerializeField] private float nodeColliderRadius = 0.2f;
-    [Tooltip("¾Æ·¡·Î ´ç±â´Â ÈûÀÇ Å©±â")]
+    [Tooltip("ì•„ë˜ë¡œ ë‹¹ê¸°ëŠ” í˜ì˜ í¬ê¸°")]
     [SerializeField] private float gravityStrength = 2f;
-    [Tooltip("·ÎÇÁ¸¦ ±¸¼ºÇÏ´Â ÃÑ ¸¶µğÀÇ °³¼ö (¸¹À»¼ö·Ï Á¤±³ÇÏÁö¸¸ ¹«°Å¿ò)")]
+    [Tooltip("ë¡œí”„ë¥¼ êµ¬ì„±í•˜ëŠ” ì´ ë§ˆë””ì˜ ê°œìˆ˜ (ë§ì„ìˆ˜ë¡ ì •êµí•˜ì§€ë§Œ ë¬´ê±°ì›€)")]
     [SerializeField] private int totalNodes = 100;
-    [Tooltip("¼Óµµ °¨¼è (0: ¸ØÃã, 1: ¿¡³ÊÁö ¹«ÇÑ À¯Áö) - °ø±â ÀúÇ× ´À³¦")]
+    [Tooltip("ì†ë„ ê°ì‡  (0: ë©ˆì¶¤, 1: ì—ë„ˆì§€ ë¬´í•œ ìœ ì§€) - ê³µê¸° ì €í•­ ëŠë‚Œ")]
     [SerializeField, Range(0, 1)] private float velocityDampen = 0.95f;
-    [Tooltip("·ÎÇÁÀÇ ÆØÆØÇÔ (1¿¡ °¡±î¿ï¼ö·Ï ´Ã¾î³ªÁö ¾Ê´Â ´Ü´ÜÇÑ ÁÙÀÌ µÊ)")]
+    [Tooltip("ë¡œí”„ì˜ íŒ½íŒ½í•¨ (1ì— ê°€ê¹Œìš¸ìˆ˜ë¡ ëŠ˜ì–´ë‚˜ì§€ ì•ŠëŠ” ë‹¨ë‹¨í•œ ì¤„ì´ ë¨)")]
     [SerializeField, Range(0, 0.99f)] private float stiffness = 0.8f;
-    [Tooltip("¹°¸® ¿¬»ê 1È¸´ç Ãæµ¹ Ã¼Å©¸¦ ¸î ¹ø ¼öÇàÇÒÁö (1ÀÌ¸é ¸Å¹ø ¼öÇà)")]
+    [Tooltip("ë¬¼ë¦¬ ì—°ì‚° 1íšŒë‹¹ ì¶©ëŒ ì²´í¬ë¥¼ ëª‡ ë²ˆ ìˆ˜í–‰í• ì§€ (1ì´ë©´ ë§¤ë²ˆ ìˆ˜í–‰)")]
     [SerializeField] private int iterateCollisionsEvery = 1;
-    [Tooltip("°Å¸® Á¦¾à Á¶°ÇÀ» ¸ÂÃß±â À§ÇÑ ¹İº¹ È½¼ö (³ôÀ»¼ö·Ï ·ÎÇÁ°¡ ´ú ´Ã¾î³²)")]
+    [Tooltip("ê±°ë¦¬ ì œì•½ ì¡°ê±´ì„ ë§ì¶”ê¸° ìœ„í•œ ë°˜ë³µ íšŸìˆ˜ (ë†’ì„ìˆ˜ë¡ ë¡œí”„ê°€ ëœ ëŠ˜ì–´ë‚¨)")]
     [SerializeField] private int iterations = 100;
-    [Tooltip("ÇÑ ³ëµå¿¡¼­ µ¿½Ã¿¡ Ã³¸®ÇÒ ¼ö ÀÖ´Â ÃÖ´ë Ãæµ¹Ã¼ ¼ö")]
+    [Tooltip("í•œ ë…¸ë“œì—ì„œ ë™ì‹œì— ì²˜ë¦¬í•  ìˆ˜ ìˆëŠ” ìµœëŒ€ ì¶©ëŒì²´ ìˆ˜")]
     [SerializeField] private int colliderBufferSize = 8;
 
-    [Header("--- Line Renderer (¼± ¿ÜÇü) ---")]
-    [Tooltip("LineRenderer·Î ±×·ÁÁú ·ÎÇÁÀÇ ±½±â")]
+    [Header("--- Line Renderer (ì„  ì™¸í˜•) ---")]
+    [Tooltip("LineRendererë¡œ ê·¸ë ¤ì§ˆ ë¡œí”„ì˜ êµµê¸°")]
     [SerializeField] private float ropeWidth = 0.1f;
 
-    // Áß°£ ¸¶µğ ÀÎµ¦½º °è»ê ¼Ó¼º
+    // ì¤‘ê°„ ë§ˆë”” ì¸ë±ìŠ¤ ê³„ì‚° ì†ì„±
     private int MiddleIndex => totalNodes / 2;
 
-    [Header("--- Axis Settings (¸Ş½¬ ¹æÇâ ¼³Á¤) ---")]
-    [Tooltip("¸Ş½¬ÀÇ À§ÂÊ ¹æÇâ ±âÁØ")]
+    [Header("--- Axis Settings (ë©”ì‰¬ ë°©í–¥ ì„¤ì •) ---")]
+    [Tooltip("ë©”ì‰¬ì˜ ìœ„ìª½ ë°©í–¥ ê¸°ì¤€")]
     [SerializeField] private Vector3 upAxis = Vector3.up;
-    [Tooltip("¸Ş½¬°¡ ·ÎÇÁ ÁøÇà ¹æÇâÀ¸·Î »¸¾îÀÖ´Â ·ÎÄÃ Ãà (º¸Åë Forward)")]
+    [Tooltip("ë©”ì‰¬ê°€ ë¡œí”„ ì§„í–‰ ë°©í–¥ìœ¼ë¡œ ë»—ì–´ìˆëŠ” ë¡œì»¬ ì¶• (ë³´í†µ Forward)")]
     [SerializeField] private Vector3 meshForwardAxis = Vector3.forward;
 
-    // ³»ºÎ °è»ê¿ë º¯¼öµé
+    // ë‚´ë¶€ ê³„ì‚°ìš© ë³€ìˆ˜ë“¤
     private LineRenderer lineRenderer;
-    private Vector3[] linePositions;          // LineRenderer¿¡ Àü´ŞÇÒ À§Ä¡ ¹è¿­
-    private Vector3[] previousNodePositions;  // º£¸¦·¹ ÀûºĞ¿ë: Á÷Àü ÇÁ·¹ÀÓ À§Ä¡
-    private Vector3[] currentNodePositions;   // ÇöÀç ÇÁ·¹ÀÓ À§Ä¡
-    private Quaternion[] currentNodeRotations; // ¸¶µğ ¸Ş½¬ÀÇ È¸Àü°ª
-    private Matrix4x4[] matrices;             // GPU ÀÎ½ºÅÏ½Ì¿ë º¯È¯ Çà·Ä ¹è¿­
+    private Vector3[] linePositions;          // LineRendererì— ì „ë‹¬í•  ìœ„ì¹˜ ë°°ì—´
+    private Vector3[] previousNodePositions;  // ë² ë¥¼ë ˆ ì ë¶„ìš©: ì§ì „ í”„ë ˆì„ ìœ„ì¹˜
+    private Vector3[] currentNodePositions;   // í˜„ì¬ í”„ë ˆì„ ìœ„ì¹˜
+    private Quaternion[] currentNodeRotations; // ë§ˆë”” ë©”ì‰¬ì˜ íšŒì „ê°’
+    private Matrix4x4[] matrices;             // GPU ì¸ìŠ¤í„´ì‹±ìš© ë³€í™˜ í–‰ë ¬ ë°°ì—´
     private Vector3 gravity;
 
-    // Ãæµ¹ Ã³¸®¿ë
-    private SphereCollider nodeCollider;      // ComputePenetration °è»ê¿ë °¡»ó Äİ¶óÀÌ´õ
-    private GameObject nodeTester;            // °¡»ó Äİ¶óÀÌ´õ¸¦ ´ãÀ» ÀÓ½Ã ¿ÀºêÁ§Æ®
-    private Collider[] colliderHitBuffer;     // OverlapSphere °á°ú ÀúÀå¿ë ¹öÆÛ
+    // ì¶©ëŒ ì²˜ë¦¬ìš©
+    private SphereCollider nodeCollider;      // ComputePenetration ê³„ì‚°ìš© ê°€ìƒ ì½œë¼ì´ë”
+    private GameObject nodeTester;            // ê°€ìƒ ì½œë¼ì´ë”ë¥¼ ë‹´ì„ ì„ì‹œ ì˜¤ë¸Œì íŠ¸
+    private Collider[] colliderHitBuffer;     // OverlapSphere ê²°ê³¼ ì €ì¥ìš© ë²„í¼
 
     public Vector3[] Nodes => currentNodePositions;
     public int NodeCount => totalNodes;
@@ -84,7 +84,7 @@ public class Rope : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
 
-        // ¹è¿­ ÇÒ´ç: ¸¶µğ °³¼ö¸¸Å­ ¸Ş¸ğ¸® È®º¸
+        // ë°°ì—´ í• ë‹¹: ë§ˆë”” ê°œìˆ˜ë§Œí¼ ë©”ëª¨ë¦¬ í™•ë³´
         currentNodePositions = new Vector3[totalNodes];
         previousNodePositions = new Vector3[totalNodes];
         currentNodeRotations = new Quaternion[totalNodes];
@@ -105,9 +105,11 @@ public class Rope : MonoBehaviour
 
     private void Start()
     {
-        // ½ÃÀÛ ½Ã ¾ŞÄ¿ À§Ä¡¿¡ ¸ÂÃç ·ÎÇÁ¸¦ ÀÏÀÚ·Î ¹èÄ¡
+        // ì‹œì‘ ì‹œ ì•µì»¤ ìœ„ì¹˜ì— ë§ì¶° ë¡œí”„ë¥¼ ì¼ìë¡œ ë°°ì¹˜
         RebuildFromAnchors();
+#if UNITY_EDITOR
         DebugRopeLength();
+#endif
     }
 
     private void OnDestroy()
@@ -116,7 +118,7 @@ public class Rope : MonoBehaviour
     }
 
     /// <summary>
-    /// ·ÎÇÁ¸¦ ½ÃÀÛÁ¡°ú ³¡Á¡ »çÀÌ¿¡ ±ÕµîÇÏ°Ô Àç¹èÄ¡ÇÕ´Ï´Ù.
+    /// ë¡œí”„ë¥¼ ì‹œì‘ì ê³¼ ëì  ì‚¬ì´ì— ê· ë“±í•˜ê²Œ ì¬ë°°ì¹˜í•©ë‹ˆë‹¤.
     /// </summary>
     public void RebuildFromAnchors()
     {
@@ -144,21 +146,21 @@ public class Rope : MonoBehaviour
 
     private void Update()
     {
-        // 1. ¼± ±×¸®±â
+        // 1. ì„  ê·¸ë¦¬ê¸°
         DrawRope();
 
-        // 2. ÀÎ½ºÅÏ½ÌÀ» ÀÌ¿ëÇØ ¸¶µğ ¸Ş½¬µéÀ» ÇÑ ¹ø¿¡ ·»´õ¸µ (¸Å¿ì È¿À²Àû)
+        // 2. ì¸ìŠ¤í„´ì‹±ì„ ì´ìš©í•´ ë§ˆë”” ë©”ì‰¬ë“¤ì„ í•œ ë²ˆì— ë Œë”ë§ (ë§¤ìš° íš¨ìœ¨ì )
         if (link && linkMaterial)
             Graphics.DrawMeshInstanced(link, 0, linkMaterial, matrices, totalNodes);
     }
 
     private void FixedUpdate()
     {
-        // 1. ¹°¸® ½Ã¹Ä·¹ÀÌ¼Ç (ÀÌµ¿/°¡¼Óµµ)
+        // 1. ë¬¼ë¦¬ ì‹œë®¬ë ˆì´ì…˜ (ì´ë™/ê°€ì†ë„)
         Simulate();
 
-        // 2. Á¦¾à Á¶°Ç ÇØ°á (°Å¸® À¯Áö ¹× Ãæµ¹ Ã³¸®)
-        // iterations È½¼ö¸¸Å­ ¹İº¹ÇÒ¼ö·Ï ·ÎÇÁ°¡ ÆØÆØÇØÁı´Ï´Ù.
+        // 2. ì œì•½ ì¡°ê±´ í•´ê²° (ê±°ë¦¬ ìœ ì§€ ë° ì¶©ëŒ ì²˜ë¦¬)
+        // iterations íšŸìˆ˜ë§Œí¼ ë°˜ë³µí• ìˆ˜ë¡ ë¡œí”„ê°€ íŒ½íŒ½í•´ì§‘ë‹ˆë‹¤.
         for (int i = 0; i < iterations; i++)
         {
             ApplyConstraint();
@@ -167,13 +169,13 @@ public class Rope : MonoBehaviour
                 AdjustCollisions();
         }
 
-        // 3. ·»´õ¸µÀ» À§ÇÑ È¸Àü ¹× Çà·Ä °»½Å
+        // 3. ë Œë”ë§ì„ ìœ„í•œ íšŒì „ ë° í–‰ë ¬ ê°±ì‹ 
         SetAngles();
         TranslateMatrices();
     }
 
     /// <summary>
-    /// º£¸¦·¹ ÀûºĞ: º°µµÀÇ ¹°¸® ¿£Áø ¾øÀÌ À§Ä¡ º¯È­·®À¸·Î ¼Óµµ¸¦ °è»êÇÕ´Ï´Ù.
+    /// ë² ë¥¼ë ˆ ì ë¶„: ë³„ë„ì˜ ë¬¼ë¦¬ ì—”ì§„ ì—†ì´ ìœ„ì¹˜ ë³€í™”ëŸ‰ìœ¼ë¡œ ì†ë„ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
     /// </summary>
     private void Simulate()
     {
@@ -181,10 +183,10 @@ public class Rope : MonoBehaviour
 
         for (int i = 0; i < totalNodes; i++)
         {
-            // 1. ½ÃÀÛ/³¡ °íÁ¤Á¡ Ã¼Å©
+            // 1. ì‹œì‘/ë ê³ ì •ì  ì²´í¬
             bool isStart = (i == 0 && lockStart && startAnchor);
             bool isEnd = (i == totalNodes - 1 && lockEnd && endAnchor);
-            // 2. Áß°£ °íÁ¤Á¡ Ã¼Å© (middleAnchor°¡ ÀÖÀ» ¶§¸¸)
+            // 2. ì¤‘ê°„ ê³ ì •ì  ì²´í¬ (middleAnchorê°€ ìˆì„ ë•Œë§Œ)
             bool isMiddle = (i == MiddleIndex && lockMiddle && middleAnchor != null);
 
             if (isStart || isEnd || isMiddle)
@@ -199,7 +201,7 @@ public class Rope : MonoBehaviour
                 continue;
             }
 
-            // ÀÏ¹İ ¹°¸® °è»ê
+            // ì¼ë°˜ ë¬¼ë¦¬ ê³„ì‚°
             Vector3 velocity = (currentNodePositions[i] - previousNodePositions[i]) * velocityDampen;
             previousNodePositions[i] = currentNodePositions[i];
             Vector3 newPos = currentNodePositions[i] + velocity + gravity * dt;
@@ -208,11 +210,11 @@ public class Rope : MonoBehaviour
     }
 
     /// <summary>
-    /// ³ëµå »çÀÌÀÇ °Å¸®°¡ ÀÏÁ¤ÇÏ°Ô À¯ÁöµÇµµ·Ï °­Á¦·Î À§Ä¡¸¦ Á¶Á¤ÇÕ´Ï´Ù.
+    /// ë…¸ë“œ ì‚¬ì´ì˜ ê±°ë¦¬ê°€ ì¼ì •í•˜ê²Œ ìœ ì§€ë˜ë„ë¡ ê°•ì œë¡œ ìœ„ì¹˜ë¥¼ ì¡°ì •í•©ë‹ˆë‹¤.
     /// </summary>
     private void ApplyConstraint()
     {
-        // À§Ä¡ °­Á¦ °íÁ¤ (½ÃÀÛ, ³¡, Áß°£)
+        // ìœ„ì¹˜ ê°•ì œ ê³ ì • (ì‹œì‘, ë, ì¤‘ê°„)
         if (lockStart && startAnchor) currentNodePositions[0] = startAnchor.position;
         if (lockEnd && endAnchor) currentNodePositions[totalNodes - 1] = endAnchor.position;
         if (lockMiddle && middleAnchor != null) currentNodePositions[MiddleIndex] = middleAnchor.position;
@@ -229,7 +231,7 @@ public class Rope : MonoBehaviour
             Vector3 direction = (p1 - p2) / currentDistance;
             Vector3 movement = direction * difference;
 
-            // °íÁ¤ »óÅÂ È®ÀÎ (Áß°£ ³ëµå Æ÷ÇÔ)
+            // ê³ ì • ìƒíƒœ í™•ì¸ (ì¤‘ê°„ ë…¸ë“œ í¬í•¨)
             bool p1Locked = (i == 0 && lockStart && startAnchor) ||
                             (i == MiddleIndex && lockMiddle && middleAnchor != null);
             bool p2Locked = (i + 1 == totalNodes - 1 && lockEnd && endAnchor) ||
@@ -252,7 +254,7 @@ public class Rope : MonoBehaviour
     }
 
     /// <summary>
-    /// ³ëµå°¡ ´Ù¸¥ Äİ¶óÀÌ´õ ³»ºÎ¿¡ µé¾î°¬À» °æ¿ì ¹ÛÀ¸·Î ¹Ğ¾î³À´Ï´Ù.
+    /// ë…¸ë“œê°€ ë‹¤ë¥¸ ì½œë¼ì´ë” ë‚´ë¶€ì— ë“¤ì–´ê°”ì„ ê²½ìš° ë°–ìœ¼ë¡œ ë°€ì–´ëƒ…ë‹ˆë‹¤.
     /// </summary>
     private void AdjustCollisions()
     {
@@ -265,7 +267,7 @@ public class Rope : MonoBehaviour
                 currentNodePositions[i],
                 nodeColliderRadius + 0.01f,
                 colliderHitBuffer,
-                ~(1 << 8) // 8¹ø ·¹ÀÌ¾î(ÀÚ½Å) Á¦¿Ü
+                ~(1 << 8) // 8ë²ˆ ë ˆì´ì–´(ìì‹ ) ì œì™¸
             );
 
             for (int n = 0; n < hitCount; n++)
@@ -276,7 +278,7 @@ public class Rope : MonoBehaviour
                 Vector3 dir;
                 float dist;
 
-                // °ãÄ£ ¹æÇâ°ú ±íÀÌ¸¦ °è»êÇÏ¿© À§Ä¡ º¸Á¤
+                // ê²¹ì¹œ ë°©í–¥ê³¼ ê¹Šì´ë¥¼ ê³„ì‚°í•˜ì—¬ ìœ„ì¹˜ ë³´ì •
                 bool overlapped = Physics.ComputePenetration(
                     nodeCollider, currentNodePositions[i], Quaternion.identity,
                     other, other.transform.position, other.transform.rotation,
@@ -292,7 +294,7 @@ public class Rope : MonoBehaviour
     }
 
     /// <summary>
-    /// ´ÙÀ½ ³ëµå¸¦ ¹Ù¶óº¸µµ·Ï °¢ ¸¶µğÀÇ È¸Àü°ªÀ» °è»êÇÕ´Ï´Ù.
+    /// ë‹¤ìŒ ë…¸ë“œë¥¼ ë°”ë¼ë³´ë„ë¡ ê° ë§ˆë””ì˜ íšŒì „ê°’ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
     /// </summary>
     private void SetAngles()
     {
@@ -312,7 +314,7 @@ public class Rope : MonoBehaviour
     }
 
     /// <summary>
-    /// °è»êµÈ À§Ä¡¿Í È¸Àü Á¤º¸¸¦ GPU ÀÎ½ºÅÏ½Ì¿ë Çà·Ä·Î º¯È¯ÇÕ´Ï´Ù.
+    /// ê³„ì‚°ëœ ìœ„ì¹˜ì™€ íšŒì „ ì •ë³´ë¥¼ GPU ì¸ìŠ¤í„´ì‹±ìš© í–‰ë ¬ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
     /// </summary>
     private void TranslateMatrices()
     {
@@ -321,7 +323,7 @@ public class Rope : MonoBehaviour
     }
 
     /// <summary>
-    /// LineRenderer¿¡ ÁÂÇ¥ ¹è¿­À» Àü´ŞÇÏ¿© ¼±À» ±×¸³´Ï´Ù.
+    /// LineRendererì— ì¢Œí‘œ ë°°ì—´ì„ ì „ë‹¬í•˜ì—¬ ì„ ì„ ê·¸ë¦½ë‹ˆë‹¤.
     /// </summary>
     private void DrawRope()
     {
@@ -337,7 +339,7 @@ public class Rope : MonoBehaviour
         lineRenderer.SetPositions(linePositions);
     }
 
-    // --- ¿¡µğÅÍ µğ¹ö±×¿ë Gizmos (±âÁ¸ ÄÚµå À¯Áö) ---
+    // --- ì—ë””í„° ë””ë²„ê·¸ìš© Gizmos (ê¸°ì¡´ ì½”ë“œ ìœ ì§€) ---
 #if UNITY_EDITOR
     [SerializeField] private bool debugCollisions = true;
     private readonly List<CollisionDebugInfo> collisionDebugs = new();
@@ -374,8 +376,8 @@ public class Rope : MonoBehaviour
 
         Debug.Log(
             $"[Rope Length Check]\n" +
-            $"Start ¡æ Mid ½ÇÁ¦°Å¸®: {realStartToMid:F2}, ¸ñÇ¥±æÀÌ: {restStartToMid:F2}\n" +
-            $"Mid ¡æ End ½ÇÁ¦°Å¸®: {realMidToEnd:F2}, ¸ñÇ¥±æÀÌ: {restMidToEnd:F2}"
+            $"Start â†’ Mid ì‹¤ì œê±°ë¦¬: {realStartToMid:F2}, ëª©í‘œê¸¸ì´: {restStartToMid:F2}\n" +
+            $"Mid â†’ End ì‹¤ì œê±°ë¦¬: {realMidToEnd:F2}, ëª©í‘œê¸¸ì´: {restMidToEnd:F2}"
         );
     }
 #endif
