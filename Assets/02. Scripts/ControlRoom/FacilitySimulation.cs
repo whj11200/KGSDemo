@@ -1,6 +1,4 @@
-﻿using Unity.VisualScripting;
-
-public class FacilitySimulation : SimulationBase
+﻿public class FacilitySimulation : SimulationBase
 {
     public FacilitySimulation(ScenarioAsset asset) : base(asset)
     {
@@ -10,6 +8,7 @@ public class FacilitySimulation : SimulationBase
     public override void Initialize()
     {
         var type = Asset.Template.ScenarioType;
+        bool IsNeedConfirmVent = Asset.VentValves.Count > 0;
 
         for (int idx = 0; idx < Asset.Template.Nodes.Count; idx++)
         {
@@ -26,7 +25,7 @@ public class FacilitySimulation : SimulationBase
             {
                 IsProcessBlocked = !node.NoCondition;
 
-                var clipLength = node.Voice != null ? node.Voice.length + 2.5f : 2.5f;
+                var clipLength = node.Voice != null ? node.Voice.length + 1f : 3.5f;
 
                 EventBus.Publish(
                     ScenarioEventType.ShowMessage,
@@ -95,8 +94,10 @@ public class FacilitySimulation : SimulationBase
         GameNodes[0].OnStart += () =>
         {
             EventBus.Publish(ScenarioEventType.Alarm,
-                            new ScenarioEvent { 
+                            new ScenarioEvent
+                            {
                                 EventType = ScenarioEventType.Alarm,
+                                EventId = "On",
                                 NodeID = 0,
                             });
         };
@@ -105,24 +106,28 @@ public class FacilitySimulation : SimulationBase
         GameNodes[1].OnStart += () =>
         {
             EventBus.Publish(ScenarioEventType.Monitor,
-                            new ScenarioEvent { 
+                            new ScenarioEvent
+                            {
                                 EventType = ScenarioEventType.Monitor,
                                 NodeID = 1,
                                 EventId = "Warning_Flash",
                             });
         };
 
-        // 2번: 모니터에 누출 지점 표시
-        GameNodes[2].OnEnd += () =>
+        GameNodes[1].OnEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.Alarm,
                             new ScenarioEvent
                             {
                                 EventType = ScenarioEventType.Alarm,
-                                NodeID = 0,
+                                NodeID = 1,
                                 EventId = "Off"
                             });
+        };
 
+        // 2번: 모니터에 누출 지점 표시
+        GameNodes[2].OnEnd += () =>
+        {
             EventBus.Publish(ScenarioEventType.Monitor,
                 new ScenarioEvent
                 {
@@ -214,6 +219,11 @@ public class FacilitySimulation : SimulationBase
 
         GameNodes[11].OnTextEnd += () =>
         {
+            if (!IsNeedConfirmVent)
+            {
+                CurrentNodeIndex++;
+            }
+
             EventBus.Publish(ScenarioEventType.ValveConsole,
                 new ScenarioEvent
                 {

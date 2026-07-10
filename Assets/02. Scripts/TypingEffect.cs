@@ -91,7 +91,6 @@ public class TypingEffect : MonoBehaviour
         if (delay > 0)
             yield return new WaitForSeconds(delay);
 
-
         typingCoroutine = null;
 
         var callback = pendingOnComplete;

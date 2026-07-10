@@ -43424,11 +43424,11 @@ MonoBehaviour:
   - {fileID: 0}
   ValveConsole: {fileID: 1133527257}
   CameraIdx: 0
-  EnterControlRoomText: "\uAC00\uC2A4 \uB204\uCD9C \uC870\uCE58 \uD6C8\uB828\uC744
+  EnterControlRoomText: "\uAC00\uC2A4 \uB204\uCD9C \uB300\uC751 \uD6C8\uB828\uC744
     \uC2DC\uC791\uD569\uB2C8\uB2E4.\r\n\uD1B5\uC81C\uC2E4\uC5D0 \uC785\uC7A5 \uD6C4
     \uAD00\uC81C\uC11D\uC5D0 \uCC29\uC11D\uD558\uC2ED\uC2DC\uC624."
-  EnterControlRoomVoice: {fileID: 0}
-  AlarmClip: {fileID: 0}
+  EnterControlRoomVoice: {fileID: 8300000, guid: ac88d2f852f0075429a7b8236465fc66, type: 3}
+  AlarmClip: {fileID: 8300000, guid: ac4c9156e372cb042acb267975dadbfe, type: 3}
   SkipAction: {fileID: 136036119572374815, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Manager: {fileID: 1305012613}
 --- !u!1 &367798061

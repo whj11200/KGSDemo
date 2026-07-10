@@ -30,7 +30,7 @@ public class PipelineSimulation : SimulationBase
             {
                 IsProcessBlocked = !node.NoCondition;
 
-                var clipLength = node.Voice != null ? node.Voice.length + 2.5f : 2.5f;
+                var clipLength = node.Voice != null ? node.Voice.length + 1f : 3.5f;
 
                 EventBus.Publish(
                     ScenarioEventType.ShowMessage,
@@ -128,7 +128,7 @@ public class PipelineSimulation : SimulationBase
                             new ScenarioEvent
                             {
                                 EventType = ScenarioEventType.Alarm,
-                                NodeID = 0,
+                                NodeID = 1,
                                 EventId = "Off"
                             });
 
