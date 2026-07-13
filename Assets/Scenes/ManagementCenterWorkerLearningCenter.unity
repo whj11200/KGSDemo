@@ -36720,7 +36720,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 582363837}
         m_TargetAssemblyTypeName: PhoneControl, Assembly-CSharp
-        m_MethodName: AcceptCall
+        m_MethodName: ConnectOutgoingCall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -54502,16 +54502,19 @@ MonoBehaviour:
   phoneObject: {fileID: 2027544294}
   phoneRect: {fileID: 2027544295}
   incomingCallUI: {fileID: 2047050845}
-  darkPhoneBackGround: {fileID: 525447167}
   outgoingCallUI: {fileID: 1975944603}
+  darkPhoneBackGround: {fileID: 525447167}
   callAudioSource: {fileID: 936179626357503976}
   incomingCallClip: {fileID: 8300000, guid: cf9e9353c9086f8418983927944d5f87, type: 3}
-  outgoingCallClip: {fileID: 8300000, guid: 7cb76c38066d21f41b5b6fa531eea14a, type: 3}
+  outgoingCallClip: {fileID: 0}
   rotateAngle: 4
   rotateSpeed: 20
   positionShake: 2
   recallDelay: 1.5
   onIncomingCall:
+    m_PersistentCalls:
+      m_Calls: []
+  onOutgoingCall:
     m_PersistentCalls:
       m_Calls: []
   onAcceptCall:

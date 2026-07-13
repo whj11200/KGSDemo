@@ -14,10 +14,14 @@ public class HazeControl : MonoBehaviour
         hazesound = GetComponent<AudioSource>();
         hazeParticleSystem = GetComponent<ParticleSystem>();
 
-        StopHaze();
+        Init();
     }
 
-    
+    public void Init()
+    {
+        hazeParticleSystem.Stop();
+        hazesound.Stop();
+    }
 
     public void StartHaze()
     {
@@ -37,12 +41,12 @@ public class HazeControl : MonoBehaviour
             StopCoroutine(hazeCoroutine);
             hazeCoroutine = null;
         }
-
-        if (hazeParticleSystem != null)
-            hazeParticleSystem.Stop();
-
         if (hazesound != null)
             hazesound.Stop();
+        if (hazeParticleSystem != null)
+            hazeParticleSystem.gameObject.SetActive(false);
+
+        
     }
 
     private IEnumerator HazeCoroutine()

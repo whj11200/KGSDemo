@@ -145,7 +145,7 @@ public class PhoneSystem : MonoBehaviour
         ShowOutgoingCallUI();
 
         // 발신 대기음 재생
-        PlayCallSound(outgoingCallClip, true);
+        //PlayCallSound(outgoingCallClip, true);
 
         // 발신 중에는 폰 진동을 사용하지 않음
         StopVibration();
