@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class ManagerCenterUiManager : MonoBehaviour
 {
+    [SerializeField] HazeControl hazeControl;
     [Header("UI Components")]
     [SerializeField] private GameObject guidePanel;
     [SerializeField] private TextMeshProUGUI guideText;
@@ -193,12 +194,12 @@ public class ManagerCenterUiManager : MonoBehaviour
         {
             ShowFadeText(message);
         }
-
+        
         // 4. 어두운 상태 잠깐 유지
         yield return new WaitForSeconds(darkHoldTime);
 
         elapsed = 0f;
-
+        hazeControl.StopHaze();
         // 5. 다시 밝아짐
         while (elapsed < fadeOutDuration)
         {
