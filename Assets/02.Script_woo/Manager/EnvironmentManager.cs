@@ -40,6 +40,7 @@ public class EnvironmentManager : MonoBehaviour
         if (StudyModeHistoty != null && StudyModeHistoty.IsAllClear)
         {
             PlayerController.MoveForObject(ModeSelectPos);
+            AllClear();
         }
         else
         {
@@ -98,6 +99,7 @@ public class EnvironmentManager : MonoBehaviour
     public void AllClear()
     {
         // [추가] AllClear가 호출되면 시나리오가 끝난 것으로 간주
+
         isScenarioFinished = true;
         doorController.canOpen = true;
         valve.ResetValve();
