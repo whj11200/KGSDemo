@@ -4,6 +4,8 @@ using UnityEngine.Events;
 
 public class VavleHandle : MonoBehaviour, IMouseInteractable
 {
+    [Header("»ç¿îµå")]
+    [SerializeField] private AudioSource audioSource;
     [Header("Object Position")]
     [SerializeField] private Vector3 currentPosition;
 
@@ -90,6 +92,7 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             return;
 
         rotateCoroutine = StartCoroutine(RotateZ360Coroutine(1f, true));
+        audioSource.Play();
     }
 
     public void UnlockValve()
@@ -98,6 +101,7 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             return;
 
         rotateCoroutine = StartCoroutine(RotateZ360Coroutine(-1f, false));
+        audioSource.Play();
     }
 
     private IEnumerator RotateZ360Coroutine(float direction, bool lockAfterRotate)
