@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,19 +10,19 @@ public class ValveQuestManager : MonoBehaviour
     [Serializable]
     public class ValveBlinkTarget
     {
-        [Header("º§ºê ÇÚµé")]
+        [Header("ë²¨ë¸Œ í•¸ë“¤")]
         public VavleHandle valveHandle;
 
-        [Header("º§ºê ·çÆ® ·»´õ·¯")]
+        [Header("ë²¨ë¸Œ ë£¨íŠ¸ ë Œë”ëŸ¬")]
         public Renderer valveRenderer;
 
-        [Header("ÀÚ½Ä Æ÷ÇÔ ·»´õ·¯µé")]
+        [Header("ìì‹ í¬í•¨ ë Œë”ëŸ¬ë“¤")]
         [HideInInspector] public Renderer[] childRenderers;
 
-        [Header("ÀÚ½Ä Æ÷ÇÔ ¸ŞÅ×¸®¾óµé")]
+        [Header("ìì‹ í¬í•¨ ë©”í…Œë¦¬ì–¼ë“¤")]
         [HideInInspector] public List<Material> runtimeMaterials = new();
 
-        [Header("º§ºê Emission ±ôºıÀÓ ÄÚ·çÆ¾")]
+        [Header("ë²¨ë¸Œ Emission ê¹œë¹¡ì„ ì½”ë£¨í‹´")]
         [HideInInspector] public Coroutine blinkCoroutine;
 
         [HideInInspector] public List<Color> originEmissionColors = new();
@@ -31,22 +31,22 @@ public class ValveQuestManager : MonoBehaviour
         [HideInInspector] public bool hasSavedOrigin;
     }
 
-    [Header("¿ìÃø »ó´Ü UI ¸Å´ÏÀú")]
+    [Header("ìš°ì¸¡ ìƒë‹¨ UI ë§¤ë‹ˆì €")]
     [SerializeField] private ManagerCenterUiManager managerCenterUiManager;
-    [Header("¾ÆÁö¶ûÀÌÆÄÆ¼Å¬ ½ºÅ©¸³Æ®")]
+    [Header("ì•„ì§€ë‘ì´íŒŒí‹°í´ ìŠ¤í¬ë¦½íŠ¸")]
     [SerializeField] private HazeControl hazeControl;
-    [Header("µğ¾â·Î±× ¸ğµâ")]
+    [Header("ë””ì–„ë¡œê·¸ ëª¨ë“ˆ")]
     [SerializeField] DialogueModeul dialogueModeul;
-    [Header("º§ºê ÀÌ¸§ Äµ¹ö½º")]
+    [Header("ë²¨ë¸Œ ì´ë¦„ ìº”ë²„ìŠ¤")]
     [SerializeField] private GameObject valveNameCanvas;
 
-    [Header("°ü¸®ÇÒ ¹ëºê 4°³")]
+    [Header("ê´€ë¦¬í•  ë°¸ë¸Œ 4ê°œ")]
     [SerializeField] private List<ValveBlinkTarget> valveTargets = new();
-    [Header("º§ºê ³×ºñ ¿ÀºêÁ§Æ®µé")]
+    [Header("ë²¨ë¸Œ ë„¤ë¹„ ì˜¤ë¸Œì íŠ¸ë“¤")]
     public List<GameObject> valveNavObjects = new();
-    [Header("´©ÃâÁöÁ¡ À§Ä¡Ç¥½Ã ¿ÀºêÁ§Æ®")]
+    [Header("ëˆ„ì¶œì§€ì  ìœ„ì¹˜í‘œì‹œ ì˜¤ë¸Œì íŠ¸")]
     [SerializeField] GameObject leakPosObject;
-    [Header("Å»ÃâÁöÁ¡ À§Ä¡Ç¥½Ã ¿ÀºêÁ§Æ®")]
+    [Header("íƒˆì¶œì§€ì  ìœ„ì¹˜í‘œì‹œ ì˜¤ë¸Œì íŠ¸")]
     [SerializeField] GameObject escapePosObject;
     [Header("Emission Blink Setting")]
     [SerializeField] private Color emissionColor = Color.green;
@@ -146,7 +146,7 @@ public class ValveQuestManager : MonoBehaviour
 
             target.runtimeMaterials.Clear();
 
-            // ÀÚ±â ÀÚ½Å + ÀÚ½Ä Renderer ÀüºÎ °¡Á®¿À±â
+            // ìê¸° ìì‹  + ìì‹ Renderer ì „ë¶€ ê°€ì ¸ì˜¤ê¸°
             target.childRenderers = target.valveRenderer.GetComponentsInChildren<Renderer>(true);
 
             foreach (Renderer renderer in target.childRenderers)
@@ -154,8 +154,8 @@ public class ValveQuestManager : MonoBehaviour
                 if (renderer == null)
                     continue;
 
-                // Áß¿ä: sharedMaterials ¸»°í materials »ç¿ë
-                // ±×·¡¾ß ÀÌ ¹ëºê ÀÎ½ºÅÏ½º¸¸ Emission º¯°æµÊ
+                // ì¤‘ìš”: sharedMaterials ë§ê³  materials ì‚¬ìš©
+                // ê·¸ë˜ì•¼ ì´ ë°¸ë¸Œ ì¸ìŠ¤í„´ìŠ¤ë§Œ Emission ë³€ê²½ë¨
                 Material[] materials = renderer.materials;
 
                 foreach (Material material in materials)
@@ -187,7 +187,7 @@ public class ValveQuestManager : MonoBehaviour
 
         StartAllValveEmissionBlink();
 
-        Debug.Log("[Valve Stage] ¹ëºê Â÷´Ü ´Ü°è ½ÃÀÛ");
+        Debug.Log("[Valve Stage] ë°¸ë¸Œ ì°¨ë‹¨ ë‹¨ê³„ ì‹œì‘");
         foreach(var valvenav in valveNavObjects)
         {
             if(valvenav != null)
@@ -199,7 +199,7 @@ public class ValveQuestManager : MonoBehaviour
     {
         if (!isValveCloseStageActive)
         {
-            Debug.LogWarning("[Valve Stage] ¹ëºê Â÷´Ü ´Ü°è°¡ ¾Æ´Õ´Ï´Ù.");
+            Debug.LogWarning("[Valve Stage] ë°¸ë¸Œ ì°¨ë‹¨ ë‹¨ê³„ê°€ ì•„ë‹™ë‹ˆë‹¤.");
             return;
         }
 
@@ -211,17 +211,17 @@ public class ValveQuestManager : MonoBehaviour
 
         if (!closedValves.Add(valveHandle))
         {
-            Debug.Log($"[Valve Stage] ÀÌ¹Ì Àá±ä ¹ëºêÀÔ´Ï´Ù. {currentClosedValveCount}/{targetValveCloseCount}");
+            Debug.Log($"[Valve Stage] ì´ë¯¸ ì ê¸´ ë°¸ë¸Œì…ë‹ˆë‹¤. {currentClosedValveCount}/{targetValveCloseCount}");
             return;
         }
 
         currentClosedValveCount = closedValves.Count;
 
-        // ÇÙ½É: ¹æ±İ µ¹¸° ¹ëºê ÇÏ³ª¸¸ Emission ²ô±â
+        // í•µì‹¬: ë°©ê¸ˆ ëŒë¦° ë°¸ë¸Œ í•˜ë‚˜ë§Œ Emission ë„ê¸°
         StopValveEmissionAndReset(valveHandle);
 
-        Debug.Log($"[Valve Stage] ¹ëºê Àá±İ ¿Ï·á: {currentClosedValveCount}/{targetValveCloseCount}");
-        managerCenterUiManager.ShowTemporaryGuide($"{valveHandle.name} Â÷´Ü¿Ï·á \n {currentClosedValveCount}/{targetValveCloseCount}");
+        Debug.Log($"[Valve Stage] ë°¸ë¸Œ ì ê¸ˆ ì™„ë£Œ: {currentClosedValveCount}/{targetValveCloseCount}");
+        managerCenterUiManager.ShowTemporaryGuide($"{valveHandle.name} ì°¨ë‹¨ì™„ë£Œ \n {currentClosedValveCount}/{targetValveCloseCount}");
         if (currentClosedValveCount >= targetValveCloseCount)
         {
             CompleteValveCloseStage();
@@ -233,14 +233,14 @@ public class ValveQuestManager : MonoBehaviour
         if (valveHandle == null)
             return;
 
-        // Open Äù½ºÆ® ÁßÀÌ¸é Open Äù½ºÆ® Ä«¿îÆ®·Î Ã³¸®
+        // Open í€˜ìŠ¤íŠ¸ ì¤‘ì´ë©´ Open í€˜ìŠ¤íŠ¸ ì¹´ìš´íŠ¸ë¡œ ì²˜ë¦¬
         if (isValveOpenStageActive)
         {
             RegisterValveOpenedForQuest(valveHandle);
             return;
         }
 
-        // Close Äù½ºÆ® Áß¿¡ ´Ù½Ã ¿­¾úÀ» ¶§¸¸ Àá±İ Ä«¿îÆ®¿¡¼­ Á¦°Å
+        // Close í€˜ìŠ¤íŠ¸ ì¤‘ì— ë‹¤ì‹œ ì—´ì—ˆì„ ë•Œë§Œ ì ê¸ˆ ì¹´ìš´íŠ¸ì—ì„œ ì œê±°
         if (isValveCloseStageActive)
         {
             if (!closedValves.Remove(valveHandle))
@@ -249,13 +249,13 @@ public class ValveQuestManager : MonoBehaviour
             currentClosedValveCount = closedValves.Count;
             isAllValveClosed = false;
 
-            Debug.Log($"[Valve Stage] ¹ëºê Àá±İ ÇØÁ¦: {currentClosedValveCount}/{targetValveCloseCount}");
+            Debug.Log($"[Valve Stage] ë°¸ë¸Œ ì ê¸ˆ í•´ì œ: {currentClosedValveCount}/{targetValveCloseCount}");
 
             StartValveEmissionBlink(valveHandle);
             return;
         }
 
-        Debug.LogWarning("[Valve Stage] ÇöÀç ¹ëºê ¿­¸²À» Ã³¸®ÇÒ È°¼º ´Ü°è°¡ ¾ø½À´Ï´Ù.");
+        Debug.LogWarning("[Valve Stage] í˜„ì¬ ë°¸ë¸Œ ì—´ë¦¼ì„ ì²˜ë¦¬í•  í™œì„± ë‹¨ê³„ê°€ ì—†ìŠµë‹ˆë‹¤.");
     }
 
     private void CompleteValveCloseStage()
@@ -263,10 +263,10 @@ public class ValveQuestManager : MonoBehaviour
         isAllValveClosed = true;
         isValveCloseStageActive = false;
 
-        // ¿©±â¼­´Â È¤½Ã ³²¾ÆÀÖ´Â ÄÚ·çÆ¾ ¹æÁö¿ëÀ¸·Î ÀüÃ¼ Á¤¸®
+        // ì—¬ê¸°ì„œëŠ” í˜¹ì‹œ ë‚¨ì•„ìˆëŠ” ì½”ë£¨í‹´ ë°©ì§€ìš©ìœ¼ë¡œ ì „ì²´ ì •ë¦¬
         StopAllValveEmissionAndReset();
 
-        Debug.Log("[Valve Stage] ÃÑ 4°³ ¹ëºê Â÷´Ü ¿Ï·á");
+        Debug.Log("[Valve Stage] ì´ 4ê°œ ë°¸ë¸Œ ì°¨ë‹¨ ì™„ë£Œ");
         managerCenterUiManager.HideGuide();
         dialogueModeul.StartDialogueFrom("M2");
         onAllValveClosed?.Invoke();
@@ -279,11 +279,11 @@ public class ValveQuestManager : MonoBehaviour
             if (target == null || target.valveHandle == null)
                 continue;
 
-            // ´İ±â ´Ü°è¿¡¼­´Â ÀÌ¹Ì ´İÀº ¹ëºê´Â ±ôºıÀÌÁö ¾ÊÀ½
+            // ë‹«ê¸° ë‹¨ê³„ì—ì„œëŠ” ì´ë¯¸ ë‹«ì€ ë°¸ë¸ŒëŠ” ê¹œë¹¡ì´ì§€ ì•ŠìŒ
             if (isValveCloseStageActive && closedValves.Contains(target.valveHandle))
                 continue;
 
-            // ¿­±â ´Ü°è¿¡¼­´Â ÀÌ¹Ì ¿¬ ¹ëºê´Â ±ôºıÀÌÁö ¾ÊÀ½
+            // ì—´ê¸° ë‹¨ê³„ì—ì„œëŠ” ì´ë¯¸ ì—° ë°¸ë¸ŒëŠ” ê¹œë¹¡ì´ì§€ ì•ŠìŒ
             if (isValveOpenStageActive && openedValves.Contains(target.valveHandle))
                 continue;
 
@@ -297,7 +297,7 @@ public class ValveQuestManager : MonoBehaviour
 
         if (target == null)
         {
-            Debug.LogWarning($"[Valve Stage] {valveHandle.name}¿¡ ÇØ´çÇÏ´Â ValveBlinkTargetÀ» Ã£Áö ¸øÇß½À´Ï´Ù.");
+            Debug.LogWarning($"[Valve Stage] {valveHandle.name}ì— í•´ë‹¹í•˜ëŠ” ValveBlinkTargetì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -311,7 +311,7 @@ public class ValveQuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Æ¯Á¤ ¹ëºê ÇÏ³ª¸¸ Emission ²ô±â
+    /// íŠ¹ì • ë°¸ë¸Œ í•˜ë‚˜ë§Œ Emission ë„ê¸°
     /// </summary>
     public void StopValveEmissionAndReset(VavleHandle valveHandle)
     {
@@ -319,7 +319,7 @@ public class ValveQuestManager : MonoBehaviour
 
         if (target == null)
         {
-            Debug.LogWarning($"[Valve Stage] {valveHandle.name}¿¡ ÇØ´çÇÏ´Â ValveBlinkTargetÀ» Ã£Áö ¸øÇß½À´Ï´Ù.");
+            Debug.LogWarning($"[Valve Stage] {valveHandle.name}ì— í•´ë‹¹í•˜ëŠ” ValveBlinkTargetì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -327,7 +327,7 @@ public class ValveQuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀüÃ¼ ¹ëºê Emission ²ô±â
+    /// ì „ì²´ ë°¸ë¸Œ Emission ë„ê¸°
     /// </summary>
     public void StopAllValveEmissionAndReset()
     {
@@ -517,7 +517,7 @@ public class ValveQuestManager : MonoBehaviour
 
         StartAllValveEmissionBlink();
 
-        Debug.Log("[Valve Stage] ¹ëºê °³¹æ ´Ü°è ½ÃÀÛ");
+        Debug.Log("[Valve Stage] ë°¸ë¸Œ ê°œë°© ë‹¨ê³„ ì‹œì‘");
 
         foreach (var valvenav in valveNavObjects)
         {
@@ -529,7 +529,7 @@ public class ValveQuestManager : MonoBehaviour
     {
         if (!isValveOpenStageActive)
         {
-            Debug.LogWarning("[Valve Stage] ¹ëºê °³¹æ ´Ü°è°¡ ¾Æ´Õ´Ï´Ù.");
+            Debug.LogWarning("[Valve Stage] ë°¸ë¸Œ ê°œë°© ë‹¨ê³„ê°€ ì•„ë‹™ë‹ˆë‹¤.");
             return;
         }
 
@@ -541,7 +541,7 @@ public class ValveQuestManager : MonoBehaviour
 
         if (!openedValves.Add(valveHandle))
         {
-            Debug.Log($"[Valve Stage] ÀÌ¹Ì ¿­¸° ¹ëºêÀÔ´Ï´Ù. {currentOpenedValveCount}/{targetValveOpenCount}");
+            Debug.Log($"[Valve Stage] ì´ë¯¸ ì—´ë¦° ë°¸ë¸Œì…ë‹ˆë‹¤. {currentOpenedValveCount}/{targetValveOpenCount}");
             return;
         }
 
@@ -549,12 +549,12 @@ public class ValveQuestManager : MonoBehaviour
 
         StopValveEmissionAndReset(valveHandle);
 
-        Debug.Log($"[Valve Stage] ¹ëºê °³¹æ ¿Ï·á: {currentOpenedValveCount}/{targetValveOpenCount}");
+        Debug.Log($"[Valve Stage] ë°¸ë¸Œ ê°œë°© ì™„ë£Œ: {currentOpenedValveCount}/{targetValveOpenCount}");
 
         if (managerCenterUiManager != null)
         {
             managerCenterUiManager.ShowTemporaryGuide(
-                $"{valveHandle.name} °³¹æ¿Ï·á \n {currentOpenedValveCount}/{targetValveOpenCount}"
+                $"{valveHandle.name} ê°œë°©ì™„ë£Œ \n {currentOpenedValveCount}/{targetValveOpenCount}"
             );
         }
 
@@ -570,22 +570,22 @@ public class ValveQuestManager : MonoBehaviour
 
         StopAllValveEmissionAndReset();
 
-        Debug.Log("[Valve Stage] ÃÑ 4°³ ¹ëºê °³¹æ ¿Ï·á");
+        Debug.Log("[Valve Stage] ì´ 4ê°œ ë°¸ë¸Œ ê°œë°© ì™„ë£Œ");
 
         if (managerCenterUiManager != null)
             managerCenterUiManager.HideGuide();
 
         onAllValveOpened?.Invoke();
 
-        // ÇÊ¿äÇÏ¸é ´ÙÀ½ ´ëÈ­ ½ÇÇà
+        // í•„ìš”í•˜ë©´ ë‹¤ìŒ ëŒ€í™” ì‹¤í–‰
         ChageM8();
     }
-    #region ¾ÆÁö¶ûÀÌ ÆÄÆ¼Å¬ ½Ã³ª¸®¿À
+    #region ì•„ì§€ë‘ì´ íŒŒí‹°í´ ì‹œë‚˜ë¦¬ì˜¤
     public void StartHaze()
     {
         if (hazeControl != null)
             hazeControl.StartHaze();
-        managerCenterUiManager.PlayDarkFade("- 10ºĞ °æ°ú -");
+        managerCenterUiManager.PlayDarkFade("- 10ë¶„ ê²½ê³¼ -");
     }
     public void StopHaze()
     {
@@ -594,7 +594,7 @@ public class ValveQuestManager : MonoBehaviour
     }
     #endregion
 
-    #region ÀÓÀÇ·Î ½ºÅ×ÀÌÁö ¹Ù²Ş
+    #region ì„ì˜ë¡œ ìŠ¤í…Œì´ì§€ ë°”ê¿ˆ
     public void ChageM4()
     {
         dialogueModeul.StartDialogueFrom("M4");
@@ -613,7 +613,7 @@ public class ValveQuestManager : MonoBehaviour
     }
     #endregion
 
-    #region ´©ÃâÁöÁ¡ À§Ä¡Ç¥½Ã
+    #region ëˆ„ì¶œì§€ì  ìœ„ì¹˜í‘œì‹œ
 
     public void LeakPosActive()
     {
@@ -622,17 +622,18 @@ public class ValveQuestManager : MonoBehaviour
 
     #endregion
 
-    #region Å»ÃâÁöÁ¡ À§Ä¡Ç¥½Ã
+    #region íƒˆì¶œì§€ì  ìœ„ì¹˜í‘œì‹œ
     public void EscapePosActive()
     {
         escapePosObject.SetActive(true);
     }
     #endregion
 
-    #region ¸¶¹«¸® ´Ü°è ¹× ¾ÀÀÌµ¿
+    #region ë§ˆë¬´ë¦¬ ë‹¨ê³„ ë° ì”¬ì´ë™
     public void CompleteStage()
     {
-       managerCenterUiManager.PlayBackgroundDarkOnly();
+        PlayHistoryManager.Instance.ClearStage(PlayMode.GovernorStationRoom, 0);
+        managerCenterUiManager.PlayBackgroundDarkOnly();
     }
 
     public void LoadNextScene()

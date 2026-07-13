@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static UnityEngine.InputSystem.HID.HID;
 using static ValveControlConsole;
 
 public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
@@ -92,9 +93,11 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
     }
 
     private int reportID;
+    private int ScenarioIdx;
     public override void InitializeScenario(int assetIdx)
     {
-        var selectedAsset = ScenarioAssets[assetIdx];
+        ScenarioIdx = assetIdx;
+        var selectedAsset = ScenarioAssets[ScenarioIdx];
         var type = selectedAsset.Template.ScenarioType;
         var part = selectedAsset.BrokenPart;
 
@@ -232,7 +235,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         });
 
         simulation.Initialize();
-        mainMonitor.SetScreenInfo(selectedAsset.BluePrint, assetIdx, part);
+        mainMonitor.SetScreenInfo(selectedAsset.BluePrint, ScenarioIdx, part);
 
         IsScenarioInitialized = true;
 
@@ -265,10 +268,13 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void EndScenario()
     {
+        PlayHistoryManager.Instance.ClearStage(PlayMode.ControlRoom, ScenarioIdx);
         MonitorSwitcher.SetActive(false);
         CameraSwitcher.Revert();
 
-        SceneManager.LoadScene("KGSScene");
+        // 3초 기다림 => 3초동안 어두워짐 => 1초 대기 => 2초간 밝아짐
+        FadeUI.FadeOutIn(3, 2, 1, OnOutEnd : () =>
+                        SceneManager.LoadScene("KGSScene"));
     }
 
     public void ReportToManger()

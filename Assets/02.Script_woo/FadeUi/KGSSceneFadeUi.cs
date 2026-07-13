@@ -18,7 +18,7 @@ public class KGSSceneFadeUi : MonoBehaviour
 
     private void Start()
     {
-        if (!EnvironmentManager.isScenarioFinished)
+        if (!PlayHistoryManager.Instance.IsAllClear(PlayMode.StudyRoom))
             StartCoroutine(Fadeout());
     }
 

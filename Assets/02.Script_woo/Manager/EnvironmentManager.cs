@@ -17,8 +17,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] CameraController PlayerController;
 
     public string currentNodeID { get; private set; } = "";
-
-    public static bool isScenarioFinished { get; private set; } // 추후 플레이어 데이터 기반으로 판단
+    private bool isScenarioFinished = false;
 
     private void OnEnable()
     {
@@ -34,11 +33,19 @@ public class EnvironmentManager : MonoBehaviour
         DialogueEventBus.Unsubscribe(KGS_EnvEventType.StudyClear.ToString(), AllClear);
     }
 
-    private void Awake()
+    private void Start()
     {
-        if (isScenarioFinished)
+        var StudyModeHistoty = PlayHistoryManager.Instance?.GetHistory(PlayMode.StudyRoom);
+
+        if (StudyModeHistoty != null && StudyModeHistoty.IsAllClear)
         {
             PlayerController.MoveForObject(ModeSelectPos);
+        }
+        else
+        {
+            Debug.Log($"StudyModeHistoty: {StudyModeHistoty == null}\n" +
+                $"PlayHistoryManager.Instance: {PlayHistoryManager.Instance == null}\n" +
+                $"StudyModeHistoty.IsAllClear: {StudyModeHistoty.IsAllClear}");
         }
     }
 
@@ -96,5 +103,6 @@ public class EnvironmentManager : MonoBehaviour
         valve.ResetValve();
 
         Debug.Log("모든 시나리오 종료. 이제 미션 완료 대사가 나오지 않습니다.");
+        PlayHistoryManager.Instance.ClearStage(PlayMode.StudyRoom, 0);
     }
 }
