@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayHistoryManager : MonoBehaviour
 {
     public static PlayHistoryManager Instance;
-    public Dictionary<PlayMode, PlayHistory> PlayHistoryDict = new();
+    public Dictionary<EScenarioCategory, PlayHistory> PlayHistoryDict = new();
 
     private void Awake()
     {
@@ -28,9 +28,9 @@ public class PlayHistoryManager : MonoBehaviour
     {
         PlayHistoryDict.Clear();
 
-        PlayHistoryDict[PlayMode.StudyRoom] = new PlayHistory
+        PlayHistoryDict[EScenarioCategory.Study] = new PlayHistory
         {
-            Mode = PlayMode.StudyRoom,
+            Mode = EScenarioCategory.Study,
             History = new Dictionary<int, bool>()
             {
                 { 0, false }
@@ -39,7 +39,7 @@ public class PlayHistoryManager : MonoBehaviour
 
         var ctrlData = new PlayHistory
         {
-            Mode = PlayMode.ControlRoom,
+            Mode = EScenarioCategory.ControlRoom,
             History = new Dictionary<int, bool>()
         };
 
@@ -48,11 +48,11 @@ public class PlayHistoryManager : MonoBehaviour
             ctrlData.History[i] = false;
         }
 
-        PlayHistoryDict[PlayMode.ControlRoom] = ctrlData;
+        PlayHistoryDict[EScenarioCategory.ControlRoom] = ctrlData;
 
-        PlayHistoryDict[PlayMode.GovernorStationRoom] = new PlayHistory
+        PlayHistoryDict[EScenarioCategory.GovernorStationRoom] = new PlayHistory
         {
-            Mode = PlayMode.GovernorStationRoom,
+            Mode = EScenarioCategory.GovernorStationRoom,
             History = new Dictionary<int, bool>()
             {
                 { 0, false }
@@ -60,27 +60,25 @@ public class PlayHistoryManager : MonoBehaviour
         };
     }
 
-    public PlayHistory GetHistory(PlayMode mode)
+    public PlayHistory GetHistory(EScenarioCategory mode)
     {
         if (PlayHistoryDict.TryGetValue(mode, out PlayHistory history))
             return history;
         else return null;
     }
 
-    public bool IsAllClear(PlayMode mode)
+    public bool IsAllClear(EScenarioCategory mode)
     {
         if (PlayHistoryDict.TryGetValue(mode, out PlayHistory history))
             return history.IsAllClear;
         else return false;
     }
 
-    public void ClearStage(PlayMode mode, int stage = 0)
+    public void ClearStage(EScenarioCategory mode, int stage = 0)
     {
         if (PlayHistoryDict.TryGetValue(mode, out PlayHistory history))
         {
             history.History[stage] = true;
-
-            Debug.Log($"All Clear {history.IsAllClear}");
         }
     }
 }
@@ -88,14 +86,7 @@ public class PlayHistoryManager : MonoBehaviour
 [System.Serializable]
 public class PlayHistory
 {
-    public PlayMode Mode;
+    public EScenarioCategory Mode;
     public Dictionary<int, bool> History;
     public bool IsAllClear => History.Count > 0 && History.Values.All(v => v);
-}
-
-public enum PlayMode
-{
-    StudyRoom, 
-    ControlRoom,
-    GovernorStationRoom
 }

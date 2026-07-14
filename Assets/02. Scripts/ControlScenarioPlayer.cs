@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿     using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -173,7 +173,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                     break;
 
                 case "WP_Flash":
-                    mainMonitor.ShowWaringPoint(e.NodeID);
+                    mainMonitor.ShowWaringPoint();
                     break;
             }
         });
@@ -268,13 +268,21 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public override void EndScenario()
     {
-        PlayHistoryManager.Instance.ClearStage(PlayMode.ControlRoom, ScenarioIdx);
+        PlayHistoryManager.Instance?.ClearStage(EScenarioCategory.ControlRoom, ScenarioIdx);
         MonitorSwitcher.SetActive(false);
         CameraSwitcher.Revert();
 
         // 3초 기다림 => 3초동안 어두워짐 => 1초 대기 => 2초간 밝아짐
         FadeUI.FadeOutIn(3, 2, 1, OnOutEnd : () =>
-                        SceneManager.LoadScene("KGSScene"));
+                        {
+                            SceneRequest.Request = new ContentRequest
+                            {
+                                LastScene = ESceneName.ControlRoom, 
+                                ContentID = 2,
+                            };
+
+                            SceneManager.LoadScene("KGSScene");
+                        });
     }
 
     public void ReportToManger()

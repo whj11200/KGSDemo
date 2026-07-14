@@ -88,6 +88,13 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
 
     public void OnClickAlarm()
     {
+        if (scenarioPlayer.CurrentNodeId == AlarmNodeId)
+        {
+            BlinkButton.gameObject.SetActive(false);
+            PopupPanel.gameObject.SetActive(false);
+        }
+        else return;
+
         scenarioPlayer.CheckStep(AlarmNodeId);
     }
 
@@ -101,7 +108,7 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
     }
 
     private Coroutine WPBlinkRoutine = null;
-    public void ShowWaringPoint(int nodeID)
+    public void ShowWaringPoint()
     {
         var WP = WarnigPoints[WPIndex];
 

@@ -632,7 +632,7 @@ public class ValveQuestManager : MonoBehaviour
     #region 마무리 단계 및 씬이동
     public void CompleteStage()
     {
-        PlayHistoryManager.Instance.ClearStage(PlayMode.GovernorStationRoom, 0);
+        PlayHistoryManager.Instance.ClearStage(EScenarioCategory.GovernorStationRoom, 0);
         managerCenterUiManager.PlayBackgroundDarkOnly();
     }
 

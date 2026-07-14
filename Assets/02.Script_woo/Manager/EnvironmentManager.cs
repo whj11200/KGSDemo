@@ -106,5 +106,6 @@ public class EnvironmentManager : MonoBehaviour
 
         Debug.Log("모든 시나리오 종료. 이제 미션 완료 대사가 나오지 않습니다.");
         PlayHistoryManager.Instance.ClearStage(PlayMode.StudyRoom, 0);
+        PlayHistoryManager.Instance?.ClearStage(EScenarioCategory.Study, 0);
     }
 }

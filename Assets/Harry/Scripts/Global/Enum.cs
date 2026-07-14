@@ -1,11 +1,13 @@
-public enum ESceneName
+ï»¿public enum ESceneName
 {
-    Loading,
-    Tutorial,
-    Study,
-    Simulation,
+    Loading = 0,
+    Tutorial = 1,
+    KGSScene = 2,
+    Simulation = 3,
     Loading_Test = 4,
     Tutorial_Test = 5,
+    ManagementCenterWorkerLearningCenter = 6,
+    ControlRoom = 7
 }
 public enum EUiName
 {
@@ -17,20 +19,21 @@ public enum EScenarioCategory
     None,
     Tutorial,
     Study,
-    Simulation
+    ControlRoom,
+    GovernorStationRoom
 }
 public enum  EDialogueType
 {
-    Conversation, // NPC¿Í ´ëÈ­ÇÒ °æ¿ì(NPCÀÇ »óÅÂ°ª µî Á¦¾î°¡ ÇÊ¿äÇÒ °æ¿ì¿¡ »ç¿ë)
-    Monologue, // µ¶¹éÀÇ °æ¿ì
-    Explain, //¼³¸í¹®ÀÌ ¶ç¾îÁú °æ¿ì
+    Conversation, // NPCì™€ ëŒ€í™”í•  ê²½ìš°(NPCì˜ ìƒíƒœê°’ ë“± ì œì–´ê°€ í•„ìš”í•  ê²½ìš°ì— ì‚¬ìš©)
+    Monologue, // ë…ë°±ì˜ ê²½ìš°
+    Explain, //ì„¤ëª…ë¬¸ì´ ë„ì–´ì§ˆ ê²½ìš°
 }
 public enum  EActorType
 {
-    Dialogue,//´ë»ó object¿Í Æ¯Á¤ ´ëÈ­°¡ ÁøÇàµÇ¾ú´ÂÁö
-    Move, //´ë»ó objectÀÇ À§Ä¡°¡ Æ¯Á¤ À§Ä¡¿¡ µµ´ŞÇß´ÂÁö
-    Distance, // ´ë»ó object¿Í Æ¯Á¤ object »çÀÌÀÇ °Å¸®°¡ Æ¯Á¤ °ªº¸´Ù ÀÛ¾ÆÁ³´ÂÁö
-    Clicked, // ´ë»ó object°¡ Å¬¸¯µÇ¾ú´ÂÁö
+    Dialogue,//ëŒ€ìƒ objectì™€ íŠ¹ì • ëŒ€í™”ê°€ ì§„í–‰ë˜ì—ˆëŠ”ì§€
+    Move, //ëŒ€ìƒ objectì˜ ìœ„ì¹˜ê°€ íŠ¹ì • ìœ„ì¹˜ì— ë„ë‹¬í–ˆëŠ”ì§€
+    Distance, // ëŒ€ìƒ objectì™€ íŠ¹ì • object ì‚¬ì´ì˜ ê±°ë¦¬ê°€ íŠ¹ì • ê°’ë³´ë‹¤ ì‘ì•„ì¡ŒëŠ”ì§€
+    Clicked, // ëŒ€ìƒ objectê°€ í´ë¦­ë˜ì—ˆëŠ”ì§€
     Guide,
     Zoom,
     Active,
