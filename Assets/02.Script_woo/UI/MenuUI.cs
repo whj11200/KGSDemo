@@ -20,9 +20,12 @@ public class MenuUI : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var button in SelectContentButtons)
+        if (SelectContentButtons.Count > 0)
         {
-            Buttons[button.Button] = button;
+            foreach (var button in SelectContentButtons)
+            {
+                Buttons[button.Button] = button;
+            }
         }
     }
 
