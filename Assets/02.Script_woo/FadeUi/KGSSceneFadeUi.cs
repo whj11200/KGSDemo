@@ -20,8 +20,14 @@ public class KGSSceneFadeUi : MonoBehaviour
     {
         var req = SceneRequest.Request;
 
-        if (req == null)
+        if (req == null || req.LastScene == ESceneName.Tutorial)
+        {
             StartStudyRoom();
+        }
+        else
+        {
+            Debug.Log("Skip Startup");
+        }
     }
 
     public void StartStudyRoom()

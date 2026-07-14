@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
@@ -19,12 +20,16 @@ public class MenuUI : MonoBehaviour
 
     public void KGSScene(int content)
     {
+        var currentScene = SceneManager.GetActiveScene();
+        var sceneType = (ESceneName)currentScene.buildIndex;
+
         var ContentRequest = new ContentRequest
         {
+            LastScene = sceneType,
             ContentID = content
         };
 
-        if (SceneManager.GetActiveScene().name != ESceneName.KGSScene.ToString())
+        if (currentScene.name != ESceneName.KGSScene.ToString())
         {
             SceneRequest.Request = ContentRequest;
 

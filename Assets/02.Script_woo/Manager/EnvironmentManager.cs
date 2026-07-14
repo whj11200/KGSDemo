@@ -116,12 +116,14 @@ public class EnvironmentManager : MonoBehaviour
     {
         MovePlayer(contentRequest.ContentID);
 
-        if (contentRequest.ContentID != 0)
-            AllClear();
-        else
+        if (contentRequest.ContentID == 0)
         {
             InitializeNPC();
             NPC.ReStart();
+        }
+        else
+        {
+            AllClear();
         }
     }
 }
