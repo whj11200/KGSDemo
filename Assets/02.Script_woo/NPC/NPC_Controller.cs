@@ -149,7 +149,7 @@ public class NPC_Controller : MonoBehaviour
         agent.SetDestination(homePos);  
     }
 
-    public void ReStart()
+    public void EndingPosStop()
     {
         CurrentState = State.Idle;
 

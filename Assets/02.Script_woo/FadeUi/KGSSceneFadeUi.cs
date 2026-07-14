@@ -27,6 +27,7 @@ public class KGSSceneFadeUi : MonoBehaviour
         else
         {
             Debug.Log("Skip Startup");
+            envManager.TestRest();
         }
     }
 

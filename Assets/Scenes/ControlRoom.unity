@@ -2232,7 +2232,6 @@ MonoBehaviour:
   BackImage: {fileID: 345074585}
   ScreenImage: {fileID: 1133527255}
   PopupText: {fileID: 1775276622}
-  MessageWindow: {fileID: 1101534601}
   WarnigPoints:
   - {fileID: 769902566}
   - {fileID: 459302610}
@@ -8357,7 +8356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 50de12b71c66f404b9830f7a4d37902f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c8e2f2450e81c64385cab2f53ce2661, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

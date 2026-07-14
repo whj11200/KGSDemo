@@ -92,8 +92,7 @@ public class EnvironmentManager : MonoBehaviour
 
     public void AllClear()
     {
-        // [추가] AllClear가 호출되면 시나리오가 끝난 것으로 간주
-
+       
         isScenarioFinished = true;
         doorController.canOpen = true;
         valve.ResetValve();
@@ -119,11 +118,24 @@ public class EnvironmentManager : MonoBehaviour
         if (contentRequest.ContentID == 0)
         {
             InitializeNPC();
-            NPC.ReStart();
+            NPC.ResetAllEvents();
         }
         else
         {
             AllClear();
         }
+    }
+
+    public void TestRest()
+    {
+       if(NPC != null)
+        {
+            NPC.ResetAllEvents();
+        }
+       else
+        {
+            Debug.LogWarning("NPC 잃음");
+        }
+           
     }
 }
