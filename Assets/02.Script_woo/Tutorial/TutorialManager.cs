@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -6,11 +6,12 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] DialogueAsset scenarioAsset;
     [SerializeField] SceneChanger sceneChanger;
     [SerializeField] ManagerUIManager tutorialUIManager;
+    [SerializeField] NPC_Interaction NPC;
 
-    // [Ãß°¡] ÇöÀç ¾î¶² ½Ã³ª¸®¿À ³ëµå°¡ ÁøÇà ÁßÀÎÁö ÀúÀå
+    // [ì¶”ê°€] í˜„ì¬ ì–´ë–¤ ì‹œë‚˜ë¦¬ì˜¤ ë…¸ë“œê°€ ì§„í–‰ ì¤‘ì¸ì§€ ì €ì¥
     private void OnEnable()
     {
-        // NPC°¡ ´ëÈ­¸¦ ½ÃÀÛÇÏ¸é ³ªÇÑÅ× ¾Ë·Á´Ş¶ó°í µî·Ï
+        // NPCê°€ ëŒ€í™”ë¥¼ ì‹œì‘í•˜ë©´ ë‚˜í•œí…Œ ì•Œë ¤ë‹¬ë¼ê³  ë“±ë¡
         NPC_Controller.OnAnyDialogueStarted += HandleDialogueStart;
         DialogueEventBus.Subscribe(TutorialEventType.TutorilClaar.ToString(), AllClear_T);
         DialogueEventBus.Subscribe(TutorialEventType.CathingObject.ToString(), tutorialUIManager.OnCatchingObject);
@@ -19,16 +20,21 @@ public class TutorialManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // ¾ÀÀÌ ³¡³ª°Å³ª ÆÄ±«µÉ ¶§ ÇØÁ¦ (Áß¿ä!)
+        // ì”¬ì´ ëë‚˜ê±°ë‚˜ íŒŒê´´ë  ë•Œ í•´ì œ (ì¤‘ìš”!)
         NPC_Controller.OnAnyDialogueStarted -= HandleDialogueStart;
         DialogueEventBus.Unsubscribe(TutorialEventType.TutorilClaar.ToString(), AllClear_T);
     }
 
+    private void Start()
+    {
+        NPC.HandleHello();
+    }
+
     public void HandleDialogueStart(string nodeID)
     {
-        // ¿©±â¼­ S0, S1 µîÀ» ÆÇ´ÜÇØ¼­ ¸Å´ÏÀú »óÅÂ¸¦ µ¿±âÈ­!
+        // ì—¬ê¸°ì„œ S0, S1 ë“±ì„ íŒë‹¨í•´ì„œ ë§¤ë‹ˆì € ìƒíƒœë¥¼ ë™ê¸°í™”!
         this.currentNodeID = nodeID;
-        Debug.Log($"[Tutorial] NPC ´ëÈ­ °¨ÁöµÊ. ÇöÀç ´Ü°è: {currentNodeID}");
+        Debug.Log($"[Tutorial] NPC ëŒ€í™” ê°ì§€ë¨. í˜„ì¬ ë‹¨ê³„: {currentNodeID}");
     }
     public string currentNodeID { get; private set; } ="";
     public void CompleteMisson(TutorialEventType type)
@@ -42,11 +48,11 @@ public class TutorialManager : MonoBehaviour
             
 
             case TutorialEventType.ObjectClear:
-                nodeid = "S1"; // S1 ¹Ì¼Ç ¿Ï·á ½Ã
+                nodeid = "S1"; // S1 ë¯¸ì…˜ ì™„ë£Œ ì‹œ
                 tutorialUIManager.OnScroll();
                 break;
             case TutorialEventType.ScrollzoominoutClear:
-                nodeid = "S2"; // S2 ¹Ì¼Ç ¿Ï·á ½Ã
+                nodeid = "S2"; // S2 ë¯¸ì…˜ ì™„ë£Œ ì‹œ
                 tutorialUIManager.OnClear();
                 AllClear_T();
                 break;
@@ -56,7 +62,7 @@ public class TutorialManager : MonoBehaviour
 
         if (!string.IsNullOrEmpty(nodeid))
         {
-            currentNodeID = nodeid; // »óÅÂ ¾÷µ¥ÀÌÆ®
+            currentNodeID = nodeid; // ìƒíƒœ ì—…ë°ì´íŠ¸
             dialogueController.Play(scenarioAsset, nodeid);
         }
     }

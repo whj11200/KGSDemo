@@ -2892,6 +2892,7 @@ MonoBehaviour:
   scenarioAsset: {fileID: 11400000, guid: a14338d24100be44799d53ab69f54e7d, type: 2}
   sceneChanger: {fileID: 70018392}
   tutorialUIManager: {fileID: 76001433}
+  NPC: {fileID: 1526314955}
 --- !u!1 &500785158
 GameObject:
   m_ObjectHideFlags: 0
