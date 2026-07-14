@@ -1,18 +1,46 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
 {
-    [SerializeField]CameraController controller;
+    [SerializeField] CameraController controller;
+    [SerializeField] EnvironmentManager KGS;
+
+    private void OnEnable()
+    {
+        if (KGS == null)
+            KGS = FindFirstObjectByType<EnvironmentManager>();
+    }
+
     public void TutorialScene()
     {
-      SceneManager.LoadScene("Tutorial");
-      controller.ToggleMenu();
+        SwitchScene("Tutorial");
     }
-    public void KGSScene()
+
+    public void KGSScene(int content)
     {
-        SceneManager.LoadScene("KGSScene");
+        var ContentRequest = new ContentRequest
+        {
+            ContentID = content
+        };
+
+        if (SceneManager.GetActiveScene().name != ESceneName.KGSScene.ToString())
+        {
+            SceneRequest.Request = ContentRequest;
+
+            SwitchScene("KGSScene"); 
+        }
+        else
+        { 
+            KGS?.OpenContent(ContentRequest);
+            controller.ToggleMenu();
+        }
+    }
+
+    public void SwitchScene(string sceneName)
+    {
         controller.ToggleMenu();
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame()
@@ -23,4 +51,15 @@ public class MenuUI : MonoBehaviour
     Application.Quit();
 #endif
     }
+}
+
+public static class SceneRequest
+{
+    public static ContentRequest Request;
+}
+
+public class ContentRequest
+{
+    public ESceneName LastScene;
+    public int ContentID;
 }

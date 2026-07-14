@@ -7,7 +7,7 @@ public class KGSSceneFadeUi : MonoBehaviour
     [SerializeField] Image KGS_Img;
     [SerializeField] AudioSource KGS_Audio;
     [SerializeField] AudioClip KGS_Clip;
-    [SerializeField] NPC_Interaction anjeson;
+    [SerializeField] EnvironmentManager envManager;
 
     public bool isfinish = false;
 
@@ -18,11 +18,18 @@ public class KGSSceneFadeUi : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayHistoryManager.Instance.IsAllClear(PlayMode.StudyRoom))
-            StartCoroutine(Fadeout());
+        var req = SceneRequest.Request;
+
+        if (req == null)
+            StartStudyRoom();
     }
 
-    private IEnumerator Fadeout()
+    public void StartStudyRoom()
+    {
+        StartCoroutine(StartUp());
+    }
+
+    private IEnumerator StartUp()
     {
         if (KGS_Audio != null)
         {
@@ -33,7 +40,8 @@ public class KGSSceneFadeUi : MonoBehaviour
         KGS_Img.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.75f);
         isfinish = true;
-        anjeson.HandleHello();
+
+        envManager.InitializeNPC();
         this.gameObject.SetActive(false);
     }
 }

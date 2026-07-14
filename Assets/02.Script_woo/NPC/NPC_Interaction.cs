@@ -26,13 +26,8 @@ public class NPC_Interaction : MonoBehaviour
     }
     private void Start()
     {
-        
-        if (fadeUi == null)
-        {
-            Debug.Log("[NPC_Interaction] FadeUi가 없으므로 직접 HandleHello를 호출합니다.");
-            HandleHello();
-        }
     }
+
     private void OnEnable()
     {
         if (controller != null)
@@ -79,20 +74,18 @@ public class NPC_Interaction : MonoBehaviour
     // ------------------------
     public void HandleHello()
     {
-        // 페이드 UI가 끝났는지 확인 (기존 로직 유지)
-        if (fadeUi != null && !fadeUi.isfinish)
-        {
-            return;
-        }
-       
-       
         Debug.Log("[NPC_Interaction] HandleHello called");
         animDriver?.PlayHello();
 
         if (dialogueModule)
             dialogueModule.StartDialogue();
-
     }
+    
+    public void ReStart()
+    {
+        controller.ReStart();
+    }
+
     public void HandleArrivedAtGuide()
     {
         controller?.StopMoveAndFacePlayer();

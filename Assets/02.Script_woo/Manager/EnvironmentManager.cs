@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
@@ -12,8 +14,9 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] private ValveController valve;
     [SerializeField] DoorController doorController;
 
+    [SerializeField] NPC_Interaction NPC;
     [SerializeField] NPC_Controller npcController;
-    [SerializeField] Transform ModeSelectPos;
+    [SerializeField] List<Transform> TargetPoses = new();
     [SerializeField] CameraController PlayerController;
 
     public string currentNodeID { get; private set; } = "";
@@ -35,19 +38,10 @@ public class EnvironmentManager : MonoBehaviour
 
     private void Start()
     {
-        var StudyModeHistoty = PlayHistoryManager.Instance?.GetHistory(PlayMode.StudyRoom);
+        var SceneReq = SceneRequest.Request;
 
-        if (StudyModeHistoty != null && StudyModeHistoty.IsAllClear)
-        {
-            PlayerController.MoveForObject(ModeSelectPos);
-            AllClear();
-        }
-        else
-        {
-            Debug.Log($"StudyModeHistoty: {StudyModeHistoty == null}\n" +
-                $"PlayHistoryManager.Instance: {PlayHistoryManager.Instance == null}\n" +
-                $"StudyModeHistoty.IsAllClear: {StudyModeHistoty.IsAllClear}");
-        }
+        if (SceneReq != null)
+            MovePlayer(SceneReq.ContentID);
     }
 
     private void StartGasLeakAction() => valve?.StartLeak();
@@ -105,7 +99,29 @@ public class EnvironmentManager : MonoBehaviour
         valve.ResetValve();
 
         Debug.Log("모든 시나리오 종료. 이제 미션 완료 대사가 나오지 않습니다.");
-        PlayHistoryManager.Instance.ClearStage(PlayMode.StudyRoom, 0);
         PlayHistoryManager.Instance?.ClearStage(EScenarioCategory.Study, 0);
+    }
+
+    public void MovePlayer(int id)
+    {
+        PlayerController.MoveForObject(TargetPoses[id]);
+    }
+
+    public void InitializeNPC()
+    {
+        NPC.HandleHello();
+    }
+
+    public void OpenContent(ContentRequest contentRequest)
+    {
+        MovePlayer(contentRequest.ContentID);
+
+        if (contentRequest.ContentID != 0)
+            AllClear();
+        else
+        {
+            InitializeNPC();
+            NPC.ReStart();
+        }
     }
 }

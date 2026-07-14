@@ -1,4 +1,4 @@
-using System.Xml.Linq;
+ï»¿using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ public class LoadingManager : MonoBehaviour
 
     private void Awake()
     {
-        // ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ Á¸ÀçÇÏ¸é Áßº¹ Á¦°Å
+        // ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ì¡´ì¬í•˜ë©´ ì¤‘ë³µ ì œê±°
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -24,7 +24,7 @@ public class LoadingManager : MonoBehaviour
         }
         Instance = this;
 
-        // ¾ÀÀÌ ¹Ù²î¾îµµ À¯Áö
+        // ì”¬ì´ ë°”ë€Œì–´ë„ ìœ ì§€
         DontDestroyOnLoad(gameObject);
     }
     private void Start()

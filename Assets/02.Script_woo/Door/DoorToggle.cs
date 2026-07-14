@@ -1,8 +1,8 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class DoorToggle : MonoBehaviour,IMouseInteractable
 {
-    [SerializeField] DoorController doorController; // DoorController ¬¸¡∂
+    [SerializeField] DoorController doorController; // DoorController Ï∞∏Ï°∞
     public void ClickCancle()
     {
        
@@ -10,12 +10,12 @@ public class DoorToggle : MonoBehaviour,IMouseInteractable
 
     public void ClickEnter()
     {
-        doorController.RequestDoor(); // DoorController¿« ≈‰±€ «‘ºˆ »£√‚
+        
     }
 
     public void ClickExit()
     {
-    
+        doorController.RequestDoor(); // DoorControllerÏùò ÌÜ†Í∏Ä Ìï®Ïàò Ìò∏Ï∂ú
     }
 
     public void HoverEnter()
@@ -27,6 +27,4 @@ public class DoorToggle : MonoBehaviour,IMouseInteractable
     {
        
     }
-
-
 }

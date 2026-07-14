@@ -2,7 +2,7 @@
 
 public class ValveController : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
     // 파티클과 웅덩이 컨트롤러 연결 (필요 시)
     public ParticleSystem waterParticle;
@@ -11,10 +11,11 @@ public class ValveController : MonoBehaviour
     [SerializeField] GameObject vavleZone;
     [SerializeField]public bool isLeaking = false;
 
-    void Start()
+    void Awake()
     {
         waterParticle.Stop(); // 시작 시 파티클 비활성화
-        anim = GetComponent<Animator>();
+        if (anim == null)
+            anim = GetComponent<Animator>();
         
     }
 

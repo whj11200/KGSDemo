@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,6 +33,9 @@ public class NPC_Controller : MonoBehaviour
 
     private Vector3 homePos;
     private Quaternion homeRot;
+
+    private Vector3 InitPos;
+    private Quaternion InitRot;
     private float nextRepathTime;
     private bool arrivedAtGuide;
     private bool dialogueTriggered;
@@ -47,6 +50,9 @@ public class NPC_Controller : MonoBehaviour
         if (!agent) agent = GetComponent<NavMeshAgent>();
         homePos = returnPos ? returnPos.position : transform.position;
         homeRot = returnPos ? returnPos.rotation : transform.rotation;
+
+        InitPos = transform.position;
+        InitRot = transform.rotation;
     }
 
     private void Update()
@@ -56,13 +62,13 @@ public class NPC_Controller : MonoBehaviour
         CheckReturnHomeArrival();
     }
 
-    // Æ®¸®°Å¿¡¼­ È£ÃâµÊ
+    // íŠ¸ë¦¬ê±°ì—ì„œ í˜¸ì¶œë¨
     public void OnPlayerEnteredZone()
     {
-        // [Áß¿ä] NPC°¡ ¸ñÀûÁö¿¡ 'µµÂø'ÇØ¼­ '¸ØÃã' »óÅÂÀÏ ¶§¸¸ ÇÃ·¹ÀÌ¾î ÁøÀÔÀ» Çã¿ë
+        // [ì¤‘ìš”] NPCê°€ ëª©ì ì§€ì— 'ë„ì°©'í•´ì„œ 'ë©ˆì¶¤' ìƒíƒœì¼ ë•Œë§Œ í”Œë ˆì´ì–´ ì§„ì…ì„ í—ˆìš©
         if (CurrentState == State.StopMove && arrivedAtGuide)
         {
-            // ÀÌ¹Ì ´ë»ç°¡ ½ÇÇà ÁßÀÌ¸é Áßº¹ ½ÇÇà ¹æÁö
+            // ì´ë¯¸ ëŒ€ì‚¬ê°€ ì‹¤í–‰ ì¤‘ì´ë©´ ì¤‘ë³µ ì‹¤í–‰ ë°©ì§€
             if (dialogueTriggered) return;
 
             var key = CurrentDialogueKey;
@@ -70,14 +76,14 @@ public class NPC_Controller : MonoBehaviour
             {
                 dialogueTriggered = true;
                 OnGuideArrivedPlayerNear?.Invoke(key);
-                Debug.Log($"[Trigger] NPC ´ë±â Áß ÇÃ·¹ÀÌ¾î µµÂø: {key}");
+                Debug.Log($"[Trigger] NPC ëŒ€ê¸° ì¤‘ í”Œë ˆì´ì–´ ë„ì°©: {key}");
                 OnAnyDialogueStarted?.Invoke(key);
             }
         }
         else
         {
-            // NPC°¡ ¾ÆÁ÷ ÀÌµ¿ ÁßÀÌ°Å³ª ´Ù¸¥ »óÅÂÀÏ ¶§´Â Æ®¸®°Å¸¦ ¹«½ÃÇÔ
-            Debug.Log("[Trigger] NPC°¡ ¾ÆÁ÷ µµÂøÇÏÁö ¾Ê¾Æ Æ®¸®°Å¸¦ ¹«½ÃÇÕ´Ï´Ù.");
+            // NPCê°€ ì•„ì§ ì´ë™ ì¤‘ì´ê±°ë‚˜ ë‹¤ë¥¸ ìƒíƒœì¼ ë•ŒëŠ” íŠ¸ë¦¬ê±°ë¥¼ ë¬´ì‹œí•¨
+            Debug.Log("[Trigger] NPCê°€ ì•„ì§ ë„ì°©í•˜ì§€ ì•Šì•„ íŠ¸ë¦¬ê±°ë¥¼ ë¬´ì‹œí•©ë‹ˆë‹¤.");
         }
     }
 
@@ -125,42 +131,68 @@ public class NPC_Controller : MonoBehaviour
     public void ForceSetTargetIndex(int index)
     {
         targetIndex = index;
-        dialogueTriggered = false; // Æ®¸®°Å Àá±İµµ °°ÀÌ Ç®¾îÁÜ
-        arrivedAtGuide = true;    // µµÂø »óÅÂ À¯Áö
-        Debug.Log($"[NPC] ÀÎµ¦½º°¡ °­Á¦·Î {index}·Î ¼³Á¤µÇ¾ú½À´Ï´Ù.");
+        dialogueTriggered = false; // íŠ¸ë¦¬ê±° ì ê¸ˆë„ ê°™ì´ í’€ì–´ì¤Œ
+        arrivedAtGuide = true;    // ë„ì°© ìƒíƒœ ìœ ì§€
+        Debug.Log($"[NPC] ì¸ë±ìŠ¤ê°€ ê°•ì œë¡œ {index}ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
-    public void StartEnding() { CurrentState = State.EndingGuide; OnEndingStarted?.Invoke(); }
-    public void ForceReturnHome() { 
+    
+    public void StartEnding() 
+    { 
+        CurrentState = State.EndingGuide; 
+        OnEndingStarted?.Invoke(); 
+    }
+    
+    public void ForceReturnHome() 
+    { 
         CurrentState = State.ReturnHome; 
         agent.isStopped = false;
         agent.SetDestination(homePos);  
-         }
+    }
+
+    public void ReStart()
+    {
+        CurrentState = State.Idle;
+
+        agent.updateRotation = false;
+        agent.isStopped = true;
+
+        transform.position = InitPos;
+        transform.rotation = InitRot;
+
+        agent.isStopped = false;
+        agent.updateRotation = true;
+    }
+
     private void CheckReturnHomeArrival()
     {
         if (CurrentState == State.ReturnHome)
         {
-            // 1. ¿¡ÀÌÀüÆ®°¡ °æ·Î °è»ê ÁßÀÌ ¾Æ´Ï°í, ¸ñÀûÁö¿¡ °ÅÀÇ µµÂøÇß´ÂÁö È®ÀÎ
+            // 1. ì—ì´ì „íŠ¸ê°€ ê²½ë¡œ ê³„ì‚° ì¤‘ì´ ì•„ë‹ˆê³ , ëª©ì ì§€ì— ê±°ì˜ ë„ì°©í–ˆëŠ”ì§€ í™•ì¸
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
-                // 2. ¿¡ÀÌÀüÆ®ÀÇ ÀÚµ¿ È¸ÀüÀ» ²ô°í ¹°¸®Àû ÀÌµ¿À» ¸ØÃã
+                // 2. ì—ì´ì „íŠ¸ì˜ ìë™ íšŒì „ì„ ë„ê³  ë¬¼ë¦¬ì  ì´ë™ì„ ë©ˆì¶¤
                 agent.updateRotation = false;
                 agent.isStopped = true;
 
-                // 3. ¸ñÇ¥ È¸Àü°ª(homeRot)À¸·Î ¼­¼­È÷ ¶Ç´Â Áï½Ã È¸Àü
+                // 3. ëª©í‘œ íšŒì „ê°’(homeRot)ìœ¼ë¡œ ì„œì„œíˆ ë˜ëŠ” ì¦‰ì‹œ íšŒì „
                 transform.rotation = Quaternion.Lerp(transform.rotation, homeRot, Time.deltaTime * faceTurnSpeed * 0.01f);
 
-                // 4. °ÅÀÇ ´Ù µ¹¾Æ°¬´Ù¸é »óÅÂ Á¾·á (¿ÏÀü Á¤Áö)
+                // 4. ê±°ì˜ ë‹¤ ëŒì•„ê°”ë‹¤ë©´ ìƒíƒœ ì¢…ë£Œ (ì™„ì „ ì •ì§€)
                 if (Quaternion.Angle(transform.rotation, homeRot) < 0.1f)
                 {
-                    transform.rotation = homeRot; // ¸¶Áö¸·¿¡ µü ¸ÂÃã
+                    transform.rotation = homeRot; // ë§ˆì§€ë§‰ì— ë”± ë§ì¶¤
                     CurrentState = State.Idle;
                     OnReturnedHome?.Invoke();
 
-                    // ´Ù½Ã ¿òÁ÷ÀÏ ¶§¸¦ ´ëºñÇØ È¸Àü Á¦¾î±Ç º¹±¸
+                    // ë‹¤ì‹œ ì›€ì§ì¼ ë•Œë¥¼ ëŒ€ë¹„í•´ íšŒì „ ì œì–´ê¶Œ ë³µêµ¬
                     agent.updateRotation = true;
                 }
             }
         }
     }
-    public void StopMoveAndFacePlayer() { CurrentState = State.StopMove; agent.isStopped = true; }
+    public void StopMoveAndFacePlayer() 
+    { 
+        CurrentState = State.StopMove;
+        agent.isStopped = true; 
+    }
 }

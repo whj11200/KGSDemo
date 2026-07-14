@@ -353,15 +353,15 @@ public class CameraController : MonoBehaviour
 
     public void MoveForObject(Transform target)
     {
-        skipNextMouseDelta = true;
+        SetMoveLockState(true); 
+        transform.SetPositionAndRotation(target.position, target.rotation);
         SetMoveLockState(false);
-
-        transform.position = target.position;
-        transform.rotation = target.rotation;
     }
 
     public void SetMoveLockState(bool isLock)
     {
+        skipNextMouseDelta = isLock;
         ignoreMovement = isLock;
+        characterController.enabled = !isLock;
     }
 }
