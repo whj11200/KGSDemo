@@ -18580,6 +18580,7 @@ MonoBehaviour:
   jumpAction: {fileID: 0}
   popup: {fileID: 0}
   menu: {fileID: 5701931091207319005}
+  menual: {fileID: 13024936052856089}
   animator: {fileID: 8878027959904972191}
   HandlingPos: {fileID: 0}
   SpawnPos: {fileID: 0}
@@ -23704,6 +23705,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+--- !u!1 &13024936052856089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3845645510264244285, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+  m_PrefabInstance: {fileID: 3850643838222163236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1635186950786153966 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}

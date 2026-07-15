@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour
     [Header("GameObject References")]
     public GameObject popup;
     public GameObject menu;
+    public GameObject menual;
 
     [SerializeField] Animator animator;
 
@@ -307,7 +308,8 @@ public class CameraController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 Time.timeScale = 1f; // 게임 다시 재생
-
+                menual.SetActive(false);
+                
             }
         }
     }
@@ -315,8 +317,9 @@ public class CameraController : MonoBehaviour
     {
         bool active = !popup.activeSelf;
         popup.SetActive(active);
-
+        
         isPopupOpened = active;
+        
     }
 
     public void SetInputParam(float _rotSpeed, float _moveSpeed)

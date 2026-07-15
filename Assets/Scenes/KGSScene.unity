@@ -15025,6 +15025,11 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1266233730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 13024936052856089, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 991206423492936379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1277500795
 GameObject:
   m_ObjectHideFlags: 0
@@ -49122,6 +49127,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 155378098}
     - target: {fileID: 3317257287717226871, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+      propertyPath: menual
+      value: 
+      objectReference: {fileID: 1266233730}
+    - target: {fileID: 3317257287717226871, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: SpawnPos
       value: 
       objectReference: {fileID: 39504798}
@@ -49133,6 +49142,10 @@ PrefabInstance:
       propertyPath: scrollAction
       value: 
       objectReference: {fileID: 1739858168}
+    - target: {fileID: 5701931091207319005, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6254097778719486131, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.12

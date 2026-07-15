@@ -815,6 +815,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8813940524142407929, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
   m_PrefabInstance: {fileID: 120291616}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &120291618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 228057083811791464, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+  m_PrefabInstance: {fileID: 120291616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &182161053
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,6 +3100,7 @@ MonoBehaviour:
   jumpAction: {fileID: 0}
   popup: {fileID: 658094166}
   menu: {fileID: 120291617}
+  menual: {fileID: 120291618}
   animator: {fileID: 0}
   HandlingPos: {fileID: 226125950}
   SpawnPos: {fileID: 500785164}
