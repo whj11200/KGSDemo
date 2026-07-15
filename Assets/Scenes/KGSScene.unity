@@ -2418,6 +2418,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190662585}
   m_CullTransparentMesh: 1
+--- !u!1 &191398600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191398601}
+  - component: {fileID: 191398602}
+  - component: {fileID: 191398603}
+  m_Layer: 0
+  m_Name: MiniaTureSoundBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &191398601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191398600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.293, y: 0.815, z: 4.293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1945891058}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &191398602
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191398600}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.464242, y: 2.6443446, z: 1.1608491}
+  m_Center: {x: 0.06491709, y: 0, z: 0}
+--- !u!114 &191398603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191398600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e76b95ac860424e8535b334260cd83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MiniatureSoundBox
+  playersound: {fileID: 972927802}
+  sound: {fileID: 8300000, guid: 9aa873585a3146044b825ffb631c0e50, type: 3}
 --- !u!1 &199130841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3873,7 +3941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KGSSceneFadeUi
   KGS_Img: {fileID: 1060768350}
   KGS_Audio: {fileID: 972927802}
-  KGS_Clip: {fileID: 8300000, guid: 3f1152b7701c1f043b37713fb84b95f8, type: 3}
+  KGS_Clip: {fileID: 8300000, guid: a6812eae4895b79459023d20000b420d, type: 3}
   envManager: {fileID: 1075379023}
   isfinish: 0
 --- !u!1 &270926883
@@ -12285,7 +12353,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 825, y: 400}
+  m_SizeDelta: {x: 658.2, y: 255}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1060768350
 MonoBehaviour:
@@ -13317,8 +13385,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC9C0\uC5ED\uAD6C\uBD84 \uBCC0\uACBD \uC548\uC815\uC131 \uD3C9\uAC00\nVR
-    Simulation \uC744 \uC2DC\uC791\uD569\uB2C8\uB2E4."
+  m_text: "\uC774\uACF3\uC740 \uD559\uC2B5\uAD00\uC785\uB2C8\uB2E4. \n\uC790\uC720\uB86D\uAC8C
+    \uB458\uB7EC\uBCF4\uBA70 \uAC00\uC2A4 \uC548\uC804 \uC9C0\uC2DD\uACFC \n\uC548\uC804\uC7A5\uAD6C\uC5D0
+    \uB300\uD574 \uD559\uC2B5\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22d3a68e82363b045a61196f3cb8284e, type: 2}
   m_sharedMaterial: {fileID: -163470601482149475, guid: 22d3a68e82363b045a61196f3cb8284e, type: 2}
@@ -13345,8 +13414,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -26445,6 +26514,7 @@ Transform:
   - {fileID: 219584464}
   - {fileID: 1379197732}
   - {fileID: 402940507}
+  - {fileID: 191398601}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1950177484

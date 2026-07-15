@@ -38,18 +38,25 @@ public class KGSSceneFadeUi : MonoBehaviour
 
     private IEnumerator StartUp()
     {
-        if (KGS_Audio != null)
+        KGS_Img.gameObject.SetActive(true);
+
+        if (KGS_Audio != null && KGS_Clip != null)
         {
             KGS_Audio.PlayOneShot(KGS_Clip);
+
+            // 오디오 재생이 끝날 때까지 대기
+            yield return new WaitWhile(() => KGS_Audio.isPlaying);
         }
-        KGS_Img.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4f);
+
         KGS_Img.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.75f);
+
+        yield return new WaitForSeconds(0.1f);
+
         isfinish = true;
 
         // envManager.InitializeNPC();
         envManager.AllClear();
-        this.gameObject.SetActive(false);
+
+        gameObject.SetActive(false);
     }
 }
