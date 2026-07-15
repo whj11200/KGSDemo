@@ -36139,6 +36139,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772584099}
   m_Mesh: {fileID: -4829858388343734973, guid: 3f3276a63c78beb40a3e8b3d0921dccc, type: 3}
+--- !u!1 &776962537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3845645510264244285, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+  m_PrefabInstance: {fileID: 1420523432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &780792653
 GameObject:
   m_ObjectHideFlags: 0
@@ -171602,6 +171607,7 @@ MonoBehaviour:
   jumpAction: {fileID: 0}
   popup: {fileID: 0}
   menu: {fileID: 1420523434}
+  menual: {fileID: 776962537}
   animator: {fileID: 8878027960747479532}
   HandlingPos: {fileID: 0}
   SpawnPos: {fileID: 6254097779496029376}
