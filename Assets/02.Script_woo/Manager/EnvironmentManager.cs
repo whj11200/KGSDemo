@@ -41,7 +41,9 @@ public class EnvironmentManager : MonoBehaviour
         var SceneReq = SceneRequest.Request;
 
         if (SceneReq != null)
-            MovePlayer(SceneReq.ContentID);
+        {
+            OpenContent(SceneReq);
+        }
     }
 
     private void StartGasLeakAction() => valve?.StartLeak();
@@ -92,7 +94,6 @@ public class EnvironmentManager : MonoBehaviour
 
     public void AllClear()
     {
-       
         isScenarioFinished = true;
         doorController.canOpen = true;
         valve.ResetValve();
