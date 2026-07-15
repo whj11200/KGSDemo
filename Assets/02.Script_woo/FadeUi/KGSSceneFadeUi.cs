@@ -27,7 +27,7 @@ public class KGSSceneFadeUi : MonoBehaviour
         else
         {
             Debug.Log("Skip Startup");
-            envManager.TestRest();
+            // envManager.TestRest();
         }
     }
 
@@ -48,7 +48,8 @@ public class KGSSceneFadeUi : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         isfinish = true;
 
-        envManager.InitializeNPC();
+        // envManager.InitializeNPC();
+        envManager.AllClear();
         this.gameObject.SetActive(false);
     }
 }

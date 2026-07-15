@@ -115,17 +115,22 @@ public class EnvironmentManager : MonoBehaviour
     {
         MovePlayer(contentRequest.ContentID);
 
-        if (contentRequest.ContentID == 0)
-        {
-            InitializeNPC();
-            NPC.ResetAllEvents();
-        }
-        else
-        {
-            AllClear();
-        }
+        AllClear();
+
+        //if (contentRequest.ContentID == 0)
+        //{
+        //    InitializeNPC();
+
+              // 가스맨 이벤트 초기화
+        //    NPC.ResetAllEvents();
+        //}
+        //else
+        //{
+        //    AllClear();
+        //}
     }
 
+    // 가스맨 이벤트 초기화
     public void TestRest()
     {
        if(NPC != null)
