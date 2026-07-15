@@ -21,12 +21,14 @@ MonoBehaviour:
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: A1
-    npcEnterAction: 1
+    npcEnterAction: 6
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 7
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A1
     text: "\uC5EC\uAE30\uB294 \uD559\uC2B5\uAD00\uC785\uB2C8\uB2E4.\r\n\uC800 \uAC00\uC2A4\uB9E8\uC744
       \uB530\uB77C \uD559\uC2B5\uAD00\uC744 \uAD6C\uACBD\uD574 \uBCFC\uAE4C\uC694?"
@@ -38,9 +40,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 5
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S0
     text: "\uC5EC\uAE30\uC5D0\uC11C\uB294 \uBA54\uD0C4\uAC00\uC2A4\uC5D0 \uB300\uD55C
       \uC815\uBCF4\uB97C \uC54C\uC544\uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
@@ -52,9 +56,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A3
     text: "\uBA54\uD0C4\uAC00\uC2A4\uB294 \uBB34\uC0C9\xB7\uBB34\uCDE8\uC758 \uAC00\uC5F0\uC131
       \uAC00\uC2A4\uB85C \uACF5\uAE30\uC640 \uD63C\uD569\uB418\uBA74 \uD3ED\uBC1C
@@ -69,9 +75,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A3-1
     text: "\uB2E4\uC74C\uC73C\uB85C \uBA54\uD0C4\uAC00\uC2A4 \uB204\uCD9C \uBBF8\uB2C8
       \uCCB4\uD5D8\uC744 \uD574\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
@@ -83,9 +91,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 5
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S1
     text: "\uC774 \uBC30\uAD00\uC740 \uBA54\uD0C4\uAC00\uC2A4 \uC774\uC1A1\uC6A9
       \uBC30\uAD00\uC785\uB2C8\uB2E4."
@@ -97,9 +107,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 1
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A4
     text: "\uC790, \uC9C0\uAE08 \uACE0\uB18D\uB3C4\uC758 \uBA54\uD0C4\uC774 \uB204\uCD9C\uB418\uC5B4
       \n\uC544\uC9C0\uB791\uC774 \uD604\uC0C1\uC774 \uC77C\uC5B4\uB098\uACE0 \uC788\uC5B4\uC694."
@@ -111,9 +123,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A5
     text: "\uC800\uAE30 \uC788\uB294 \uAC00\uC2A4 \uAC10\uC9C0\uAE30\uB97C \uAC00\uC838\uC640\uC11C
       \n\uAC00\uC2A4 \uB18D\uB3C4\uB97C \uCE21\uC815\uD574 \uBCF4\uC138\uC694!"
@@ -125,9 +139,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S2
     text: "\uC774\uC81C \uAC00\uC2A4\uB97C \uCC28\uB2E8\uD558\uAE30 \uC704\uD574
       \uBC38\uBE0C\uB97C \uC7A0\uAC00 \uC8FC\uC138\uC694!"
@@ -139,9 +155,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S3
     text: "\uBC38\uBE0C\uAC00 \uC7A0\uACBC\uC2B5\uB2C8\uB2E4!\r\n\uB2E4\uC2DC \uAC00\uC2A4
       \uB18D\uB3C4\uB97C \uCE21\uC815\uD574 \uBCF4\uC138\uC694."
@@ -153,9 +171,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A6
     text: "\uAC00\uC2A4\uAC00 \uC644\uC804\uD788 \uCC28\uB2E8\uB418\uC5C8\uB124\uC694!\r\n\uAC04\uB7B5\uD558\uAC8C\uB098\uB9C8
       \uBA54\uD0C4\uAC00\uC2A4\uC758 \uC704\uD5D8\uC131\uACFC\n \uAC00\uC2A4 \uCC28\uB2E8\uC5D0
@@ -168,9 +188,11 @@ MonoBehaviour:
     npcEnterAction: 4
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A7
     text: "\uADF8\uB7FC, \uAC00\uC2A4 \uAC10\uC9C0\uAE30\uB97C \uBC18\uB0A9\uD574\uC8FC\uC2DC\uACE0\n\uB2E4\uC74C\uC73C\uB85C
       \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
@@ -182,9 +204,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 5
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S4
     text: "\uC5EC\uAE30\uC5D0\uC11C\uB294 \uAC00\uC2A4\uC0AC\uACE0 \uB300\uC751\uC694\uB839\uC5D0
       \uB300\uD574\n\uC54C\uC544\uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
@@ -196,9 +220,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A8
     text: "\uAC00\uC2A4 \uB204\uCD9C \uC2DC \uC5BC\uB978 \uC0AC\uC6A9\uC744 \uC911\uC9C0\uD558\uACE0,
       \uBC38\uBE0C\uB97C \uCC28\uB2E8\uD574\uC57C \uD558\uBA70\r\n\uC548\uC804\uC870\uCE58\uB97C
@@ -211,9 +237,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A9
     text: "\uC8FC\uC758 \uAE4A\uAC8C \uC77D\uC5B4\uBCF4\uC168\uB098\uC694?\r\n\uADF8\uB7FC,
       \uB2E4\uC74C\uC73C\uB85C \uC774\uB3D9\uD558\uACA0\uC2B5\uB2C8\uB2E4."
@@ -225,9 +253,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 5
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S5
     text: "\uC5EC\uAE30\uC5D0\uC11C\uB294 \uC548\uC804\uBCF4\uD638\uAD6C\uC5D0 \uB300\uD574
       \uC54C\uC544 \uBCF4\uACE0, \n\uCC29\uC6A9\uB3C4 \uD574 \uBCFC \uC218 \uC788\uC2B5\uB2C8\uB2E4. "
@@ -239,9 +269,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A10
     text: "\uC88C\uCE21\uC5D0\uB294 \uBCF4\uD638\uBCF5 \uC885\uB958\uAC00 \uC801\uD600
       \uC788\uC8E0?"
@@ -253,9 +285,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A11
     text: "1\uD615\uC2DD\uC740 \uAC00\uC2A4(\uAE30\uCCB4) \uBC0F \uC99D\uAE30\uB97C
       \uCC28\uB2E8\uD558\uB294 \uBC00\uD3D0\uD615 \uBCF4\uD638\uBCF5,\n3\xB74 \uD615\uC2DD\uC740
@@ -269,9 +303,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A12
     text: "\uADF8\uB7FC, \uC548\uC804\uBCF4\uD638\uAD6C \uCCB4\uD5D8\uC744 \uD574
       \uBCFC\uAE4C\uC694?"
@@ -283,9 +319,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 5
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S6
     text: "\uC5EC\uAE30 \uC788\uB294 \uC548\uC804\uBCF4\uD638\uAD6C\uB4E4\uC744 \uC790\uC720\uB86D\uAC8C
       \n\uCC29\uC6A9\uD574 \uBCF4\uC2E4 \uC218 \uC788\uC5B4\uC694."
@@ -297,9 +335,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A13
     text: "\uC6B0\uCE21\uC5D0 \uC788\uB294 3\xB74\uD615\uC2DD \uB9C8\uB124\uD0B9\uACFC
       \uB611\uAC19\uC774 \n\uBAA8\uB4E0 \uBCF4\uD638\uAD6C\uB97C \uCC29\uC6A9\uD574
@@ -312,9 +352,11 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S7
     text: "\uC544\uC8FC \uC548\uC804\uD574 \uBCF4\uC774\uACE0 \uC798 \uC5B4\uC6B8\uB9AC\uC2DC\uB294\uB370\uC694?"
     speakerId: "\uAC00\uC2A4\uB9E8"
@@ -325,9 +367,11 @@ MonoBehaviour:
     npcEnterAction: 4
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 0
     envExitEvent: 0
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: A14
     text: "\uC790, \uC774\uC81C \uD559\uC2B5\uAD00\uC744 \uBAA8\uB450 \uB458\uB7EC\uBD24\uC73C\uB2C8
       \n\uAC00\uC0C1\uCCB4\uD5D8\uAD00\uC73C\uB85C \uAC00 \uBCFC\uAE4C\uC694?"
@@ -339,6 +383,8 @@ MonoBehaviour:
     npcEnterAction: 2
     envEnterEvent: 0
     tutorialEnterEvent: 0
+    managerCenterWorkerLearningCenterEnterEvent: 0
     npcExitAction: 6
     envExitEvent: 5
     tutorialExitEvent: 0
+    managerCenterWorkerLearningCenterExitEvent: 0
