@@ -6853,7 +6853,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValveControler
   TargetValves: []
-  VentValves: []
   ScenarioType: 0
   Buttons: []
   ButtonRootsList:
@@ -6864,6 +6863,29 @@ MonoBehaviour:
   OpenColor: {r: 0.42352942, g: 0.8980392, b: 0.47843137, a: 1}
   CloseColor: {r: 0.8679245, g: 0.16470589, b: 0.23335704, a: 1}
   currentPhase: 0
+  OperationPhasesData:
+  - operation: 1
+    phaseDatas:
+    - phase: 1
+      IsOpen: 0
+  - operation: 2
+    phaseDatas:
+    - phase: 2
+      IsOpen: 1
+  - operation: 3
+    phaseDatas:
+    - phase: 2
+      IsOpen: 1
+    - phase: 1
+      IsOpen: 1
+  - operation: 4
+    phaseDatas:
+    - phase: 2
+      IsOpen: 1
+  - operation: 5
+    phaseDatas:
+    - phase: 4
+      IsOpen: 1
 --- !u!1 &1160592989
 GameObject:
   m_ObjectHideFlags: 0

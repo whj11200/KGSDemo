@@ -102,7 +102,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         var part = selectedAsset.BrokenPart;
 
         var valveList = new HashSet<ValveInfo>();
-        var vlaveDict = new Dictionary<string, ValveInfo>();
+        var valveDict = new Dictionary<string, ValveInfo>();
 
         foreach (var asset in ScenarioAssets)
         {
@@ -115,7 +115,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
         foreach (var v in valveList)
         {
-            vlaveDict[v.Name] = v;
+            valveDict[v.Name] = v;
         }
 
         simulation = selectedAsset.Template.CreateSimulation(selectedAsset);
@@ -125,7 +125,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
         mainMonitor.OnProcessBtn += ProcessScenario;
 
         ValveConsole.InitValveConsole(selectedAsset);
-        ValveConsole.AllButtonsDisable(vlaveDict);
+        ValveConsole.AllButtonsDisable(valveDict);
 
         ScenarioEventBus = simulation.EventBus;
 
@@ -175,31 +175,17 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                 case "WP_Flash":
                     mainMonitor.ShowWaringPoint();
                     break;
+
+                case "StopWPBlink":
+                    mainMonitor.StopWPBlink();
+                    break;
             }
         });
 
         SubscribeEvent(ScenarioEventType.ValveConsole, e =>
         {
-            switch(e.EventId)
-            {
-                case "Valve_Close":
-                    ValveConsole.SetTargetValve(ValveOperation.Isolate);
-                    mainMonitor.ShowValves();
-                    break;
-
-                case "Valve_Revert":
-                    if (e.StringValue == "IsolateOnly") 
-                        ValveConsole.SetTargetValve(ValveOperation.Restore_IsolateOnly);
-                    else 
-                        ValveConsole.SetTargetValve(ValveOperation.Restore);
-
-                    mainMonitor.ShowValves();
-                    break;
-
-                case "Valve_ConfirmVent":
-                    ValveConsole.ConfirmVent();
-                    break;
-            }
+            var oper = (ValveOperation)e.IntValue;
+            ValveConsole.SetTargetValve(oper);
         });
 
         SubscribeEvent(ScenarioEventType.Camera, e =>

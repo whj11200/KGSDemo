@@ -151,12 +151,13 @@ public class PipelineSimulation : SimulationBase
 
         GameNodes[4].OnTextEnd += () =>
         {
+            // 방산밸브 개방 확인
             EventBus.Publish(ScenarioEventType.ValveConsole,
                 new ScenarioEvent
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 4,
-                    EventId = "Valve_ConfirmVent"
+                    IntValue = 5,
                 });
 
             EventBus.Publish(ScenarioEventType.Animation,
@@ -168,9 +169,17 @@ public class PipelineSimulation : SimulationBase
                     StringValue = "SetTrigger",
                 }
             );
+
+            EventBus.Publish(ScenarioEventType.Monitor,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.Monitor,
+                    NodeID = 4,
+                    EventId = "StopWPBlink",
+                });
         };
 
-        // 7번: 밸브 조작 시작
+        // 구간차단
         GameNodes[5].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.ValveConsole,
@@ -178,7 +187,19 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 5,
-                    EventId = "Valve_Close"
+                    IntValue = 1,
+                });
+        };
+
+        // 방산밸브 개방
+        GameNodes[6].OnTextEnd += () =>
+        {
+            EventBus.Publish(ScenarioEventType.ValveConsole,
+                new ScenarioEvent
+                {
+                    EventType = ScenarioEventType.ValveConsole,
+                    NodeID = 6,
+                    IntValue = 2,
                 });
         };
 
@@ -217,6 +238,7 @@ public class PipelineSimulation : SimulationBase
                 });
         };
 
+        // 구간차단 => 정상화
         GameNodes[10].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.ValveConsole,
@@ -224,11 +246,11 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 10,
-                    StringValue = "IsolateOnly",
-                    EventId = "Valve_Revert"
+                    IntValue = 4,
                 });
         };
 
+        // 방산밸브 확인
         GameNodes[11].OnTextEnd += () =>
         {
             EventBus.Publish(ScenarioEventType.ValveConsole,
@@ -236,7 +258,7 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 11,
-                    EventId = "Valve_ConfirmVent"
+                    IntValue = 5,
                 });
         };
 

@@ -28,11 +28,20 @@ public class ValveControlConsole : MonoBehaviour
     public ValveOperation CurrentOperation { get; private set; }
     private Dictionary<string, bool> valveStates = new();
 
+    [SerializeField] private List<OperationPhase> OperationPhasesData = new();
+    private Dictionary<ValveOperation, PhaseData[]> OperationPhases = new();
+
     private void Awake()
     {
         foreach (var roots in ButtonRootsList)
         {
             ButtonRoots[roots.ScenarioType] = roots.Root;
+        }
+
+        OperationPhases.Clear();
+        foreach (var op in OperationPhasesData)
+        {
+            OperationPhases[op.operation] = op.phaseDatas;
         }
     }
 
@@ -41,6 +50,7 @@ public class ValveControlConsole : MonoBehaviour
         
     }
 
+    // 초기화 : 선택된 시나리오에서 사용되는 밸브 리스트화 및 각 버튼에 정보 주입
     public void InitValveConsole(ScenarioAsset asset)
     {
         ScenarioType = asset.Template.ScenarioType;
@@ -55,7 +65,7 @@ public class ValveControlConsole : MonoBehaviour
                         .Concat(asset.Valves_SectionVent)
                         .ToList();
 
-        VentValves =  asset.OverrideVentValveList ? asset.Valves_SectionVent : asset.Template.VentValves;
+        VentValves = asset.OverrideVentValveList ? asset.Valves_SectionVent : asset.Template.VentValves;
 
         valveInfos_Control.Clear(); 
         valveInfos_Vent.Clear();
@@ -67,15 +77,45 @@ public class ValveControlConsole : MonoBehaviour
             valveInfos_Vent[valve.Name] = valve;
     }
 
-    public void SetTargetValve(ValveOperation operation)
+    // 시나리오 노드별 조작이 필요한 밸브 세팅
+    // 목표 상태 설정, 해당 단계 완료 후 다음 단계는 어느 단계인지
+    public void SetTargetValve(ValveOperation operation) // true: open 목표, false: close 목표
     {
         CurrentOperation = operation;
+        currentPhase = ValvePhase.Complete;
+
+        if (Buttons == null || Buttons.Count == 0)
+            return;
+
+        if (valvePhases == null || valvePhases[0].phase == ValvePhase.None) return;
+
+        if (valvePhases[0].phase == ValvePhase.SectionIsolation)
+            SetPhase(0, valveInfos_Control);
+        else
+            SetPhase(0, valveInfos_Vent);
+
+    }
+
+    PhaseData[] valvePhases => OperationPhases[CurrentOperation];
+
+    // 첫 단계 설정
+    private void SetPhase(int idx, Dictionary<string, ValveInfo> TargetInfo, bool Switch = false)
+    {
+        if (idx >= valvePhases.Length)
+        {
+            return;
+        }
+
+        currentPhase = valvePhases[idx].phase;
+
+        Debug.Log($"currentPhase : {CurrentPhase}");
 
         valveStates.Clear();
 
         foreach (var button in Buttons)
         {
-            if (!valveInfos_Control.TryGetValue(button.name, out var info))
+            // 조작 대상 밸브 아님
+            if (!TargetInfo.TryGetValue(button.name, out var info))
             {
                 button.Phase = ValvePhase.None;
                 button.GetComponent<Image>().raycastTarget = false;
@@ -83,172 +123,56 @@ public class ValveControlConsole : MonoBehaviour
             }
 
             button.GetComponent<Image>().raycastTarget = true;
-
-            button.TargetState = operation == ValveOperation.Isolate
-                                ? info.TargetState
-                                : info.InitialState;
-
-            button.Phase = info.Phase;
-
+            button.Phase = currentPhase;
+            button.TargetState = valvePhases[idx].IsOpen;
             valveStates[button.name] = button.IsTargetState;
         }
-
-        SetStartPhase();
     }
 
-    private void SetStartPhase()
-    {
-        bool hasSI = TargetValves.Any(v => v.Phase == ValvePhase.SectionIsolation);
-        bool hasSV = TargetValves.Any(v => v.Phase == ValvePhase.SectionVent);
-
-        switch (CurrentOperation)
-        {
-            case ValveOperation.Isolate:
-                if (hasSI)
-                    currentPhase = ValvePhase.SectionIsolation;
-                else if (hasSV)
-                    currentPhase = ValvePhase.SectionVent;
-                else
-                    currentPhase = ValvePhase.Complete;
-                break;
-
-            case ValveOperation.Restore:
-                if (hasSV)
-                    currentPhase = ValvePhase.SectionVent;
-                else if (hasSI)
-                    currentPhase = ValvePhase.SectionIsolation;
-                else
-                    currentPhase = ValvePhase.Complete;
-                break;
-
-            case ValveOperation.Restore_IsolateOnly:
-                if (hasSV)
-                    currentPhase = ValvePhase.SectionIsolation;
-                else
-                    currentPhase= ValvePhase.Complete;
-                break;
-        }
-    }
-
-    public void ConfirmVent()
-    {
-        if (Buttons == null || Buttons.Count == 0)
-            return;
-
-        CurrentOperation = ValveOperation.Confirm;
-        currentPhase = ValvePhase.ConfirmVent;
-
-        var targets = Buttons.Where(b => VentValves.Any(v => v.Name == b.name))
-                             .ToList();
-
-        valveStates.Clear();
-
-        bool hasFault = UnityEngine.Random.value < 0.3f;
-
-        foreach (var button in targets)
-        {
-            var info = valveInfos_Vent[button.name];
-
-            button.GetComponent<Image>().raycastTarget = true;
-            button.Phase = ValvePhase.ConfirmVent;
-
-            button.TargetState = info.TargetState;
-
-            valveStates[button.name] = button.IsTargetState;
-        }
-
-        if (hasFault && targets.Count > 0)
-        {
-            var random = targets[UnityEngine.Random.Range(0, targets.Count)];
-            random.SetValveState(!random.TargetState);
-
-            valveStates[random.name] = random.IsTargetState;
-        }
-    }
-
+    // 각 버튼 클릭 시 호출되는 함수
+    // 해당 버튼이 타겟 상태를 만족하는지 확인
+    // 현재 단계에 해당하는 버튼들이 모두 타겟 상태를 만족할 경우 다음 단계 진행 혹은 클리어
     public void OnValveStateChanged(string valveName, bool isTargetState)
     {
-        if (CurrentOperation == ValveOperation.Confirm)
+        if (!valveStates.ContainsKey(valveName))
+            return;
+
+        valveStates[valveName] = isTargetState;
+
+        bool phaseComplete =
+            Buttons
+                .Where(b => b.Phase == currentPhase)
+                .All(b => valveStates[b.name]);
+
+        if (phaseComplete)
         {
-            if (!valveInfos_Vent.ContainsKey(valveName))
-                return;
+            CompleteCurrentPhase();
+        }
+    }
 
-            valveStates[valveName] = isTargetState;
-            bool confirmComplete = valveInfos_Vent.Keys.All(v => valveStates[v]);
+    private void CompleteCurrentPhase()
+    {
+        int index = Array.FindIndex(
+            valvePhases,
+            p => p.phase == currentPhase);
 
-            if (confirmComplete)
-                CompleteControl();
+        if (index < valvePhases.Length - 1)
+        {
+            var next = index + 1;
+
+            if (valvePhases[next].phase == ValvePhase.SectionIsolation)
+                SetPhase(next, valveInfos_Control);
+            else
+                SetPhase(next, valveInfos_Vent);
+
+            OnPhaseComplete?.Invoke(next);
         }
         else
         {
-            // 현재 상태 갱신
-            valveStates[valveName] = isTargetState;
+            Debug.Log($"CompleteControl : {currentPhase}");
 
-            bool siComplete = TargetValves
-                .Where(v => v.Phase == ValvePhase.SectionIsolation)
-                .All(v => valveStates[v.Name]);
-
-            bool svComplete = TargetValves
-                .Where(v => v.Phase == ValvePhase.SectionVent)
-                .All(v => valveStates[v.Name]);
-
-            switch (CurrentOperation)
-            {
-                case ValveOperation.Isolate:
-                    HandleIsolate(siComplete, svComplete);
-                    break;
-
-                case ValveOperation.Restore:
-                    HandleRestore(siComplete, svComplete);
-                    break;
-
-                case ValveOperation.Restore_IsolateOnly:
-                    if (siComplete) CompleteControl();
-                    break;
-            }
+            CompleteControl();
         }
-    }
-
-    private void HandleIsolate(bool siComplete, bool svComplete)
-    {
-        if (!siComplete)
-        {
-            currentPhase = ValvePhase.SectionIsolation;
-            return;
-        }
-
-        if (!svComplete)
-        {
-            if (currentPhase != ValvePhase.SectionVent)
-            {
-                currentPhase = ValvePhase.SectionVent;
-                OnPhaseComplete?.Invoke(2);
-            }
-            return;
-        }
-
-        CompleteControl();
-    }
-
-    private void HandleRestore(bool siComplete, bool svComplete)
-    {
-        if (!svComplete)
-        {
-            currentPhase = ValvePhase.SectionVent;
-            return;
-        }
-
-        if (!siComplete)
-        {
-            if (currentPhase != ValvePhase.SectionIsolation)
-            {
-                currentPhase = ValvePhase.SectionIsolation;
-                OnPhaseComplete?.Invoke(1);
-            }
-            return;
-        }
-
-        CompleteControl();
     }
 
     private void CompleteControl()
@@ -275,11 +199,12 @@ public class ValveControlConsole : MonoBehaviour
 
     public enum ValveOperation
     {
-        None,
-        Isolate,                // 차단
-        Restore,                // 복구
-        Restore_IsolateOnly,    // Isolate에 있는 밸브들만 복구
-        Confirm
+        None = 0,
+        Isolate = 1,                // 차단
+        Vent = 2,                   // 방산
+        Restore = 3,                // 복구
+        Restore_IsolateOnly = 4,    // Isolate에 있는 밸브들만 복구
+        Confirm = 5
     }
 
     [System.Serializable]
@@ -287,5 +212,19 @@ public class ValveControlConsole : MonoBehaviour
     {
         public ScenarioType ScenarioType;
         public GameObject Root;
+    }
+
+    [System.Serializable]
+    public struct PhaseData
+    {
+        public ValvePhase phase;
+        public bool IsOpen;
+    }
+
+    [System.Serializable]
+    public struct OperationPhase
+    {
+        public ValveOperation operation;
+        public PhaseData[] phaseDatas;
     }
 }

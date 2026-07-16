@@ -124,7 +124,7 @@ public class ControlRoomMonitor : MonoBehaviour, IControlRoomMonitor
         WPBlinkRoutine = StartCoroutine(Blink(WP));
     }
 
-    public void ShowValves()
+    public void StopWPBlink()
     {
         StopCoroutine(WPBlinkRoutine);
 

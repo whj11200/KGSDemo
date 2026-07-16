@@ -193,7 +193,6 @@ public class CameraController : MonoBehaviour
             // 점프 입력 확인
             if (jumpAction.action.triggered)
             {
-                
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 if (animator != null) animator.SetTrigger("Jump"); // 애니메이터에 Jump 트리거가 있다면 실행
             }
@@ -271,10 +270,13 @@ public class CameraController : MonoBehaviour
     {
         // TogglePopup();
         if(!returnToggle) return;
+
         Debug.Log("CameraController: Reset Position");
         characterController.enabled = false;
+
         gameObject.transform.SetPositionAndRotation(SpawnPos.position, SpawnPos.rotation);
         OnResetPosition?.Invoke(0);
+
         characterController.enabled = true;
         returnToggle = false;
     }
@@ -319,7 +321,6 @@ public class CameraController : MonoBehaviour
         popup.SetActive(active);
         
         isPopupOpened = active;
-        
     }
 
     public void SetInputParam(float _rotSpeed, float _moveSpeed)
