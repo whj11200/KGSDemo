@@ -2484,8 +2484,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e76b95ac860424e8535b334260cd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniatureSoundBox
-  playersound: {fileID: 972927802}
-  sound: {fileID: 8300000, guid: 9aa873585a3146044b825ffb631c0e50, type: 3}
+  KGS_Canvas: {fileID: 259864192}
+  KGS_Img: {fileID: 1060768350}
+  KGS_Text: {fileID: 1159696382}
+  KGS_Audio: {fileID: 972927802}
+  KGS_Clip: {fileID: 8300000, guid: 9aa873585a3146044b825ffb631c0e50, type: 3}
 --- !u!1 &199130841
 GameObject:
   m_ObjectHideFlags: 0
@@ -12353,7 +12356,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 658.2, y: 255}
+  m_SizeDelta: {x: 658.2, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1060768350
 MonoBehaviour:
