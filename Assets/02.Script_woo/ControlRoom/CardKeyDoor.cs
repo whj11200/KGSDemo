@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class CardKeyDoor : MonoBehaviour, IMouseInteractable
@@ -10,6 +10,7 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
     [Header("Door Setting")]
     [SerializeField] private float openDistance = 1.2f;
     [SerializeField] private float moveDuration = 1.0f;
+    [SerializeField] private float AutoCloseDelay = 5f;
 
     private Vector3 leftClosedPos;
     private Vector3 rightClosedPos;
@@ -24,15 +25,15 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
     {
         if (leftDoor == null || rightDoor == null)
         {
-            Debug.LogWarning("¹® ¿ÀºêÁ§Æ®°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning("ë¬¸ ì˜¤ë¸Œì íŠ¸ê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
-        // ÃÊ±â À§Ä¡ ÀúÀå
+        // ì´ˆê¸° ìœ„ì¹˜ ì €ì¥
         leftClosedPos = leftDoor.localPosition;
         rightClosedPos = rightDoor.localPosition;
 
-        // local XÃà ±âÁØÀ¸·Î ¹® ¿­¸² À§Ä¡ °è»ê
+        // local Xì¶• ê¸°ì¤€ìœ¼ë¡œ ë¬¸ ì—´ë¦¼ ìœ„ì¹˜ ê³„ì‚°
         leftOpenPos = leftClosedPos + Vector3.left * openDistance;
         rightOpenPos = rightClosedPos + Vector3.right * openDistance;
     }
@@ -73,6 +74,21 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
             StopCoroutine(moveCoroutine);
 
         moveCoroutine = StartCoroutine(MoveDoor(leftOpenPos, rightOpenPos));
+
+        if (CloseRoutine != null)
+        {
+            StopCoroutine(CloseRoutine);
+            CloseRoutine = null;
+        }
+
+        CloseRoutine = StartCoroutine(AutoClose());
+    }
+
+    private Coroutine CloseRoutine;
+    private IEnumerator AutoClose()
+    {
+        yield return new WaitForSeconds(AutoCloseDelay);
+        CloseDoor();
     }
 
     public void CloseDoor()
@@ -84,6 +100,13 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
 
         if (moveCoroutine != null)
             StopCoroutine(moveCoroutine);
+
+        if (CloseRoutine != null)
+        {
+            StopCoroutine(CloseRoutine);
+            CloseRoutine = null;
+        }
+
 
         moveCoroutine = StartCoroutine(MoveDoor(leftClosedPos, rightClosedPos));
     }
@@ -109,7 +132,7 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
 
             float t = timer / moveDuration;
 
-            // ºÎµå·¯¿î ¿òÁ÷ÀÓ
+            // ë¶€ë“œëŸ¬ìš´ ì›€ì§ì„
             t = Mathf.SmoothStep(0f, 1f, t);
 
             leftDoor.localPosition = Vector3.Lerp(startLeftPos, targetLeftPos, t);
