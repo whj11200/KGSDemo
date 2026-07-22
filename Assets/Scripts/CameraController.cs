@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
     [SerializeField, Range(0f, 1f)] private float footstepVolume = 0.7f;
+    [SerializeField] private float fadeOutTime = 0.2f;
     [SerializeField] private float minimumMoveSpeed = 0.1f;
+
     [Header("Movement Settings")]
     public float gravity = -9.81f;
     public float moveSpeed = 3.5f;
@@ -69,7 +72,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
-       
+
         if (mainCamera == null)
         {
             mainCamera = _mainCamera.transform;
@@ -94,29 +97,29 @@ public class CameraController : MonoBehaviour
         }
         isPopupOpened = false;
         targetFov = _mainCamera.fieldOfView;
-        if(menu != null)
+        if (menu != null)
         {
             menu.SetActive(false);
         }
-    
+
         //  DontDestroyOnLoad(gameObject);
-       
+
     }
 
     private void OnEnable()
     {
-        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.lockState = CursorLockMode.Locked;
         mouse = Mouse.current;
 
         moveInputAction.action.Enable();
         returnAction.action.Enable();
         scrollAction.action.Enable();
         tabAction.action.Enable();
-        if(jumpAction != null)
+        if (jumpAction != null)
         {
             jumpAction.action.Enable(); // 활성화
         }
-            
+
         returnAction.action.performed += OnReturnPerformed;
         scrollAction.action.performed += OnScroll;
         tabAction.action.performed += _ => ToggleMenu();
@@ -247,24 +250,26 @@ public class CameraController : MonoBehaviour
 
         //if (mouse.leftButton.isPressed && !raycaster.isDragging)
         //{
-            Vector2 delta = mouse.delta.ReadValue(); // 이번 프레임 마우스 이동량
-            float speed = delta.magnitude;                   // 이동 속도(픽셀 변화량)
+        Vector2 delta = mouse.delta.ReadValue(); // 이번 프레임 마우스 이동량
+        float speed = delta.magnitude;                   // 이동 속도(픽셀 변화량)
 
-            // 속도 기반 가속 생성 (1.0 ~ 3.0 사이에서 자연스럽게 증가)
-            float accel = Mathf.Lerp(1f, 3f, Mathf.Clamp01(speed * 0.05f));
+        // 속도 기반 가속 생성 (1.0 ~ 3.0 사이에서 자연스럽게 증가)
+        float accel = Mathf.Lerp(1f, 3f, Mathf.Clamp01(speed * 0.05f));
 
-            // 최종 회전량 = 이동량 × 감도 × 가속
-            float yaw = delta.x * rotateSpeed * 0.01f * accel;
-            float pitchDelta = delta.y * rotateSpeed * 0.01f * accel;
+        // 최종 회전량 = 이동량 × 감도 × 가속
+        float yaw = delta.x * rotateSpeed * 0.01f * accel;
+        float pitchDelta = delta.y * rotateSpeed * 0.01f * accel;
 
-            transform.Rotate(Vector3.up, yaw);
-            pitch -= pitchDelta;
-            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-            mainCamera.localRotation = Quaternion.Euler(pitch, 0, 0);
+        transform.Rotate(Vector3.up, yaw);
+        pitch -= pitchDelta;
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        mainCamera.localRotation = Quaternion.Euler(pitch, 0, 0);
         //}
     }
 
     bool initFov = false;
+    private Coroutine fadeCoroutine;
+
     private void HandleFovZoom()
     {
         if (!smooth || _mainCamera == null || Application.isFocused == false) return;
@@ -296,7 +301,7 @@ public class CameraController : MonoBehaviour
     private void OnReturnPerformed(InputAction.CallbackContext ctx)
     {
         // TogglePopup();
-        if(!returnToggle) return;
+        if (!returnToggle) return;
 
         Debug.Log("CameraController: Reset Position");
         characterController.enabled = false;
@@ -310,12 +315,14 @@ public class CameraController : MonoBehaviour
 
     public void ToggleMenu()
     {
-        
-        if(menu == null) return;
+        if (menu == null) return;
+
         // 오브젝트 활성화/비활성화 반전
         bool active = !menu.activeSelf;
+
         menu.SetActive(active);
         isMenuOpened = active;
+
         if (active)
         {
             // 메뉴가 켜지면: 마우스 자유롭게 + 보이기
@@ -325,7 +332,6 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            
             if (isPhoneOpened)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -333,20 +339,21 @@ public class CameraController : MonoBehaviour
                 Time.timeScale = 1f;
             }
             else
-            {// 메뉴가 꺼지면: 마우스 고정 + 숨기기
+            {
+                // 메뉴가 꺼지면: 마우스 고정 + 숨기기
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 Time.timeScale = 1f; // 게임 다시 재생
                 menual.SetActive(false);
-                
             }
         }
     }
+
     public void TogglePopup()
     {
         bool active = !popup.activeSelf;
         popup.SetActive(active);
-        
+
         isPopupOpened = active;
     }
 
@@ -384,7 +391,7 @@ public class CameraController : MonoBehaviour
 
     public void MoveForObject(Transform target)
     {
-        SetMoveLockState(true); 
+        SetMoveLockState(true);
         transform.SetPositionAndRotation(target.position, target.rotation);
         SetMoveLockState(false);
     }
@@ -395,6 +402,7 @@ public class CameraController : MonoBehaviour
         ignoreMovement = isLock;
         characterController.enabled = !isLock;
     }
+
     private void UpdateFootstepSound()
     {
         if (footstepAudioSource == null || characterController == null)
@@ -421,7 +429,29 @@ public class CameraController : MonoBehaviour
 
     private void StopFootstepSound()
     {
-        if (footstepAudioSource != null && footstepAudioSource.isPlaying)
-            footstepAudioSource.Stop();
+        if (footstepAudioSource == null || !footstepAudioSource.isPlaying)
+            return;
+
+        if (fadeCoroutine != null)
+            return;
+
+        fadeCoroutine = StartCoroutine(FadeOutFootstep());
+    }
+
+    private IEnumerator FadeOutFootstep()
+    {
+        float start = footstepAudioSource.volume;
+        float time = 0f;
+
+        while (time < fadeOutTime)
+        {
+            time += Time.deltaTime;
+            footstepAudioSource.volume = Mathf.Lerp(start, 0f, time / fadeOutTime);
+            yield return null;
+        }
+
+        footstepAudioSource.Stop();
+        footstepAudioSource.volume = footstepVolume;
+        fadeCoroutine = null;
     }
 }

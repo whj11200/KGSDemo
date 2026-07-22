@@ -14649,6 +14649,135 @@ Transform:
   - {fileID: 2569553488586122406}
   m_Father: {fileID: 8518997252887434641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5782675190332424604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2358876650822692749}
+  - component: {fileID: 4048051586660090240}
+  m_Layer: 8
+  m_Name: FooterSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2358876650822692749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782675190332424604}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6254097778719486131}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &4048051586660090240
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782675190332424604}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5842672813899783396
 GameObject:
   m_ObjectHideFlags: 0
@@ -18513,6 +18642,7 @@ Transform:
   m_Children:
   - {fileID: 3850906043662321026}
   - {fileID: 3754216526502970879}
+  - {fileID: 2358876650822692749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 177.376, z: 0}
 --- !u!143 &3199839651408569975
@@ -18552,6 +18682,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footstepAudioSource: {fileID: 4048051586660090240}
+  footstepClip: {fileID: 8300000, guid: 09666454ad621054d9e69d9794b87a48, type: 3}
+  footstepVolume: 0.7
+  fadeOutTime: 0.2
+  minimumMoveSpeed: 0.1
   gravity: -9.81
   moveSpeed: 5
   verticalVelocity: 0
@@ -18574,8 +18709,8 @@ MonoBehaviour:
   smoothTime: 10
   raycaster: {fileID: 1881153524532066115}
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  returnAction: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  scrollAction: {fileID: 6240969308177333660, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  returnAction: {fileID: 0}
+  scrollAction: {fileID: 0}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: 0}
   popup: {fileID: 0}
@@ -18616,10 +18751,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapMouseController
   teleporter: {fileID: 0}
   mapRoot: {fileID: 0}
-  zoomAction: {fileID: 3528866153260571881, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  panAction: {fileID: 8158218133931762490, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  panButtonAction: {fileID: -4090225696740746782, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  resetAction: {fileID: -5866461860315578703, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  zoomAction: {fileID: 0}
+  panAction: {fileID: 0}
+  panButtonAction: {fileID: 0}
+  resetAction: {fileID: 0}
   zoomSpeed: 0.1
   minZoom: 1
   maxZoom: 3
