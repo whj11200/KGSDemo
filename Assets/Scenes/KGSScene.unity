@@ -10314,6 +10314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08cda9cb57180e34f890cbe875a1d38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
+  audioSource: {fileID: 972927802}
+  clip: {fileID: 8300000, guid: cf97705662a074245bcaedda1f352a27, type: 3}
   doorL: {fileID: 103970805}
   doorR: {fileID: 1187515449}
   doorCollider: {fileID: 103970808}

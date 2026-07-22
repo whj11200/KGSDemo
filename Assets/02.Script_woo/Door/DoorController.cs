@@ -3,6 +3,10 @@ using System.Collections;
 
 public class DoorController : MonoBehaviour
 {
+    [Header("문소리 오디오 와 칩")]
+    public AudioSource audioSource;
+    public AudioClip clip;
+
     [Header("Door Objects")]
     [SerializeField] private Transform doorL;
     [SerializeField] private Transform doorR;
@@ -31,6 +35,7 @@ public class DoorController : MonoBehaviour
 
             if (doorRoutine != null) StopCoroutine(doorRoutine);
             doorRoutine = StartCoroutine(CoMoveDoor());
+            audioSource.PlayOneShot(clip);
         }
         else
         {
