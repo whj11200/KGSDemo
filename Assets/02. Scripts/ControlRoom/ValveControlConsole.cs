@@ -20,7 +20,8 @@ public class ValveControlConsole : MonoBehaviour
     [SerializeField] public Color CloseColor;
 
     [SerializeField] AudioSource AudioSource;
-    [SerializeField] AudioClip ClickClip;
+    [SerializeField] AudioClip OpenClip;
+    [SerializeField] AudioClip CloseClip;
 
     public event Action<int> OnPhaseComplete;
     public event Action OnControlComplete;
@@ -64,9 +65,7 @@ public class ValveControlConsole : MonoBehaviour
         Buttons.Clear();
         Buttons = root.GetComponentsInChildren<RemoteValveControlButton>(true).ToList();
 
-        TargetValves = asset.Valves_SectionIsolation
-                        .Concat(asset.Valves_SectionVent)
-                        .ToList();
+        TargetValves = asset.Valves_SectionIsolation;
 
         VentValves = asset.OverrideVentValveList ? asset.Valves_SectionVent : asset.Template.VentValves;
 
@@ -90,18 +89,20 @@ public class ValveControlConsole : MonoBehaviour
         if (Buttons == null || Buttons.Count == 0)
             return;
 
-        if (valvePhases == null || valvePhases[0].phase == ValvePhase.None) return;
+        if (valvePhases == null ||  valvePhases[0].phase == ValvePhase.None) return;
 
         if (valvePhases[0].phase == ValvePhase.SectionIsolation)
-            SetPhase(0, valveInfos_Control);
+            SetPhase(0, valveInfos_Control, GetTargetState(0));
         else
-            SetPhase(0, valveInfos_Vent);
+            SetPhase(0, valveInfos_Vent, GetTargetState(0));
     }
 
     PhaseData[] valvePhases => OperationPhases[CurrentOperation];
 
+    private bool GetTargetState(int idx) => OperationPhases[CurrentOperation][idx].IsOpen;
+
     // 첫 단계 설정
-    private void SetPhase(int idx, Dictionary<string, ValveInfo> TargetInfo, bool Switch = false)
+    private void SetPhase(int idx, Dictionary<string, ValveInfo> TargetInfo, bool target)
     {
         if (idx >= valvePhases.Length)
         {
@@ -126,7 +127,7 @@ public class ValveControlConsole : MonoBehaviour
 
             button.GetComponent<Image>().raycastTarget = true;
             button.Phase = currentPhase;
-            button.TargetState = valvePhases[idx].IsOpen;
+            button.TargetState = target;
             valveStates[button.name] = button.IsTargetState;
         }
     }
@@ -134,12 +135,12 @@ public class ValveControlConsole : MonoBehaviour
     // 각 버튼 클릭 시 호출되는 함수
     // 해당 버튼이 타겟 상태를 만족하는지 확인
     // 현재 단계에 해당하는 버튼들이 모두 타겟 상태를 만족할 경우 다음 단계 진행 혹은 클리어
-    public void OnValveStateChanged(string valveName, bool isTargetState)
+    public void OnValveStateChanged(string valveName, bool isTargetState, bool IsOpen)
     {
         if (!valveStates.ContainsKey(valveName))
             return;
 
-        AudioSource.PlayOneShot(ClickClip);
+        AudioSource.PlayOneShot(IsOpen? OpenClip : CloseClip);
         valveStates[valveName] = isTargetState;
 
         bool phaseComplete =
@@ -150,6 +151,16 @@ public class ValveControlConsole : MonoBehaviour
         if (phaseComplete)
         {
             CompleteCurrentPhase();
+        }
+        else
+        {
+            foreach (var button in Buttons)
+            {
+                if (button.Phase == currentPhase)
+                {
+                    Debug.Log($"{button.name} : {valveStates[button.name]}");
+                }
+            }
         }
     }
 
@@ -164,9 +175,9 @@ public class ValveControlConsole : MonoBehaviour
             var next = index + 1;
 
             if (valvePhases[next].phase == ValvePhase.SectionIsolation)
-                SetPhase(next, valveInfos_Control);
+                SetPhase(next, valveInfos_Control, GetTargetState(next));
             else
-                SetPhase(next, valveInfos_Vent);
+                SetPhase(next, valveInfos_Vent, GetTargetState(next));
 
             OnPhaseComplete?.Invoke(next);
         }

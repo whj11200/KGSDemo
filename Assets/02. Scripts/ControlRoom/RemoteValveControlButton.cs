@@ -37,7 +37,7 @@ public class RemoteValveControlButton : MonoBehaviour
             if (!IsOpen) SetValveState(true);
         }
 
-        parent.OnValveStateChanged(name, IsTargetState);
+        parent.OnValveStateChanged(name, IsTargetState, IsOpen);
     }
 
     public void InitValve(ValveInfo _ValveInfo, ValveOperation _valveOperation)
