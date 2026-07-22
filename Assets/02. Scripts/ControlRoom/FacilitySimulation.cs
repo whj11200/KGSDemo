@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static ValveControlConsole;
 
 public class FacilitySimulation : SimulationBase
 {
@@ -190,7 +191,7 @@ public class FacilitySimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 7,
-                    EventId = "Valve_Close"
+                    IntValue = 1,
                 });
 
             EventBus.Publish(ScenarioEventType.Animation,
@@ -251,7 +252,7 @@ public class FacilitySimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 11,
-                    EventId = "Valve_Revert"
+                    IntValue = (int)ValveOperation.Restore_IsolateOnly,
                 });
         };
 
@@ -263,7 +264,7 @@ public class FacilitySimulation : SimulationBase
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 12,
                     StringValue = GameNodes[12].Node.Content,
-                    EventId = "Valve_ConfirmVent"
+                    IntValue = (int)ValveOperation.Confirm,
                 });
         };
 

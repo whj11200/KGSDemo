@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ValveControlConsole;
 
 public class PipelineSimulation : SimulationBase
 {
@@ -187,21 +188,21 @@ public class PipelineSimulation : SimulationBase
                 {
                     EventType = ScenarioEventType.ValveConsole,
                     NodeID = 5,
-                    IntValue = 1,
+                    IntValue = (int)ValveOperation.Isolate,
                 });
         };
 
         // 방산밸브 개방
-        GameNodes[6].OnTextEnd += () =>
-        {
-            EventBus.Publish(ScenarioEventType.ValveConsole,
-                new ScenarioEvent
-                {
-                    EventType = ScenarioEventType.ValveConsole,
-                    NodeID = 6,
-                    IntValue = 2,
-                });
-        };
+        //GameNodes[6].OnTextEnd += () =>
+        //{
+        //    EventBus.Publish(ScenarioEventType.ValveConsole,
+        //        new ScenarioEvent
+        //        {
+        //            EventType = ScenarioEventType.ValveConsole,
+        //            NodeID = 6,
+        //            IntValue = (int)ValveOperation.Vent,
+        //        });
+        //};
 
         // 8번: 밸브 조작 완료 및 Fade In
         GameNodes[7].OnTextEnd += () =>
