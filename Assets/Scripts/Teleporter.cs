@@ -51,13 +51,14 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     [Header("Leak Mode")]
     [SerializeField] private LeakFire leakFire;
     [SerializeField] private LeakGas leakGas;
-
+    [SerializeField] private PlumbingSpecifications plumbingS;
     private LeakMode currentLeakMode = LeakMode.None;
     private enum LeakMode
     {
         None,
         Fire,
-        Gas
+        Gas,
+        Pipe
     }
 
     private void Awake()
@@ -130,6 +131,23 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         sliderTable.StartFillWithIndex(0);
         currentLeakMode = LeakMode.Gas;
         isButtonActive = true;
+    }
+    public void RequestPipeSpecification()
+    {
+        if(!isCanvas) return;
+        if(currentLeakMode == LeakMode.Pipe)
+        {
+            StopAllLeaks(false);
+            sliderTable.ResetFill();
+            return;
+        }
+    
+        StopAllLeaks(false);
+        sliderTable.StartFillWithIndex(2);
+        //plumbingS.ToggleUI();
+        currentLeakMode = LeakMode.Pipe;
+        isButtonActive = true;
+
     }
     private void StopAllLeaks(bool clear)
     {
