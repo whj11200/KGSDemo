@@ -9,8 +9,15 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
 
     [Header("Door Setting")]
     [SerializeField] private float openDistance = 1.2f;
-    [SerializeField] private float moveDuration = 1.0f;
+    [SerializeField] private float moveDuration = 2.0f;
     [SerializeField] private float AutoCloseDelay = 5f;
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource DoorSource;
+    [SerializeField] private AudioSource KeySource;
+    [SerializeField] private AudioClip OpenClip;
+    [SerializeField] private AudioClip CloseClip;
+    [SerializeField] private AudioClip KeyClip;
 
     private Vector3 leftClosedPos;
     private Vector3 rightClosedPos;
@@ -38,29 +45,9 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
         rightOpenPos = rightClosedPos + Vector3.right * openDistance;
     }
 
-    public void ClickCancle()
-    {
-
-    }
-
-    public void ClickEnter()
-    {
-        ToggleDoor();
-    }
-
     public void ClickExit()
     {
-
-    }
-
-    public void HoverEnter()
-    {
-
-    }
-
-    public void HoverExit()
-    {
-
+        ToggleDoor();
     }
 
     public void OpenDoor()
@@ -69,6 +56,8 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
         if (isOpen) return;
 
         isOpen = true;
+
+        PlaySound(DoorSource, OpenClip);
 
         if (moveCoroutine != null)
             StopCoroutine(moveCoroutine);
@@ -98,6 +87,8 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
 
         isOpen = false;
 
+        PlaySound(DoorSource, CloseClip);
+
         if (moveCoroutine != null)
             StopCoroutine(moveCoroutine);
 
@@ -107,12 +98,13 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
             CloseRoutine = null;
         }
 
-
         moveCoroutine = StartCoroutine(MoveDoor(leftClosedPos, rightClosedPos));
     }
 
     public void ToggleDoor()
     {
+        PlaySound(KeySource, KeyClip);
+
         if (isOpen)
             CloseDoor();
         else
@@ -146,4 +138,37 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
 
         moveCoroutine = null;
     }
+
+    private void PlaySound(AudioSource source, AudioClip clip)
+    {
+        if (source == null  ||  clip == null)
+            return;
+
+        if (source.isPlaying)
+            source.Stop();
+
+        source.PlayOneShot(clip);
+    }
+
+    #region UnUse
+    public void ClickCancle()
+    {
+
+    }
+
+    public void ClickEnter()
+    {
+
+    }
+
+    public void HoverEnter()
+    {
+
+    }
+
+    public void HoverExit()
+    {
+
+    }
+    #endregion
 }

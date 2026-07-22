@@ -15,6 +15,9 @@ public class ScenarioSelector : MonoBehaviour
     [SerializeField] CameraSwitcher CameraSwitcher;
     [SerializeField] CameraController CameraController;
 
+    [SerializeField] AudioSource AudioSource;
+    [SerializeField] AudioClip ClickClip;
+
     private void Start()
     {
         gameObject.SetActive(true);
@@ -27,6 +30,8 @@ public class ScenarioSelector : MonoBehaviour
 
     public void SelectScenario(int _chooseIdx)
     {
+        AudioSource.PlayOneShot(ClickClip);
+
         Buttons[ScenarioIndex].color = Color.white;
 
         ScenarioIndex = _chooseIdx;

@@ -19,6 +19,9 @@ public class ValveControlConsole : MonoBehaviour
     [SerializeField] public Color OpenColor;
     [SerializeField] public Color CloseColor;
 
+    [SerializeField] AudioSource AudioSource;
+    [SerializeField] AudioClip ClickClip;
+
     public event Action<int> OnPhaseComplete;
     public event Action OnControlComplete;
 
@@ -93,7 +96,6 @@ public class ValveControlConsole : MonoBehaviour
             SetPhase(0, valveInfos_Control);
         else
             SetPhase(0, valveInfos_Vent);
-
     }
 
     PhaseData[] valvePhases => OperationPhases[CurrentOperation];
@@ -137,6 +139,7 @@ public class ValveControlConsole : MonoBehaviour
         if (!valveStates.ContainsKey(valveName))
             return;
 
+        AudioSource.PlayOneShot(ClickClip);
         valveStates[valveName] = isTargetState;
 
         bool phaseComplete =
