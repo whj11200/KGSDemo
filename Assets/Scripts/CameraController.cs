@@ -4,6 +4,11 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("Footstep Sound")]
+    [SerializeField] private AudioSource footstepAudioSource;
+    [SerializeField] private AudioClip footstepClip;
+    [SerializeField, Range(0f, 1f)] private float footstepVolume = 0.7f;
+    [SerializeField] private float minimumMoveSpeed = 0.1f;
     [Header("Movement Settings")]
     public float gravity = -9.81f;
     public float moveSpeed = 3.5f;
@@ -73,7 +78,17 @@ public class CameraController : MonoBehaviour
         if (raycaster == null) raycaster = GetComponent<Raycaster>();
 
         characterController = GetComponent<CharacterController>();
-        if(popup != null)
+
+        if (footstepAudioSource != null)
+        {
+            footstepAudioSource.playOnAwake = false;
+            footstepAudioSource.loop = true;
+            footstepAudioSource.volume = footstepVolume;
+
+            if (footstepClip != null)
+                footstepAudioSource.clip = footstepClip;
+        }
+        if (popup != null)
         {
             popup.SetActive(false);
         }
@@ -109,31 +124,37 @@ public class CameraController : MonoBehaviour
 
     private void OnDisable()
     {
+        StopFootstepSound();
+
         moveInputAction.action.Disable();
         returnAction.action.Disable();
         scrollAction.action.Disable();
         tabAction.action.Disable();
-        if(jumpAction != null)
+
+        if (jumpAction != null)
         {
-            jumpAction.action.Disable(); // 비활성화
+            jumpAction.action.Disable();
         }
-  
+
         returnAction.action.performed -= OnReturnPerformed;
         scrollAction.action.performed -= OnScroll;
-        tabAction.action.performed -= _ => ToggleMenu();
     }
 
     private void Update()
     {
         if (isPopupOpened || isMenuOpened || isPhoneOpened)
         {
-            if (animator != null) animator.SetBool("isWalking", false);
+            if (animator != null)
+                animator.SetBool("isWalking", false);
+
+            StopFootstepSound();
             return;
         }
 
         if (Application.isFocused == false)
         {
             skipNextMouseDelta = true;
+            StopFootstepSound();
             return;
         }
 
@@ -164,49 +185,55 @@ public class CameraController : MonoBehaviour
     {
         if (ignoreMovement)
         {
-            if (animator != null) animator.SetBool("isWalking", false);
+            if (animator != null)
+                animator.SetBool("isWalking", false);
+
+            StopFootstepSound();
             return;
         }
 
         Vector2 input = moveInputAction.action.ReadValue<Vector2>();
 
-        // 입력이 있는지 확인 (0이 아니면 움직이는 중)
-        bool hasInput = input.sqrMagnitude > 0;
+        bool hasInput = input.sqrMagnitude > 0.01f;
 
-        // 애니메이션 파라미터 업데이트
-        if (animator != null)
-        {
-            animator.SetBool("isWalking", hasInput);
-        }
+        Vector3 move = transform.right * input.x +
+                       transform.forward * input.y;
 
-        Vector3 move = transform.right * input.x + transform.forward * input.y;
+        move = Vector3.ClampMagnitude(move, 1f);
         move *= moveSpeed;
-        // --- 점프 및 중력 로직 시작 ---
-        if (characterController.isGrounded && jumpAction != null)
-        {
-            // 땅에 닿아 있을 때 속도 초기화
-            if (verticalVelocity < 0)
-            {
-                verticalVelocity = -2f; // 완전히 0보다 약간 낮게 잡아야 지면 판정이 안정적입니다.
-            }
 
-            // 점프 입력 확인
-            if (jumpAction.action.triggered)
-            {
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                if (animator != null) animator.SetTrigger("Jump"); // 애니메이터에 Jump 트리거가 있다면 실행
-            }
-        }
-        // 중력 및 이동 로직 (기존과 동일)
-        if (characterController.isGrounded && verticalVelocity < 0)
+        if (characterController.isGrounded)
         {
-            verticalVelocity = -1f;
+            if (verticalVelocity < 0f)
+                verticalVelocity = -2f;
+
+            if (jumpAction != null && jumpAction.action.triggered)
+            {
+                verticalVelocity =
+                    Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+                if (animator != null)
+                    animator.SetTrigger("Jump");
+            }
         }
 
         verticalVelocity += gravity * Time.deltaTime;
         move.y = verticalVelocity;
 
         characterController.Move(move * Time.deltaTime);
+
+        Vector3 horizontalVelocity = characterController.velocity;
+        horizontalVelocity.y = 0f;
+
+        bool isWalking =
+            hasInput &&
+            characterController.isGrounded &&
+            horizontalVelocity.magnitude > minimumMoveSpeed;
+
+        if (animator != null)
+            animator.SetBool("isWalking", isWalking);
+
+        UpdateFootstepSound();
     }
 
     bool skipNextMouseDelta = false;
@@ -367,5 +394,34 @@ public class CameraController : MonoBehaviour
         skipNextMouseDelta = isLock;
         ignoreMovement = isLock;
         characterController.enabled = !isLock;
+    }
+    private void UpdateFootstepSound()
+    {
+        if (footstepAudioSource == null || characterController == null)
+            return;
+
+        Vector3 horizontalVelocity = characterController.velocity;
+        horizontalVelocity.y = 0f;
+
+        bool isActuallyMoving =
+            characterController.isGrounded &&
+            horizontalVelocity.magnitude > minimumMoveSpeed &&
+            !ignoreMovement;
+
+        if (isActuallyMoving)
+        {
+            if (!footstepAudioSource.isPlaying)
+                footstepAudioSource.Play();
+        }
+        else
+        {
+            StopFootstepSound();
+        }
+    }
+
+    private void StopFootstepSound()
+    {
+        if (footstepAudioSource != null && footstepAudioSource.isPlaying)
+            footstepAudioSource.Stop();
     }
 }
