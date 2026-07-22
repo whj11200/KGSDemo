@@ -8,7 +8,7 @@ using System;
 [Serializable]
 public class SuitParts
 {
-    
+   
     public SkinnedMeshRenderer targetRenderer;
     public Mesh suitMesh;
     public Material[] suitMaterials;
@@ -33,6 +33,10 @@ public enum PPEGroup
 
 public class PPEPartController : MonoBehaviour
 {
+    [Header("오디오소스 칩")]
+    public AudioSource playerSound;
+    public AudioClip getclip;
+    public AudioClip putclip;
     [Header("Basic Settings")]
     [SerializeField] private PPEPartMode mode;
     [SerializeField] private PPEGroup group;
@@ -118,7 +122,7 @@ public class PPEPartController : MonoBehaviour
         isEquipped = true;
         PPEGroupManager.Register(group);
         RefreshRig();
-
+        playerSound.PlayOneShot(getclip);
         if (p_meshRenderer != null) p_meshRenderer.enabled = false;
         if (returnText != null) returnText.SetActive(true);
     }
@@ -147,7 +151,7 @@ public class PPEPartController : MonoBehaviour
         isEquipped = false;
         PPEGroupManager.Unregister(group);
         RefreshRig();
-
+        playerSound.PlayOneShot(putclip);
         if (p_meshRenderer != null) p_meshRenderer.enabled = true;
         if (returnText != null) returnText.SetActive(false);
     }

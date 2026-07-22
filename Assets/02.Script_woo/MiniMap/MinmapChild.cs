@@ -4,6 +4,10 @@ public class MinmapChild : Minimapfuntioni, IMouseInteractable
 {
     [SerializeField] RegionalmapInteraction reginonalmap;
     [SerializeField] StructureParent structureParent;
+    public AudioClip clip;
+    public AudioSource source;
+
+   
     public override void Deselect()
     {
         // 부모의 시각적 해제 실행
@@ -15,6 +19,7 @@ public class MinmapChild : Minimapfuntioni, IMouseInteractable
     }
     public void ClickEnter()
     {
+        source.PlayOneShot(clip);
         // 부모에게 선택 로직 위임
         HandleSelection();
 

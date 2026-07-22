@@ -4,6 +4,11 @@ using UnityEngine.InputSystem;
 
 public class LNG_Detector : MonoBehaviour
 {
+
+    [Header("Sound")]
+    public AudioSource source;
+    public AudioClip getclip;
+    public AudioClip putclip;
     [Header("UI & Target")]
     public GameObject detectorCanvas;
     public TextMeshProUGUI valueText;
@@ -115,6 +120,7 @@ public class LNG_Detector : MonoBehaviour
         detectorCanvas.SetActive(false);
         if (returnText != null) returnText.SetActive(false); // "반납하기" 숨김
         valueText.color = Color.white;
+        source.PlayOneShot(putclip);
     } 
     private void TurnOnAndEquip()
     {
@@ -129,5 +135,6 @@ public class LNG_Detector : MonoBehaviour
         // 2. UI 및 텍스트 처리
         detectorCanvas.SetActive(true);
         if (returnText != null) returnText.SetActive(true); // "반납하기" 표시
+        source.PlayOneShot(getclip);
     }
 }

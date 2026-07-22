@@ -2,6 +2,9 @@
 
 public class ValveController : MonoBehaviour
 {
+    [Header("오디오사운드")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip v_clip;
     [SerializeField] private Animator anim;
 
     // 파티클과 웅덩이 컨트롤러 연결 (필요 시)
@@ -42,6 +45,7 @@ public class ValveController : MonoBehaviour
 
     private void CloseValve()
     {
+        audioSource.PlayOneShot(v_clip);
         isLeaking = false;
         anim.SetTrigger("Close"); // 애니메이터의 Close 트리거 발동
         manager.CompleteMission(KGS_EnvEventType.VavleCloseClear); // 미션 성공 처리
