@@ -59,6 +59,7 @@ public class ScenarioSelector : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        Buttons[ScenarioIndex].color = Color.white;
         ScenarioIndex = 0;
 
         CameraController.SetMoveLockState(false);
