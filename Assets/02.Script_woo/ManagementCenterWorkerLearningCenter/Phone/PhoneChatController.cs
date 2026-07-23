@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,13 +44,13 @@ public class PhoneChatController : MonoBehaviour
     {
         if (asset == null)
         {
-            Debug.LogError("PhoneChatController: PhoneChatAssetÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogError("PhoneChatController: PhoneChatAssetì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         if (asset.lines == null || asset.lines.Count == 0)
         {
-            Debug.LogError("PhoneChatController: ´ëÈ­ µ¥ÀÌÅÍ°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            Debug.LogError("PhoneChatController: ëŒ€í™” ë°ì´í„°ê°€ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -64,7 +64,7 @@ public class PhoneChatController : MonoBehaviour
         if (chatRoot != null)
             chatRoot.SetActive(true);
 
-        // ½ÃÀÛÇÏÀÚ¸¶ÀÚ Ã¹ ´ë»ç Ç¥½Ã
+        // ì‹œì‘í•˜ìë§ˆì ì²« ëŒ€ì‚¬ í‘œì‹œ
         SpawnLine(currentAsset.lines[currentIndex]);
         currentIndex++;
     }
@@ -99,14 +99,17 @@ public class PhoneChatController : MonoBehaviour
 
         if (prefab == null)
         {
-            Debug.LogWarning($"PhoneChatController: {line.side} ÇÁ¸®ÆÕÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"PhoneChatController: {line.side} í”„ë¦¬íŒ¹ì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         PhoneChatBubbleView bubble = Instantiate(prefab, contentRoot);
         bubble.SetData(line.speaker, line.message);
 
-        StartCoroutine(ScrollToBottomNextFrame());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRoot);
+        Canvas.ForceUpdateCanvases();
+
+        scrollRect.verticalNormalizedPosition = 0f;
     }
 
     private PhoneChatBubbleView GetPrefab(PhoneChatSide side)
