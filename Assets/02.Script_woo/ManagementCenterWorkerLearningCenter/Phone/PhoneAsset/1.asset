@@ -20,7 +20,7 @@ MonoBehaviour:
     speaker: 
     message: "\uC704\uCE58 \uD655\uC778 \uBC14\uB78D\uB2C8\uB2E4."
   - side: 0
-    speaker: "\uD1B5\uC81C\uC18C"
+    speaker: "\uD1B5\uC81C\uC18C \uAD00\uB9AC\uC790"
     message: "\uC815\uC555\uB77C\uC778 \uC778\uADFC\uC785\uB2C8\uB2E4.\r\n\uD604\uC7A5
       \uC811\uADFC \uAC00\uB2A5 \uC5EC\uBD80\uB97C \uD655\uC778\uD574 \uC8FC\uC138\uC694."
   - side: 1
