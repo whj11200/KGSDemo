@@ -18709,8 +18709,8 @@ MonoBehaviour:
   smoothTime: 10
   raycaster: {fileID: 1881153524532066115}
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  returnAction: {fileID: 0}
-  scrollAction: {fileID: 0}
+  returnAction: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  scrollAction: {fileID: 3528866153260571881, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: 0}
   popup: {fileID: 0}
@@ -18751,10 +18751,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapMouseController
   teleporter: {fileID: 0}
   mapRoot: {fileID: 0}
-  zoomAction: {fileID: 0}
-  panAction: {fileID: 0}
-  panButtonAction: {fileID: 0}
-  resetAction: {fileID: 0}
+  zoomAction: {fileID: 3528866153260571881, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  panAction: {fileID: 8158218133931762490, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  panButtonAction: {fileID: -4090225696740746782, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  resetAction: {fileID: -5866461860315578703, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   zoomSpeed: 0.1
   minZoom: 1
   maxZoom: 3

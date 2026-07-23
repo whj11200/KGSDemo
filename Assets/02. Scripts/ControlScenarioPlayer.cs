@@ -7,6 +7,7 @@ using System.Threading;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static UnityEngine.InputSystem.HID.HID;
@@ -278,6 +279,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public void SwitchCameraLeft()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         if (CameraIdx < MonitorCameras.Count - 1)
         {
             CameraIdx++;
@@ -287,6 +290,8 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
 
     public void SwitchCameraRight()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         if (CameraIdx > 0)
         {
             CameraIdx--;
