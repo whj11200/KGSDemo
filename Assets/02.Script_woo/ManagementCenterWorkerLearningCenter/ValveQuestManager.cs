@@ -126,14 +126,25 @@ public class ValveQuestManager : MonoBehaviour
             CloseVavleStage);
 
         DialogueEventBus.Unsubscribe(
+            ManagerCenterWorkerLearningCenterEventType.StartExitStage.ToString(),
+            EscapePosActive);
+
+        DialogueEventBus.Unsubscribe(
             ManagerCenterWorkerLearningCenterEventType.StartHazeStage.ToString(),
             StartHaze);
+
         DialogueEventBus.Unsubscribe(
             ManagerCenterWorkerLearningCenterEventType.StartLeakStage.ToString(),
             LeakPosActive);
+
+        DialogueEventBus.Unsubscribe(
+            ManagerCenterWorkerLearningCenterEventType.VavleOpenStage.ToString(),
+            OpenValveStage);
+
         DialogueEventBus.Unsubscribe(
             ManagerCenterWorkerLearningCenterEventType.EndStage.ToString(),
             CompleteStage);
+
         StopAllValveEmissionAndReset();
     }
 
@@ -625,7 +636,19 @@ public class ValveQuestManager : MonoBehaviour
     #region 탈출지점 위치표시
     public void EscapePosActive()
     {
-        escapePosObject.SetActive(true);
+        if(escapePosObject!= null)
+        {
+            escapePosObject.SetActive(true);
+        }
+        else
+        {
+            if (escapePosObject == null)
+            {
+                Debug.Log("없어유");
+            }
+            
+        }
+       
     }
     #endregion
 

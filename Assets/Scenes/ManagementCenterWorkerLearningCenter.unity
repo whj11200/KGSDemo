@@ -46858,6 +46858,7 @@ GameObject:
   - component: {fileID: 1037453940}
   - component: {fileID: 1037453942}
   - component: {fileID: 1037453941}
+  - component: {fileID: 1037453943}
   m_Layer: 0
   m_Name: control_panel_R
   m_TagString: Untagged
@@ -46937,6 +46938,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037453939}
   m_Mesh: {fileID: 2137058445380826455, guid: 078019327b333f64a99cdf28a9aeaf2f, type: 3}
+--- !u!65 &1037453943
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037453939}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0045800717, y: 0.01731613, z: 0.0150240045}
+  m_Center: {x: -0.000094685274, y: -0.0003835443, z: -0.00005729778}
 --- !u!1 &1043427061
 GameObject:
   m_ObjectHideFlags: 0
@@ -57970,7 +57992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1337456293
 Transform:
   m_ObjectHideFlags: 0
@@ -58005,8 +58027,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.75897014, y: 1, z: 1}
-  m_Center: {x: 0.12051515, y: -1.1573007e-14, z: -0.000000017991772}
+  m_Size: {x: 0.8731023, y: 1, z: 1}
+  m_Center: {x: 0.06344948, y: -5.3447893e-15, z: -0.000000009472408}
 --- !u!1 &1341620158
 GameObject:
   m_ObjectHideFlags: 0
@@ -186674,6 +186696,7 @@ MonoBehaviour:
   footstepAudioSource: {fileID: 592883552}
   footstepClip: {fileID: 8300000, guid: 09666454ad621054d9e69d9794b87a48, type: 3}
   footstepVolume: 0.7
+  fadeOutTime: 0.2
   minimumMoveSpeed: 0.1
   gravity: -9.81
   moveSpeed: 5
