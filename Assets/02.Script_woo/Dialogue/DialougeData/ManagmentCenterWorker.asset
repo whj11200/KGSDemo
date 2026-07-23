@@ -33,7 +33,7 @@ MonoBehaviour:
     managerCenterWorkerLearningCenterExitEvent: 1
   - nodeId: M1
     text: "\uB204\uCD9C \uAD6C\uAC04 \uCC28\uB2E8\uC744 \uC704\uD574 \uB204\uCD9C\uC9C0\uC810
-      \uC778\uADFC\uC758 \uBAA8\uB4E0 \uBC38\uBE0C\uB97C \uCC28\uB2E8\uD558\uC138\uC694."
+      \uC778\uADFC\uC758\n\uBAA8\uB4E0 \uBC38\uBE0C\uB97C \uCC28\uB2E8\uD558\uC138\uC694."
     speakerId: 
     voice: {fileID: 8300000, guid: 6b4c1a405869d524d98a0c6da111c653, type: 3}
     autoAdvanceDelay: 0
