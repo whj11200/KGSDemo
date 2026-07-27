@@ -655,7 +655,13 @@ public class ValveQuestManager : MonoBehaviour
     #region 마무리 단계 및 씬이동
     public void CompleteStage()
     {
-        PlayHistoryManager.Instance.ClearStage(EScenarioCategory.GovernorStationRoom, 0);
+        // PlayHistoryManager.Instance?.ClearStage(EScenarioCategory.GovernorStationRoom, 0);
+        SceneRequest.Request = new ContentRequest
+        {
+            LastScene = ESceneName.ManagementCenterWorkerLearningCenter,
+            ContentID = 2,
+        };
+
         managerCenterUiManager.PlayBackgroundDarkOnly();
     }
 

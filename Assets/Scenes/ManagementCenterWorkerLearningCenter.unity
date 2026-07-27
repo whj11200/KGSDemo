@@ -14875,7 +14875,7 @@ GameObject:
   - component: {fileID: 410090939}
   - component: {fileID: 410090942}
   m_Layer: 0
-  m_Name: Nav (1)
+  m_Name: Nav-31B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37696,7 +37696,7 @@ GameObject:
   - component: {fileID: 798571159}
   - component: {fileID: 798571162}
   m_Layer: 0
-  m_Name: Nav (3)
+  m_Name: Nav-21A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41956,6 +41956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VavleHandle
   audioSource: {fileID: 0}
   currentPosition: {x: 0, y: 0, z: 0}
+  Nav: {fileID: 0}
   rotateAngle: 360
   rotateDuration: 1
   isRotating: 0
@@ -44243,7 +44244,7 @@ GameObject:
   - component: {fileID: 978157463}
   - component: {fileID: 978157466}
   m_Layer: 0
-  m_Name: Nav
+  m_Name: Nav-31A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117511,7 +117512,7 @@ GameObject:
   - component: {fileID: 2124885091}
   - component: {fileID: 2124885094}
   m_Layer: 0
-  m_Name: Nav (2)
+  m_Name: Nav-21B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262262,6 +262263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VavleHandle
   audioSource: {fileID: 6926728696000271816}
   currentPosition: {x: 0, y: 0, z: 0}
+  Nav: {fileID: 410090942}
   rotateAngle: -360
   rotateDuration: 3
   isRotating: 0
@@ -287709,6 +287711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VavleHandle
   audioSource: {fileID: 8083269871512788819}
   currentPosition: {x: 0, y: 0, z: 0}
+  Nav: {fileID: 798571162}
   rotateAngle: -360
   rotateDuration: 3
   isRotating: 0
@@ -294057,6 +294060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VavleHandle
   audioSource: {fileID: 8328566075879596462}
   currentPosition: {x: 0, y: 0, z: 0}
+  Nav: {fileID: 2124885094}
   rotateAngle: -360
   rotateDuration: 3
   isRotating: 0
@@ -295622,6 +295626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VavleHandle
   audioSource: {fileID: 8381208015717279794}
   currentPosition: {x: 0, y: 0, z: 0}
+  Nav: {fileID: 978157466}
   rotateAngle: -360
   rotateDuration: 3
   isRotating: 0

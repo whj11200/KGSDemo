@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using UnityEngine;
 
 public class NavTriggerEnter : MonoBehaviour
@@ -6,8 +6,8 @@ public class NavTriggerEnter : MonoBehaviour
     [SerializeField] private GameObject arrow;
 
     [Header("Arrow Move")]
-    [SerializeField] private float moveDistance = 0.3f; // ≥ª∑¡∞• ∞≈∏Æ
-    [SerializeField] private float moveSpeed = 1f;      // ¿Ãµø º”µµ
+    [SerializeField] private float moveDistance = 0.3f; // ÎÇ¥Î†§Í∞à Í±∞Î¶¨
+    [SerializeField] private float moveSpeed = 1f;      // Ïù¥Îèô ÏÜçÎèÑ
 
     private Coroutine moveCoroutine;
     private Vector3 originLocalPosition;
@@ -17,7 +17,7 @@ public class NavTriggerEnter : MonoBehaviour
         //arrow = GetComponentInChildren<GameObject>();
         if (arrow == null)
         {
-            Debug.LogWarning("arrow∞° ø¨∞·µ«¡ˆ æ æ“Ω¿¥œ¥Ÿ.");
+            Debug.LogWarning("arrowÍ∞Ä Ïó∞Í≤∞ÎêòÏßÄ ÏïäÏïòÏäµÎãàÎã§.");
             return;
         }
 
@@ -33,17 +33,7 @@ public class NavTriggerEnter : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (moveCoroutine != null)
-            {
-                StopCoroutine(moveCoroutine);
-                moveCoroutine = null;
-
-
-                if (arrow != null)
-                    arrow.transform.localPosition = originLocalPosition;
-
-                this.gameObject.SetActive(false);
-            }
+            HideArrow();
         }
     }
 
@@ -72,5 +62,20 @@ public class NavTriggerEnter : MonoBehaviour
         }
 
         arrow.transform.localPosition = end;
+    }
+
+    public void HideArrow()
+    {
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+
+
+            if (arrow != null)
+                arrow.transform.localPosition = originLocalPosition;
+
+            this.gameObject.SetActive(false);
+        }
     }
 }

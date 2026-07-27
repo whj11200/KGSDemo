@@ -1,13 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class VavleHandle : MonoBehaviour, IMouseInteractable
 {
-    [Header("»ç¿îµå")]
+    [Header("ì‚¬ìš´ë“œ")]
     [SerializeField] private AudioSource audioSource;
     [Header("Object Position")]
     [SerializeField] private Vector3 currentPosition;
+    [SerializeField] private NavTriggerEnter Nav;
 
     [Header("Rotation Setting")]
     [SerializeField] private float rotateAngle = -360f;
@@ -152,6 +153,8 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             NotifyManagerValveOpened();
             onUnlockComplete?.Invoke();
         }
+
+        Nav?.HideArrow();
     }
 
     private void NotifyManagerValveClosed()
@@ -161,7 +164,7 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
 
         if (enviromentManager == null)
         {
-            Debug.LogWarning($"{name}: Manager_EnviromentManager°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning($"{name}: Manager_EnviromentManagerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
