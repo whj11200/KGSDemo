@@ -37,7 +37,7 @@ Material:
     - _Smoothness: 0.6
     - _UseSectionTexture: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.8207547, g: 0.814695, b: 0.7859113, a: 1}
     - _SectionColor: {r: 1, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

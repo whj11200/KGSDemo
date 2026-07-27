@@ -6,6 +6,9 @@ public class PlumbingSpecifications : MonoBehaviour, IMouseInteractable
     [Header("Script")]
     [SerializeField] private Teleporter teleporter;
 
+    [Header("Pump")]
+    [SerializeField]PipeInterestion pipeInterestion;
+
     [Header("Button")]
     [SerializeField] private Button uiButton;
     private Image uiButtonImage;
@@ -75,7 +78,7 @@ public class PlumbingSpecifications : MonoBehaviour, IMouseInteractable
     public void ClickEnter()
     {
         teleporter.RequestPipeSpecification();
-           
+        pipeInterestion.ToggleMaterialBlink();   
     }
 
     public void ClickExit()

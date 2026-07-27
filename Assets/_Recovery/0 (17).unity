@@ -2137,7 +2137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlumbingSpecifications
   teleporter: {fileID: 1241030041}
-  pipeInterestion: {fileID: 231548784}
   uiButton: {fileID: 109011958}
   uiPanel: {fileID: 101407506}
   originColor: {r: 0, g: 0, b: 0, a: 0}
@@ -3935,19 +3934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac12c7d20715654e8ad6edad2ae4b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipeInterestion
-  meshRenderer: {fileID: 0}
-  fillProp: _Fill
-  rippleColorProp: _RippleColor
-  materialColorProp: _BaseColor
   isActive: 0
-  minFill: 0.3
-  maxFill: 0.627
-  fillDuration: 2
-  targetMaterialColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  materialColorDuration: 1
-  isYellowColor: 0
-  blinkInterval: 0.5
-  isMaterialBlinking: 0
 --- !u!1 &235061674
 GameObject:
   m_ObjectHideFlags: 0
