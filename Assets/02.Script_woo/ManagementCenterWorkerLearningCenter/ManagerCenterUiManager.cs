@@ -1,8 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ManagerCenterUiManager : MonoBehaviour
 {
@@ -14,18 +15,22 @@ public class ManagerCenterUiManager : MonoBehaviour
     private string currentGuideMessage = "";
     private bool hasGuideMessage = false;
 
+    [Header("Valeve Quest Text Slot")]
+    [SerializeField] private List<TMP_Text> QuestText = new();
+    private Dictionary<string, TMP_Text> ValveInfoText = new();
+
     private Coroutine temporaryGuideCoroutine;
 
-    [Header("¾îµÎ¿î ÆäÀÌµå ÀÎ ¾Æ¿ô")]
+    [Header("ì–´ë‘ìš´ í˜ì´ë“œ ì¸ ì•„ì›ƒ")]
     [SerializeField] private Image backGroundimage;
     [SerializeField] private TextMeshProUGUI messageTextMeshPro;
 
     [Header("Fade Setting")]
-    [SerializeField] private float fadeStartDelay = 3f;      // ¸î ÃÊ µÚ ÆäÀÌµå ½ÃÀÛ
-    [SerializeField] private float fadeInDuration = 3f;      // ¾îµÎ¿öÁö´Â ½Ã°£
-    [SerializeField] private float textShowDelay = 2f;       // ÆäÀÌµå ½ÃÀÛ ÈÄ ÅØ½ºÆ® ¶ß´Â ½Ã°£
-    [SerializeField] private float darkHoldTime = 1f;        // ¿ÏÀüÈ÷ ¾îµÎ¿î »óÅÂ À¯Áö ½Ã°£
-    [SerializeField] private float fadeOutDuration = 3f;     // ´Ù½Ã ¹à¾ÆÁö´Â ½Ã°£
+    [SerializeField] private float fadeStartDelay = 3f;      // ëª‡ ì´ˆ ë’¤ í˜ì´ë“œ ì‹œì‘
+    [SerializeField] private float fadeInDuration = 3f;      // ì–´ë‘ì›Œì§€ëŠ” ì‹œê°„
+    [SerializeField] private float textShowDelay = 2f;       // í˜ì´ë“œ ì‹œì‘ í›„ í…ìŠ¤íŠ¸ ëœ¨ëŠ” ì‹œê°„
+    [SerializeField] private float darkHoldTime = 1f;        // ì™„ì „íˆ ì–´ë‘ìš´ ìƒíƒœ ìœ ì§€ ì‹œê°„
+    [SerializeField] private float fadeOutDuration = 3f;     // ë‹¤ì‹œ ë°ì•„ì§€ëŠ” ì‹œê°„
 
     [Header("Fade Complete Event")]
     [SerializeField] private UnityEvent onFadeComplete;
@@ -39,6 +44,14 @@ public class ManagerCenterUiManager : MonoBehaviour
             guidePanel.SetActive(false);
 
         InitFadeUI();
+
+        ValveInfoText.Clear();
+        foreach (var item in QuestText)
+        {
+            ValveInfoText[item.name] = item;
+        }
+
+        InitGuide();
     }
 
     private void InitFadeUI()
@@ -60,20 +73,28 @@ public class ManagerCenterUiManager : MonoBehaviour
 
     public void OnCatchingObject()
     {
-        Debug.Log("[TutorialUI] Àâ±â °¡ÀÌµå È°¼ºÈ­");
-        ShowGuide("¸¶¿ì½º ÁÂÅ¬¸¯À¸·Î ¼±ÅÃ");
+        Debug.Log("[TutorialUI] ì¡ê¸° ê°€ì´ë“œ í™œì„±í™”");
+        ShowGuide("ë§ˆìš°ìŠ¤ ì¢Œí´ë¦­ìœ¼ë¡œ ì„ íƒ");
     }
 
     public void OnScroll()
     {
-        Debug.Log("[TutorialUI] ÁÜÀÎ¾Æ¿ô °¡ÀÌµå È°¼ºÈ­");
-        ShowGuide("¸¶¿ì½º ½ºÅ©·Ñ·Î ÁÜÀÎ/ÁÜ¾Æ¿ô");
+        Debug.Log("[TutorialUI] ì¤Œì¸ì•„ì›ƒ ê°€ì´ë“œ í™œì„±í™”");
+        ShowGuide("ë§ˆìš°ìŠ¤ ìŠ¤í¬ë¡¤ë¡œ ì¤Œì¸/ì¤Œì•„ì›ƒ");
     }
 
     public void OnClear()
     {
-        Debug.Log("[TutorialUI] ÃÖÁ¾ °¡ÀÌµå È°¼ºÈ­");
-        ShowGuide("¹®À¸·Î °¡¼­ ÀÌµ¿ÇÏ±â");
+        Debug.Log("[TutorialUI] ìµœì¢… ê°€ì´ë“œ í™œì„±í™”");
+        ShowGuide("ë¬¸ìœ¼ë¡œ ê°€ì„œ ì´ë™í•˜ê¸°");
+    }
+
+    public void InitGuide()
+    {
+        foreach(var text in QuestText)
+        {
+            RevertValveGuideText(text, Color.white);
+        }
     }
 
     public void ShowGuide(string message)
@@ -84,7 +105,7 @@ public class ManagerCenterUiManager : MonoBehaviour
         ApplyGuideText(message);
     }
 
-    public void ShowTemporaryGuide(string temporaryMessage, float duration = 1f)
+    public void ShowTemporaryGuide(string valveName, float duration = 1f)
     {
         if (temporaryGuideCoroutine != null)
         {
@@ -92,25 +113,54 @@ public class ManagerCenterUiManager : MonoBehaviour
             temporaryGuideCoroutine = null;
         }
 
-        temporaryGuideCoroutine = StartCoroutine(TemporaryGuideRoutine(temporaryMessage, duration));
+        temporaryGuideCoroutine = StartCoroutine(TemporaryGuideRoutine(valveName, duration));
     }
 
-    private IEnumerator TemporaryGuideRoutine(string temporaryMessage, float duration)
+    private IEnumerator TemporaryGuideRoutine(string valveName, float duration)
     {
-        ApplyGuideText(temporaryMessage);
+        if (ValveInfoText.TryGetValue(valveName, out var text))
+        {
+            text.fontStyle = FontStyles.Strikethrough;
+            text.color = Color.green;
+        }
+        else yield break;
 
         yield return new WaitForSeconds(duration);
 
         temporaryGuideCoroutine = null;
+    }
 
-        if (hasGuideMessage)
+    public void RevertValveGuideText(string name, Color color)
+    {
+        if (ValveInfoText.TryGetValue(name, out var text))
         {
-            ApplyGuideText(currentGuideMessage);
+            RevertValveGuideText(text, color);
         }
-        else
+    }
+
+    private void RevertValveGuideText(TMP_Text text, Color color)
+    {
+        if (warnig != null)
         {
-            HideGuide();
+            StopCoroutine(warnig); 
+            warnig = null;
         }
+
+        text.color = color;
+        text.fontStyle = FontStyles.Normal;
+
+        if (color != Color.white)
+        {
+            warnig = StartCoroutine(ColorWarnigRoutine(text));
+        }
+    }
+
+    private Coroutine warnig = null;
+    private IEnumerator ColorWarnigRoutine(TMP_Text text)
+    {
+        yield return new WaitForSeconds(1);
+
+        text.color = Color.white;
     }
 
     public void HideGuide()
@@ -136,7 +186,7 @@ public class ManagerCenterUiManager : MonoBehaviour
         guidePanel.SetActive(true);
     }
 
-    // ¿ÜºÎ¿¡¼­ ÀÌ ÇÔ¼ö È£ÃâÇÏ¸é µÊ
+    // ì™¸ë¶€ì—ì„œ ì´ í•¨ìˆ˜ í˜¸ì¶œí•˜ë©´ ë¨
     public void PlayDarkFade(string message)
     {
         if (fadeCoroutine != null)
@@ -163,13 +213,13 @@ public class ManagerCenterUiManager : MonoBehaviour
 
         SetImageAlpha(0f);
 
-        // 1. 3ÃÊ µÚ ½ÃÀÛ
+        // 1. 3ì´ˆ ë’¤ ì‹œì‘
         yield return new WaitForSeconds(fadeStartDelay);
 
         float elapsed = 0f;
         bool isTextShown = false;
 
-        // 2. È­¸é ¾îµÎ¿öÁü
+        // 2. í™”ë©´ ì–´ë‘ì›Œì§
         while (elapsed < fadeInDuration)
         {
             elapsed += Time.deltaTime;
@@ -177,7 +227,7 @@ public class ManagerCenterUiManager : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / fadeInDuration);
             SetImageAlpha(t);
 
-            // 3. ÆäÀÌµå ½ÃÀÛ ÈÄ 2ÃÊÂë ÅØ½ºÆ® Ç¥½Ã
+            // 3. í˜ì´ë“œ ì‹œì‘ í›„ 2ì´ˆì¯¤ í…ìŠ¤íŠ¸ í‘œì‹œ
             if (!isTextShown && elapsed >= textShowDelay)
             {
                 ShowFadeText(message);
@@ -189,18 +239,18 @@ public class ManagerCenterUiManager : MonoBehaviour
 
         SetImageAlpha(1f);
 
-        // È¤½Ã textShowDelay°¡ fadeInDurationº¸´Ù Å©¸é ¿©±â¼­¶óµµ Ç¥½Ã
+        // í˜¹ì‹œ textShowDelayê°€ fadeInDurationë³´ë‹¤ í¬ë©´ ì—¬ê¸°ì„œë¼ë„ í‘œì‹œ
         if (!isTextShown)
         {
             ShowFadeText(message);
         }
         
-        // 4. ¾îµÎ¿î »óÅÂ Àá±ñ À¯Áö
+        // 4. ì–´ë‘ìš´ ìƒíƒœ ì ê¹ ìœ ì§€
         yield return new WaitForSeconds(darkHoldTime);
 
         elapsed = 0f;
         hazeControl.StopHaze();
-        // 5. ´Ù½Ã ¹à¾ÆÁü
+        // 5. ë‹¤ì‹œ ë°ì•„ì§
         while (elapsed < fadeOutDuration)
         {
             elapsed += Time.deltaTime;
@@ -220,7 +270,7 @@ public class ManagerCenterUiManager : MonoBehaviour
 
         fadeCoroutine = null;
 
-        // 6. ¿ÏÀüÈ÷ ¹à¾ÆÁö¸é ´Ù¸¥ ÇÔ¼ö ½ÇÇà
+        // 6. ì™„ì „íˆ ë°ì•„ì§€ë©´ ë‹¤ë¥¸ í•¨ìˆ˜ ì‹¤í–‰
         onFadeComplete?.Invoke();
     }
 

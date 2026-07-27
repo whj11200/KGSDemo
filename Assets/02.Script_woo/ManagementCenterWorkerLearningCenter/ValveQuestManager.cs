@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -97,6 +98,7 @@ public class ValveQuestManager : MonoBehaviour
         if (valveNameCanvas != null)
             valveNameCanvas.SetActive(false);
     }
+
     private void OnEnable()
     {
         DialogueEventBus.Subscribe(
@@ -191,7 +193,10 @@ public class ValveQuestManager : MonoBehaviour
         currentClosedValveCount = 0;
 
         if (managerCenterUiManager != null)
-            managerCenterUiManager.ShowGuide("- CLOSE : M-31A,31B,21B,21A -");
+        {
+            managerCenterUiManager.InitGuide();
+            managerCenterUiManager.ShowGuide("다음 밸브를 차단하세요.");
+        }
 
         if (valveNameCanvas != null)
             valveNameCanvas.SetActive(true);
@@ -208,41 +213,60 @@ public class ValveQuestManager : MonoBehaviour
 
     public void RegisterValveClosed(VavleHandle valveHandle)
     {
-        if (!isValveCloseStageActive)
-        {
-            Debug.LogWarning("[Valve Stage] 밸브 차단 단계가 아닙니다.");
-            return;
-        }
+        Debug.Log($"NotifyManagerValveClosed : {valveHandle.name}");
+
 
         if (valveHandle == null)
             return;
-
-        if (isAllValveClosed)
-            return;
-
-        if (!closedValves.Add(valveHandle))
+        
+        if (isValveCloseStageActive)
         {
-            Debug.Log($"[Valve Stage] 이미 잠긴 밸브입니다. {currentClosedValveCount}/{targetValveCloseCount}");
-            return;
+            if (!closedValves.Add(valveHandle))
+            {
+                Debug.Log($"[Valve Stage] 이미 잠긴 밸브입니다. {currentOpenedValveCount}/{targetValveOpenCount}");
+                return;
+            }
+
+            currentClosedValveCount = closedValves.Count;
+
+            // 핵심: 방금 돌린 밸브 하나만 Emission 끄기
+            StopValveEmissionAndReset(valveHandle);
+            valveHandle.ToggleArrow(false);
+
+            Debug.Log($"[Valve Stage] 밸브 잠금 완료: {currentClosedValveCount}/{targetValveCloseCount}");
+            // managerCenterUiManager.ShowTemporaryGuide($"{valveHandle.name} 차단완료 \n {currentClosedValveCount}/{targetValveCloseCount}");
+
+            managerCenterUiManager.ShowTemporaryGuide(valveHandle.name);
+
+            if (currentClosedValveCount >= targetValveCloseCount)
+            {
+                DelayUtil.Call(1, () => CompleteValveCloseStage());
+            }
         }
 
-        currentClosedValveCount = closedValves.Count;
-
-        // 핵심: 방금 돌린 밸브 하나만 Emission 끄기
-        StopValveEmissionAndReset(valveHandle);
-        valveHandle.ToggleArrow(false);
-
-        Debug.Log($"[Valve Stage] 밸브 잠금 완료: {currentClosedValveCount}/{targetValveCloseCount}");
-        managerCenterUiManager.ShowTemporaryGuide($"{valveHandle.name} 차단완료 \n {currentClosedValveCount}/{targetValveCloseCount}");
-        if (currentClosedValveCount >= targetValveCloseCount)
+        //  Open 퀘스트 중이면 개방 카운트에서 제거
+        if (isValveOpenStageActive)
         {
-            CompleteValveCloseStage();
+            if (!openedValves.Remove(valveHandle))
+                return;
+
+            currentOpenedValveCount = openedValves.Count;
+            isAllValveOpened = false;
+
+            StartValveEmissionBlink(valveHandle);
+            valveHandle.ToggleArrow(true);
+            managerCenterUiManager.RevertValveGuideText(valveHandle.name, Color.tomato);
+
+            return;
         }
     }
 
     public void RegisterValveOpened(VavleHandle valveHandle)
     {
         if (valveHandle == null)
+            return;
+
+        if (isAllValveOpened)
             return;
 
         // Open 퀘스트 중이면 Open 퀘스트 카운트로 처리
@@ -266,6 +290,8 @@ public class ValveQuestManager : MonoBehaviour
 
             StartValveEmissionBlink(valveHandle);
             valveHandle.ToggleArrow(true);
+            managerCenterUiManager.RevertValveGuideText(valveHandle.name, Color.tomato);
+
             return;
         }
 
@@ -524,7 +550,10 @@ public class ValveQuestManager : MonoBehaviour
         currentOpenedValveCount = 0;
 
         if (managerCenterUiManager != null)
-            managerCenterUiManager.ShowGuide("- OPEN : M-31A,31B,21B,21A -");
+        {
+            managerCenterUiManager.InitGuide();
+            managerCenterUiManager.ShowGuide("다음 밸브를 개방하세요.");
+        }
 
         if (valveNameCanvas != null)
             valveNameCanvas.SetActive(true);
@@ -539,6 +568,7 @@ public class ValveQuestManager : MonoBehaviour
                 valvenav.SetActive(true);
         }
     }
+
     public void RegisterValveOpenedForQuest(VavleHandle valveHandle)
     {
         if (!isValveOpenStageActive)
@@ -567,16 +597,15 @@ public class ValveQuestManager : MonoBehaviour
 
         if (managerCenterUiManager != null)
         {
-            managerCenterUiManager.ShowTemporaryGuide(
-                $"{valveHandle.name} 개방완료 \n {currentOpenedValveCount}/{targetValveOpenCount}"
-            );
+            managerCenterUiManager.ShowTemporaryGuide(valveHandle.name);
         }
 
         if (currentOpenedValveCount >= targetValveOpenCount)
         {
-            CompleteValveOpenStage();
+            DelayUtil.Call(1, () => CompleteValveOpenStage());
         }
     }
+
     private void CompleteValveOpenStage()
     {
         isAllValveOpened = true;
