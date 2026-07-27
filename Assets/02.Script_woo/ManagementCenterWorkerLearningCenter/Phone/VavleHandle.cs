@@ -166,8 +166,6 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             return;
         }
 
-        Debug.Log($"NotifyManagerValveClosed : {name}");
-
         enviromentManager.RegisterValveClosed(this);
     }
 

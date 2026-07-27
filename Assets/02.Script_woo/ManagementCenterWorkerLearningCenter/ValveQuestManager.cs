@@ -213,9 +213,6 @@ public class ValveQuestManager : MonoBehaviour
 
     public void RegisterValveClosed(VavleHandle valveHandle)
     {
-        Debug.Log($"NotifyManagerValveClosed : {valveHandle.name}");
-
-
         if (valveHandle == null)
             return;
         
