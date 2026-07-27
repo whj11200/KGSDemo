@@ -78,7 +78,7 @@ public class PlumbingSpecifications : MonoBehaviour, IMouseInteractable
     public void ClickEnter()
     {
         teleporter.RequestPipeSpecification();
-        pipeInterestion.ToggleMaterialBlink();   
+   
     }
 
     public void ClickExit()

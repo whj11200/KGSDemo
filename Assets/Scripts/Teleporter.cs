@@ -52,6 +52,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
     [SerializeField] private LeakFire leakFire;
     [SerializeField] private LeakGas leakGas;
     [SerializeField] private PlumbingSpecifications plumbingS;
+    [SerializeField] private PipeInterestion p_interestion;
     private LeakMode currentLeakMode = LeakMode.None;
     private enum LeakMode
     {
@@ -145,6 +146,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
         StopAllLeaks(false);
         sliderTable.StartFillWithIndex(2);
         //plumbingS.ToggleUI();
+        pipeInterestion.StartMaterialBlink();
         currentLeakMode = LeakMode.Pipe;
         isButtonActive = true;
 
@@ -160,6 +162,8 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
             leakGas.StopLeak(clear);
         if(sliderTable != null)
             sliderTable.ResetFill();
+        if(pipeInterestion != null)
+            pipeInterestion.StopMaterialBlink();
         StopAllSmokes(clear);
         isButtonActive = false;
     }

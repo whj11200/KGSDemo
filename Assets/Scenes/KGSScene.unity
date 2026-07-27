@@ -8813,6 +8813,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 571916674}
     - target: {fileID: 4658943663517317454, guid: 182760a108e0ba2448e65f44f0f07813, type: 3}
+      propertyPath: p_interestion
+      value: 
+      objectReference: {fileID: 231548784}
+    - target: {fileID: 4658943663517317454, guid: 182760a108e0ba2448e65f44f0f07813, type: 3}
       propertyPath: telePorterAni
       value: 
       objectReference: {fileID: 0}
