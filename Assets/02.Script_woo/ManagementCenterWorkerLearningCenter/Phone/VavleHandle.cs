@@ -153,8 +153,6 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             NotifyManagerValveOpened();
             onUnlockComplete?.Invoke();
         }
-
-        Nav?.HideArrow();
     }
 
     private void NotifyManagerValveClosed()
@@ -188,5 +186,14 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
             return;
 
         isLocked = locked;
+    }
+
+    public void ToggleArrow(bool arrow)
+    {
+        if (arrow)
+        {
+            Nav.ShowArrow();
+        }
+        else Nav.HideArrow();
     }
 }

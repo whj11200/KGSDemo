@@ -230,6 +230,7 @@ public class ValveQuestManager : MonoBehaviour
 
         // 핵심: 방금 돌린 밸브 하나만 Emission 끄기
         StopValveEmissionAndReset(valveHandle);
+        valveHandle.ToggleArrow(false);
 
         Debug.Log($"[Valve Stage] 밸브 잠금 완료: {currentClosedValveCount}/{targetValveCloseCount}");
         managerCenterUiManager.ShowTemporaryGuide($"{valveHandle.name} 차단완료 \n {currentClosedValveCount}/{targetValveCloseCount}");
@@ -248,6 +249,7 @@ public class ValveQuestManager : MonoBehaviour
         if (isValveOpenStageActive)
         {
             RegisterValveOpenedForQuest(valveHandle);
+            valveHandle.ToggleArrow(false);
             return;
         }
 
@@ -263,6 +265,7 @@ public class ValveQuestManager : MonoBehaviour
             Debug.Log($"[Valve Stage] 밸브 잠금 해제: {currentClosedValveCount}/{targetValveCloseCount}");
 
             StartValveEmissionBlink(valveHandle);
+            valveHandle.ToggleArrow(true);
             return;
         }
 

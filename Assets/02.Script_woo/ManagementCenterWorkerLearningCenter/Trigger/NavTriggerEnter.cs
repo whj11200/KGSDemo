@@ -75,7 +75,12 @@ public class NavTriggerEnter : MonoBehaviour
             if (arrow != null)
                 arrow.transform.localPosition = originLocalPosition;
 
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
+    }
+
+    public void ShowArrow()
+    {
+        gameObject.SetActive(true);
     }
 }
