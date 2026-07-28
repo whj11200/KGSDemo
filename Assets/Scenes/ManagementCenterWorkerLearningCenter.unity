@@ -2112,8 +2112,8 @@ MonoBehaviour:
   fadeStartDelay: 3
   fadeInDuration: 3
   textShowDelay: 2
-  darkHoldTime: 1
-  fadeOutDuration: 2
+  darkHoldTime: 2
+  fadeOutDuration: 3
   onFadeComplete:
     m_PersistentCalls:
       m_Calls:

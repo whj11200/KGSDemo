@@ -29,7 +29,7 @@ public class ManagerCenterUiManager : MonoBehaviour
     [SerializeField] private float fadeStartDelay = 3f;      // 몇 초 뒤 페이드 시작
     [SerializeField] private float fadeInDuration = 3f;      // 어두워지는 시간
     [SerializeField] private float textShowDelay = 2f;       // 페이드 시작 후 텍스트 뜨는 시간
-    [SerializeField] private float darkHoldTime = 1f;        // 완전히 어두운 상태 유지 시간
+    [SerializeField] private float darkHoldTime = 2f;        // 완전히 어두운 상태 유지 시간
     [SerializeField] private float fadeOutDuration = 3f;     // 다시 밝아지는 시간
 
     [Header("Fade Complete Event")]
@@ -217,7 +217,7 @@ public class ManagerCenterUiManager : MonoBehaviour
         yield return new WaitForSeconds(fadeStartDelay);
 
         float elapsed = 0f;
-        bool isTextShown = false;
+        //bool isTextShown = false;
 
         // 2. 화면 어두워짐
         while (elapsed < fadeInDuration)
@@ -228,25 +228,29 @@ public class ManagerCenterUiManager : MonoBehaviour
             SetImageAlpha(t);
 
             // 3. 페이드 시작 후 2초쯤 텍스트 표시
-            if (!isTextShown && elapsed >= textShowDelay)
-            {
-                ShowFadeText(message);
-                isTextShown = true;
-            }
+            //if (!isTextShown && elapsed >= textShowDelay)
+            //{
+            //    ShowFadeText(message);
+            //    isTextShown = true;
+            //}
 
             yield return null;
         }
 
         SetImageAlpha(1f);
+        ShowFadeText(message);
 
         // 혹시 textShowDelay가 fadeInDuration보다 크면 여기서라도 표시
-        if (!isTextShown)
-        {
-            ShowFadeText(message);
-        }
+        //if (!isTextShown)
+        //{
+        //    ShowFadeText(message);
+        //}
         
         // 4. 어두운 상태 잠깐 유지
         yield return new WaitForSeconds(darkHoldTime);
+
+        if (messageTextMeshPro != null)
+            messageTextMeshPro.gameObject.SetActive(false);
 
         elapsed = 0f;
         hazeControl.StopHaze();
@@ -261,13 +265,10 @@ public class ManagerCenterUiManager : MonoBehaviour
             yield return null;
         }
 
+        // SetImageAlpha(0f);
+
         SetImageAlpha(0f);
-
-        if (messageTextMeshPro != null)
-            messageTextMeshPro.gameObject.SetActive(false);
-
         backGroundimage.gameObject.SetActive(false);
-
         fadeCoroutine = null;
 
         // 6. 완전히 밝아지면 다른 함수 실행
