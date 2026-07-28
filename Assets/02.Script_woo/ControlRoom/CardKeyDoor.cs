@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CardKeyDoor : MonoBehaviour, IMouseInteractable
+public class CardKeyDoor : SupportXRInteractable
 {
     [Header("Door Objects")]
     [SerializeField] private Transform leftDoor;
@@ -45,7 +45,7 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
         rightOpenPos = rightClosedPos + Vector3.right * openDistance;
     }
 
-    public void ClickExit()
+    public override void ClickExit()
     {
         ToggleDoor();
     }
@@ -151,22 +151,22 @@ public class CardKeyDoor : MonoBehaviour, IMouseInteractable
     }
 
     #region UnUse
-    public void ClickCancle()
+    public override void ClickCancle()
     {
 
     }
 
-    public void ClickEnter()
+    public override void ClickEnter()
     {
 
     }
 
-    public void HoverEnter()
+    public override void HoverEnter()
     {
 
     }
 
-    public void HoverExit()
+    public override void HoverExit()
     {
 
     }
