@@ -71,24 +71,6 @@ public class ManagerCenterUiManager : MonoBehaviour
         }
     }
 
-    public void OnCatchingObject()
-    {
-        Debug.Log("[TutorialUI] 잡기 가이드 활성화");
-        ShowGuide("마우스 좌클릭으로 선택");
-    }
-
-    public void OnScroll()
-    {
-        Debug.Log("[TutorialUI] 줌인아웃 가이드 활성화");
-        ShowGuide("마우스 스크롤로 줌인/줌아웃");
-    }
-
-    public void OnClear()
-    {
-        Debug.Log("[TutorialUI] 최종 가이드 활성화");
-        ShowGuide("문으로 가서 이동하기");
-    }
-
     public void InitGuide()
     {
         foreach(var text in QuestText)
@@ -265,8 +247,6 @@ public class ManagerCenterUiManager : MonoBehaviour
             yield return null;
         }
 
-        // SetImageAlpha(0f);
-
         SetImageAlpha(0f);
         backGroundimage.gameObject.SetActive(false);
         fadeCoroutine = null;
@@ -293,6 +273,7 @@ public class ManagerCenterUiManager : MonoBehaviour
         color.a = alpha;
         backGroundimage.color = color;
     }
+
     public void PlayBackgroundDarkOnly()
     {
         if (fadeCoroutine != null)

@@ -28,7 +28,6 @@ public class CameraController : MonoBehaviour
     public float rotateSpeed = 2f;
     public bool isPopupOpened = false;
     public bool isMenuOpened = false;
-    public bool isPhoneOpened = false;
 
     public Transform mainCamera;
     private Camera _mainCamera;
@@ -145,7 +144,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (isPopupOpened || isMenuOpened || isPhoneOpened)
+        if (isPopupOpened || isMenuOpened)
         {
             if (animator != null)
                 animator.SetBool("isWalking", false);
@@ -313,6 +312,8 @@ public class CameraController : MonoBehaviour
         returnToggle = false;
     }
 
+    private CursorLockMode prevLockMode = CursorLockMode.Locked;
+    private bool prevCursorVisiblity = false;
     public void ToggleMenu()
     {
         if (menu == null) return;
@@ -325,6 +326,9 @@ public class CameraController : MonoBehaviour
 
         if (active)
         {
+            prevLockMode = Cursor.lockState;
+            prevCursorVisiblity = Cursor.visible;
+
             // 메뉴가 켜지면: 마우스 자유롭게 + 보이기
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -332,20 +336,11 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            if (isPhoneOpened)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                Time.timeScale = 1f;
-            }
-            else
-            {
-                // 메뉴가 꺼지면: 마우스 고정 + 숨기기
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                Time.timeScale = 1f; // 게임 다시 재생
-                menual.SetActive(false);
-            }
+            // 메뉴가 꺼지면: 마우스 고정 + 숨기기
+            Cursor.lockState = prevLockMode;
+            Cursor.visible = prevCursorVisiblity;
+            Time.timeScale = 1f; // 게임 다시 재생
+            menual.SetActive(false);
         }
     }
 

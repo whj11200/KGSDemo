@@ -1,38 +1,34 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 
 public class ManagerUIManager : MonoBehaviour
 {
     [Header("UI Components")]
-    [SerializeField] private GameObject guidePanel;    // °¡ÀÌµå ºÎ¸ğ ÆÇ³Ú
-    [SerializeField] private TextMeshProUGUI guideText; // ¾È³» ¹®±¸
-
-
+    [SerializeField] private GameObject guidePanel;    // ê°€ì´ë“œ ë¶€ëª¨ íŒë„¬
+    [SerializeField] private TextMeshProUGUI guideText; // ì•ˆë‚´ ë¬¸êµ¬
 
     private void Awake()
     {
         if (guidePanel != null) guidePanel.SetActive(false);
     }
 
-
-
     public void OnCatchingObject()
     {
-        Debug.Log("[TutorialUI] Àâ±â °¡ÀÌµå È°¼ºÈ­");
-        ShowGuide("¸¶¿ì½º ÁÂÅ¬¸¯À¸·Î ¼±ÅÃ");
+        Debug.Log("[TutorialUI] ì¡ê¸° ê°€ì´ë“œ í™œì„±í™”");
+        ShowGuide("ë§ˆìš°ìŠ¤ ì¢Œí´ë¦­ìœ¼ë¡œ ì„ íƒ");
      
     }
 
     public void OnScroll()
     {
-        Debug.Log("[TutorialUI] ÁÜÀÎ¾Æ¿ô °¡ÀÌµå È°¼ºÈ­");
-        ShowGuide("¸¶¿ì½º ½ºÅ©·Ñ·Î ÁÜÀÎ/ÁÜ¾Æ¿ô");
+        Debug.Log("[TutorialUI] ì¤Œì¸ì•„ì›ƒ ê°€ì´ë“œ í™œì„±í™”");
+        ShowGuide("ë§ˆìš°ìŠ¤ ìŠ¤í¬ë¡¤ë¡œ ì¤Œì¸/ì¤Œì•„ì›ƒ");
     }
 
     public void OnClear()
     {
-        Debug.Log("[TutorialUI] ÃÖÁ¾ °¡ÀÌµå È°¼ºÈ­");
-        ShowGuide("¹®À¸·Î °¡¼­ ÀÌµ¿ÇÏ±â");
+        Debug.Log("[TutorialUI] ìµœì¢… ê°€ì´ë“œ í™œì„±í™”");
+        ShowGuide("ë¬¸ìœ¼ë¡œ ê°€ì„œ ì´ë™í•˜ê¸°");
     }
 
     public void ShowGuide(string message)

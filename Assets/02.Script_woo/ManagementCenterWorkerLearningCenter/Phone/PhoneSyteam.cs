@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,10 +8,10 @@ public class PhoneSystem : MonoBehaviour
     [SerializeField] private GameObject phoneObject;
     [SerializeField] private RectTransform phoneRect;
 
-    [Tooltip("»ó´ë¹æ¿¡°Ô ÀüÈ­°¡ °É·Á¿ÔÀ» ¶§ Ç¥½ÃµÇ´Â UI")]
+    [Tooltip("ìƒëŒ€ë°©ì—ê²Œ ì „í™”ê°€ ê±¸ë ¤ì™”ì„ ë•Œ í‘œì‹œë˜ëŠ” UI")]
     [SerializeField] private GameObject incomingCallUI;
 
-    [Tooltip("³»°¡ »ó´ë¹æ¿¡°Ô ÀüÈ­ÇÒ ¶§ Ç¥½ÃµÇ´Â UI")]
+    [Tooltip("ë‚´ê°€ ìƒëŒ€ë°©ì—ê²Œ ì „í™”í•  ë•Œ í‘œì‹œë˜ëŠ” UI")]
     [SerializeField] private GameObject outgoingCallUI;
 
     [SerializeField] private GameObject darkPhoneBackGround;
@@ -19,10 +19,10 @@ public class PhoneSystem : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private AudioSource callAudioSource;
 
-    [Tooltip("»ó´ë¹æ¿¡°Ô ÀüÈ­°¡ °É·Á¿ÔÀ» ¶§ Àç»ıµÇ´Â º§¼Ò¸®")]
+    [Tooltip("ìƒëŒ€ë°©ì—ê²Œ ì „í™”ê°€ ê±¸ë ¤ì™”ì„ ë•Œ ì¬ìƒë˜ëŠ” ë²¨ì†Œë¦¬")]
     [SerializeField] private AudioClip incomingCallClip;
 
-    [Tooltip("³»°¡ »ó´ë¹æ¿¡°Ô ÀüÈ­ÇÒ ¶§ Àç»ıµÇ´Â ¹ß½Å ´ë±âÀ½")]
+    [Tooltip("ë‚´ê°€ ìƒëŒ€ë°©ì—ê²Œ ì „í™”í•  ë•Œ ì¬ìƒë˜ëŠ” ë°œì‹  ëŒ€ê¸°ìŒ")]
     [SerializeField] private AudioClip outgoingCallClip;
 
     [Header("Vibration")]
@@ -52,7 +52,7 @@ public class PhoneSystem : MonoBehaviour
     private bool initialized;
 
     /// <summary>
-    /// ÇöÀç ÀüÈ­°¡ ¿ï¸®°Å³ª ¹ß½Å ÁßÀÎÁö ¿©ºÎ.
+    /// í˜„ì¬ ì „í™”ê°€ ìš¸ë¦¬ê±°ë‚˜ ë°œì‹  ì¤‘ì¸ì§€ ì—¬ë¶€.
     /// </summary>
     public bool IsCalling => isCalling;
 
@@ -75,7 +75,7 @@ public class PhoneSystem : MonoBehaviour
 
         if (phoneObject == null)
         {
-            Debug.LogError("PhoneSystem: phoneObject°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("PhoneSystem: phoneObjectê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -84,7 +84,7 @@ public class PhoneSystem : MonoBehaviour
 
         if (phoneRect == null)
         {
-            Debug.LogError("PhoneSystem: phoneRect°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("PhoneSystem: phoneRectê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -95,11 +95,11 @@ public class PhoneSystem : MonoBehaviour
     }
 
     // =========================================================
-    // ¼ö½Å ÀüÈ­
+    // ìˆ˜ì‹  ì „í™”
     // =========================================================
 
     /// <summary>
-    /// »ó´ë¹æ¿¡°Ô ÀüÈ­°¡ °É·Á¿À´Â »óÅÂ¸¦ ½ÃÀÛÇÑ´Ù.
+    /// ìƒëŒ€ë°©ì—ê²Œ ì „í™”ê°€ ê±¸ë ¤ì˜¤ëŠ” ìƒíƒœë¥¼ ì‹œì‘í•œë‹¤.
     /// </summary>
     public void StartIncomingCall()
     {
@@ -123,11 +123,11 @@ public class PhoneSystem : MonoBehaviour
     }
 
     // =========================================================
-    // ¹ß½Å ÀüÈ­
+    // ë°œì‹  ì „í™”
     // =========================================================
 
     /// <summary>
-    /// ³»°¡ »ó´ë¹æ¿¡°Ô ÀüÈ­¸¦ °Å´Â »óÅÂ¸¦ ½ÃÀÛÇÑ´Ù.
+    /// ë‚´ê°€ ìƒëŒ€ë°©ì—ê²Œ ì „í™”ë¥¼ ê±°ëŠ” ìƒíƒœë¥¼ ì‹œì‘í•œë‹¤.
     /// </summary>
     public void StartOutgoingCall()
     {
@@ -144,21 +144,21 @@ public class PhoneSystem : MonoBehaviour
         ShowPhone();
         ShowOutgoingCallUI();
 
-        // ¹ß½Å ´ë±âÀ½ Àç»ı
+        // ë°œì‹  ëŒ€ê¸°ìŒ ì¬ìƒ
         //PlayCallSound(outgoingCallClip, true);
 
-        // ¹ß½Å Áß¿¡´Â Æù Áøµ¿À» »ç¿ëÇÏÁö ¾ÊÀ½
+        // ë°œì‹  ì¤‘ì—ëŠ” í° ì§„ë™ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
         StopVibration();
 
         onOutgoingCall?.Invoke();
     }
 
     // =========================================================
-    // ÀüÈ­ »óÅÂ Á¾·á
+    // ì „í™” ìƒíƒœ ì¢…ë£Œ
     // =========================================================
 
     /// <summary>
-    /// º§¼Ò¸®, ¹ß½ÅÀ½, Áøµ¿, ÀüÈ­ UI, Æù È­¸éÀ» ¸ğµÎ Á¾·áÇÑ´Ù.
+    /// ë²¨ì†Œë¦¬, ë°œì‹ ìŒ, ì§„ë™, ì „í™” UI, í° í™”ë©´ì„ ëª¨ë‘ ì¢…ë£Œí•œë‹¤.
     /// </summary>
     public void StopCall()
     {
@@ -172,8 +172,8 @@ public class PhoneSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀüÈ­ ¿¬°á ½Ã º§¼Ò¸®¿Í ¼ö½Å/¹ß½Å UI¸¸ ²ö´Ù.
-    /// PhoneChat UI¸¦ Ç¥½ÃÇØ¾ß ÇÏ¹Ç·Î phoneObject´Â À¯ÁöÇÑ´Ù.
+    /// ì „í™” ì—°ê²° ì‹œ ë²¨ì†Œë¦¬ì™€ ìˆ˜ì‹ /ë°œì‹  UIë§Œ ëˆë‹¤.
+    /// PhoneChat UIë¥¼ í‘œì‹œí•´ì•¼ í•˜ë¯€ë¡œ phoneObjectëŠ” ìœ ì§€í•œë‹¤.
     /// </summary>
     public void StopRingingOnly()
     {
@@ -186,7 +186,7 @@ public class PhoneSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀüÈ­ UI ÀüÃ¼¸¦ ´İ°í ¸¶¿ì½º Ä¿¼­¸¦ ´Ù½Ã Àá±Ù´Ù.
+    /// ì „í™” UI ì „ì²´ë¥¼ ë‹«ê³  ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ë‹¤ì‹œ ì ê·¼ë‹¤.
     /// </summary>
     public void ClosePhone()
     {
@@ -195,11 +195,11 @@ public class PhoneSystem : MonoBehaviour
     }
 
     // =========================================================
-    // ÀüÈ­ °ÅÀı ÈÄ ÀçÈ£Ãâ
+    // ì „í™” ê±°ì ˆ í›„ ì¬í˜¸ì¶œ
     // =========================================================
 
     /// <summary>
-    /// ¼ö½Å ÀüÈ­¸¦ °ÅÀıÇÑ µÚ ÀÏÁ¤ ½Ã°£ ÈÄ ´Ù½Ã ÀüÈ­°¡ ¿À°Ô ÇÑ´Ù.
+    /// ìˆ˜ì‹  ì „í™”ë¥¼ ê±°ì ˆí•œ ë’¤ ì¼ì • ì‹œê°„ í›„ ë‹¤ì‹œ ì „í™”ê°€ ì˜¤ê²Œ í•œë‹¤.
     /// </summary>
     public void RestartCallAfterDelay()
     {
@@ -214,7 +214,7 @@ public class PhoneSystem : MonoBehaviour
 
         recallCoroutine = null;
 
-        // ÀçÈ£ÃâÀº ¼ö½Å ÀüÈ­·Î ½ÃÀÛ
+        // ì¬í˜¸ì¶œì€ ìˆ˜ì‹  ì „í™”ë¡œ ì‹œì‘
         StartIncomingCall();
     }
 
@@ -233,9 +233,6 @@ public class PhoneSystem : MonoBehaviour
 
     private void ShowPhone()
     {
-        if (controller != null)
-            controller.isPhoneOpened = true;
-
         if (phoneObject != null)
             phoneObject.SetActive(true);
 
@@ -250,15 +247,12 @@ public class PhoneSystem : MonoBehaviour
         if (phoneObject != null)
             phoneObject.SetActive(false);
 
-        if (controller != null)
-            controller.isPhoneOpened = false;
-
         if (darkPhoneBackGround != null)
             darkPhoneBackGround.SetActive(false);
     }
 
     /// <summary>
-    /// ¼ö½Å ÀüÈ­ UI¸¸ Ç¥½ÃÇÑ´Ù.
+    /// ìˆ˜ì‹  ì „í™” UIë§Œ í‘œì‹œí•œë‹¤.
     /// </summary>
     private void ShowIncomingCallUI()
     {
@@ -270,7 +264,7 @@ public class PhoneSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// ¹ß½Å ÀüÈ­ UI¸¸ Ç¥½ÃÇÑ´Ù.
+    /// ë°œì‹  ì „í™” UIë§Œ í‘œì‹œí•œë‹¤.
     /// </summary>
     private void ShowOutgoingCallUI()
     {
@@ -282,7 +276,7 @@ public class PhoneSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼ö½Å ¹× ¹ß½Å UI¸¦ ¸ğµÎ ¼û±ä´Ù.
+    /// ìˆ˜ì‹  ë° ë°œì‹  UIë¥¼ ëª¨ë‘ ìˆ¨ê¸´ë‹¤.
     /// </summary>
     private void HideCallUI()
     {
@@ -294,14 +288,14 @@ public class PhoneSystem : MonoBehaviour
     }
 
     // =========================================================
-    // »ç¿îµå
+    // ì‚¬ìš´ë“œ
     // =========================================================
 
     private void PlayCallSound(AudioClip clip, bool loop)
     {
         if (callAudioSource == null)
         {
-            Debug.LogWarning("PhoneSystem: callAudioSource°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning("PhoneSystem: callAudioSourceê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -315,7 +309,7 @@ public class PhoneSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("PhoneSystem: Àç»ıÇÒ AudioClipÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("PhoneSystem: ì¬ìƒí•  AudioClipì´ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -330,7 +324,7 @@ public class PhoneSystem : MonoBehaviour
     }
 
     // =========================================================
-    // Áøµ¿
+    // ì§„ë™
     // =========================================================
 
     private void StartVibration()
@@ -416,7 +410,7 @@ public class PhoneSystem : MonoBehaviour
         currentNodeID = nodeID;
 
         Debug.Log(
-            $"[Tutorial] NPC ´ëÈ­ °¨ÁöµÊ. ÇöÀç ´Ü°è: {currentNodeID}"
+            $"[Tutorial] NPC ëŒ€í™” ê°ì§€ë¨. í˜„ì¬ ë‹¨ê³„: {currentNodeID}"
         );
     }
 

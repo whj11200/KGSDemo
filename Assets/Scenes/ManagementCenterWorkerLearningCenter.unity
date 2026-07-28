@@ -72479,6 +72479,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2954653758977522306, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3317257286874821892}
+    - target: {fileID: 2954653758977522306, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 7673852984779609171, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: controller
       value: 
