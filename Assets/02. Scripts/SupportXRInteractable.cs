@@ -7,6 +7,8 @@ public class SupportXRInteractable : MonoBehaviour, IMouseInteractable
 
     protected virtual void Awake()
     {
+        XRSimpleInteractable = GetComponent<XRSimpleInteractable>();
+
         if (XRSimpleInteractable == null)
         {
             XRSimpleInteractable = gameObject.AddComponent<XRSimpleInteractable>();
@@ -35,7 +37,7 @@ public class SupportXRInteractable : MonoBehaviour, IMouseInteractable
 
     public virtual void HoverEnter()
     {
-        
+
     }
 
     public virtual void HoverExit()

@@ -111,17 +111,18 @@ public class CameraController : MonoBehaviour
         mouse = Mouse.current;
 
         moveInputAction.action.Enable();
-        returnAction.action.Enable();
-        scrollAction.action.Enable();
-        tabAction.action.Enable();
-        if (jumpAction != null)
-        {
-            jumpAction.action.Enable(); // 활성화
-        }
+        //returnAction.action.Enable();
+        //scrollAction.action.Enable();
+        //tabAction.action.Enable();
+        
+        //if (jumpAction != null)
+        //{
+        //    jumpAction.action.Enable(); // 활성화
+        //}
 
-        returnAction.action.performed += OnReturnPerformed;
-        scrollAction.action.performed += OnScroll;
-        tabAction.action.performed += _ => ToggleMenu();
+        //returnAction.action.performed += OnReturnPerformed;
+        //scrollAction.action.performed += OnScroll;
+        //tabAction.action.performed += _ => ToggleMenu();
     }
 
     private void OnDisable()
@@ -129,17 +130,17 @@ public class CameraController : MonoBehaviour
         StopFootstepSound();
 
         moveInputAction.action.Disable();
-        returnAction.action.Disable();
-        scrollAction.action.Disable();
-        tabAction.action.Disable();
+        //returnAction.action.Disable();
+        //scrollAction.action.Disable();
+        //tabAction.action.Disable();
 
-        if (jumpAction != null)
-        {
-            jumpAction.action.Disable();
-        }
+        //if (jumpAction != null)
+        //{
+        //    jumpAction.action.Disable();
+        //}
 
-        returnAction.action.performed -= OnReturnPerformed;
-        scrollAction.action.performed -= OnScroll;
+        //returnAction.action.performed -= OnReturnPerformed;
+        //scrollAction.action.performed -= OnScroll;
     }
 
     private void Update()

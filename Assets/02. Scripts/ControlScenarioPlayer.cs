@@ -272,7 +272,7 @@ public class ControlScenarioPlayer : ScenarioPlayerBase<ScenarioAsset>
                         });
     }
 
-    public void ReportToManger()
+    public void ReportToManager()
     {
         CheckStep(reportID);
     }

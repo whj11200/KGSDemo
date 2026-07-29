@@ -8,6 +8,9 @@ public class NPC_AnimationController : MonoBehaviour
     [SerializeField] AudioSource AudioSource;
     [SerializeField] GameObject Phone;
 
+    [SerializeField] private float maxLookAngle = 80f;
+    [SerializeField] private float lookWeightSpeed = 5f;
+
     public float Weight = 1f;
     public bool LookAtPlayer = false;
 
@@ -16,24 +19,59 @@ public class NPC_AnimationController : MonoBehaviour
         if (Animator == null) 
             Animator = GetComponent<Animator>();
 
-        if (PlayerController == null || PlayerTransform == null)
-        {
-            PlayerController = FindAnyObjectByType<CharacterController>();
-            PlayerTransform = PlayerController.transform;
-        }
-
         Call(0);
     }
 
+    private void Start()
+    {
+        PlayerController = FindAnyObjectByType<CharacterController>();
+        PlayerTransform = PlayerController.transform;
+    }
+
+    private float currentWeight;
+
     private void OnAnimatorIK(int layerIndex)
     {
-        if (PlayerTransform == null) return;
+        if (Animator == null || PlayerTransform == null)
+            return;
 
-        if (LookAtPlayer)
+        if (!LookAtPlayer)
         {
-            Animator.SetLookAtWeight(Weight, 0.1f, 1f, 1f, 0.4f);
-            Animator.SetLookAtPosition(PlayerTransform.position);
+            currentWeight = Mathf.MoveTowards(
+                currentWeight,
+                0f,
+                lookWeightSpeed * Time.deltaTime);
+
+            Animator.SetLookAtWeight(currentWeight);
+            return;
         }
+
+        Vector3 toPlayer = PlayerTransform.position - transform.position;
+        toPlayer.y = 0f;
+
+        float angle = Vector3.Angle(transform.forward, toPlayer);
+
+        float targetWeight = 0f;
+
+        if (angle <= maxLookAngle)
+        {
+            // 각도가 작을수록 Weight가 커짐
+            targetWeight = Mathf.InverseLerp(maxLookAngle, 0f, angle);
+        }
+
+        currentWeight = Mathf.MoveTowards(
+            currentWeight,
+            targetWeight * Weight,
+            lookWeightSpeed * Time.deltaTime);
+
+        Animator.SetLookAtWeight(
+            currentWeight, // 전체
+            0.2f,          // body
+            0.5f,          // head
+            1f,            // eyes
+            0.6f);         // clamp
+
+        Animator.SetLookAtPosition(PlayerTransform.position);
     }
 
     public void SetLookAtPlayer(bool value)

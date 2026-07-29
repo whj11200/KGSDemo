@@ -9,12 +9,14 @@ public abstract class OverlayUI : MonoBehaviour
     [SerializeField] protected float PlaneDistance = 0.45f;
     [SerializeField] protected float LocalScale = 0.5f;
 
+    private EPlayDevice Device => PlayerModeManager.PlayDevice;
+
     protected virtual void Awake()
     {
         if (Canvas == null)
             Canvas = GetComponent<Canvas>();
 
-        if (PlayerModeManager.PlayDevice == EPlayDevice.VR && VRCam != null)
+        if (Device == EPlayDevice.VR && VRCam != null)
         {
             Canvas.renderMode = RenderMode.ScreenSpaceCamera;
             Canvas.worldCamera = VRCam;

@@ -1141,6 +1141,17 @@
                 },
                 {
                     "name": "",
+                    "id": "65a0ced9-3bba-426c-b7ae-04fc86d19f6a",
+                    "path": "<XRController>/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "D_Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "191bd7e2-53b6-4adc-9c99-885803a6b822",
                     "path": "<Keyboard>/backspace",
                     "interactions": "",

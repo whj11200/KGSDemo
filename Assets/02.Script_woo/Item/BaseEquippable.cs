@@ -1,20 +1,20 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
 public abstract class BaseEquippable : MonoBehaviour
 {
     [Header("Base Settings")]
-    public Transform handPos; // ÇÃ·¹ÀÌ¾î ¼Õ À§Ä¡
-    public GameObject item;   // ÀÌµ¿½ÃÅ³ 'ÀÚ½Ä' È¤Àº 'Æ¯Á¤' ¿ÀºêÁ§Æ®
-    public TextMeshPro infoText; // È­¸é¿¡ ¶ç¿ï 3D ÅØ½ºÆ® (¶Ç´Â °¡ÀÌµå)
+    public Transform handPos; // í”Œë ˆì´ì–´ ì† ìœ„ì¹˜
+    public GameObject item;   // ì´ë™ì‹œí‚¬ 'ìì‹' í˜¹ì€ 'íŠ¹ì •' ì˜¤ë¸Œì íŠ¸
+    public TextMeshPro infoText; // í™”ë©´ì— ë„ìš¸ 3D í…ìŠ¤íŠ¸ (ë˜ëŠ” ê°€ì´ë“œ)
 
-    // [º»Ã¼ »óÅÂ ÀúÀå]
+    // [ë³¸ì²´ ìƒíƒœ ì €ì¥]
     protected Vector3 originPosition;
     protected Quaternion originRotation;
     protected Vector3 originScale;
     protected Transform originParent;
 
-    // [¾ÆÀÌÅÛ(ÀÚ½Ä) »óÅÂ ÀúÀå]
+    // [ì•„ì´í…œ(ìì‹) ìƒíƒœ ì €ì¥]
     protected Vector3 itemOriginPos;
     protected Quaternion itemOriginRot;
     protected Vector3 itemOriginScale;
@@ -25,15 +25,14 @@ public abstract class BaseEquippable : MonoBehaviour
 
     protected virtual void Awake()
     {
-
         infoText.gameObject.SetActive(false);
-        // 1. ³ª ÀÚ½ÅÀÇ ÃÊ±â »óÅÂ ±â¾ï
+        // 1. ë‚˜ ìì‹ ì˜ ì´ˆê¸° ìƒíƒœ ê¸°ì–µ
         originPosition = transform.position;
         originRotation = transform.rotation;
         originScale = transform.localScale;
         originParent = transform.parent;
 
-        // 2. ¸¸¾à ÁöÁ¤µÈ 'item'ÀÌ ÀÖ´Ù¸é ±× ¾ÆÀÌÅÛÀÇ ÃÊ±â »óÅÂµµ ±â¾ï
+        // 2. ë§Œì•½ ì§€ì •ëœ 'item'ì´ ìˆë‹¤ë©´ ê·¸ ì•„ì´í…œì˜ ì´ˆê¸° ìƒíƒœë„ ê¸°ì–µ
         if (item != null)
         {
             itemOriginPos = item.transform.position;
@@ -43,7 +42,7 @@ public abstract class BaseEquippable : MonoBehaviour
         }
     }
 
-    // --- [±â´É 1: ³ª ÀÚ½ÅÀ» ÀÌµ¿] ---
+    // --- [ê¸°ëŠ¥ 1: ë‚˜ ìì‹ ì„ ì´ë™] ---
     public void My_ToggleEquip()
     {
         if (isEquipped) Drop();
@@ -67,7 +66,7 @@ public abstract class BaseEquippable : MonoBehaviour
         transform.localScale = originScale;
     }
 
-    // --- [±â´É 2: Æ¯Á¤ ¾ÆÀÌÅÛ(ÀÚ½Ä)¸¸ ÀÌµ¿] ---
+    // --- [ê¸°ëŠ¥ 2: íŠ¹ì • ì•„ì´í…œ(ìì‹)ë§Œ ì´ë™] ---
     public void Child_ToggleEquip()
     {
         if (item == null) return;
@@ -95,7 +94,7 @@ public abstract class BaseEquippable : MonoBehaviour
         ToggleText(false);
     }
 
-    // °øÅë ·ÎÁ÷: ¼Õ À§Ä¡·Î º¸³¾ ¶§ ÁÂÇ¥ ÃÊ±âÈ­
+    // ê³µí†µ ë¡œì§: ì† ìœ„ì¹˜ë¡œ ë³´ë‚¼ ë•Œ ì¢Œí‘œ ì´ˆê¸°í™”
     private void SetToHand(Transform target)
     {
         target.localPosition = Vector3.zero;
@@ -108,8 +107,8 @@ public abstract class BaseEquippable : MonoBehaviour
         if (infoText != null)
         {
             infoText.gameObject.SetActive(show);
-            // ÇÊ¿äÇÏ´Ù¸é ¿©±â¼­ ÅØ½ºÆ® ³»¿ëÀ» ¹Ù²Ü ¼öµµ ÀÖ½À´Ï´Ù.
-            // infoText.text = show ? "ÀåÂøµÊ" : ""; 
+            // í•„ìš”í•˜ë‹¤ë©´ ì—¬ê¸°ì„œ í…ìŠ¤íŠ¸ ë‚´ìš©ì„ ë°”ê¿€ ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.
+            // infoText.text = show ? "ì¥ì°©ë¨" : ""; 
         }
     }
 }

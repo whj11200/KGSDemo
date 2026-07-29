@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [DefaultExecutionOrder(-1000)]
 public class PlayerModeManager : MonoBehaviour
 {
-    public static EPlayDevice PlayDevice = EPlayDevice.Desktop;
+    public static EPlayDevice PlayDevice = EPlayDevice.VR;
     [SerializeField] private GameObject DesktopPlayer;
     [SerializeField] private GameObject VRPlayer;
 
