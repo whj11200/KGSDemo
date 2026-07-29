@@ -33,6 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ControlRoom.unity
     guid: de8e3ad35ea429e43bb40e721a942c14
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 28e04a96ac233d14e80961a3570e5d18, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: da231b2d616913f48bf44c05ced4f498, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ad985017fd6745c44ac73bc2fc270f30, type: 2}
