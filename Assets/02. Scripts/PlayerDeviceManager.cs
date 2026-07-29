@@ -9,11 +9,11 @@ public class PlayerDeviceManager : MonoBehaviour
 
     private void Awake()
     {
-#if DESKTOP_BUILD
-    PlayDevice = EPlayDevice.Desktop;
-#elif VR_BUILD
-    PlayDevice = EPlayDevice.VR;
-#endif
+        #if DESKTOP_BUILD
+            PlayDevice = EPlayDevice.Desktop;
+        #elif VR_BUILD
+            PlayDevice = EPlayDevice.VR;
+        #endif
 
         if (DesktopPlayer == null || VRPlayer == null) return;
 
