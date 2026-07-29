@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
+public class SimpleDialogueViewUGUI : OverlayUI, IDialogueView
 {
     [Header("Root")]
     [SerializeField] GameObject root;
@@ -27,8 +27,10 @@ public class SimpleDialogueViewUGUI : MonoBehaviour, IDialogueView
 
     private TypingEffect TypingEffect;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (speakerBG == null)
             speakerBG = speakerText.GetComponentInParent<Image>();
     }

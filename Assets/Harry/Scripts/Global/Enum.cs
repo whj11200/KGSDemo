@@ -62,3 +62,9 @@ public enum ECharacterState
     Clap,
     Guide,
 }
+
+public enum EPlayDevice
+{
+    Desktop,
+    VR
+}

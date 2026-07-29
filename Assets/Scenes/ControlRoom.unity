@@ -795,6 +795,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_Name
+      value: Main Camera_VR
+      objectReference: {fileID: 0}
     - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 4095
@@ -2382,6 +2386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366316170}
   - component: {fileID: 366316171}
+  - component: {fileID: 366316172}
   m_Layer: 0
   m_Name: ScenarioManager
   m_TagString: Untagged
@@ -2451,6 +2456,20 @@ MonoBehaviour:
   AlarmClip: {fileID: 8300000, guid: ac4c9156e372cb042acb267975dadbfe, type: 3}
   SkipAction: {fileID: 136036119572374815, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Manager: {fileID: 1305012613}
+--- !u!114 &366316172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366316169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352e3b8e358b5ad4689d64c8ce51f0a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerModeManager
+  DesktopPlayer: {fileID: 1577085292}
+  VRPlayer: {fileID: 1049356053}
 --- !u!1 &381054967
 GameObject:
   m_ObjectHideFlags: 0
@@ -5599,7 +5618,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951160008}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6141,6 +6160,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048040152}
   m_CullTransparentMesh: 1
+--- !u!1 &1049356053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 201727564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065912811
 GameObject:
   m_ObjectHideFlags: 0
@@ -9481,7 +9505,7 @@ PrefabInstance:
       objectReference: {fileID: 239204977}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000015366822
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9489,11 +9513,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.15900023
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.99393797
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9501,7 +9525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.10994257
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3754216526502970879, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_LocalRotation.z
@@ -9514,6 +9538,10 @@ PrefabInstance:
     - target: {fileID: 4413247964550118430, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983279338021963867, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+      propertyPath: m_Name
+      value: Main Camera_Desktop
       objectReference: {fileID: 0}
     - target: {fileID: 4983279338021963867, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: m_IsActive
@@ -10212,7 +10240,7 @@ GameObject:
   - component: {fileID: 1658719930}
   - component: {fileID: 1658719929}
   m_Layer: 12
-  m_Name: Image
+  m_Name: DialougeScaler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16948,6 +16976,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7354565febabe408d972b0436df802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canvas: {fileID: 3519909993052960771}
+  DesktopCam: {fileID: 1561977733}
+  VRCam: {fileID: 201727570}
+  DialougeScaler: {fileID: 1658719928}
+  PlaneDistance: 0.45
+  LocalScale: 0.5
   root: {fileID: 5402397077919622512}
   speakerBG: {fileID: 4036185891511584296}
   speakerText: {fileID: 3805535422203964804}
@@ -19513,7 +19547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &5404123346893092069
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23916,8 +23950,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1561977732}
+  - {fileID: 201727564}
   - {fileID: 97885801}
   - {fileID: 23242855}
   - {fileID: 70844634}
   - {fileID: 264395523}
-  - {fileID: 201727564}

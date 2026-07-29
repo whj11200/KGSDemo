@@ -1,31 +1,31 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class TriggerObject : MonoBehaviour, IMouseInteractable
+public class TriggerObject : SupportXRInteractable
 {
     public UnityEvent OnClickExit;
 
-    public void ClickCancle()
+    public override void ClickCancle()
     {
         
     }
 
-    public void ClickEnter()
+    public override void ClickEnter()
     {
         
     }
 
-    public void ClickExit()
+    public override void ClickExit()
     {
         OnClickExit?.Invoke();
     }
 
-    public void HoverEnter()
+    public override void HoverEnter()
     {
         
     }
 
-    public void HoverExit()
+    public override void HoverExit()
     {
         
     }
