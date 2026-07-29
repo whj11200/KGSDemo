@@ -6498,6 +6498,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457782297}
   m_CullTransparentMesh: 1
+--- !u!1 &462536309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5701931091207319005, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 991206423492936379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473893011
 GameObject:
   m_ObjectHideFlags: 0
@@ -12259,6 +12264,17 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 936179625513896859, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
   m_PrefabInstance: {fileID: 991206423492936379}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &972927803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1881153524532066115, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 991206423492936379}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972927793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3253c339d3c50f847966487a45f57189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &976021078
 GameObject:
   m_ObjectHideFlags: 0
@@ -25914,6 +25930,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812306000}
   m_CullTransparentMesh: 1
+--- !u!95 &1814954283 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8878027959904972191, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 991206423492936379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1833651989
 GameObject:
   m_ObjectHideFlags: 0
@@ -67106,7 +67127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2058144572593670945
 Transform:
   m_ObjectHideFlags: 0
@@ -72472,7 +72493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2744403814940280891
 Transform:
   m_ObjectHideFlags: 0
@@ -72833,7 +72854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2801223410946268047
 Transform:
   m_ObjectHideFlags: 0
@@ -119165,20 +119186,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2398177720452251294}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  m_EditorClassIdentifier: 
   footstepAudioSource: {fileID: 84313899}
-  footstepClip: {fileID: 0}
+  footstepClip: {fileID: 8300000, guid: 09666454ad621054d9e69d9794b87a48, type: 3}
   footstepVolume: 0.7
   fadeOutTime: 0.2
   minimumMoveSpeed: 0.1
   gravity: -9.81
-  moveSpeed: 3.5
+  moveSpeed: 5
   verticalVelocity: 0
-  characterController: {fileID: 0}
+  characterController: {fileID: 740893324849012030}
   ignoreMovement: 0
   jumpHeight: 1.2
   mouseSensitivity: 2
@@ -119188,24 +119209,24 @@ MonoBehaviour:
   rotateSpeed: 2
   isPopupOpened: 0
   isMenuOpened: 0
-  mainCamera: {fileID: 0}
-  zoomSpeed: 0.08
-  minFOV: 35
-  maxFOV: 90
-  smooth: 1
+  mainCamera: {fileID: 3302243154664388325}
+  zoomSpeed: 5
+  minFOV: 15
+  maxFOV: 60
+  smooth: 0
   smoothTime: 10
-  raycaster: {fileID: 0}
+  raycaster: {fileID: 972927803}
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  returnAction: {fileID: 0}
-  scrollAction: {fileID: 0}
-  tabAction: {fileID: 0}
+  returnAction: {fileID: 1430407803}
+  scrollAction: {fileID: 1739858168}
+  tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: 0}
-  popup: {fileID: 0}
-  menu: {fileID: 0}
-  menual: {fileID: 0}
-  animator: {fileID: 0}
+  popup: {fileID: 155378098}
+  menu: {fileID: 462536309}
+  menual: {fileID: 1266233730}
+  animator: {fileID: 1814954283}
   HandlingPos: {fileID: 0}
-  SpawnPos: {fileID: 0}
+  SpawnPos: {fileID: 39504798}
   returnToggle: 0
 --- !u!4 &8544001114982712711
 Transform:
