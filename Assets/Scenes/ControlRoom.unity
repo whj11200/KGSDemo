@@ -1800,7 +1800,7 @@ GameObject:
   - component: {fileID: 295128011}
   - component: {fileID: 295128013}
   - component: {fileID: 295128012}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6765,6 +6765,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f2979d104484b4b89a4a0ed2c12f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeUI
+  Canvas: {fileID: 1070589624}
+  DesktopCam: {fileID: 1561977733}
+  VRCam: {fileID: 201727570}
+  DialougeScaler: {fileID: 0}
+  PlaneDistance: 0.45
+  LocalScale: 0.5
   FadeText: {fileID: 1634492175}
   FadeImage: {fileID: 295128012}
 --- !u!225 &1070589626
@@ -10209,7 +10215,7 @@ GameObject:
   - component: {fileID: 1634492174}
   - component: {fileID: 1634492176}
   - component: {fileID: 1634492175}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

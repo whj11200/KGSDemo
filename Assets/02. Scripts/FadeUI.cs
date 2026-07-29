@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FadeUI : MonoBehaviour
+public class FadeUI : OverlayUI
 {
     [SerializeField] private TextMeshProUGUI FadeText;
     [SerializeField] private Image FadeImage;
