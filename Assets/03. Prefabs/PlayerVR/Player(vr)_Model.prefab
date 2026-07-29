@@ -30868,7 +30868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5904584487047471173}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9956092, z: -0, w: 0.093607314}
+  m_LocalRotation: {x: 0, y: -0.9956095, z: 0, w: 0.09360458}
   m_LocalPosition: {x: 10.774974, y: 0.756, z: 31.622929}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31005,6 +31005,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xrTurnMode: 2
+  continuousTurnSpeed: 60
+  snapTurnAmount: 45
+  snapTurnDebounceTime: 0.5
+  turnDeadZone: 0.5
+  requireStickReleaseForSnap: 1
   footstepAudioSource: {fileID: 1956806626453396889}
   footstepClip: {fileID: 8300000, guid: 09666454ad621054d9e69d9794b87a48, type: 3}
   footstepVolume: 0.7
@@ -31035,6 +31041,7 @@ MonoBehaviour:
   scrollAction: {fileID: 0}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: 0}
+  turnInputAction: {fileID: -4708586670772182644, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   popup: {fileID: 0}
   menu: {fileID: 0}
   menual: {fileID: 0}
@@ -35110,7 +35117,7 @@ MonoBehaviour:
     ikTarget: {fileID: 6679252568655163380}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
-  headBodyPositionOffset: {x: 0.025, y: -1.55, z: 0}
+  headBodyPositionOffset: {x: 0.025, y: -0.6, z: 0}
   headBodyYawOffset: 0
 --- !u!114 &447474967514167162
 MonoBehaviour:
