@@ -149,6 +149,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SnapTurn",
+                    "type": "Value",
+                    "id": "e8b6a217-9e4a-47f3-a70d-0f18d8c0b734",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -276,7 +285,7 @@
                 {
                     "name": "",
                     "id": "3d196ef6-350f-48ef-a46c-a68514dd2990",
-                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "path": "<XRController>{LeftHand}/{Primary2DAxis}",
                     "interactions": "",
                     "processors": "StickDeadzone",
                     "groups": ";XR",
@@ -864,6 +873,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Item_Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "429989bc-6588-4a5e-b362-c17bc1609f4d",
+                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";XR",
+                    "action": "SnapTurn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
