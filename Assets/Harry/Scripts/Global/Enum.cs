@@ -65,6 +65,6 @@ public enum ECharacterState
 
 public enum EPlayDevice
 {
-    Desktop,
-    VR
+    Desktop = 0,
+    VR = 1
 }

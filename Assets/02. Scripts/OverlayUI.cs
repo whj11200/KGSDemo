@@ -9,7 +9,7 @@ public abstract class OverlayUI : MonoBehaviour
     [SerializeField] protected float PlaneDistance = 0.45f;
     [SerializeField] protected float LocalScale = 0.5f;
 
-    private EPlayDevice Device => PlayerModeManager.PlayDevice;
+    private EPlayDevice Device => PlayerDeviceManager.PlayDevice;
 
     protected virtual void Awake()
     {

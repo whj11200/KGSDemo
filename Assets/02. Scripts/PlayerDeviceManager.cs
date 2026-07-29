@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 [DefaultExecutionOrder(-1000)]
-public class PlayerModeManager : MonoBehaviour
+public class PlayerDeviceManager : MonoBehaviour
 {
     public static EPlayDevice PlayDevice = EPlayDevice.VR;
     [SerializeField] private GameObject DesktopPlayer;
@@ -10,6 +9,12 @@ public class PlayerModeManager : MonoBehaviour
 
     private void Awake()
     {
+#if DESKTOP_BUILD
+    PlayDevice = EPlayDevice.Desktop;
+#elif VR_BUILD
+    PlayDevice = EPlayDevice.VR;
+#endif
+
         if (DesktopPlayer == null || VRPlayer == null) return;
 
         var isVR = PlayDevice == EPlayDevice.VR;
