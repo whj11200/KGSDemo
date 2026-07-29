@@ -158,6 +158,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Teleport",
+                    "type": "Value",
+                    "id": "4983ec0d-cc48-4ea0-8f8c-a3c9248c1513",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -884,6 +893,17 @@
                     "processors": "",
                     "groups": ";XR",
                     "action": "SnapTurn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf611d94-7eca-41fc-ad9f-705b4122b72e",
+                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";XR",
+                    "action": "Teleport",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
