@@ -5,11 +5,6 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-
-
-
-
-
     [Header("Footstep Sound")]
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
@@ -106,7 +101,6 @@ public class CameraController : MonoBehaviour
         }
 
         //  DontDestroyOnLoad(gameObject);
-
     }
 
     private void OnEnable()
@@ -164,7 +158,7 @@ public class CameraController : MonoBehaviour
             StopFootstepSound();
             return;
         }
-        HandleXRTurn();
+
         // moveInputAction 입력받아서 이동
         HandleMovement();
 
