@@ -5,6 +5,26 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    
+    public enum XRTurnMode
+    {
+        Disabled,
+        Continuous,
+        Snap
+    }
+
+    [Header("XR Turn Settings")]
+    [SerializeField] private XRTurnMode xrTurnMode = XRTurnMode.Snap;
+    [SerializeField, Min(0f)] private float continuousTurnSpeed = 60f;
+    [SerializeField, Range(1f, 180f)] private float snapTurnAmount = 45f;
+    [SerializeField, Min(0f)] private float snapTurnDebounceTime = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float turnDeadZone = 0.5f;
+    [SerializeField] private bool requireStickReleaseForSnap = true;
+    private float nextSnapTurnTime;
+    private bool snapTurnReady = true;
+
+
+
     [Header("Footstep Sound")]
     [SerializeField] private AudioSource footstepAudioSource;
     [SerializeField] private AudioClip footstepClip;
@@ -52,7 +72,7 @@ public class CameraController : MonoBehaviour
     public InputActionReference scrollAction; // 줌 인/아웃
     public InputActionReference tabAction; // 상호작용 입력
     public InputActionReference jumpAction; // 점프 입력 추가
-
+    public InputActionReference turnInputAction;
     [Header("GameObject References")]
     public GameObject popup;
     public GameObject menu;
@@ -111,18 +131,19 @@ public class CameraController : MonoBehaviour
         mouse = Mouse.current;
 
         moveInputAction.action.Enable();
-        //returnAction.action.Enable();
-        //scrollAction.action.Enable();
-        //tabAction.action.Enable();
-        
-        //if (jumpAction != null)
-        //{
-        //    jumpAction.action.Enable(); // 활성화
-        //}
+        returnAction.action.Enable();
+        scrollAction.action.Enable();
+        tabAction.action.Enable();
+        turnInputAction?.action.Enable();
 
-        //returnAction.action.performed += OnReturnPerformed;
-        //scrollAction.action.performed += OnScroll;
-        //tabAction.action.performed += _ => ToggleMenu();
+        if (jumpAction != null)
+        {
+            jumpAction.action.Enable(); // 활성화
+        }
+
+        returnAction.action.performed += OnReturnPerformed;
+        scrollAction.action.performed += OnScroll;
+        tabAction.action.performed += _ => ToggleMenu();
     }
 
     private void OnDisable()
@@ -130,17 +151,18 @@ public class CameraController : MonoBehaviour
         StopFootstepSound();
 
         moveInputAction.action.Disable();
-        //returnAction.action.Disable();
-        //scrollAction.action.Disable();
-        //tabAction.action.Disable();
+        returnAction.action.Disable();
+        scrollAction.action.Disable();
+        tabAction.action.Disable();
+        turnInputAction?.action.Disable();
 
-        //if (jumpAction != null)
-        //{
-        //    jumpAction.action.Disable();
-        //}
+        if (jumpAction != null)
+        {
+            jumpAction.action.Disable();
+        }
 
-        //returnAction.action.performed -= OnReturnPerformed;
-        //scrollAction.action.performed -= OnScroll;
+        returnAction.action.performed -= OnReturnPerformed;
+        scrollAction.action.performed -= OnScroll;
     }
 
     private void Update()
@@ -160,7 +182,7 @@ public class CameraController : MonoBehaviour
             StopFootstepSound();
             return;
         }
-
+        HandleXRTurn();
         // moveInputAction 입력받아서 이동
         HandleMovement();
 
@@ -450,4 +472,84 @@ public class CameraController : MonoBehaviour
         footstepAudioSource.volume = footstepVolume;
         fadeCoroutine = null;
     }
+    private void HandleXRTurn()
+    {
+        if (ignoreMovement ||
+            turnInputAction == null ||
+            xrTurnMode == XRTurnMode.Disabled)
+        {
+            return;
+        }
+
+        Vector2 input = turnInputAction.action.ReadValue<Vector2>();
+
+        float horizontal =
+            Mathf.Abs(input.x) >= turnDeadZone
+            ? input.x
+            : 0f;
+
+        if (xrTurnMode == XRTurnMode.Continuous)
+        {
+            snapTurnReady = true;
+
+            if (Mathf.Approximately(horizontal, 0f))
+                return;
+
+            float angleDelta =
+                horizontal *
+                continuousTurnSpeed *
+                Time.deltaTime;
+
+            RotateRigYaw(angleDelta);
+            return;
+        }
+
+        // Snap Turn
+        if (Mathf.Approximately(horizontal, 0f))
+        {
+            snapTurnReady = true;
+            return;
+        }
+
+        if (Time.unscaledTime < nextSnapTurnTime)
+            return;
+
+        if (requireStickReleaseForSnap && !snapTurnReady)
+            return;
+
+        float snapAngle =
+            Mathf.Sign(horizontal) *
+            snapTurnAmount;
+
+        RotateRigYaw(snapAngle);
+
+        nextSnapTurnTime =
+            Time.unscaledTime +
+            snapTurnDebounceTime;
+
+        snapTurnReady = false;
+    }
+    public void RotateRigYaw(float angle)
+    {
+        if (Mathf.Approximately(angle, 0f))
+            return;
+
+        if (mainCamera != null)
+        {
+            transform.RotateAround(
+                mainCamera.position,
+                Vector3.up,
+                angle
+            );
+        }
+        else
+        {
+            transform.Rotate(
+                Vector3.up,
+                angle,
+                Space.World
+            );
+        }
+    }
+
 }
