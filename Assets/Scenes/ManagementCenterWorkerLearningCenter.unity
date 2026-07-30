@@ -92938,6 +92938,22 @@ PrefabInstance:
       value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5183694494272420667, guid: bfaea9c681db31949bca91921d07546a, type: 3}
+      propertyPath: InteractPos.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5183694494272420667, guid: bfaea9c681db31949bca91921d07546a, type: 3}
+      propertyPath: InteractScale.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5183694494272420667, guid: bfaea9c681db31949bca91921d07546a, type: 3}
+      propertyPath: InteractScale.y
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5183694494272420667, guid: bfaea9c681db31949bca91921d07546a, type: 3}
+      propertyPath: InteractScale.z
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5183694494272420667, guid: bfaea9c681db31949bca91921d07546a, type: 3}
       propertyPath: callAudioSource
       value: 
       objectReference: {fileID: 936179626357503976}

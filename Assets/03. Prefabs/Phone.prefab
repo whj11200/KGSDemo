@@ -51,7 +51,6 @@ MonoBehaviour:
   phoneSystem: {fileID: 5183694494272420667}
   phoneChatController: {fileID: 42951770644938036}
   dialogueModeul: {fileID: 0}
-  Background: {fileID: 6203597950349901681}
   phoneChatRoutes:
   - fromNodeId: M0
     callType: 0
@@ -1131,10 +1130,13 @@ MonoBehaviour:
   VRCam: {fileID: 0}
   DialougeScaler: {fileID: 120374520972060593}
   PlaneDistance: 0.45
-  LocalScale: 0.5
-  IsReadOnly: 1
-  InteractPos: {x: 0, y: 0, z: 2}
-  InteractScale: {x: 0.002, y: 0.002, z: 0.002}
+  LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  Anchor: {x: 0.5, y: 0.5}
+  Pivot: {x: 0.5, y: 0.5}
+  AnchoredPos: {x: 0.5, y: 0.5}
+  IsReadOnly: 0
+  InteractPos: {x: 0, y: -0.2, z: 1}
+  InteractScale: {x: 0.001, y: 0.001, z: 0.001}
   phoneObject: {fileID: 6215282740392484311}
   phoneRect: {fileID: 3746180784828908530}
   incomingCallUI: {fileID: 4536643901006503163}
