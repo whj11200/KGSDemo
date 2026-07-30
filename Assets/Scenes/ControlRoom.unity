@@ -6388,6 +6388,9 @@ MonoBehaviour:
   DialougeScaler: {fileID: 0}
   PlaneDistance: 0.45
   LocalScale: 0.5
+  IsReadOnly: 1
+  InteractPos: {x: 0, y: 0, z: 2}
+  InteractScale: {x: 0.002, y: 0.002, z: 0.002}
   FadeText: {fileID: 1634492175}
   FadeImage: {fileID: 295128012}
 --- !u!225 &1070589626
@@ -16877,7 +16880,10 @@ MonoBehaviour:
   VRCam: {fileID: 377091180}
   DialougeScaler: {fileID: 1658719928}
   PlaneDistance: 0.45
-  LocalScale: 0.5
+  LocalScale: 0.4
+  IsReadOnly: 1
+  InteractPos: {x: 0, y: 0, z: 2}
+  InteractScale: {x: 0.002, y: 0.002, z: 0.002}
   root: {fileID: 5402397077919622512}
   speakerBG: {fileID: 4036185891511584296}
   speakerText: {fileID: 3805535422203964804}

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PhoneSystem : MonoBehaviour
+public class PhoneSystem : OverlayUI
 {
     [Header("Phone UI")]
     [SerializeField] private GameObject phoneObject;
@@ -51,6 +51,8 @@ public class PhoneSystem : MonoBehaviour
     private bool isCalling;
     private bool initialized;
 
+    private bool IsDesktop => PlayerDeviceManager.IsDesktop;
+
     /// <summary>
     /// 현재 전화가 울리거나 발신 중인지 여부.
     /// </summary>
@@ -58,16 +60,16 @@ public class PhoneSystem : MonoBehaviour
 
     public string currentNodeID { get; private set; } = "";
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         Init();
 
         HideCallUI();
         HidePhone();
     }
-
     
-
     private void Init()
     {
         if (initialized)
@@ -236,7 +238,7 @@ public class PhoneSystem : MonoBehaviour
         if (phoneObject != null)
             phoneObject.SetActive(true);
 
-        if (darkPhoneBackGround != null)
+        if (darkPhoneBackGround != null && IsDesktop)
             darkPhoneBackGround.SetActive(true);
     }
 
@@ -247,7 +249,7 @@ public class PhoneSystem : MonoBehaviour
         if (phoneObject != null)
             phoneObject.SetActive(false);
 
-        if (darkPhoneBackGround != null)
+        if (darkPhoneBackGround != null && IsDesktop)
             darkPhoneBackGround.SetActive(false);
     }
 

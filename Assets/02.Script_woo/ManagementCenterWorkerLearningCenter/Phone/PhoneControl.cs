@@ -1,26 +1,27 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhoneControl : MonoBehaviour
 {
     public enum PhoneCallType
     {
-        Incoming, // »ó´ë¹æÀÌ ³ª¿¡°Ô ÀüÈ­
-        Outgoing  // ³»°¡ »ó´ë¹æ¿¡°Ô ÀüÈ­
+        Incoming, // ìƒëŒ€ë°©ì´ ë‚˜ì—ê²Œ ì „í™”
+        Outgoing  // ë‚´ê°€ ìƒëŒ€ë°©ì—ê²Œ ì „í™”
     }
 
     [Serializable]
     public class PhoneChatRoute
     {
-        [Header("ÀüÈ­°¡ ¹ß»ıÇÑ Dialogue Node ID")]
+        [Header("ì „í™”ê°€ ë°œìƒí•œ Dialogue Node ID")]
         public string fromNodeId;
 
-        [Header("ÀüÈ­ Á¾·ù")]
+        [Header("ì „í™” ì¢…ë¥˜")]
         public PhoneCallType callType = PhoneCallType.Incoming;
 
-        [Header("½ÇÇàÇÒ Phone Chat Asset")]
+        [Header("ì‹¤í–‰í•  Phone Chat Asset")]
         public PhoneChatAsset chatAsset;
     }
 
@@ -29,14 +30,11 @@ public class PhoneControl : MonoBehaviour
     [SerializeField] private PhoneChatController phoneChatController;
     [SerializeField] private DialogueModeul dialogueModeul;
 
-    [Header("Dialogue Node IDº° ÀüÈ­ ¼³Á¤")]
+    [Header("Dialogue Node IDë³„ ì „í™” ì„¤ì •")]
     [SerializeField] private List<PhoneChatRoute> phoneChatRoutes = new();
 
-    [Header("¸ÅÄª ½ÇÆĞ ½Ã ±âº» ¼³Á¤")]
-    [SerializeField]
-    private PhoneCallType fallbackCallType =
-        PhoneCallType.Incoming;
-
+    [Header("ë§¤ì¹­ ì‹¤íŒ¨ ì‹œ ê¸°ë³¸ ì„¤ì •")]
+    [SerializeField] private PhoneCallType fallbackCallType = PhoneCallType.Incoming;
     [SerializeField] private PhoneChatAsset fallbackChatAsset;
 
     private PhoneCallType currentCallType;
@@ -75,13 +73,13 @@ public class PhoneControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç Dialogue Node ID¸¦ È®ÀÎÇØ ¼ö½Å ¶Ç´Â ¹ß½Å ÀüÈ­¸¦ ½ÃÀÛÇÑ´Ù.
+    /// í˜„ì¬ Dialogue Node IDë¥¼ í™•ì¸í•´ ìˆ˜ì‹  ë˜ëŠ” ë°œì‹  ì „í™”ë¥¼ ì‹œì‘í•œë‹¤.
     /// </summary>
     public void StartCallByCurrentNode()
     {
         if (phoneSystem == null)
         {
-            Debug.LogError("PhoneControl: PhoneSystemÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogError("PhoneControl: PhoneSystemì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -100,7 +98,7 @@ public class PhoneControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼ö½Å ÀüÈ­ ¹Ş±â ¹öÆ°.
+    /// ìˆ˜ì‹  ì „í™” ë°›ê¸° ë²„íŠ¼.
     /// </summary>
     public void AcceptCall()
     {
@@ -113,7 +111,7 @@ public class PhoneControl : MonoBehaviour
         if (currentCallType != PhoneCallType.Incoming)
         {
             Debug.LogWarning(
-                "PhoneControl: ¹ß½Å ÀüÈ­¿¡¼­´Â AcceptCallÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."
+                "PhoneControl: ë°œì‹  ì „í™”ì—ì„œëŠ” AcceptCallì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
             );
             return;
         }
@@ -124,7 +122,7 @@ public class PhoneControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ¹ß½Å ÀüÈ­°¡ ¿¬°áµÇ¾úÀ» ¶§ È£Ãâ.
+    /// ë°œì‹  ì „í™”ê°€ ì—°ê²°ë˜ì—ˆì„ ë•Œ í˜¸ì¶œ.
     /// </summary>
     public void ConnectOutgoingCall()
     {
@@ -137,7 +135,7 @@ public class PhoneControl : MonoBehaviour
         if (currentCallType != PhoneCallType.Outgoing)
         {
             Debug.LogWarning(
-                "PhoneControl: ¼ö½Å ÀüÈ­¿¡¼­´Â ConnectOutgoingCallÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."
+                "PhoneControl: ìˆ˜ì‹  ì „í™”ì—ì„œëŠ” ConnectOutgoingCallì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
             );
             return;
         }
@@ -148,7 +146,7 @@ public class PhoneControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼ö½Å ÀüÈ­ °ÅÀı.
+    /// ìˆ˜ì‹  ì „í™” ê±°ì ˆ.
     /// </summary>
     public void RejectCall()
     {
@@ -161,7 +159,7 @@ public class PhoneControl : MonoBehaviour
         if (currentCallType != PhoneCallType.Incoming)
         {
             Debug.LogWarning(
-                "PhoneControl: ¹ß½Å ÀüÈ­´Â RejectCallÀÌ ¾Æ´Ï¶ó CancelOutgoingCallÀ» »ç¿ëÇÏ¼¼¿ä."
+                "PhoneControl: ë°œì‹  ì „í™”ëŠ” RejectCallì´ ì•„ë‹ˆë¼ CancelOutgoingCallì„ ì‚¬ìš©í•˜ì„¸ìš”."
             );
             return;
         }
@@ -175,7 +173,7 @@ public class PhoneControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ³»°¡ °É°í ÀÖ´Â ¹ß½Å ÀüÈ­ Ãë¼Ò.
+    /// ë‚´ê°€ ê±¸ê³  ìˆëŠ” ë°œì‹  ì „í™” ì·¨ì†Œ.
     /// </summary>
     public void CancelOutgoingCall()
     {
@@ -188,7 +186,7 @@ public class PhoneControl : MonoBehaviour
         if (currentCallType != PhoneCallType.Outgoing)
         {
             Debug.LogWarning(
-                "PhoneControl: ¼ö½Å ÀüÈ­¿¡¼­´Â CancelOutgoingCallÀ» »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù."
+                "PhoneControl: ìˆ˜ì‹  ì „í™”ì—ì„œëŠ” CancelOutgoingCallì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
             );
             return;
         }
@@ -198,7 +196,7 @@ public class PhoneControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç Node ID¿¡ ¸Â´Â ÀüÈ­ Á¾·ù¿Í Ã¤ÆÃ ¿¡¼ÂÀ» Ã£´Â´Ù.
+    /// í˜„ì¬ Node IDì— ë§ëŠ” ì „í™” ì¢…ë¥˜ì™€ ì±„íŒ… ì—ì…‹ì„ ì°¾ëŠ”ë‹¤.
     /// </summary>
     private void ResolveCurrentCall()
     {
@@ -213,8 +211,8 @@ public class PhoneControl : MonoBehaviour
             currentChatAsset = fallbackChatAsset;
 
             Debug.LogWarning(
-                "PhoneControl: ÇöÀç Dialogue Node ID°¡ ¾ø½À´Ï´Ù. " +
-                "fallback ¼³Á¤À» »ç¿ëÇÕ´Ï´Ù."
+                "PhoneControl: í˜„ì¬ Dialogue Node IDê°€ ì—†ìŠµë‹ˆë‹¤. " +
+                "fallback ì„¤ì •ì„ ì‚¬ìš©í•©ë‹ˆë‹¤."
             );
 
             return;
@@ -246,15 +244,15 @@ public class PhoneControl : MonoBehaviour
         currentChatAsset = fallbackChatAsset;
 
         Debug.LogWarning(
-            $"PhoneControl: {currentNodeId}¿¡ ¸Â´Â ÀüÈ­ ¼³Á¤ÀÌ ¾ø½À´Ï´Ù. " +
-            "fallback ¼³Á¤À» »ç¿ëÇÕ´Ï´Ù."
+            $"PhoneControl: {currentNodeId}ì— ë§ëŠ” ì „í™” ì„¤ì •ì´ ì—†ìŠµë‹ˆë‹¤. " +
+            "fallback ì„¤ì •ì„ ì‚¬ìš©í•©ë‹ˆë‹¤."
         );
     }
 
     private void StartCurrentPhoneChat()
     {
-        // ¼ö½Å º§¼Ò¸® ¶Ç´Â ¹ß½Å ´ë±âÀ½¸¸ Á¤Áö.
-        // ÈŞ´ëÀüÈ­ È­¸é ÀÚÃ¼´Â À¯ÁöÇÑ´Ù.
+        // ìˆ˜ì‹  ë²¨ì†Œë¦¬ ë˜ëŠ” ë°œì‹  ëŒ€ê¸°ìŒë§Œ ì •ì§€.
+        // íœ´ëŒ€ì „í™” í™”ë©´ ìì²´ëŠ” ìœ ì§€í•œë‹¤.
         phoneSystem.StopRingingOnly();
 
         if (phoneChatController != null && currentChatAsset != null)
@@ -267,7 +265,7 @@ public class PhoneControl : MonoBehaviour
         else
         {
             Debug.LogWarning(
-                "PhoneControl: ½ÇÇàÇÒ PhoneChatAssetÀÌ ¾ø½À´Ï´Ù."
+                "PhoneControl: ì‹¤í–‰í•  PhoneChatAssetì´ ì—†ìŠµë‹ˆë‹¤."
             );
 
             OnChatFinished();

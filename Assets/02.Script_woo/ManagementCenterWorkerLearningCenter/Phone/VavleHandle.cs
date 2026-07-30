@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class VavleHandle : MonoBehaviour, IMouseInteractable
+public class VavleHandle : SupportXRInteractable
 {
     [Header("사운드")]
     [SerializeField] private AudioSource audioSource;
@@ -45,31 +45,6 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
     private void UpdateCurrentPosition()
     {
         currentPosition = transform.position;
-    }
-
-    public void ClickCancle()
-    {
-
-    }
-
-    public void ClickEnter()
-    {
-        ToggleLock();
-    }
-
-    public void ClickExit()
-    {
-
-    }
-
-    public void HoverEnter()
-    {
-
-    }
-
-    public void HoverExit()
-    {
-
     }
 
     public void ToggleLock()
@@ -196,4 +171,31 @@ public class VavleHandle : MonoBehaviour, IMouseInteractable
         }
         else Nav.HideArrow();
     }
+
+    #region Unuse
+    public override void ClickCancle()
+    {
+
+    }
+
+    public override void ClickEnter()
+    {
+        ToggleLock();
+    }
+
+    public override void ClickExit()
+    {
+
+    }
+
+    public override void HoverEnter()
+    {
+
+    }
+
+    public override void HoverExit()
+    {
+
+    }
+    #endregion
 }

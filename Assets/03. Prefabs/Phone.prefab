@@ -51,6 +51,7 @@ MonoBehaviour:
   phoneSystem: {fileID: 5183694494272420667}
   phoneChatController: {fileID: 42951770644938036}
   dialogueModeul: {fileID: 0}
+  Background: {fileID: 6203597950349901681}
   phoneChatRoutes:
   - fromNodeId: M0
     callType: 0
@@ -1125,6 +1126,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c1ef0ada98474b469f8d96a36fb0a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhoneSyteam
+  Canvas: {fileID: 2705208576076343811}
+  DesktopCam: {fileID: 0}
+  VRCam: {fileID: 0}
+  DialougeScaler: {fileID: 120374520972060593}
+  PlaneDistance: 0.45
+  LocalScale: 0.5
+  IsReadOnly: 1
+  InteractPos: {x: 0, y: 0, z: 2}
+  InteractScale: {x: 0.002, y: 0.002, z: 0.002}
   phoneObject: {fileID: 6215282740392484311}
   phoneRect: {fileID: 3746180784828908530}
   incomingCallUI: {fileID: 4536643901006503163}
@@ -1852,6 +1862,7 @@ GameObject:
   - component: {fileID: 2705208576076343811}
   - component: {fileID: 813154838479560870}
   - component: {fileID: 2101489537236341453}
+  - component: {fileID: 5411177920049036079}
   m_Layer: 5
   m_Name: Phone
   m_TagString: Untagged
@@ -1945,6 +1956,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5411177920049036079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8248721524093347784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!1 &9047752184875788803
 GameObject:
   m_ObjectHideFlags: 0
