@@ -3,6 +3,7 @@
 public class NPC_AnimationController : MonoBehaviour
 {
     [SerializeField] CharacterController PlayerController;
+    [SerializeField] Transform HeadPos;
     [SerializeField] Transform PlayerTransform;
     [SerializeField] Animator Animator;
     [SerializeField] AudioSource AudioSource;
@@ -26,6 +27,7 @@ public class NPC_AnimationController : MonoBehaviour
     {
         PlayerController = FindAnyObjectByType<CharacterController>();
         PlayerTransform = PlayerController.transform;
+        HeadPos = Camera.main.transform;
     }
 
     private float currentWeight;
@@ -71,7 +73,7 @@ public class NPC_AnimationController : MonoBehaviour
             1f,            // eyes
             0.6f);         // clamp
 
-        Animator.SetLookAtPosition(PlayerTransform.position);
+        Animator.SetLookAtPosition(HeadPos.position);
     }
 
     public void SetLookAtPlayer(bool value)
