@@ -7,6 +7,8 @@ public class SupportXRInteractable : MonoBehaviour, IMouseInteractable
 
     protected virtual void Awake()
     {
+        if (!PlayerDeviceManager.IsVR) return;
+
         XRSimpleInteractable = GetComponent<XRSimpleInteractable>();
 
         if (XRSimpleInteractable == null)

@@ -4,10 +4,12 @@
 public class PlayerDeviceManager : MonoBehaviour
 {
     public static EPlayDevice PlayDevice = EPlayDevice.VR;
-    [SerializeField] private GameObject DesktopPlayer;
-    [SerializeField] private GameObject VRPlayer;
     public static bool IsVR => PlayDevice == EPlayDevice.VR;
     public static bool IsDesktop => PlayDevice == EPlayDevice.Desktop;
+
+    [SerializeField] private GameObject DesktopPlayer;
+    [SerializeField] private GameObject VRPlayer;
+    
     private void Awake()
     {
         #if DESKTOP_BUILD
