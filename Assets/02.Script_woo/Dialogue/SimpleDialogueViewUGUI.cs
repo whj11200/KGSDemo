@@ -18,6 +18,7 @@ public class SimpleDialogueViewUGUI : OverlayUI, IDialogueView
     [Header("Hints")]
     [SerializeField] GameObject typingIcon;
     [SerializeField] GameObject continueHint;
+    [SerializeField] TMP_Text HintText;
 
     [Header("Choices")]
     [SerializeField] Transform choiceRoot;
@@ -33,6 +34,15 @@ public class SimpleDialogueViewUGUI : OverlayUI, IDialogueView
 
         if (speakerBG == null)
             speakerBG = speakerText.GetComponentInParent<Image>();
+
+        if (HintText == null)
+        {
+            HintText = continueHint.GetComponent<TMP_Text>();
+        }
+
+        var continueKey = PlayerDeviceManager.IsDesktop ? "Space" : "A";
+
+        HintText.text = $"[ {continueKey} ]";
     }
 
     public void Show(bool visible) => root.SetActive(visible);
