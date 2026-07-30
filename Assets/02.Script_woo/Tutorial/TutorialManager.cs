@@ -8,6 +8,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] ManagerUIManager tutorialUIManager;
     [SerializeField] NPC_Interaction NPC;
 
+    [SerializeField] MeshRenderer InputTutoPlane;
+    [SerializeField] Material MatVR;
+    [SerializeField] Material MatDesktop;
+
     // [추가] 현재 어떤 시나리오 노드가 진행 중인지 저장
     private void OnEnable()
     {
@@ -27,6 +31,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
+        InputTutoPlane.material = PlayerDeviceManager.IsDesktop ? MatDesktop : MatVR;
+
         NPC.HandleHello();
     }
 
