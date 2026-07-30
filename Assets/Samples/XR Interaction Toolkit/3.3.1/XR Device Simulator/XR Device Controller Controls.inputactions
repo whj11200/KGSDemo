@@ -346,6 +346,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c0d5cb73-867f-4248-bc94-58926818a5b9",
+                    "path": "<QuestTouchPlusController>{LeftHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8e2bc8db-cb64-45ae-967f-55e716a538ba",
                     "path": "<Keyboard>/4",
                     "interactions": "",

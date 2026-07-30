@@ -7,19 +7,24 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuUI : MonoBehaviour
+public class MenuUI : OverlayUI
 {
     [SerializeField] CameraController controller;
     [SerializeField] EnvironmentManager KGS;
     [SerializeField] Button Selected;
     [SerializeField] Sprite SelectSprite;
     [SerializeField] Sprite NormalSprite;
+    [SerializeField] Image MenualImage;
+    [SerializeField] Sprite Desktop;
+    [SerializeField] Sprite VR;
 
     [SerializeField] List<MenuButton> SelectContentButtons = new();
     [SerializeField] Dictionary<Button, MenuButton> Buttons = new();
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (SelectContentButtons.Count > 0)
         {
             foreach (var button in SelectContentButtons)
@@ -33,6 +38,11 @@ public class MenuUI : MonoBehaviour
     {
         if (KGS == null)
             KGS = FindFirstObjectByType<EnvironmentManager>();
+
+        if (controller == null)
+        {
+            controller = Camera.main.transform.GetComponentInParent<CameraController>();
+        }
     }
 
     public void TutorialScene()
@@ -60,13 +70,13 @@ public class MenuUI : MonoBehaviour
         else
         { 
             KGS?.OpenContent(ContentRequest);
-            controller.ToggleMenu();
+            controller?.ToggleMenu();
         }
     }
 
     public void SwitchScene(string sceneName)
     {
-        controller.ToggleMenu();
+        controller?.ToggleMenu();
         SceneManager.LoadScene(sceneName);
     }
 

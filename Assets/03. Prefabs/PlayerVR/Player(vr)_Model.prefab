@@ -31130,7 +31130,7 @@ MonoBehaviour:
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   returnAction: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   scrollAction: {fileID: 6240969308177333660, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  tabAction: {fileID: 4116954447336496447, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
   jumpAction: {fileID: -1916377846673030204, guid: 084345ec1e9b8ee4497850e10158ade5, type: 3}
   popup: {fileID: 0}
   menu: {fileID: 0}

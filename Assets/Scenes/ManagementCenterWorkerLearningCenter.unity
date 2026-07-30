@@ -29707,6 +29707,7 @@ Transform:
   - {fileID: 134708680}
   - {fileID: 1796612310}
   - {fileID: 2109020355}
+  - {fileID: 1420523433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &657312996
@@ -41796,6 +41797,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: menu
+      value: 
+      objectReference: {fileID: 1420523434}
+    - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: menual
+      value: 
+      objectReference: {fileID: 776962537}
+    - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: tabAction
+      value: 
+      objectReference: {fileID: 4116954447336496447, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
     - target: {fileID: 4952084593324845219, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.741
@@ -73932,7 +73945,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3754216527345596812}
+    m_TransformParent: {fileID: 656327747}
     m_Modifications:
     - target: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: m_Pivot.x
@@ -73976,7 +73989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.921055
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73996,11 +74009,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 39.28836
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -4.058
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2576452566572409034, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -74018,10 +74031,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3317257286874821892}
-    - target: {fileID: 2954653758977522306, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleMenu
-      objectReference: {fileID: 0}
+    - target: {fileID: 7673852984779609171, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+      propertyPath: VRCam
+      value: 
+      objectReference: {fileID: 58060086}
+    - target: {fileID: 7673852984779609171, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
+      propertyPath: DesktopCam
+      value: 
+      objectReference: {fileID: 5539752763162150765}
     - target: {fileID: 7673852984779609171, guid: 15f6cf937c8633647a7e4476e1b13c8b, type: 3}
       propertyPath: controller
       value: 
@@ -200020,7 +200037,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1420523433}
   - {fileID: 438828816207750996}
   - {fileID: 2179898326265511388}
   m_Father: {fileID: 6254097779496029376}
@@ -278243,7 +278259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &7469390926446726232
 MeshFilter:
   m_ObjectHideFlags: 0

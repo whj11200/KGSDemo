@@ -315,6 +315,8 @@ public class CameraController : MonoBehaviour
     private bool prevCursorVisiblity = false;
     public void ToggleMenu()
     {
+        Debug.Log("Call ToggleMenu");
+
         if (menu == null) return;
 
         // 오브젝트 활성화/비활성화 반전
