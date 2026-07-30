@@ -22,6 +22,8 @@ public abstract class OverlayUI : MonoBehaviour
             Canvas.worldCamera = VRCam;
             Canvas.planeDistance = PlaneDistance;
 
+            Canvas.transform.SetParent(VRCam.transform, false);
+
             if (DialougeScaler != null)
             {
                 SetDialougeScaler(DialougeScaler);

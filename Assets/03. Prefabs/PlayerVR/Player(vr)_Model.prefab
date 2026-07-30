@@ -26115,7 +26115,7 @@ Transform:
   m_GameObject: {fileID: 5228774038124641185}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0107, y: -0.16456008, z: -0.057}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31090,12 +31090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xrTurnMode: 2
-  continuousTurnSpeed: 60
-  snapTurnAmount: 45
-  snapTurnDebounceTime: 0.5
-  turnDeadZone: 0.5
-  requireStickReleaseForSnap: 1
   footstepAudioSource: {fileID: 1956806626453396889}
   footstepClip: {fileID: 8300000, guid: 09666454ad621054d9e69d9794b87a48, type: 3}
   footstepVolume: 0.7
@@ -31122,11 +31116,10 @@ MonoBehaviour:
   smoothTime: 10
   raycaster: {fileID: 0}
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  returnAction: {fileID: 0}
-  scrollAction: {fileID: 0}
+  returnAction: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  scrollAction: {fileID: 5825226938762934180, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   tabAction: {fileID: 2578498471421468828, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  jumpAction: {fileID: 0}
-  turnInputAction: {fileID: -4708586670772182644, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  jumpAction: {fileID: -1916377846673030204, guid: 084345ec1e9b8ee4497850e10158ade5, type: 3}
   popup: {fileID: 0}
   menu: {fileID: 0}
   menual: {fileID: 0}
