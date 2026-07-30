@@ -735,12 +735,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7354565febabe408d972b0436df802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
+  DesktopCam: {fileID: 0}
+  VRCam: {fileID: 0}
+  DialougeScaler: {fileID: 0}
+  PlaneDistance: 0.45
+  LocalScale: 0.5
   root: {fileID: 5402397077747699027}
   speakerBG: {fileID: 0}
   speakerText: {fileID: 3805535422048716199}
   bodyText: {fileID: 5294200640982648718}
+  charsPerSecond: 15
   typingIcon: {fileID: 0}
   continueHint: {fileID: 3171966748731041771}
+  HintText: {fileID: 2995727215595895348}
   choiceRoot: {fileID: 0}
   choiceButtonPrefab: {fileID: 0}
 --- !u!1 &8163608567202576361

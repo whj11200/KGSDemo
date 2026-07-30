@@ -8076,6 +8076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC_AnimationController
   PlayerController: {fileID: 1577085296}
+  HeadPos: {fileID: 0}
   PlayerTransform: {fileID: 1577085293}
   Animator: {fileID: 1305012611}
   AudioSource: {fileID: 1305012612}
@@ -16884,6 +16885,7 @@ MonoBehaviour:
   charsPerSecond: 15
   typingIcon: {fileID: 0}
   continueHint: {fileID: 3171966748953251784}
+  HintText: {fileID: 2995727215810007575}
   choiceRoot: {fileID: 0}
   choiceButtonPrefab: {fileID: 0}
 --- !u!4 &3764171536591870135

@@ -2971,7 +2971,6 @@ MonoBehaviour:
   rotateSpeed: 2
   isPopupOpened: 0
   isMenuOpened: 0
-  isPhoneOpened: 0
   mainCamera: {fileID: 374644633}
   zoomSpeed: 5
   minFOV: 15
@@ -5549,6 +5548,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7354565febabe408d972b0436df802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
+  DesktopCam: {fileID: 0}
+  VRCam: {fileID: 0}
+  DialougeScaler: {fileID: 0}
+  PlaneDistance: 0.45
+  LocalScale: 0.5
   root: {fileID: 1829355654}
   speakerBG: {fileID: 470853524}
   speakerText: {fileID: 1315750720}
@@ -5556,6 +5561,7 @@ MonoBehaviour:
   charsPerSecond: 15
   typingIcon: {fileID: 0}
   continueHint: {fileID: 205308669}
+  HintText: {fileID: 205308671}
   choiceRoot: {fileID: 0}
   choiceButtonPrefab: {fileID: 0}
 --- !u!1 &1832674260
