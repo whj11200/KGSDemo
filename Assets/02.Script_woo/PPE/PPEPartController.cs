@@ -80,7 +80,7 @@ public class PPEPartController : MonoBehaviour
     private void Awake()
     {
         activeSetup = FindDeviceSetup(PlayerDeviceManager.PlayDevice);
-
+            CacheReturnTextsFromChildren();
         if (activeSetup == null)
         {
             Debug.LogError(
@@ -333,5 +333,17 @@ public class PPEPartController : MonoBehaviour
             return;
 
         playerSound.PlayOneShot(clip);
+    }
+    private void CacheReturnTextsFromChildren()
+    {
+        int childCount = transform.childCount;
+
+        activeSetup.returnTexts = new GameObject[childCount];
+
+        for (int i = 0; i < childCount; i++)
+        {
+            activeSetup.returnTexts[i] =
+                transform.GetChild(i).gameObject;
+        }
     }
 }

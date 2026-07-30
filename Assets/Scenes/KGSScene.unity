@@ -3776,7 +3776,33 @@ MonoBehaviour:
   putClip: {fileID: 0}
   mode: 0
   group: 2
-  deviceSetups: []
+  deviceSetups:
+  - device: 0
+    suitParts:
+    - targetRenderer: {fileID: 1678987875}
+      suitMesh: {fileID: -1840868520414043212, guid: a2c6d9c9413c669439beeb22ecc95cea, type: 3}
+      suitMaterials:
+      - {fileID: 2100000, guid: cca8a50825ffd70419cdc72bdc25622a, type: 2}
+      originalMesh: {fileID: 0}
+      originalMaterials: []
+    targetObjects: []
+    returnTexts:
+    - {fileID: 648481249}
+    hairObjects: []
+    rigBuilder: {fileID: 1814954286}
+  - device: 1
+    suitParts:
+    - targetRenderer: {fileID: 2287799033076568526}
+      suitMesh: {fileID: -1840868520414043212, guid: a2c6d9c9413c669439beeb22ecc95cea, type: 3}
+      suitMaterials:
+      - {fileID: 2100000, guid: cca8a50825ffd70419cdc72bdc25622a, type: 2}
+      originalMesh: {fileID: 0}
+      originalMaterials: []
+    targetObjects: []
+    returnTexts:
+    - {fileID: 648481249}
+    hairObjects: []
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -6338,7 +6364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &432430842
 Transform:
   m_ObjectHideFlags: 0
@@ -10675,7 +10701,8 @@ MonoBehaviour:
     suitParts: []
     targetObjects:
     - {fileID: 991206423492936380}
-    returnTexts: []
+    returnTexts:
+    - {fileID: 1264215954}
     hairObjects:
     - {fileID: 1871690219}
     rigBuilder: {fileID: 1814954286}
@@ -10683,10 +10710,11 @@ MonoBehaviour:
     suitParts: []
     targetObjects:
     - {fileID: 432430841}
-    returnTexts: []
+    returnTexts:
+    - {fileID: 1264215954}
     hairObjects:
     - {fileID: 4857189733969315981}
-    rigBuilder: {fileID: 0}
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -12101,7 +12129,25 @@ MonoBehaviour:
   putClip: {fileID: 0}
   mode: 1
   group: 2
-  deviceSetups: []
+  deviceSetups:
+  - device: 0
+    suitParts: []
+    targetObjects:
+    - {fileID: 1406507885}
+    returnTexts:
+    - {fileID: 2122082584}
+    hairObjects:
+    - {fileID: 1871690219}
+    rigBuilder: {fileID: 1814954286}
+  - device: 1
+    suitParts: []
+    targetObjects:
+    - {fileID: 1595497253}
+    returnTexts:
+    - {fileID: 2122082584}
+    hairObjects:
+    - {fileID: 4857189733969315981}
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -14851,7 +14897,33 @@ MonoBehaviour:
   putClip: {fileID: 0}
   mode: 0
   group: 2
-  deviceSetups: []
+  deviceSetups:
+  - device: 0
+    suitParts:
+    - targetRenderer: {fileID: 177221882}
+      suitMesh: {fileID: 4746627114502397495, guid: 4ac6e469bf5960c42a977c2c8faace77, type: 3}
+      suitMaterials:
+      - {fileID: 2100000, guid: c3b63a4ec7a83b14cbd69862f57cfea4, type: 2}
+      originalMesh: {fileID: 0}
+      originalMaterials: []
+    targetObjects: []
+    returnTexts:
+    - {fileID: 705497843}
+    hairObjects: []
+    rigBuilder: {fileID: 1814954286}
+  - device: 1
+    suitParts:
+    - targetRenderer: {fileID: 4720760479390587128}
+      suitMesh: {fileID: 4746627114502397495, guid: 4ac6e469bf5960c42a977c2c8faace77, type: 3}
+      suitMaterials:
+      - {fileID: 2100000, guid: c3b63a4ec7a83b14cbd69862f57cfea4, type: 2}
+      originalMesh: {fileID: 0}
+      originalMaterials: []
+    targetObjects: []
+    returnTexts:
+    - {fileID: 705497843}
+    hairObjects: []
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -14898,14 +14970,16 @@ MonoBehaviour:
     suitParts: []
     targetObjects:
     - {fileID: 761143297}
-    returnTexts: []
+    returnTexts:
+    - {fileID: 2125231976}
     hairObjects: []
     rigBuilder: {fileID: 1814954286}
   - device: 1
     suitParts: []
     targetObjects:
     - {fileID: 919132148704436970}
-    returnTexts: []
+    returnTexts:
+    - {fileID: 2125231976}
     hairObjects: []
     rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
@@ -17127,7 +17201,23 @@ MonoBehaviour:
   putClip: {fileID: 0}
   mode: 1
   group: 2
-  deviceSetups: []
+  deviceSetups:
+  - device: 0
+    suitParts: []
+    targetObjects:
+    - {fileID: 1919607106}
+    returnTexts:
+    - {fileID: 612885938}
+    hairObjects: []
+    rigBuilder: {fileID: 1814954286}
+  - device: 1
+    suitParts: []
+    targetObjects:
+    - {fileID: 1035931458}
+    returnTexts:
+    - {fileID: 612885938}
+    hairObjects: []
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -17529,6 +17619,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403912580}
   m_CullTransparentMesh: 1
+--- !u!1 &1406507885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8786981975079281019, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 991206423492936379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1410852532
 GameObject:
   m_ObjectHideFlags: 0
@@ -19627,7 +19722,33 @@ MonoBehaviour:
   putClip: {fileID: 0}
   mode: 0
   group: 2
-  deviceSetups: []
+  deviceSetups:
+  - device: 0
+    suitParts:
+    - targetRenderer: {fileID: 991206423492936381}
+      suitMesh: {fileID: -9088945683448221397, guid: 0e66bcc8d439d4a47b0aace31519dd5d, type: 3}
+      suitMaterials:
+      - {fileID: 2100000, guid: d9c4066d36c0bea4ebae7687b108dcfd, type: 2}
+      originalMesh: {fileID: 0}
+      originalMaterials: []
+    targetObjects: []
+    returnTexts:
+    - {fileID: 1879748728}
+    hairObjects: []
+    rigBuilder: {fileID: 1814954286}
+  - device: 1
+    suitParts:
+    - targetRenderer: {fileID: 6236546729391875195}
+      suitMesh: {fileID: 6961951020671696081, guid: b816fd3a7cc5ca746a5ca807eed6df49, type: 3}
+      suitMaterials:
+      - {fileID: 2100000, guid: d9c4066d36c0bea4ebae7687b108dcfd, type: 2}
+      originalMesh: {fileID: 0}
+      originalMaterials: []
+    targetObjects: []
+    returnTexts:
+    - {fileID: 1879748728}
+    hairObjects: []
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -26594,7 +26715,23 @@ MonoBehaviour:
   putClip: {fileID: 0}
   mode: 1
   group: 2
-  deviceSetups: []
+  deviceSetups:
+  - device: 0
+    suitParts: []
+    targetObjects:
+    - {fileID: 991206423492936380}
+    returnTexts:
+    - {fileID: 499234625}
+    hairObjects: []
+    rigBuilder: {fileID: 1814954286}
+  - device: 1
+    suitParts: []
+    targetObjects:
+    - {fileID: 332903019}
+    returnTexts:
+    - {fileID: 499234625}
+    hairObjects: []
+    rigBuilder: {fileID: 6212177855307691658}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -28037,6 +28174,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2996707139022734144, guid: 809a1af6f835de343be96e576207590e, type: 3}
+--- !u!1 &1919607106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 609213123332765277, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
+  m_PrefabInstance: {fileID: 991206423492936379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1922616763
 GameObject:
   m_ObjectHideFlags: 0
@@ -44885,6 +45027,7 @@ GameObject:
   - component: {fileID: 1351559933}
   - component: {fileID: 1351559932}
   - component: {fileID: 1351559934}
+  - component: {fileID: 8407552317724171215}
   m_Layer: 0
   m_Name: PPE_3_glass
   m_TagString: Untagged
@@ -59575,6 +59718,7 @@ GameObject:
   - component: {fileID: 1805089794}
   - component: {fileID: 1805089793}
   - component: {fileID: 1805089795}
+  - component: {fileID: 6403957992057246860}
   m_Layer: 0
   m_Name: PPE_3_mask
   m_TagString: Untagged
@@ -62445,6 +62589,7 @@ GameObject:
   - component: {fileID: 932455815}
   - component: {fileID: 932455814}
   - component: {fileID: 932455816}
+  - component: {fileID: 8670269844943854403}
   m_Layer: 0
   m_Name: PPE_3_helmet
   m_TagString: Untagged
@@ -72391,6 +72536,92 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2889777123175530039}
   m_Mesh: {fileID: 3515768924589689142, guid: 0e66bcc8d439d4a47b0aace31519dd5d, type: 3}
+--- !u!114 &6403957992057246860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889777123175530039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1805089793}
+        m_TargetAssemblyTypeName: SuitInteractable, Assembly-CSharp
+        m_MethodName: ClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!33 &6423917026245039575
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -74635,9 +74866,10 @@ MonoBehaviour:
       originalMesh: {fileID: 0}
       originalMaterials: []
     targetObjects: []
-    returnTexts: []
+    returnTexts:
+    - {fileID: 997433161}
     hairObjects: []
-    rigBuilder: {fileID: 0}
+    rigBuilder: {fileID: 1814954286}
   - device: 1
     suitParts:
     - targetRenderer: {fileID: 6236546729391875195}
@@ -74659,9 +74891,10 @@ MonoBehaviour:
       originalMesh: {fileID: 0}
       originalMaterials: []
     targetObjects: []
-    returnTexts: []
+    returnTexts:
+    - {fileID: 997433161}
     hairObjects: []
-    rigBuilder: {fileID: 0}
+    rigBuilder: {fileID: 1814954286}
   initializeTargetObjectsOff: 1
   pickupMeshRenderer: {fileID: 0}
   messageUI: {fileID: 1297037987}
@@ -74724,6 +74957,7 @@ GameObject:
   - component: {fileID: 226291746}
   - component: {fileID: 226291745}
   - component: {fileID: 226291747}
+  - component: {fileID: 8012585632099106947}
   m_Layer: 0
   m_Name: PPE_3_glove
   m_TagString: Untagged
@@ -74731,6 +74965,92 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &8012585632099106947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012585632099106946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 226291745}
+        m_TargetAssemblyTypeName: SuitInteractable, Assembly-CSharp
+        m_MethodName: ClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!1 &8016265877631122043
 GameObject:
   m_ObjectHideFlags: 0
@@ -74745,6 +75065,7 @@ GameObject:
   - component: {fileID: 892712850427255755}
   - component: {fileID: 1622319648}
   - component: {fileID: 1622319647}
+  - component: {fileID: 8016265877631122044}
   m_Layer: 0
   m_Name: PPE_3_suit
   m_TagString: Untagged
@@ -74752,6 +75073,92 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &8016265877631122044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016265877631122043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1622319647}
+        m_TargetAssemblyTypeName: SuitInteractable, Assembly-CSharp
+        m_MethodName: ClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!1 &8017762277477747063
 GameObject:
   m_ObjectHideFlags: 0
@@ -75734,6 +76141,7 @@ GameObject:
   - component: {fileID: 1176614224}
   - component: {fileID: 1176614223}
   - component: {fileID: 1176614225}
+  - component: {fileID: 8363222655838844036}
   m_Layer: 0
   m_Name: PPE_3_boots
   m_TagString: Untagged
@@ -75741,6 +76149,92 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &8363222655838844036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363222655838844035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1176614223}
+        m_TargetAssemblyTypeName: SuitInteractable, Assembly-CSharp
+        m_MethodName: ClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!33 &8367227045886077052
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -75786,6 +76280,92 @@ Transform:
   - {fileID: 612885939}
   m_Father: {fileID: 790046046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8407552317724171215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644987932050175065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1351559932}
+        m_TargetAssemblyTypeName: SuitInteractable, Assembly-CSharp
+        m_MethodName: ClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!4 &8408652634785605162
 Transform:
   m_ObjectHideFlags: 0
@@ -81270,6 +81850,92 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3834208785979482586}
   m_Mesh: {fileID: 4199300549705131174, guid: 0e66bcc8d439d4a47b0aace31519dd5d, type: 3}
+--- !u!114 &8670269844943854403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3834208785979482586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 932455814}
+        m_TargetAssemblyTypeName: SuitInteractable, Assembly-CSharp
+        m_MethodName: ClickEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
 --- !u!4 &8678775829512630020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3770705048507922909, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
