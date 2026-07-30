@@ -2395,9 +2395,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 366316169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 352e3b8e358b5ad4689d64c8ce51f0a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 648c7a022ebb7694d96829d80a97d5a0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerModeManager
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeviceManager
+  DesktopPlayer: {fileID: 1577085292}
+  VRPlayer: {fileID: 377091181}
 --- !u!1001 &377091179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2470,6 +2472,11 @@ PrefabInstance:
 --- !u!20 &377091180 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5518252404476626479, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+  m_PrefabInstance: {fileID: 377091179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &377091181 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5904584487047471173, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
   m_PrefabInstance: {fileID: 377091179}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &381054967
@@ -6387,7 +6394,10 @@ MonoBehaviour:
   VRCam: {fileID: 377091180}
   DialougeScaler: {fileID: 0}
   PlaneDistance: 0.45
-  LocalScale: 0.5
+  LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  Anchor: {x: 0.5, y: 0.5}
+  Pivot: {x: 0.5, y: 0.5}
+  AnchoredPos: {x: 0.5, y: 0.5}
   IsReadOnly: 1
   InteractPos: {x: 0, y: 0, z: 2}
   InteractScale: {x: 0.002, y: 0.002, z: 0.002}
@@ -16880,7 +16890,10 @@ MonoBehaviour:
   VRCam: {fileID: 377091180}
   DialougeScaler: {fileID: 1658719928}
   PlaneDistance: 0.45
-  LocalScale: 0.4
+  LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  Anchor: {x: 0.5, y: 0.5}
+  Pivot: {x: 0.5, y: 0.5}
+  AnchoredPos: {x: 0.5, y: 0.5}
   IsReadOnly: 1
   InteractPos: {x: 0, y: 0, z: 2}
   InteractScale: {x: 0.002, y: 0.002, z: 0.002}
@@ -23935,8 +23948,8 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 377091179}
   - {fileID: 1561977732}
+  - {fileID: 377091179}
   - {fileID: 97885801}
   - {fileID: 23242855}
   - {fileID: 70844634}
