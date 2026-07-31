@@ -52,6 +52,7 @@ public class CameraController : MonoBehaviour
     public InputActionReference scrollAction; // 줌 인/아웃
     public InputActionReference tabAction; // 상호작용 입력
     public InputActionReference jumpAction; // 점프 입력 추가
+
     [Header("GameObject References")]
     public GameObject popup;
     public GameObject menu;
@@ -93,11 +94,14 @@ public class CameraController : MonoBehaviour
         {
             popup.SetActive(false);
         }
+
         isPopupOpened = false;
         targetFov = _mainCamera.fieldOfView;
 
         if (menu != null)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             menu.SetActive(false);
         }
 
@@ -144,6 +148,10 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (!PlayerDeviceManager.IsDesktop)
+            return;
+
+
         if (isPopupOpened || isMenuOpened)
         {
             if (animator != null)

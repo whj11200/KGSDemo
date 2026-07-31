@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Unity.Cinemachine;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -68,7 +67,6 @@ public class ScenarioSelector : MonoBehaviour
                 // 의자 위치 이동
                 VRPlayer.position = PlayerChair.transform.position;
 
-
                 // 모니터 바라보도록 회전 보정
                 Transform head = Camera.main.transform;
 
@@ -87,7 +85,6 @@ public class ScenarioSelector : MonoBehaviour
                 );
 
                 VRPlayer.Rotate(Vector3.up, angle, Space.World);
-
 
                 // 카메라 높이 보정
                 var deskPos = CameraOffset.localPosition;
