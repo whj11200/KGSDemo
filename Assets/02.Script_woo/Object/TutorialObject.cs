@@ -41,7 +41,7 @@ public class TutorialObject : BaseEquippable, IMouseInteractable
 
     public void GrabSelectExit(SelectExitEventArgs args)
     {
-        
+        C_Drop();
     }
 
     #region Unuse
