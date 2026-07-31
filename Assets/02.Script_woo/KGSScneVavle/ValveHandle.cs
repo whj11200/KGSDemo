@@ -1,29 +1,28 @@
 ﻿using UnityEngine;
 
-public class ValveHandle : MonoBehaviour, IMouseInteractable
+public class ValveHandle : SupportXRInteractable
 {
-    [SerializeField]ValveController valveController;
-    public void ClickCancle()
+    [SerializeField] ValveController valveController;
+    public override void ClickCancle()
     {
      
     }
 
-    public void ClickEnter()
+    public override void ClickEnter()
     {
-       valveController.OnInteract();
+        valveController.OnInteract();
     }
 
-    public void ClickExit()
+    public override void ClickExit()
     {
-        
     }
 
-    public void HoverEnter()
+    public  override void HoverEnter()
     {
       
     }
 
-    public void HoverExit()
+    public override void HoverExit()
     {
      
     }

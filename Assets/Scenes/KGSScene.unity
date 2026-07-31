@@ -6711,11 +6711,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457782297}
   m_CullTransparentMesh: 1
---- !u!1 &462536309 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5701931091207319005, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
-  m_PrefabInstance: {fileID: 991206423492936379}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473893011
 GameObject:
   m_ObjectHideFlags: 0
@@ -16438,11 +16433,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &1266233730 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 13024936052856089, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
-  m_PrefabInstance: {fileID: 991206423492936379}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1277500795
 GameObject:
   m_ObjectHideFlags: 0
@@ -51034,7 +51024,7 @@ PrefabInstance:
     - target: {fileID: 3317257287717226871, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: menual
       value: 
-      objectReference: {fileID: 1266233730}
+      objectReference: {fileID: 0}
     - target: {fileID: 3317257287717226871, guid: 4c43efd785c2c9140ab600311e553cfe, type: 3}
       propertyPath: SpawnPos
       value: 
@@ -59593,7 +59583,6 @@ GameObject:
   - component: {fileID: 8895255312562085529}
   - component: {fileID: 8895255312562085530}
   - component: {fileID: 8895255312562085531}
-  - component: {fileID: 8895255312562085532}
   m_Layer: 0
   m_Name: bv-handle
   m_TagString: Untagged
@@ -63584,7 +63573,7 @@ PrefabInstance:
     - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: menu
       value: 
-      objectReference: {fileID: 462536309}
+      objectReference: {fileID: 0}
     - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: popup
       value: 
@@ -63592,7 +63581,7 @@ PrefabInstance:
     - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: menual
       value: 
-      objectReference: {fileID: 1266233730}
+      objectReference: {fileID: 0}
     - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: SpawnPos
       value: 
@@ -80301,92 +80290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValveHandle
   valveController: {fileID: 919132148766704622}
---- !u!114 &8895255312562085532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255355082872293362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
-  m_InteractionManager: {fileID: 0}
-  m_Colliders: []
-  m_InteractionLayers:
-    m_Bits: 1
-  m_DistanceCalculationMode: 1
-  m_SelectMode: 0
-  m_FocusMode: 1
-  m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
-  m_OverrideGazeTimeToSelect: 0
-  m_GazeTimeToSelect: 0.5
-  m_OverrideTimeToAutoDeselectGaze: 0
-  m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
-  m_FirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8895255312562085531}
-        m_TargetAssemblyTypeName: ValveHandle, Assembly-CSharp
-        m_MethodName: ClickEnter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstFocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastFocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FocusExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Activated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Deactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_StartingInteractionStrengthFilters: []
-  m_AutoFindParentInteractableInHierarchy: 0
-  m_ParentInteractableObject: {fileID: 0}
 --- !u!1 &8896610155459110329
 GameObject:
   m_ObjectHideFlags: 0

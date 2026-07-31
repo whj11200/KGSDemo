@@ -39,7 +39,6 @@ public class ValveController : MonoBehaviour
         if (isLeaking)
         {
             CloseValve();
-
         }
     }
 
