@@ -18,8 +18,8 @@ public class SupportXRInteractable : MonoBehaviour, IMouseInteractable
 
         XRSimpleInteractable.hoverEntered.AddListener(_ => HoverEnter());
         XRSimpleInteractable.hoverExited.AddListener(_ => HoverExit());
-        XRSimpleInteractable.selectEntered.AddListener(_ => ClickEnter());
-        XRSimpleInteractable.selectExited.AddListener(_ => ClickExit());
+        XRSimpleInteractable.activated.AddListener(_ => ClickEnter());
+        XRSimpleInteractable.deactivated.AddListener(_ => ClickExit());
     }
 
     public virtual void ClickCancle()

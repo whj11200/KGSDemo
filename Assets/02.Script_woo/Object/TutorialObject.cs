@@ -1,40 +1,53 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class TutorialObject : BaseEquippable,IMouseInteractable
+public class TutorialObject : BaseEquippable, IMouseInteractable
 {
     [SerializeField] TutorialManager tutorialManager;
 
-    bool is_clear = false;
+    bool IsClear = false;
    
-    
     protected override void Awake()
     {
         base.Awake();
         if (tutorialManager == null)
         {
-            Debug.LogError("TutorialManager°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError("TutorialManagerê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
         }
     }
-    public void ClickCancle() { }
 
-    
-    public void ClickEnter()
+    public void ClickExit() 
     {
-        // 1. Àâ°í ³õ´Â ±â´ÉÀº »óÅÂ¿Í »ó°ü¾øÀÌ ¾ğÁ¦³ª ½ÇÇà
-       
+        // 1. ì¡ê³  ë†“ëŠ” ê¸°ëŠ¥ì€ ìƒíƒœì™€ ìƒê´€ì—†ì´ ì–¸ì œë‚˜ ì‹¤í–‰
         Child_ToggleEquip();
-        if (is_clear) return;
+
+        if (IsClear) return;
         if (tutorialManager.currentNodeID == "S0")
         {
             tutorialManager.CompleteMisson(TutorialEventType.ObjectClear);
-            is_clear = true; // ÀÌ ¿ÀºêÁ§Æ®ÀÇ ¹Ì¼ÇÀº ¿Ï·áµÊ
+            IsClear = true; // ì´ ì˜¤ë¸Œì íŠ¸ì˜ ë¯¸ì…˜ì€ ì™„ë£Œë¨
         }
     }
-    public void ClickExit() { }
 
-    public void HoverEnter() { }
+    public void GrabSelectEntered(SelectEnterEventArgs args)
+    {
+        if (IsClear) return;
+        if (tutorialManager.currentNodeID == "S0")
+        {
+            tutorialManager.CompleteMisson(TutorialEventType.ObjectClear);
+            IsClear = true; // ì´ ì˜¤ë¸Œì íŠ¸ì˜ ë¯¸ì…˜ì€ ì™„ë£Œë¨
+        }
+    }
 
-    public void HoverExit() { }
+    public void GrabSelectExit(SelectExitEventArgs args)
+    {
+        
+    }
 
-   
+    #region Unuse
+    public void ClickCancle() {}
+    public void ClickEnter() {}
+    public void HoverEnter() {}
+    public void HoverExit() {}
+    #endregion
 }
