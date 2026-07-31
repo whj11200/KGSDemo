@@ -18730,7 +18730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3253c339d3c50f847966487a45f57189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDistance: 100
+  rayDistance: 1.5
   raycastMask:
     serializedVersion: 2
     m_Bits: 81
