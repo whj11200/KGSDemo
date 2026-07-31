@@ -95,6 +95,7 @@ public class CameraController : MonoBehaviour
         }
         isPopupOpened = false;
         targetFov = _mainCamera.fieldOfView;
+
         if (menu != null)
         {
             menu.SetActive(false);

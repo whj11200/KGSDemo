@@ -10,11 +10,12 @@ public class ValveHandle : SupportXRInteractable
 
     public override void ClickEnter()
     {
-        valveController.OnInteract();
+        
     }
 
     public override void ClickExit()
     {
+        valveController.OnInteract();
     }
 
     public  override void HoverEnter()

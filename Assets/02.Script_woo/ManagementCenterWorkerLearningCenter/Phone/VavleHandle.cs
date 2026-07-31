@@ -180,12 +180,12 @@ public class VavleHandle : SupportXRInteractable
 
     public override void ClickEnter()
     {
-        ToggleLock();
+        
     }
 
     public override void ClickExit()
     {
-
+        ToggleLock();
     }
 
     public override void HoverEnter()

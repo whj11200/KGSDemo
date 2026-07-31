@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class KGSSceneFadeUi : MonoBehaviour
+public class KGSSceneFadeUi : OverlayUI
 {
     [SerializeField] Image KGS_Img;
     [SerializeField] AudioSource KGS_Audio;
@@ -11,8 +11,10 @@ public class KGSSceneFadeUi : MonoBehaviour
 
     public bool isfinish = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         KGS_Img.gameObject.SetActive(false);
     }
 
