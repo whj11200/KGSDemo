@@ -1844,6 +1844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ce95d05dcbd2249aa479b844c04531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorHandle
+  Collider: {fileID: 0}
   doorController: {fileID: 746718669}
 --- !u!1 &104741169
 GameObject:
@@ -3600,6 +3601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac251f0de664e4a80fe980c0e1871f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorSceneTrigger
+  Collider: {fileID: 0}
   targetScene: 1
   loadMode: 0
   useFade: 1
@@ -13539,7 +13541,8 @@ MonoBehaviour:
   - {fileID: 219584464}
   - {fileID: 1379197732}
   - {fileID: 402940507}
-  PlayerController: {fileID: 972927799}
+  PlayerController_Desktop: {fileID: 972927799}
+  PlayerController_VR: {fileID: 5486801487680935643}
 --- !u!1 &1088119402
 GameObject:
   m_ObjectHideFlags: 0
@@ -25217,6 +25220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac251f0de664e4a80fe980c0e1871f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorSceneTrigger
+  Collider: {fileID: 0}
   targetScene: 0
   loadMode: 0
   useFade: 1
@@ -28921,6 +28925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac251f0de664e4a80fe980c0e1871f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorSceneTrigger
+  Collider: {fileID: 0}
   targetScene: 1
   loadMode: 0
   useFade: 1
@@ -63710,6 +63715,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 5518252404476626479, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
   m_PrefabInstance: {fileID: 5486801487680935641}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5486801487680935643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+  m_PrefabInstance: {fileID: 5486801487680935641}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149418442098325148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &5501479146923351756
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -80340,6 +80356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032ebbc94e0a4ce4aa2af338ad8b01f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValveHandle
+  Collider: {fileID: 0}
   valveController: {fileID: 919132148766704622}
 --- !u!1 &8896610155459110329
 GameObject:

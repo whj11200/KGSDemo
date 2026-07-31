@@ -17,7 +17,8 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] NPC_Interaction NPC;
     [SerializeField] NPC_Controller npcController;
     [SerializeField] List<Transform> TargetPoses = new();
-    [SerializeField] CameraController PlayerController;
+    [SerializeField] CameraController PlayerController_Desktop;
+    [SerializeField] CameraController PlayerController_VR;
 
     public string currentNodeID { get; private set; } = "";
     private bool isScenarioFinished = false;
@@ -104,7 +105,9 @@ public class EnvironmentManager : MonoBehaviour
 
     public void MovePlayer(int id)
     {
-        PlayerController.MoveForObject(TargetPoses[id]);
+        var player = PlayerDeviceManager.IsDesktop ? PlayerController_Desktop : PlayerController_VR;
+
+        player.MoveForObject(TargetPoses[id]);
     }
 
     public void InitializeNPC()
