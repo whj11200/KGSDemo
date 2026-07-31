@@ -137,4 +137,28 @@ public class LNG_Detector : MonoBehaviour
         if (returnText != null) returnText.SetActive(true); // "반납하기" 표시
         source.PlayOneShot(getclip);
     }
+
+    public void DropDetectorVR()
+    {
+        isEquipped = false;
+        isMissionSent = false; // 미션 전송 여부 초기화
+        // 1. 원래 부모(Station) 밑으로 복귀 및 위치 초기화
+        transform.SetParent(originParent);
+        transform.position = originPosition;
+        transform.rotation = originRotation;
+        transform.localScale = originScaleMode; // 필요 시 스케일 초기화
+        // 2. UI 및 텍스트 처리
+        detectorCanvas.SetActive(false);
+        if (returnText != null) returnText.SetActive(false); // "반납하기" 숨김
+        valueText.color = Color.white;
+        source.PlayOneShot(putclip);
+    }
+    public void TurnOnAndEquipVR()
+    {
+        isEquipped = true;
+        transform.rotation = Quaternion.Euler(-20f, 90f, 0f);
+        detectorCanvas.SetActive(true);
+        if (returnText != null) returnText.SetActive(true); // "반납하기" 표시
+        source.PlayOneShot(getclip);
+    }
 }
