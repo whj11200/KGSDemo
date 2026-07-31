@@ -53,9 +53,6 @@ public class ScenarioSelector : MonoBehaviour
         ScenarioPlayer.InitializeScenario(ScenarioIndex);
         gameObject.SetActive(false);
     }
-
-    Vector3 prevPos;
-    Quaternion prevRot;
     float prevYOffest;
 
     // 착석
@@ -65,9 +62,6 @@ public class ScenarioSelector : MonoBehaviour
         {
             case EPlayDevice.VR:
                 XRTeleport.enabled = false;
-
-                prevPos = VRPlayer.position;
-                prevRot = VRPlayer.rotation;
 
                 SelectModeTrigger.enabled = false;
 
