@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnPos
   - M_trigger
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX

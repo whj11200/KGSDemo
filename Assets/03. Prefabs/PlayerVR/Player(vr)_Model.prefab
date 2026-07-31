@@ -15231,6 +15231,7 @@ GameObject:
   - component: {fileID: 4593986694896460362}
   - component: {fileID: 768843418690010320}
   - component: {fileID: 4424908012958758257}
+  - component: {fileID: 2997577862783749830}
   m_Layer: 0
   m_Name: Near-Far Interactor
   m_TagString: Untagged
@@ -15274,7 +15275,7 @@ MonoBehaviour:
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 2997577862783749830}
   m_AutoFindParentInteractableInHierarchy: 0
   m_ParentInteractableObject: {fileID: 0}
   m_HoverEntered:
@@ -15593,6 +15594,53 @@ MonoBehaviour:
     m_Duration: 0.1
     m_Frequency: 0
   m_AllowHoverHapticsWhileSelecting: 0
+--- !u!114 &2997577862783749830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788726937674926231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51478d8f7e4167e40bacf38e835bb639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Filtering.XRTargetFilter
+  m_Evaluators:
+  - rid: 4975400775230685283
+  references:
+    version: 2
+    RefIds:
+    - rid: 4975400775230685283
+      type: {class: XRDistanceEvaluator, ns: UnityEngine.XR.Interaction.Toolkit.Filtering, asm: Unity.XR.Interaction.Toolkit}
+      data:
+        m_Filter: {fileID: 2997577862783749830}
+        m_Enabled: 1
+        m_Weight:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0.5
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_MaxDistance: 1.5
 --- !u!1 &2798609184441584308
 GameObject:
   m_ObjectHideFlags: 0
@@ -42523,6 +42571,7 @@ GameObject:
   - component: {fileID: 8940858269214048283}
   - component: {fileID: 4518730253072355508}
   - component: {fileID: 901758194614724383}
+  - component: {fileID: 3961390221686374631}
   m_Layer: 0
   m_Name: Near-Far Interactor
   m_TagString: Untagged
@@ -42566,7 +42615,7 @@ MonoBehaviour:
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 3961390221686374631}
   m_AutoFindParentInteractableInHierarchy: 0
   m_ParentInteractableObject: {fileID: 0}
   m_HoverEntered:
@@ -42885,6 +42934,53 @@ MonoBehaviour:
     m_Duration: 0.1
     m_Frequency: 0
   m_AllowHoverHapticsWhileSelecting: 0
+--- !u!114 &3961390221686374631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641623732274928640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51478d8f7e4167e40bacf38e835bb639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Filtering.XRTargetFilter
+  m_Evaluators:
+  - rid: 4975400775230685282
+  references:
+    version: 2
+    RefIds:
+    - rid: 4975400775230685282
+      type: {class: XRDistanceEvaluator, ns: UnityEngine.XR.Interaction.Toolkit.Filtering, asm: Unity.XR.Interaction.Toolkit}
+      data:
+        m_Filter: {fileID: 3961390221686374631}
+        m_Enabled: 1
+        m_Weight:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0.5
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_MaxDistance: 1.5
 --- !u!1 &8648499098827873312
 GameObject:
   m_ObjectHideFlags: 0
