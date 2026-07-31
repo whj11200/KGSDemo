@@ -3,11 +3,19 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class SupportXRInteractable : MonoBehaviour, IMouseInteractable
 {
+    [SerializeField]
+    protected Collider Collider;
     protected XRSimpleInteractable XRSimpleInteractable;
 
     protected virtual void Awake()
     {
         if (!PlayerDeviceManager.IsVR) return;
+
+        if (Collider == null)
+            Collider = GetComponent<Collider>();
+
+        if (Collider != null)
+            Collider.isTrigger = false;
 
         XRSimpleInteractable = GetComponent<XRSimpleInteractable>();
 

@@ -32,6 +32,8 @@ public class MenuUI : OverlayUI
                 Buttons[button.Button] = button;
             }
         }
+
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()

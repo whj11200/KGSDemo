@@ -12,12 +12,11 @@ public class TriggerObject : SupportXRInteractable
 
     public override void ClickEnter()
     {
-        OnClickExit?.Invoke();
     }
 
     public override void ClickExit()
     {
-        
+        OnClickExit?.Invoke();
     }
 
     public override void HoverEnter()
