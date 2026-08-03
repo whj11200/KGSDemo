@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class ManagerUIManager : MonoBehaviour
+public class TutorialUIManager : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private GameObject guidePanel;    // 가이드 부모 판넬

@@ -5,7 +5,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] DialogueController dialogueController;
     [SerializeField] DialogueAsset scenarioAsset;
     [SerializeField] SceneChanger sceneChanger;
-    [SerializeField] ManagerUIManager tutorialUIManager;
+    [SerializeField] TutorialUIManager tutorialUIManager;
     [SerializeField] NPC_Interaction NPC;
 
     [SerializeField] MeshRenderer InputTutoPlane;
