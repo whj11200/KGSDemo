@@ -27,6 +27,14 @@ public class ScenarioSelector : MonoBehaviour
     [SerializeField] XRSimpleInteractable SelectModeTrigger;
     [SerializeField] XRTeleportController XRTeleport;
 
+    private void Awake()
+    {
+        if (PlayerDeviceManager.IsVR)
+        {
+            CameraController = VRPlayer.GetComponentInChildren<CameraController>();
+        }
+    }
+
     private void Start()
     {
         gameObject.SetActive(true);
@@ -61,6 +69,7 @@ public class ScenarioSelector : MonoBehaviour
         {
             case EPlayDevice.VR:
                 XRTeleport.enabled = false;
+                CameraController.SetMoveLockState(true);
 
                 SelectModeTrigger.enabled = false;
 
@@ -135,6 +144,8 @@ public class ScenarioSelector : MonoBehaviour
 
                 PlayerChair.SetActive(true);
                 XRTeleport.enabled = true;
+                CameraController.SetMoveLockState(false);
+
                 break;
 
             case EPlayDevice.Desktop:

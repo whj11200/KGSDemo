@@ -148,10 +148,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerDeviceManager.IsDesktop)
-            return;
-
-
         if (isPopupOpened || isMenuOpened)
         {
             if (animator != null)
