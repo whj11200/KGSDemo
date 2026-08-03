@@ -27,6 +27,24 @@ public class IKFootSolver : MonoBehaviour
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
     float lerp;
+    [Header("Adaptive Step Settings")]
+    [SerializeField] private float maxReferenceMoveSpeed = 3.5f;
+
+    [SerializeField] private float minStepSpeed = 4f;
+    [SerializeField] private float maxStepSpeed = 14f;
+
+    [SerializeField] private float maxStepLength = 0.55f;
+    [SerializeField] private float maxSideStepLength = 0.3f;
+
+    [SerializeField, Range(0.5f, 1f)]
+    private float runOverlapProgress = 0.65f;
+
+    [SerializeField] private float emergencyStepDistance = 0.7f;
+
+    private Vector3 previousBodyPosition;
+    private float currentBodySpeed;
+
+    public float StepProgress => lerp;
 
     private void Start()
     {
@@ -34,55 +52,150 @@ public class IKFootSolver : MonoBehaviour
         currentPosition = newPosition = oldPosition = transform.position;
         currentNormal = newNormal = oldNormal = transform.up;
         lerp = 1;
+        previousBodyPosition = body.position;
     }
 
     // Update is called once per frame
 
-    void Update()
+    private void LateUpdate()
     {
-        transform.position = currentPosition + Vector3.up * footYPosOffset;
-        transform.localRotation = Quaternion.Euler(footRotOffset);
+        Vector3 bodyDelta = body.position - previousBodyPosition;
+        bodyDelta.y = 0f;
 
-        Ray ray = new Ray(body.position + (body.right * footSpacing) + Vector3.up * rayStartYOffset, Vector3.down);
+        currentBodySpeed =
+            bodyDelta.magnitude /
+            Mathf.Max(Time.deltaTime, 0.0001f);
 
-        Debug.DrawRay(body.position + (body.right * footSpacing) + Vector3.up * rayStartYOffset, Vector3.down);
-            
-        if (Physics.Raycast(ray, out RaycastHit info, rayLength, terrainLayer.value))
+        previousBodyPosition = body.position;
+
+        float moveT = Mathf.InverseLerp(
+            0f,
+            maxReferenceMoveSpeed,
+            currentBodySpeed);
+
+        float currentStepSpeed = Mathf.Lerp(
+            minStepSpeed,
+            maxStepSpeed,
+            moveT);
+
+        float currentForwardStepLength = Mathf.Lerp(
+            stepLength,
+            maxStepLength,
+            moveT);
+
+        float currentSideStepLength = Mathf.Lerp(
+            sideStepLength,
+            maxSideStepLength,
+            moveT);
+
+        transform.position =
+            currentPosition +
+            Vector3.up * footYPosOffset;
+
+        transform.localRotation =
+            Quaternion.Euler(footRotOffset);
+
+        Vector3 rayOrigin =
+            body.position +
+            body.right * footSpacing +
+            Vector3.up * rayStartYOffset;
+
+        Ray ray = new Ray(rayOrigin, Vector3.down);
+
+        bool hitGround = Physics.Raycast(
+            ray,
+            out RaycastHit info,
+            rayLength,
+            terrainLayer,
+            QueryTriggerInteraction.Ignore);
+
+        Debug.DrawRay(
+            rayOrigin,
+            Vector3.down * rayLength,
+            hitGround ? Color.green : Color.red);
+
+        if (hitGround)
         {
-            if (Vector3.Distance(newPosition, info.point) > stepDistance && !otherFoot.IsMoving() && lerp >= 1)
+            float distanceToTarget =
+                Vector3.Distance(newPosition, info.point);
+
+            float requiredOtherFootProgress = Mathf.Lerp(
+                1f,
+                runOverlapProgress,
+                moveT);
+
+            bool otherFootReady =
+                otherFoot == null ||
+                otherFoot.StepProgress >= requiredOtherFootProgress;
+
+            bool emergencyStep =
+                distanceToTarget >= emergencyStepDistance;
+
+            if (distanceToTarget > stepDistance &&
+                (otherFootReady || emergencyStep) &&
+                lerp >= 1f)
             {
-                lerp = 0;
-                Vector3 direction = Vector3.ProjectOnPlane(info.point - currentPosition,Vector3.up).normalized;
+                oldPosition = currentPosition;
+                oldNormal = currentNormal;
 
-                float angle = Vector3.Angle(body.forward, direction);
+                Vector3 direction = Vector3.ProjectOnPlane(
+                    info.point - currentPosition,
+                    Vector3.up
+                ).normalized;
 
-                isMovingForward = angle < 50 || angle > 130;
+                float angle = Vector3.Angle(
+                    body.forward,
+                    direction);
 
-                if(isMovingForward)
-                {
-                    newPosition = info.point + direction * stepLength + footOffset;
-                    newNormal = info.normal;
-                }
-                else
-                {
-                    newPosition = info.point + direction * sideStepLength + footOffset;
-                    newNormal = info.normal;
-                }
+                isMovingForward =
+                    angle < 50f ||
+                    angle > 130f;
 
+                float selectedStepLength = isMovingForward
+                    ? currentForwardStepLength
+                    : currentSideStepLength;
+
+                newPosition =
+                    info.point +
+                    direction * selectedStepLength +
+                    footOffset;
+
+                newNormal = info.normal;
+                lerp = 0f;
             }
         }
 
-        if (lerp < 1)
+        if (lerp < 1f)
         {
-            Vector3 tempPosition = Vector3.Lerp(oldPosition, newPosition, lerp);
-            tempPosition.y += Mathf.Sin(lerp * Mathf.PI) * stepHeight;
+            lerp = Mathf.Clamp01(
+                lerp + Time.deltaTime * currentStepSpeed);
+
+            float smoothLerp =
+                Mathf.SmoothStep(0f, 1f, lerp);
+
+            Vector3 tempPosition = Vector3.Lerp(
+                oldPosition,
+                newPosition,
+                smoothLerp);
+
+            tempPosition.y +=
+                Mathf.Sin(smoothLerp * Mathf.PI) *
+                stepHeight;
 
             currentPosition = tempPosition;
-            currentNormal = Vector3.Lerp(oldNormal, newNormal, lerp);
-            lerp += Time.deltaTime * speed;
+
+            currentNormal = Vector3.Lerp(
+                oldNormal,
+                newNormal,
+                smoothLerp).normalized;
         }
         else
         {
+            lerp = 1f;
+
+            currentPosition = newPosition;
+            currentNormal = newNormal;
+
             oldPosition = newPosition;
             oldNormal = newNormal;
         }
