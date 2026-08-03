@@ -138,6 +138,7 @@ public sealed class DialogueController : MonoBehaviour
             if (Input.NextPressed()) _requestNext = true;
             if (Input.SkipPressed()) _requestSkip = true;
         }
+
         if (Input.SkipPressed())
         {
             Finish();  // 코루틴까지 끊고 UI 닫음 (Finish보다 안전)
@@ -215,7 +216,7 @@ public sealed class DialogueController : MonoBehaviour
         _state = State.Typing;
 
         View.HideChoices();
-        View.SetContinueHintVisible(false);
+        // View.SetContinueHintVisible(false);
         View.SetTypingVisible(true);
         View.SetBodyText(string.Empty);
 
@@ -228,11 +229,12 @@ public sealed class DialogueController : MonoBehaviour
         {
             //  타이핑 중에는 Next를 무시한다 (스킵 금지)
             // Skip만 허용하고 싶으면 아래 한 줄만 남기면 됨:
-            if (_requestSkip)
+            if (_requestNext)
             {
                 // 스킵도 막고 싶으면 이 블록 자체를 지워라.
                 View.SetBodyText(fullText);
-                _requestSkip = false;
+                voiceSource.Stop();
+                _requestNext = false;
                 break;
             }
 
@@ -273,13 +275,13 @@ public sealed class DialogueController : MonoBehaviour
         _state = State.WaitingContinue;
 
         _requestNext = false;
-        View.SetContinueHintVisible(true);
+        // View.SetContinueHintVisible(true);
 
         while (!_requestNext)
             yield return null;
 
         _requestNext = false;
-        View.SetContinueHintVisible(false);
+        // View.SetContinueHintVisible(false);
 
         _state = State.Playing;
     }
@@ -289,7 +291,7 @@ public sealed class DialogueController : MonoBehaviour
         _state = State.WaitingContinue;
 
         _requestNext = false;
-        View.SetContinueHintVisible(false);
+        // View.SetContinueHintVisible(false);
 
         float t = 0f;
         while (t < delay && !_requestNext)
