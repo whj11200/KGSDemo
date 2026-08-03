@@ -54,7 +54,7 @@ public class IKFootSolver : MonoBehaviour
                 lerp = 0;
                 Vector3 direction = Vector3.ProjectOnPlane(info.point - currentPosition,Vector3.up).normalized;
 
-                float angle = Vector3.Angle(body.forward, body.InverseTransformDirection(direction));
+                float angle = Vector3.Angle(body.forward, direction);
 
                 isMovingForward = angle < 50 || angle > 130;
 
