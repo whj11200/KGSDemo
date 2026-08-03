@@ -72,6 +72,7 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         SceneManager.sceneLoaded += OnFieldSceneLoad;
         SceneManager.sceneUnloaded += OnFieldSceneUnLoad;
+        
     }
     private void Start()
     {
@@ -80,6 +81,8 @@ public class Teleporter : MonoBehaviour, IMouseInteractable
 
         if (leakGas != null && leakGas.Button != null)
             leakGas.Button.onClick.AddListener(RequestGasLeak);
+        if (plumbingS != null && plumbingS.Button != null)
+            plumbingS.Button.onClick.AddListener(RequestPipeSpecification);
     }
     private void OnDestroy()
     {

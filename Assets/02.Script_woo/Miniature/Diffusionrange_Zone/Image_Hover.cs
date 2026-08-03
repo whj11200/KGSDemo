@@ -1,12 +1,19 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Image_Hover : MonoBehaviour, IMouseInteractable
+public class Image_Hover : MonoBehaviour,
+    IMouseInteractable,
+    IPointerEnterHandler,
+    IPointerExitHandler
 {
     [Header("UI Image Setting")]
     [SerializeField] private Image targetImage;
-    [SerializeField] private Color hoverImageColor = new Color(1f, 0.9f, 0.35f, 1f);
+    [SerializeField]
+    private Color hoverImageColor =
+        new Color(1f, 0.9f, 0.35f, 1f);
 
     private Color originImageColor;
 
@@ -22,6 +29,15 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
     private Material my_M;
     private Coroutine blinkCoroutine;
 
+    // 왼손/오른손/마우스처럼 여러 포인터가 동시에 들어오는 경우 대응
+    private readonly HashSet<int> activePointerIds = new();
+
+    // 기존 IMouseInteractable 시스템에서 들어오는 호버 상태
+    private bool legacyMouseHover;
+
+    // 실제 호버 효과가 실행 중인지 여부
+    private bool isHoverEffectActive;
+
     private void Start()
     {
         if (targetImage == null)
@@ -36,15 +52,37 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
 
         if (targetRenderer != null)
         {
-            // targetRenderer가 가진 머티리얼을 이 오브젝트 전용 인스턴스로 가져옴
+            // 이 Renderer 전용 Material 인스턴스 생성
             my_M = targetRenderer.material;
             SetGlobalAlpha(defaultAlpha);
         }
         else
         {
-            Debug.LogWarning($"{name} : targetRenderer가 비어 있습니다. 알파를 조절할 3D 오브젝트의 MeshRenderer를 넣어주세요.");
+            Debug.LogWarning(
+                $"{name} : targetRenderer가 비어 있습니다. " +
+                "알파를 조절할 3D 오브젝트의 MeshRenderer를 넣어주세요.");
         }
     }
+
+    #region Unity UI Pointer Event
+
+    // PC 마우스 또는 VR 레이가 Image에 들어왔을 때
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        activePointerIds.Add(eventData.pointerId);
+        RefreshHoverState();
+    }
+
+    // PC 마우스 또는 VR 레이가 Image에서 나갔을 때
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        activePointerIds.Remove(eventData.pointerId);
+        RefreshHoverState();
+    }
+
+    #endregion
+
+    #region IMouseInteractable
 
     public void ClickCancle()
     {
@@ -58,7 +96,43 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
     {
     }
 
+    // 기존 PC용 커스텀 마우스 시스템에서도 사용 가능
     public void HoverEnter()
+    {
+        legacyMouseHover = true;
+        RefreshHoverState();
+    }
+
+    public void HoverExit()
+    {
+        legacyMouseHover = false;
+        RefreshHoverState();
+    }
+
+    #endregion
+
+    private void RefreshHoverState()
+    {
+        bool shouldHover =
+            legacyMouseHover ||
+            activePointerIds.Count > 0;
+
+        if (shouldHover == isHoverEffectActive)
+            return;
+
+        isHoverEffectActive = shouldHover;
+
+        if (isHoverEffectActive)
+        {
+            StartHoverEffect();
+        }
+        else
+        {
+            StopHoverEffect();
+        }
+    }
+
+    private void StartHoverEffect()
     {
         if (blinkCoroutine != null)
         {
@@ -68,7 +142,7 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
         blinkCoroutine = StartCoroutine(BlinkAlphaAndImage());
     }
 
-    public void HoverExit()
+    private void StopHoverEffect()
     {
         if (blinkCoroutine != null)
         {
@@ -86,21 +160,27 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
 
     private IEnumerator BlinkAlphaAndImage()
     {
+        float duration = Mathf.Max(0.01f, blinkDuration);
+
         while (true)
         {
             float timer = 0f;
 
-            while (timer < blinkDuration)
+            while (timer < duration)
             {
                 timer += Time.deltaTime;
-                float t = timer / blinkDuration;
 
-                float alpha = Mathf.Lerp(defaultAlpha, hoverAlpha, t);
-                SetGlobalAlpha(alpha);
+                float t = Mathf.Clamp01(timer / duration);
+
+                SetGlobalAlpha(
+                    Mathf.Lerp(defaultAlpha, hoverAlpha, t));
 
                 if (targetImage != null)
                 {
-                    targetImage.color = Color.Lerp(originImageColor, hoverImageColor, t);
+                    targetImage.color = Color.Lerp(
+                        originImageColor,
+                        hoverImageColor,
+                        t);
                 }
 
                 yield return null;
@@ -115,17 +195,21 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
 
             timer = 0f;
 
-            while (timer < blinkDuration)
+            while (timer < duration)
             {
                 timer += Time.deltaTime;
-                float t = timer / blinkDuration;
 
-                float alpha = Mathf.Lerp(hoverAlpha, defaultAlpha, t);
-                SetGlobalAlpha(alpha);
+                float t = Mathf.Clamp01(timer / duration);
+
+                SetGlobalAlpha(
+                    Mathf.Lerp(hoverAlpha, defaultAlpha, t));
 
                 if (targetImage != null)
                 {
-                    targetImage.color = Color.Lerp(hoverImageColor, originImageColor, t);
+                    targetImage.color = Color.Lerp(
+                        hoverImageColor,
+                        originImageColor,
+                        t);
                 }
 
                 yield return null;
@@ -151,7 +235,38 @@ public class Image_Hover : MonoBehaviour, IMouseInteractable
         }
         else
         {
-            Debug.LogWarning($"Material에 {globalAlphaProperty} 프로퍼티가 없습니다. Shader의 실제 변수명을 확인하세요.");
+            Debug.LogWarning(
+                $"{name} : Material에 {globalAlphaProperty} 프로퍼티가 없습니다. " +
+                "Shader의 실제 프로퍼티명을 확인하세요.");
+        }
+    }
+
+    private void OnDisable()
+    {
+        activePointerIds.Clear();
+        legacyMouseHover = false;
+        isHoverEffectActive = false;
+
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+            blinkCoroutine = null;
+        }
+
+        SetGlobalAlpha(defaultAlpha);
+
+        if (targetImage != null)
+        {
+            targetImage.color = originImageColor;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // targetRenderer.material로 만들어진 인스턴스 정리
+        if (my_M != null)
+        {
+            Destroy(my_M);
         }
     }
 }
