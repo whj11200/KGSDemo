@@ -148,10 +148,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerDeviceManager.IsDesktop)
-            return;
-
-
         if (isPopupOpened || isMenuOpened)
         {
             if (animator != null)
@@ -161,21 +157,21 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        if (Application.isFocused == false)
-        {
-            skipNextMouseDelta = true;
-            StopFootstepSound();
-            return;
-        }
-
-        // moveInputAction 입력받아서 이동
+        // PC, VR 공통 이동
         HandleMovement();
 
-        // 마우스 회전 처리
-        // 왼쪽 마우스 버튼을 누르고 있을 때만 회전
-        HandleMouseLook();
-        // 마우스 휠 줌 인/아웃
-        // HandleFovZoom();
+        // 데스크톱에서만 마우스 회전
+        if (PlayerDeviceManager.IsDesktop)
+        {
+            if (!Application.isFocused)
+            {
+                skipNextMouseDelta = true;
+                StopFootstepSound();
+                return;
+            }
+
+            HandleMouseLook();
+        }
     }
 
     private void Start()

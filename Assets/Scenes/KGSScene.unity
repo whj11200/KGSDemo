@@ -26893,6 +26893,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846000018}
   m_CullTransparentMesh: 1
+--- !u!4 &1856458483 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6928606580110131741, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+  m_PrefabInstance: {fileID: 5486801487680935641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1856476826
 GameObject:
   m_ObjectHideFlags: 0
@@ -63787,6 +63792,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 348663891602665095, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: head.ikTarget
+      value: 
+      objectReference: {fileID: 1856458483}
+    - target: {fileID: 348663891602665095, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: head.vrTarget
+      value: 
+      objectReference: {fileID: 5486801487680935647}
+    - target: {fileID: 1721456618714522695, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: isMovingForward
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310385850277525237, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3019300176535711854, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: m_UseForceGrab
       value: 1
@@ -63824,12 +63845,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1739858168}
     - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: ignoreMovement
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: moveInputAction
       value: 
       objectReference: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 4176929987615943552, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: m_UseForceGrab
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803449417205060211, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: m_Weight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4952084593324845219, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -63875,6 +63904,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player(vr)_Model
       objectReference: {fileID: 0}
+    - target: {fileID: 7374391719484947219, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: m_Weight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835990322000471391, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: m_Weight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8417015959340572759, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -63900,6 +63937,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922da8207bd989e4fbf7cbd0d8b524b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &5486801487680935647 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5783118076034830638, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+  m_PrefabInstance: {fileID: 5486801487680935641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &5501479146923351756
 MeshCollider:
   m_ObjectHideFlags: 0
