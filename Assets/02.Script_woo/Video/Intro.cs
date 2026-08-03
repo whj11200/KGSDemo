@@ -1,5 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class Intro : MonoBehaviour
@@ -8,14 +9,26 @@ public class Intro : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
 
     [Header("Next Scene")]
-    [SerializeField] private string nextSceneName; // ¾À ÀÌ¸§
-    // ¶Ç´Â
-    [SerializeField] private int nextSceneIndex = -1; // ºôµå ÀÎµ¦½º
+    [SerializeField] private string nextSceneName; // ì”¬ ì´ë¦„
+    // ë˜ëŠ”
+    [SerializeField] private int nextSceneIndex = -1; // ë¹Œë“œ ì¸ë±ìŠ¤
+    [SerializeField] Canvas IntroCanvas;
+    [SerializeField] RectTransform rawImage;
 
     private void Awake()
     {
         if (!videoPlayer)
             videoPlayer = GetComponent<VideoPlayer>();
+
+        if (PlayerDeviceManager.IsDesktop)
+        {
+            IntroCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        }
+        else
+        {
+            IntroCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+            rawImage.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        }
     }
 
     private void OnEnable()
@@ -30,7 +43,7 @@ public class Intro : MonoBehaviour
 
     private void OnVideoEnd(VideoPlayer vp)
     {
-        // ÀÌ¸§ÀÌ ÀÖÀ¸¸é ÀÌ¸§ ¿ì¼±
+        // ì´ë¦„ì´ ìˆìœ¼ë©´ ì´ë¦„ ìš°ì„ 
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             SceneManager.LoadScene(nextSceneName);
@@ -41,7 +54,7 @@ public class Intro : MonoBehaviour
         }
         else
         {
-            // ±âº»: ´ÙÀ½ ºôµå ÀÎµ¦½º
+            // ê¸°ë³¸: ë‹¤ìŒ ë¹Œë“œ ì¸ë±ìŠ¤
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
