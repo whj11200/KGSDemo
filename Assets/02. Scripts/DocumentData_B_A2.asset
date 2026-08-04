@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e715078eb4878b54ca6e6c8410b1278d, type: 3}
-  m_Name: DocumentData
+  m_Name: DocumentData_B_A2
   m_EditorClassIdentifier: Assembly-CSharp::DocumentData
   Title: "\uBC99\uCEE4\uB9C1 \uACF5\uB3D9 \uC791\uC5C5\uACC4\uD68D\uC11C \uD56D\uBAA9"
-  DocumentVersion: 67
+  DocumentVersion: 66
   Pages:
-  - {fileID: 21300000, guid: a388a5400a1cb9341a86522cdfa96506, type: 3}
-  - {fileID: 21300000, guid: d6a5482b0ab806e489fcc9670db6a85a, type: 3}
-  - {fileID: 21300000, guid: 433c21e853b2194458fd09e3e74bebdb, type: 3}
-  Responsibilitys: 010101
+  - {fileID: 21300000, guid: bfc17f8ff4db24e44a05a5761393f4bc, type: 3}
+  Responsibilitys: 010100

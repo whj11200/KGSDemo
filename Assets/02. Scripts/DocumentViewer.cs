@@ -12,6 +12,7 @@ public class DocumentViewer : MonoBehaviour
     [SerializeField] List<TableEntry> TableEntries;
     [SerializeField] float Spacing = 25f;
     [SerializeField] float TableEntryWidth = 200f;
+    [SerializeField] CameraController CameraController;
 
     private DocumentData CurrentData;
     private int currentPageIndex = 0;
@@ -75,5 +76,16 @@ public class DocumentViewer : MonoBehaviour
         }
 
         DocImage.sprite = CurrentData.Pages[currentPageIndex];
+    }
+
+    bool IsLockState = true;
+    public void ToggleScreenMoniotrMode()
+    {
+        IsLockState = !IsLockState;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        CameraController.SetMoveLockState(false);
     }
 }
