@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,13 +8,13 @@ public class DialogueModeul : MonoBehaviour
     [Serializable]
     public class DialogueRoute
     {
-        [Header("Æù Ã¤ÆÃÀÌ ¹ß»ıÇÑ ±âÁ¸ Dialogue Node ID")]
+        [Header("í° ì±„íŒ…ì´ ë°œìƒí•œ ê¸°ì¡´ Dialogue Node ID")]
         public string fromNodeId;
 
-        [Header("´ÙÀ½¿¡ ½ÃÀÛÇÒ Dialogue Asset")]
+        [Header("ë‹¤ìŒì— ì‹œì‘í•  Dialogue Asset")]
         public DialogueAsset nextAsset;
 
-        [Header("´ÙÀ½¿¡ ½ÃÀÛÇÒ Node ID")]
+        [Header("ë‹¤ìŒì— ì‹œì‘í•  Node ID")]
         public string nextStartNodeId = "N0";
     }
 
@@ -22,7 +22,7 @@ public class DialogueModeul : MonoBehaviour
     [SerializeField] private DialogueAsset asset;
     [SerializeField] private string startNodeId = "N0";
 
-    [Header("Æù Ã¤ÆÃ Á¾·á ÈÄ ÀÚµ¿ ÁøÇà °æ·Î")]
+    [Header("í° ì±„íŒ… ì¢…ë£Œ í›„ ìë™ ì§„í–‰ ê²½ë¡œ")]
     [SerializeField] private List<DialogueRoute> afterPhoneChatRoutes = new();
 
     private string lastStartedNodeId = "";
@@ -45,7 +45,7 @@ public class DialogueModeul : MonoBehaviour
     {
         if (controller == null)
         {
-            Debug.LogError("DialogueModeul: DialogueController°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("DialogueModeul: DialogueControllerê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -60,7 +60,7 @@ public class DialogueModeul : MonoBehaviour
     {
         if (controller == null)
         {
-            Debug.LogError("DialogueModeul: DialogueController°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("DialogueModeul: DialogueControllerê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -75,7 +75,7 @@ public class DialogueModeul : MonoBehaviour
     {
         if (controller == null)
         {
-            Debug.LogError("DialogueModeul: DialogueController°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("DialogueModeul: DialogueControllerê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -84,19 +84,19 @@ public class DialogueModeul : MonoBehaviour
     }
 
     /// <summary>
-    /// Æù Ã¤ÆÃÀÌ ³¡³µÀ» ¶§ ÇöÀç Dialogue Node ID ±âÁØÀ¸·Î ´ÙÀ½ ÆÄÆ® ½ÃÀÛ.
+    /// í° ì±„íŒ…ì´ ëë‚¬ì„ ë•Œ í˜„ì¬ Dialogue Node ID ê¸°ì¤€ìœ¼ë¡œ ë‹¤ìŒ íŒŒíŠ¸ ì‹œì‘.
     /// </summary>
     public void StartNextPartByCurrentId()
     {
         if (controller == null)
         {
-            Debug.LogError("DialogueModeul: DialogueController°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError("DialogueModeul: DialogueControllerê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         if (controller.IsPlaying)
         {
-            Debug.LogWarning("DialogueModeul: ¾ÆÁ÷ Dialogue°¡ Àç»ı ÁßÀÌ¶ó ´ÙÀ½ ÆÄÆ®¸¦ ½ÃÀÛÇÏÁö ¾Ê½À´Ï´Ù.");
+            Debug.LogWarning("DialogueModeul: ì•„ì§ Dialogueê°€ ì¬ìƒ ì¤‘ì´ë¼ ë‹¤ìŒ íŒŒíŠ¸ë¥¼ ì‹œì‘í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -104,7 +104,7 @@ public class DialogueModeul : MonoBehaviour
 
         if (string.IsNullOrWhiteSpace(currentId))
         {
-            Debug.LogWarning("DialogueModeul: ÇöÀç Dialogue Node ID¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("DialogueModeul: í˜„ì¬ Dialogue Node IDë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -114,7 +114,7 @@ public class DialogueModeul : MonoBehaviour
 
         if (route == null)
         {
-            Debug.LogWarning($"DialogueModeul: '{currentId}'¿¡ ÇØ´çÇÏ´Â ´ÙÀ½ ÆÄÆ® °æ·Î°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"DialogueModeul: '{currentId}'ì— í•´ë‹¹í•˜ëŠ” ë‹¤ìŒ íŒŒíŠ¸ ê²½ë¡œê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
@@ -125,14 +125,19 @@ public class DialogueModeul : MonoBehaviour
 
         if (targetAsset == null)
         {
-            Debug.LogError("DialogueModeul: ½ÇÇàÇÒ DialogueAssetÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogError("DialogueModeul: ì‹¤í–‰í•  DialogueAssetì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
 
         lastStartedNodeId = targetNodeId;
 
-        Debug.Log($"DialogueModeul: {currentId} ÀÌÈÄ ´ÙÀ½ ÆÄÆ® ½ÃÀÛ ¡æ {targetNodeId}");
+        Debug.Log($"DialogueModeul: {currentId} ì´í›„ ë‹¤ìŒ íŒŒíŠ¸ ì‹œì‘ â†’ {targetNodeId}");
 
         controller.Play(targetAsset, targetNodeId);
+    }
+
+    public void SetAsset(DialogueAsset runtime)
+    {
+        asset = runtime;
     }
 }

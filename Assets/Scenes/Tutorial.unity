@@ -2385,6 +2385,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2012466210}
+  - {fileID: 1549747337}
   - {fileID: 76001434}
   - {fileID: 604896254}
   - {fileID: 497303237}
@@ -2805,6 +2807,7 @@ MonoBehaviour:
   InputTutoPlane: {fileID: 350739363}
   MatVR: {fileID: 2100000, guid: 3d0affccc57540d40ac87c7ff4f27c2c, type: 2}
   MatDesktop: {fileID: 2100000, guid: 0c5885a797c231643b8d9ee2ec5bf378, type: 2}
+  modeul: {fileID: 1549747338}
 --- !u!114 &497303239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3518,6 +3521,10 @@ PrefabInstance:
       propertyPath: tabAction
       value: 
       objectReference: {fileID: 4116954447336496447, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+    - target: {fileID: 3818441807080905301, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
+      propertyPath: returnAction
+      value: 
+      objectReference: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 4952084593324845219, guid: 266ea9baf8d2aa64aa4d055d79328b77, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.56
@@ -5191,7 +5198,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5302,13 +5309,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549747336}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49.926277, y: -38.533104, z: -17.80978}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -43.495758, y: -38.533104, z: -41.61747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1808545918}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 433430003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1549747338
 MonoBehaviour:
@@ -6632,8 +6639,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012466209}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.034454435, y: 0.66612905, z: -10.773419}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.3960657, y: 0.66612905, z: -34.58111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6641,7 +6648,7 @@ Transform:
   - {fileID: 73867056}
   - {fileID: 1829355658}
   - {fileID: 918775953}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 433430003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2053982106
 GameObject:
@@ -6982,7 +6989,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 433430003}
-  - {fileID: 1549747337}
   - {fileID: 1964688613}
   - {fileID: 634438315}
   - {fileID: 500785164}
@@ -6991,7 +6997,6 @@ SceneRoots:
   - {fileID: 2122856653}
   - {fileID: 1902159786}
   - {fileID: 350739365}
-  - {fileID: 2012466210}
   - {fileID: 70018379}
   - {fileID: 526486034}
   - {fileID: 826961092}

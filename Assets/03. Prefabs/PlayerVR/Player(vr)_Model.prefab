@@ -13877,6 +13877,13 @@ MonoBehaviour:
   footYPosOffset: 0.1
   rayStartYOffset: 0
   rayLength: 1.5
+  maxReferenceMoveSpeed: 3.5
+  minStepSpeed: 4
+  maxStepSpeed: 14
+  maxStepLength: 0.55
+  maxSideStepLength: 0.3
+  runOverlapProgress: 0.65
+  emergencyStepDistance: 0.7
 --- !u!1 &2545151593674773408
 GameObject:
   m_ObjectHideFlags: 0
@@ -31176,8 +31183,8 @@ MonoBehaviour:
   smoothTime: 10
   raycaster: {fileID: 0}
   moveInputAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  returnAction: {fileID: 0}
-  scrollAction: {fileID: 0}
+  returnAction: {fileID: -2794428936131372919, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  scrollAction: {fileID: 5825226938762934180, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   tabAction: {fileID: 4116954447336496447, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
   jumpAction: {fileID: -1916377846673030204, guid: 084345ec1e9b8ee4497850e10158ade5, type: 3}
   popup: {fileID: 0}
@@ -32304,6 +32311,13 @@ MonoBehaviour:
   footYPosOffset: 0.1
   rayStartYOffset: 0
   rayLength: 1.5
+  maxReferenceMoveSpeed: 3.5
+  minStepSpeed: 4
+  maxStepSpeed: 14
+  maxStepLength: 0.55
+  maxSideStepLength: 0.3
+  runOverlapProgress: 0.65
+  emergencyStepDistance: 0.7
 --- !u!1 &6177880857650183887
 GameObject:
   m_ObjectHideFlags: 0

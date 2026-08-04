@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ProBuilder.AutoUnwrapSettings;
 
 // 1. NPC 애니메이션/행동 목록 (필요한 거 다 적어두세요)
 public enum NPCActionType
@@ -54,6 +55,39 @@ public class DialogueAsset : ScriptableObject
 {
     public string dialogueId;
     public List<DialogueNode> nodes = new();
+
+    public void ReplaceText(string key, string value)
+    {
+        foreach (var node in nodes)
+        {
+            string final = HasFinalConsonant(value) ? value + "을" : value + "를";
+
+            if (node.text.Contains(key))
+            {
+                node.text = node.text.Replace(key, final);
+            }
+            foreach (var choice in node.choices)
+            {
+                if (choice.text.Contains(key))
+                {
+                    choice.text = choice.text.Replace(key, final);
+                }
+            }
+        }
+    }
+
+    private bool HasFinalConsonant(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return false;
+
+        char c = text[^1];
+
+        if (c < '가' || c > '힣')
+            return false;
+
+        return ((c - '가') % 28) != 0;
+    }
 }
 
 [Serializable]
