@@ -65,7 +65,9 @@ public class DialogueAsset : ScriptableObject
             if (node.text.Contains(key))
             {
                 node.text = node.text.Replace(key, final);
+                node.voice = PlayerDeviceManager.IsVR && node.vrVoice != null ? node.vrVoice : node.voice; 
             }
+
             foreach (var choice in node.choices)
             {
                 if (choice.text.Contains(key))
@@ -100,6 +102,7 @@ public class DialogueNode
 
     public string speakerId;
     public AudioClip voice;
+    public AudioClip vrVoice;
     public float autoAdvanceDelay;
     public List<DialogueChoice> choices = new();
     public string nextNodeId;
