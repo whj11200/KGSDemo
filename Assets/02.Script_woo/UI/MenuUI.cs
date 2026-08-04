@@ -91,6 +91,11 @@ public class MenuUI : OverlayUI
 #endif
     }
 
+    public void CloseMenu()
+    {
+        controller?.ToggleMenu();
+    }
+
     public void ClickButton(Button button)
     {
         if (Buttons.TryGetValue(button, out var sB))
