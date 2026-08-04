@@ -1182,7 +1182,7 @@
                 {
                     "name": "",
                     "id": "65a0ced9-3bba-426c-b7ae-04fc86d19f6a",
-                    "path": "<XRController>/{PrimaryButton}",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1194,6 +1194,17 @@
                     "name": "",
                     "id": "191bd7e2-53b6-4adc-9c99-885803a6b822",
                     "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "D_Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2db8d8c2-ebd1-476e-873b-889f78a9e9dc",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

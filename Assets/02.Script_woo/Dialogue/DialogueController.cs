@@ -131,7 +131,7 @@ public sealed class DialogueController : MonoBehaviour
 
     void Update()
     {
-        if (_state == State.Idle) return;
+        // if (_state == State.Idle) return;
 
         if (Input != null)
         {
@@ -139,7 +139,7 @@ public sealed class DialogueController : MonoBehaviour
             if (Input.SkipPressed()) _requestSkip = true;
         }
 
-        if (Input.SkipPressed())
+        if (_requestSkip)
         {
             Finish();  // 코루틴까지 끊고 UI 닫음 (Finish보다 안전)
             if(environmentManager != null)
@@ -227,6 +227,15 @@ public sealed class DialogueController : MonoBehaviour
 
         for (int i = 0; i < fullText.Length; i++)
         {
+            if (_requestSkip)
+            {
+                View.SetBodyText(fullText);
+                voiceSource.Stop();
+                _requestSkip = false;
+                _requestNext = false;
+                break;
+            }
+
             //  타이핑 중에는 Next를 무시한다 (스킵 금지)
             // Skip만 허용하고 싶으면 아래 한 줄만 남기면 됨:
             if (_requestNext)
