@@ -152,6 +152,7 @@ public sealed class DialogueController : MonoBehaviour
             }
             
             DialogueEventBus.Raise("DIALOGUE_SKIP");
+            _requestSkip = false;
             return;
         }
     }

@@ -1,5 +1,5 @@
-public interface IDialogueInput
+ï»¿public interface IDialogueInput
 {
-    bool NextPressed();   // ÁøÇà/È®ÀÎ
-    bool SkipPressed();   // Å¸ÀÌÇÎ ½ºÅµ
+    bool NextPressed();   // ì§„í–‰/í™•ì¸
+    bool SkipPressed();   // íƒ€ì´í•‘ ìŠ¤í‚µ
 }
