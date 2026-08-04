@@ -63,8 +63,8 @@ public class MapMouseController : MonoBehaviour
         if (mouse == null || mainCamera == null)
             return;
 
-        if (IsPointerOverUI())
-            return;
+        //if (IsPointerOverUI())
+        //    return;
 
         UpdateMapActiveState();
 
@@ -78,7 +78,7 @@ public class MapMouseController : MonoBehaviour
             HandlePan();
         }
     }
-
+    
     void HandleZoom()
     {
         if (!mouse.rightButton.isPressed) return;
@@ -125,6 +125,7 @@ public class MapMouseController : MonoBehaviour
 
         float zoomFactor = 1f / targetZoom;
         mapRoot.position += move * panSpeed * zoomFactor;
+        Debug.Log("맵 움직임");
     }
 
     void ResetMapPosition()
@@ -145,6 +146,7 @@ public class MapMouseController : MonoBehaviour
     [SerializeField] LayerMask layerMask;
     void UpdateMapActiveState()
     {
+       
         if (!mouse.rightButton.isPressed)
         {
             isMapActive = false;
@@ -155,6 +157,7 @@ public class MapMouseController : MonoBehaviour
         if (Physics.Raycast(ray, out var hit, 100f, layerMask))
         {
             isMapActive = hit.collider.GetComponent<GlobalBoxClipController>() != null;
+            Debug.Log("박스 포착");
         }
         else
         {

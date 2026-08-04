@@ -22,7 +22,8 @@ public class MiniatureSoundBox : MonoBehaviour
     [SerializeField] private TextMeshProUGUI KGS_Text;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource KGS_Audio;
+    [SerializeField] private AudioSource KGS_Audio_PC;
+    [SerializeField] private AudioSource KGS_Audio_VR;
     [SerializeField] private AudioClip KGS_Clip;
 
     private bool isPlaying;
@@ -54,13 +55,18 @@ public class MiniatureSoundBox : MonoBehaviour
 
         if (KGS_Text != null)
             KGS_Text.text = GetDialogueText();
-
-        if (KGS_Audio != null && KGS_Clip != null)
+        if(PlayerDeviceManager.IsVR && KGS_Audio_VR != null && KGS_Clip != null)
         {
-            KGS_Audio.PlayOneShot(KGS_Clip);
+            KGS_Audio_VR.PlayOneShot(KGS_Clip);
+            // 오디오 재생이 끝날 때까지 대기
+            yield return new WaitWhile(() => KGS_Audio_VR.isPlaying);
+        }
+        else if (PlayerDeviceManager.IsDesktop && KGS_Audio_PC != null && KGS_Clip != null)
+        {
+            KGS_Audio_PC.PlayOneShot(KGS_Clip);
 
             // 오디오 재생이 끝날 때까지 대기
-            yield return new WaitWhile(() => KGS_Audio.isPlaying);
+            yield return new WaitWhile(() => KGS_Audio_PC.isPlaying);
         }
         else
         {

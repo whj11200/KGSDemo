@@ -5,7 +5,8 @@ using System.Collections;
 public class KGSSceneFadeUi : OverlayUI
 {
     [SerializeField] Image KGS_Img;
-    [SerializeField] AudioSource KGS_Audio;
+    [SerializeField] AudioSource KGS_Audio_PC;
+    [SerializeField] AudioSource KGS_Audio_VR;
     [SerializeField] AudioClip KGS_Clip;
     [SerializeField] EnvironmentManager envManager;
 
@@ -41,13 +42,18 @@ public class KGSSceneFadeUi : OverlayUI
     private IEnumerator StartUp()
     {
         KGS_Img.gameObject.SetActive(true);
-
-        if (KGS_Audio != null && KGS_Clip != null)
+        if(PlayerDeviceManager.IsVR && KGS_Audio_VR != null && KGS_Clip != null)
         {
-            KGS_Audio.PlayOneShot(KGS_Clip);
+            KGS_Audio_VR.PlayOneShot(KGS_Clip);
+            // 오디오 재생이 끝날 때까지 대기
+            yield return new WaitWhile(() => KGS_Audio_VR.isPlaying);
+        }
+        else if (PlayerDeviceManager.IsDesktop && KGS_Audio_PC != null && KGS_Clip != null)
+        {
+            KGS_Audio_PC.PlayOneShot(KGS_Clip);
 
             // 오디오 재생이 끝날 때까지 대기
-            yield return new WaitWhile(() => KGS_Audio.isPlaying);
+            yield return new WaitWhile(() => KGS_Audio_PC.isPlaying);
         }
 
         KGS_Img.gameObject.SetActive(false);
