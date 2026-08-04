@@ -3,7 +3,8 @@
 public class ValveController : MonoBehaviour
 {
     [Header("오디오사운드")]
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSource_PC;
+    [SerializeField] AudioSource audioSource_VR;
     [SerializeField] AudioClip v_clip;
     [SerializeField] private Animator anim;
 
@@ -44,7 +45,14 @@ public class ValveController : MonoBehaviour
 
     private void CloseValve()
     {
-        audioSource.PlayOneShot(v_clip);
+        if (PlayerDeviceManager.IsVR)
+        {
+            audioSource_VR.PlayOneShot(v_clip);
+        }
+        else if(PlayerDeviceManager.IsDesktop)
+        {
+            audioSource_PC.PlayOneShot(v_clip);
+        }
         isLeaking = false;
         anim.SetTrigger("Close"); // 애니메이터의 Close 트리거 발동
         manager.CompleteMission(KGS_EnvEventType.VavleCloseClear); // 미션 성공 처리
