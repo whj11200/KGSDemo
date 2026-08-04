@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
 
     private readonly Dictionary<string, string> DesktopKeyMap = new Dictionary<string, string>
     {
-        { "{Move}", "키보드 방향키" },
+        { "{Move}", "키보드 이동키" },
         { "{Grab}", "마우스 좌클릭" },
         { "{Menu}", "탭 키" },
     };
