@@ -52,7 +52,7 @@ MonoBehaviour:
       \uC800\uB97C \uB530\uB77C\uC624\uC138\uC694."
     speakerId: "\uD401\uD401\uC774"
     voice: {fileID: 8300000, guid: 4868aa601e3f4fd448770a7a2fbcb6d3, type: 3}
-    vrVoice: {fileID: 0}
+    vrVoice: {fileID: 8300000, guid: 4645a1588f7924041a55f10e7bfcb8e4, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -69,7 +69,7 @@ MonoBehaviour:
       \uC788\uC5B4\uC694.\r\n\uC5F0\uC2B5\uD574 \uBCF4\uC138\uC694."
     speakerId: "\uD401\uD401\uC774"
     voice: {fileID: 8300000, guid: c31733447148b0d42aff11298ae43903, type: 3}
-    vrVoice: {fileID: 0}
+    vrVoice: {fileID: 8300000, guid: 4c85450fdbfbc2a40b42b3a734dc0e36, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: 
@@ -119,7 +119,7 @@ MonoBehaviour:
       \uD655\uC778\uD560 \uC218 \uC788\uC5B4\uC694."
     speakerId: "\uD401\uD401\uC774"
     voice: {fileID: 8300000, guid: 3128aea6ae35ac442bb569d051ad6d01, type: 3}
-    vrVoice: {fileID: 0}
+    vrVoice: {fileID: 8300000, guid: e98c51753e7619440b0e504c3049e3d0, type: 3}
     autoAdvanceDelay: 0
     choices: []
     nextNodeId: T4

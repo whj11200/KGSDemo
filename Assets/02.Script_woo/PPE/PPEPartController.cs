@@ -52,7 +52,8 @@ public enum PPEGroup
 public class PPEPartController : MonoBehaviour
 {
     [Header("Audio")]
-    [SerializeField] private AudioSource playerSound;
+    [SerializeField] private AudioSource playerSound_PC;
+    [SerializeField] private AudioSource playerSound_VR;
     [SerializeField] private AudioClip getClip;
     [SerializeField] private AudioClip putClip;
 
@@ -329,10 +330,17 @@ public class PPEPartController : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        if (playerSound == null || clip == null)
+        if (playerSound_PC == null || clip == null || playerSound_VR == null    )
             return;
-
-        playerSound.PlayOneShot(clip);
+        if (PlayerDeviceManager.IsVR)
+        {
+            playerSound_VR.PlayOneShot(clip);
+        }
+        else if(PlayerDeviceManager.IsDesktop)
+        {
+            playerSound_PC.PlayOneShot(clip);
+        }
+        
     }
     private void CacheReturnTextsFromChildren()
     {
