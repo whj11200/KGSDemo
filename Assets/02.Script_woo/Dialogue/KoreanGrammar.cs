@@ -53,18 +53,26 @@ public static class KoreanGrammar
 
     private static bool HasFinalConsonant(string text)
     {
-        if (string.IsNullOrEmpty(text))
+        if (!IsValidKoreanCharacter(text))
             return false;
 
         char c = text[^1];
-
-        if (c < '가' || c > '힣')
-            return false;
 
         return ((c - '가') % 28) != 0;
     }
 
     private static bool EndsWithRieul(string text)
+    {
+        if (!IsValidKoreanCharacter(text))
+            return false;
+
+        char c = text[^1];
+        int jong = (c - '가') % 28;
+
+        return jong == 8; // ㄹ 받침
+    }
+
+    private static bool IsValidKoreanCharacter(string text)
     {
         if (string.IsNullOrEmpty(text))
             return false;
@@ -74,8 +82,7 @@ public static class KoreanGrammar
         if (c < '가' || c > '힣')
             return false;
 
-        int jong = (c - '가') % 28;
-        return jong == 8; // ㄹ 받침
+        return true;
     }
 }
 public readonly struct PostPosition
