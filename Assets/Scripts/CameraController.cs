@@ -120,18 +120,20 @@ public class CameraController : MonoBehaviour
         tabAction.action.Enable();
 
         if (jumpAction != null)
-        {
-            jumpAction.action.Enable(); // 활성화
-        }
+            jumpAction.action.Enable();
 
         returnAction.action.performed += OnReturnPerformed;
         scrollAction.action.performed += OnScroll;
-        tabAction.action.performed += _ => ToggleMenu();
+        tabAction.action.performed += OnTabPerformed;
     }
 
     private void OnDisable()
     {
         StopFootstepSound();
+
+        returnAction.action.performed -= OnReturnPerformed;
+        scrollAction.action.performed -= OnScroll;
+        tabAction.action.performed -= OnTabPerformed;
 
         moveInputAction.action.Disable();
         returnAction.action.Disable();
@@ -139,12 +141,12 @@ public class CameraController : MonoBehaviour
         tabAction.action.Disable();
 
         if (jumpAction != null)
-        {
             jumpAction.action.Disable();
-        }
+    }
 
-        returnAction.action.performed -= OnReturnPerformed;
-        scrollAction.action.performed -= OnScroll;
+    private void OnTabPerformed(InputAction.CallbackContext context)
+    {
+        ToggleMenu();
     }
 
     private void Update()
@@ -318,36 +320,48 @@ public class CameraController : MonoBehaviour
     }
 
     private CursorLockMode prevLockMode = CursorLockMode.Locked;
-    private bool prevCursorVisiblity = false;
+    private bool prevCursorVisiblity;
+
     public void ToggleMenu()
     {
-        Debug.Log("Call ToggleMenu");
+        if (menu == null)
+        {
+            Debug.LogError("CameraController에 Menu가 할당되지 않았습니다.", this);
+            return;
+        }
 
-        if (menu == null) return;
+        bool shouldOpen = !menu.activeSelf;
 
-        // 오브젝트 활성화/비활성화 반전
-        bool active = !menu.activeSelf;
-
-        menu.SetActive(active);
-        isMenuOpened = active;
-
-        if (active)
+        // 메뉴를 열기 전에 기존 커서 상태 저장
+        if (shouldOpen)
         {
             prevLockMode = Cursor.lockState;
             prevCursorVisiblity = Cursor.visible;
+        }
 
-            // 메뉴가 켜지면: 마우스 자유롭게 + 보이기
+        menu.SetActive(shouldOpen);
+
+        // 요청한 상태가 아니라 실제 활성화 상태 사용
+        isMenuOpened = menu.activeSelf;
+
+        Debug.Log(
+            $"ToggleMenu - 요청 상태: {shouldOpen}, 실제 상태: {isMenuOpened}"
+        );
+
+        if (isMenuOpened)
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            Time.timeScale = 0f; // 필요하다면 게임 일시정지
+            Time.timeScale = 0f;
         }
         else
         {
-            // 메뉴가 꺼지면: 마우스 고정 + 숨기기
             Cursor.lockState = prevLockMode;
             Cursor.visible = prevCursorVisiblity;
-            Time.timeScale = 1f; // 게임 다시 재생
-            if (menual != null) menual.SetActive(false);
+            Time.timeScale = 1f;
+
+            if (menual != null)
+                menual.SetActive(false);
         }
     }
 
@@ -456,13 +470,19 @@ public class CameraController : MonoBehaviour
 
     private IEnumerator FadeOutFootstep()
     {
-        float start = footstepAudioSource.volume;
-        float time = 0f;
+        float startVolume = footstepAudioSource.volume;
+        float elapsedTime = 0f;
 
-        while (time < fadeOutTime)
+        while (elapsedTime < fadeOutTime)
         {
-            time += Time.deltaTime;
-            footstepAudioSource.volume = Mathf.Lerp(start, 0f, time / fadeOutTime);
+            elapsedTime += Time.unscaledDeltaTime;
+
+            footstepAudioSource.volume = Mathf.Lerp(
+                startVolume,
+                0f,
+                elapsedTime / fadeOutTime
+            );
+
             yield return null;
         }
 

@@ -33,7 +33,7 @@ public class MenuUI : OverlayUI
             }
         }
 
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     private void OnEnable()
