@@ -60,35 +60,17 @@ public class DialogueAsset : ScriptableObject
     {
         foreach (var node in nodes)
         {
-            string final = HasFinalConsonant(value) ? value + "을" : value + "를";
+            node.text = KoreanGrammar.ReplaceJosa(node.text, key, value);
 
-            if (node.text.Contains(key))
-            {
-                node.text = node.text.Replace(key, final);
-                node.voice = PlayerDeviceManager.IsVR && node.vrVoice != null ? node.vrVoice : node.voice; 
-            }
+            node.voice = PlayerDeviceManager.IsVR && node.vrVoice != null
+                ? node.vrVoice
+                : node.voice;
 
             foreach (var choice in node.choices)
             {
-                if (choice.text.Contains(key))
-                {
-                    choice.text = choice.text.Replace(key, final);
-                }
+                choice.text = KoreanGrammar.ReplaceJosa(choice.text, key, value);
             }
         }
-    }
-
-    private bool HasFinalConsonant(string text)
-    {
-        if (string.IsNullOrEmpty(text))
-            return false;
-
-        char c = text[^1];
-
-        if (c < '가' || c > '힣')
-            return false;
-
-        return ((c - '가') % 28) != 0;
     }
 }
 
