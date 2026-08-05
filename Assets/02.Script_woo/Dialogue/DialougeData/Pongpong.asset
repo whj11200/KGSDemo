@@ -65,8 +65,8 @@ MonoBehaviour:
     tutorialExitEvent: 0
     managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: S0
-    text: "{Grab} \uBB3C\uAC74\uC744 \uB4E4\uAC70\uB098 \uC120\uD0DD\uD560 \uC218
-      \uC788\uC5B4\uC694.\r\n\uC5F0\uC2B5\uD574 \uBCF4\uC138\uC694."
+    text: "{Grab} \uC0AC\uC6A9\uD574\uC11C \uBB3C\uAC74\uC744 \uB4E4\uAC70\uB098\n\uC120\uD0DD\uD560
+      \uC218 \uC788\uC5B4\uC694. \uC5F0\uC2B5\uD574 \uBCF4\uC138\uC694."
     speakerId: "\uD401\uD401\uC774"
     voice: {fileID: 8300000, guid: c31733447148b0d42aff11298ae43903, type: 3}
     vrVoice: {fileID: 8300000, guid: 4c85450fdbfbc2a40b42b3a734dc0e36, type: 3}
@@ -115,7 +115,7 @@ MonoBehaviour:
     tutorialExitEvent: 0
     managerCenterWorkerLearningCenterExitEvent: 0
   - nodeId: T3
-    text: "\uC870\uC791\uBC95 \uC548\uB0B4\uB294  {Menu} \uB20C\uB7EC\uC11C\n\uC5B8\uC81C\uB4E0\uC9C0
+    text: "\uC870\uC791\uBC95 \uC548\uB0B4\uB294 {Menu} \uB20C\uB7EC\uC11C\n\uC5B8\uC81C\uB4E0\uC9C0
       \uD655\uC778\uD560 \uC218 \uC788\uC5B4\uC694."
     speakerId: "\uD401\uD401\uC774"
     voice: {fileID: 8300000, guid: 3128aea6ae35ac442bb569d051ad6d01, type: 3}
