@@ -1,54 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 public static class KoreanGrammar
 {
-    private static readonly PostPosition[] PostPositionRules =
-    {
-        new PostPosition("을", "을", "를"),
-        new PostPosition("를", "을", "를"),
+    private static readonly Dictionary<string, PostPosition> PostPositionRules =
+        new()
+        {
+            { "을", new PostPosition("을", "을", "를") },
+            { "를", new PostPosition("를", "을", "를") },
+            { "이", new PostPosition("이", "이", "가") },
+            { "가", new PostPosition("가", "이", "가") },
+            { "은", new PostPosition("은", "은", "는") },
+            { "는", new PostPosition("는", "은", "는") },
+            { "과", new PostPosition("과", "과", "와") },
+            { "와", new PostPosition("와", "과", "와") },
+            { "으로", new PostPosition("으로", "으로", "로") },
+            { "로", new PostPosition("로", "으로", "로") },
+        };
 
-        new PostPosition("이", "이", "가"),
-        new PostPosition("가", "이", "가"),
-        new PostPosition("은", "은", "는"),
-        new PostPosition("는", "은", "는"),
+    private const string PostPositionPattern = @"(으로|로|은|는|이|가|을|를|와|과)";
 
-        new PostPosition("과", "과", "와"),
-        new PostPosition("와", "과", "와"),
-        new PostPosition("으로", "으로", "로"),
-        new PostPosition("로", "으로", "로"),
-    };
-
-    public static string ReplaceJosa(string text, string key, string value)
+    public static string ReplacePostPosition(string text, string key, string value)
     {
         bool hasFinal = HasFinalConsonant(value);
 
-        foreach (var rule in PostPositionRules)
+        text = Regex.Replace(
+            text,
+            Regex.Escape(key) + PostPositionPattern,
+            match =>
+            {
+                string origin = match.Groups[1].Value;
+                string newText = GetPostPosition(origin, value, hasFinal);
+
+                return value + newText;
+            });
+
+        // 조사가 없는 단순 치환
+        return text.Replace(key, value);
+    }
+
+    private static string GetPostPosition(string origin, string value, bool hasFinal)
+    {
+        if (!PostPositionRules.TryGetValue(origin, out var rule))
+            return origin;
+
+        // "으로/로" 규칙
+        if (origin == "으로" || origin == "로")
         {
-            string target = key + rule.Origin;
-
-            if (!text.Contains(target))
-                continue;
-
-            if (rule.Origin == "로" || rule.Origin == "으로")
-            {
-                string josa = (!hasFinal || EndsWithRieul(value))
-                    ? "로"
-                    : "으로";
-
-                text = text.Replace(target, value + josa);
-            }
-            else
-            {
-                string replacement = value + (hasFinal ? rule.FinalConsonant : rule.NoFinalConsonant);
-                text = text.Replace(target, replacement);
-            }
+            return (!hasFinal || EndsWithRieul(value))
+                ? "로"
+                : "으로";
         }
 
-        return text.Replace(key, value);
+        // 일반 조사
+        return hasFinal
+            ? rule.FinalConsonant
+            : rule.NoFinalConsonant;
     }
 
     private static bool HasFinalConsonant(string text)
@@ -79,17 +87,16 @@ public static class KoreanGrammar
 
         char c = text[^1];
 
-        if (c < '가' || c > '힣')
-            return false;
-
-        return true;
+        return c >= '가' && c <= '힣';
     }
 }
+
 public readonly struct PostPosition
 {
     public string Origin { get; }
     public string FinalConsonant { get; }
     public string NoFinalConsonant { get; }
+
     public PostPosition(string origin, string finalConsonant, string noFinalConsonant)
     {
         Origin = origin;

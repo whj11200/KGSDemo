@@ -60,7 +60,7 @@ public class DialogueAsset : ScriptableObject
     {
         foreach (var node in nodes)
         {
-            node.text = KoreanGrammar.ReplaceJosa(node.text, key, value);
+            node.text = KoreanGrammar.ReplacePostPosition(node.text, key, value);
 
             node.voice = PlayerDeviceManager.IsVR && node.vrVoice != null
                 ? node.vrVoice
@@ -68,7 +68,7 @@ public class DialogueAsset : ScriptableObject
 
             foreach (var choice in node.choices)
             {
-                choice.text = KoreanGrammar.ReplaceJosa(choice.text, key, value);
+                choice.text = KoreanGrammar.ReplacePostPosition(choice.text, key, value);
             }
         }
     }
