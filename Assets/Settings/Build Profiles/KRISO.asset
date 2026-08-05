@@ -24,6 +24,8 @@ MonoBehaviour:
     m_path: Assets/Scenes/KRISOScene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/K_Miniature.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Document_Room.unity
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
