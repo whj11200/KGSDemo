@@ -347,7 +347,7 @@ public class CameraController : MonoBehaviour
             Cursor.lockState = prevLockMode;
             Cursor.visible = prevCursorVisiblity;
             Time.timeScale = 1f; // 게임 다시 재생
-            menual.SetActive(false);
+            if (menual != null) menual.SetActive(false);
         }
     }
 
