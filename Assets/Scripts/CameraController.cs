@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     public float verticalVelocity = 0f;
     public CharacterController characterController;
     public bool ignoreMovement = false;
+    public bool ignoreMouseLook = false;
 
     [Header("Mouse Look Settings")]
     public float jumpHeight = 1.2f; // 점프 높이 추가
@@ -163,7 +164,7 @@ public class CameraController : MonoBehaviour
         // 데스크톱에서만 마우스 회전
         if (PlayerDeviceManager.IsDesktop)
         {
-            if (!Application.isFocused)
+            if (!Application.isFocused || ignoreMouseLook)
             {
                 skipNextMouseDelta = true;
                 StopFootstepSound();
@@ -392,6 +393,8 @@ public class CameraController : MonoBehaviour
 
     public void MoveForObject(Transform target)
     {
+        Debug.Log("MoveForObject");
+
         SetMoveLockState(true);
         transform.SetPositionAndRotation(target.position, target.rotation);
         SetMoveLockState(false);
@@ -402,6 +405,18 @@ public class CameraController : MonoBehaviour
         skipNextMouseDelta = isLock;
         ignoreMovement = isLock;
         characterController.enabled = !isLock;
+    }
+
+    public void SetMouseLookState(bool isLock)
+    {
+        skipNextMouseDelta = isLock;
+        ignoreMouseLook = isLock;
+    }
+
+    public void ToggleCursor(bool IsLock)
+    {
+        Cursor.visible = !IsLock;
+        Cursor.lockState = IsLock ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     private void UpdateFootstepSound()

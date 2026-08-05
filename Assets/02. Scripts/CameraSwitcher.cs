@@ -1,4 +1,5 @@
-﻿using Unity.Cinemachine;
+﻿using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineCamera TPSCam;
     [SerializeField] private CinemachineCamera CurrentCam;
     [SerializeField] private Image Aim;
+
+    public event Action<CinemachineCamera> OnCameraChanged;
+    public event Action OnCameraReverted;
 
     int defaultPriority = 0;
 
@@ -29,6 +33,8 @@ public class CameraSwitcher : MonoBehaviour
 
         TPSCam.Priority = defaultPriority - 1;
         CurrentCam.Priority = defaultPriority;
+
+        OnCameraChanged?.Invoke(camera);
     }
 
     public void Revert()
@@ -38,6 +44,8 @@ public class CameraSwitcher : MonoBehaviour
 
         CurrentCam = TPSCam;
         Aim.enabled = true;
+
+        OnCameraReverted?.Invoke(); 
     }
 
     public bool IsCurrentCamera(CinemachineCamera camera)

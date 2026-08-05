@@ -19,9 +19,6 @@ public class DocumentViewer : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
         gameObject.SetActive(false);
     }
 
