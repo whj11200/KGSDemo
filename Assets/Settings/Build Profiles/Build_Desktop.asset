@@ -36,7 +36,7 @@ MonoBehaviour:
     - line: '|   useOnDemandResources: 0'
     - line: '|   accelerometerFrequency: 60'
     - line: '|   companyName: Techever'
-    - line: '|   productName: KGS_VR_OTS'
+    - line: '|   productName: KGS_PC_OTS'
     - line: '|   defaultCursor: {instanceID: 0}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
@@ -173,6 +173,10 @@ MonoBehaviour:
         type: 3}'
     - line: '|   - {fileID: 11400000, guid: da231b2d616913f48bf44c05ced4f498, type:
         2}'
+    - line: '|   - {fileID: -1322444967104815536, guid: ad985017fd6745c44ac73bc2fc270f30,
+        type: 2}'
+    - line: '|   - {fileID: 7038812696284570114, guid: a748ff73af9e4d3488bf1b22af4e9e9f,
+        type: 2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   m_HolographicPauseOnTrackingLoss: 1'
