@@ -37,62 +37,151 @@ public class RopeTubeRenderer : MonoBehaviour
     {
         int ringVerts = sides;
         int vertCount = count * ringVerts;
-        int triCount = (count - 1) * sides * 2 * 3; // 2 triangles per quad
+        int triCount = (count - 1) * sides * 2 * 3;
 
         EnsureArrays(vertCount, triCount);
 
-        // 길이 누적 (UV + twist용)
+        // =========================================
+        // 전체 호스 길이 계산
+        // =========================================
+
+        float totalLength = 0f;
+
+        for (int i = 1; i < count; i++)
+        {
+            totalLength += Vector3.Distance(
+                nodes[i - 1],
+                nodes[i]
+            );
+        }
+
+
+        // 현재까지 누적 길이
         float accLen = 0f;
+
 
         for (int i = 0; i < count; i++)
         {
             Vector3 p = nodes[i];
-            Vector3 forward =
-                (i == count - 1) ? (nodes[i] - nodes[i - 1]) : (nodes[i + 1] - nodes[i]);
 
-            if (forward.sqrMagnitude < 1e-8f) forward = Vector3.forward;
+            Vector3 forward =
+                (i == count - 1)
+                    ? (nodes[i] - nodes[i - 1])
+                    : (nodes[i + 1] - nodes[i]);
+
+            if (forward.sqrMagnitude < 1e-8f)
+                forward = Vector3.forward;
+
             forward.Normalize();
 
-            // 기준 Up을 만들기 위한 안정적인 프레임
-            // worldUp과 거의 평행하면 다른 축 사용
+
             Vector3 worldUp = Vector3.up;
-            if (Mathf.Abs(Vector3.Dot(forward, worldUp)) > 0.95f) worldUp = Vector3.right;
 
-            Vector3 right = Vector3.Cross(worldUp, forward).normalized;
-            Vector3 up = Vector3.Cross(forward, right).normalized;
+            if (Mathf.Abs(Vector3.Dot(forward, worldUp)) > 0.95f)
+                worldUp = Vector3.right;
 
-            // 길이 누적
-            if (i > 0) accLen += Vector3.Distance(nodes[i - 1], nodes[i]);
 
-            // 계류줄 “꼬임” 연출 (렌더링만)
-            float twist = accLen * twistPerMeter * Mathf.PI * 2f; // meters * turns -> radians
+            Vector3 right =
+                Vector3.Cross(worldUp, forward).normalized;
+
+            Vector3 up =
+                Vector3.Cross(forward, right).normalized;
+
+
+            // =========================================
+            // 누적 길이
+            // =========================================
+
+            if (i > 0)
+            {
+                accLen += Vector3.Distance(
+                    nodes[i - 1],
+                    nodes[i]
+                );
+            }
+
+
+            // =========================================
+            // Twist
+            // =========================================
+
+            float twist =
+                accLen *
+                twistPerMeter *
+                Mathf.PI *
+                2f;
+
             float cosT = Mathf.Cos(twist);
             float sinT = Mathf.Sin(twist);
 
-            // 단면 링 생성
+
+            // =========================================
+            // 호스 길이 진행률 0~1
+            // =========================================
+
+            float lengthProgress =
+                totalLength > 0.0001f
+                    ? accLen / totalLength
+                    : 0f;
+
+
+            // =========================================
+            // Ring 생성
+            // =========================================
+
             for (int s = 0; s < sides; s++)
             {
-                float a = (s / (float)sides) * Mathf.PI * 2f;
+                float a =
+                    (s / (float)sides) *
+                    Mathf.PI *
+                    2f;
+
                 float ca = Mathf.Cos(a);
                 float sa = Mathf.Sin(a);
 
-                // 원 단면 벡터 (right/up) + twist 적용
-                Vector3 dir = (right * ca + up * sa);
-                Vector3 dirTwisted = (right * (ca * cosT - sa * sinT)) + (up * (ca * sinT + sa * cosT));
+
+                Vector3 dirTwisted =
+                    (right * (ca * cosT - sa * sinT)) +
+                    (up * (ca * sinT + sa * cosT));
+
                 dirTwisted.Normalize();
 
+
                 int v = i * ringVerts + s;
-                verts[v] = transform.InverseTransformPoint(p) + dirTwisted * radius;
+
+
+                verts[v] =
+                    transform.InverseTransformPoint(p) +
+                    dirTwisted * radius;
+
                 norms[v] = dirTwisted;
 
-                float u = s / (float)sides;
-                float vCoord = (accLen * uvTiling);
-                uvs[v] = new Vector2(u, vCoord);
+
+                // =====================================
+                // UV
+                //
+                // X = 원통 둘레
+                // Y = 호스 길이 0~1
+                // =====================================
+
+                float circumference =
+                    s / (float)sides;
+
+                uvs[v] =
+                    new Vector2(
+                        circumference,
+                        lengthProgress
+                    );
             }
         }
 
-        // 삼각형 인덱스
+
+        // =========================================
+        // Triangle
+        // =========================================
+
         int t = 0;
+
         for (int i = 0; i < count - 1; i++)
         {
             int i0 = i * ringVerts;
@@ -108,17 +197,24 @@ public class RopeTubeRenderer : MonoBehaviour
                 int c = i1 + s1;
                 int d = i0 + s1;
 
-                // a-b-c, a-c-d
-                tris[t++] = a; tris[t++] = b; tris[t++] = c;
-                tris[t++] = a; tris[t++] = c; tris[t++] = d;
+                tris[t++] = a;
+                tris[t++] = b;
+                tris[t++] = c;
+
+                tris[t++] = a;
+                tris[t++] = c;
+                tris[t++] = d;
             }
         }
 
+
         mesh.Clear(false);
+
         mesh.vertices = verts;
         mesh.normals = norms;
         mesh.uv = uvs;
         mesh.triangles = tris;
+
         mesh.RecalculateBounds();
     }
 
